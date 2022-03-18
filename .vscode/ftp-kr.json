@@ -1,0 +1,18 @@
+{
+    "host": "ftp.ptjis.com",
+    "username": "chandra@ptjis.com",
+    "password": "jasminejis",
+    "remotePath": "/crud",
+    "protocol": "ftp",
+    "port": 21,
+    "fileNameEncoding": "utf8",
+    "autoUpload": true,
+    "autoDelete": true,
+    "autoDownload": false,
+    "ignore": [
+        "/.vscode",
+        ".git",
+        "config.php",
+        "database.php"
+    ]
+}
