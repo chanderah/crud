@@ -173,6 +173,14 @@ public function update_single_record_table($table_name, $where, $data) {
     return $this->db->update($table_name, $data, $where);
 }
 
+public function get_all(){
+
+  return $this->db->get("product")->result_array();
+}
+
+public function add_data($datas){
+  return $this->db->insert_batch("product",$datas);
+  }
 
 }
 
