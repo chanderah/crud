@@ -34,8 +34,6 @@ class Report extends CI_Controller
 
     $this->load->helper('text');
 
-
-
     $id = $this->uri->segment(3);
 
     $tgl1 = $this->uri->segment(4);
