@@ -776,7 +776,7 @@ class Report extends CI_Controller
 
     
 
-    if ($d->conveyance == Darat )
+    if ($d->conveyance == 'Darat' )
 
     {
 
@@ -786,7 +786,7 @@ class Report extends CI_Controller
 
     }
 
-    elseif ($d->conveyance == Laut)
+    elseif ($d->conveyance == 'Laut')
 
     {   
 
@@ -798,7 +798,7 @@ class Report extends CI_Controller
 
     }    
 
-    elseif ($d->conveyance == Udara)
+    elseif ($d->conveyance == 'Udara')
 
     {   
 
@@ -895,7 +895,7 @@ class Report extends CI_Controller
     while( ob_get_level() ) {
         ob_end_clean();
     }
-    $pdf->Output($pdf_file_name, 'D');
+    $pdf->Output($pdf_file_name, 'I');
 
             }
 

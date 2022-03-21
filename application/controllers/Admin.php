@@ -177,23 +177,41 @@ class Admin extends CI_Controller
     unset($d[0]);
     $datas = array();
     foreach ($d as $t) {
-      $data["dummy_id"] = $t[0];
-      $data["created_at"] = $t[1];
-      $data["site_id"] = $t[2];
-      $data["region"] = $t[3];
-      $data["provinsi"] = $t[4];
-      $data["kabupaten"] = $t[5];
-      $data["kecamatan"] = $t[6];
-      $data["desa"] = $t[7];
-      $data["paket"] = $t[8];
-      $data["batch_"] = $t[9];
-      $data["ctrm"] = $t[10];
-      $data["ctsi"] = $t[11];
-      $data["amount_insured"] = $t[12];
-      $data["keterangan"] = $t[13];
-      $data["cmop"] = $t[14];
-      $data["no_sertif"] = $t[15];
-      $data["linked_with"] = $t[16];
+      $sha1 = random_string('alpha', 10);
+      $sha2 = random_string('sha1');
+      $dummy_id = $sha1 . $sha2;      
+
+      $data["dummy_id"] = $dummy_id;
+      $data["site_id"] = $t[1];
+      $data["region"] = $t[2];
+      $data["provinsi"] = $t[3];
+      $data["kabupaten"] = $t[4];
+      $data["kecamatan"] = $t[5];
+      $data["desa"] = $t[6];
+      $data["paket"] = $t[7];
+      $data["batch_"] = $t[8];
+      $data["ctrm"] = $t[9];
+      $data["ctsi"] = $t[10];
+      $data["amount_insured"] = $t[11];
+      $data["keterangan"] = $t[12];
+
+      if ($data["keterangan"] == "300 Site") {
+        $cmop = '0608032100001';
+      } elseif ($data["keterangan"] == "58 Site") {
+        $cmop = '0608032100003';
+      } elseif ($data["keterangan"] == "216 Site") {
+        $cmop = '0608032100004';
+      } elseif ($data["keterangan"] == "491 Site") {
+        $cmop = '0608032100005';
+      } elseif ($data["keterangan"] == "180 Site") {
+        $cmop = '0608032100006';
+      } elseif ($data["keterangan"] == "236 Site") {
+        $cmop = '0608032100007';
+      }
+
+      $data["cmop"] = $cmop;
+      $data["no_sertif"] = $t[13];
+      $data["linked_with"] = $t[14];
 
       array_push($datas, $data);
     }

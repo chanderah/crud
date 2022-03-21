@@ -320,7 +320,6 @@ class Main extends CI_Controller {
         $lampiran_invoice =$this->input->post("lampiran_invoice");
         $lampiran_PL =$this->input->post("lampiran_PL");
         $lampiran_DO =$this->input->post("lampiran_DO");
-
         
         $conveyance =$this->input->post("conveyance");
         $conveyance_type =$this->input->post("conveyance_type");
