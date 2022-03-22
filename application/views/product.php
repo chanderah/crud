@@ -17,7 +17,7 @@
 
     <!-- <a href="<?php echo base_url() . "index.php/product/import" ?>">Import</a> -->
 
-    <div class="tab-pane" id="excel">
+              <div class="tab-pane" id="excel">
                 <form class="form-horizontal" action="<?=base_url('admin/proses_excel_upload')?>" method="post" enctype="multipart/form-data">
 
                   <div class="form-group">

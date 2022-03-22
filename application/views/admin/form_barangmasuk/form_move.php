@@ -744,9 +744,9 @@
 
                       <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" onclick="history.back(-1)" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
 
-                      <a type="button" class="btn btn-info" style="width:18%;margin-right:20%" href="<?= base_url('admin/tabel_barangmasuk') ?>" name="btn_listbarang">
+                      <a type="button" class="btn btn-info" style="width:18%;margin-right:20%" href="<?= base_url('admin/tabel_barangkeluar') ?>" name="btn_listbarang">
 
-                        <i class="fa fa-table" aria-hidden="true"></i> Lihat List Permintaan</a>
+                        <i class="fa fa-table" aria-hidden="true"></i> Lihat Data Keluar</a>
 
                       <button type="submit" input type="submit" style="width:20%" id="btnSave" class="btn btn-md btn-success"><i class="fa fa-check" aria-hidden="true"></i>Create</button>
 

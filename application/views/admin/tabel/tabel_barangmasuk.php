@@ -210,7 +210,22 @@
                   </div>
                 <?php } ?>
 
-                <a href="<?= base_url('admin/form_barangmasuk') ?>" style="margin-bottom:10px;" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data Masuk</a>
+                <div class="column">
+                  <a href="<?= base_url('admin/form_barangmasuk') ?>" style="float:right;margin-right:20px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data Masuk</a>
+                    <form class="form-horizontal" action="<?=base_url('admin/proses_excel_upload')?>" method="post" enctype="multipart/form-data">
+                      <div class="form-group" style="width:25%;margin-left:2px">
+                          <input type="file" name="xlsx_file" class="form-control" id="username">
+                      </div>
+
+                      <div class="form-group">
+                        <div class="col-sm-10">
+                          <button type="submit" class="btn btn-success"><i class="fa fa-send" aria-hidden="true"></i>&nbsp;Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+
+                <!-- start datatable -->
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>
