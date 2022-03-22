@@ -125,7 +125,7 @@
                 <!-- <i class="fa fa-angle-left pull-right"></i> -->
               </span>
             </a>
-            <!--<ul class="treeview-menu">
+      <!--<ul class="treeview-menu">
             <li><a href="<?php echo base_url() ?>assets/web_admin/index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
             <li><a href="<?php echo base_url('admin') ?>"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul> -->
@@ -185,33 +185,17 @@
 
       <!-- Main content -->
       <section class="content">
-        <div class="col-md-12">
-          <div class="nav-tabs-custom" style="">
-            <ul class="nav nav-tabs">
-              <li><a href="#main" style="" data-toggle="tab"></a></li>
-              <li class="active"><a href="#main" style="" data-toggle="tab">Main</a></li>
-              <li><a href="#counter" style="" data-toggle="tab">Counter</a></li>
-              <li><a href="#import" style="" data-toggle="tab">Import</a></li>
-            </ul>
-            <div class="tab-content">
-              <div class="tab-pane" id="import">
-                <div class="column">
-                  <form class="form-horizontal" action="<?= base_url('admin/proses_excel_upload') ?>" method="post" enctype="multipart/form-data">
-                    <div class="form-group" style="width:25%;margin-left:2px">
-                      <label for="username" class="col-sm-12 control-label" style="text-align:left">Upload .xlsx File</label>
-                      <input type="file" name="xlsx_file" class="form-control" id="username"><br>
-                      <button type="submit" class="btn btn-success"><i class="fa fa-send" aria-hidden="true"></i>&nbsp;Submit</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
+        <div class="row">
+          <div class="col-xs-12">
 
-              <div class="tab-pane" id="counter">
+            <!-- /.box -->
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-table" aria-hidden="true"></i> Tabel Database SITE ID</h3>
               </div>
+              <!-- /.box-header -->
+              <div class="box-body">
 
-              <div class="tab-pane active" id="main">
-                <a href="<?= base_url('admin/form_barangmasuk') ?>" style="margin-bottom:10px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data Masuk</a>
-                
                 <?php if ($this->session->flashdata('msg_berhasil')) { ?>
                   <div class="alert alert-success alert-dismissible" style="width:100%">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -226,8 +210,23 @@
                   </div>
                 <?php } ?>
 
+                <div class="column">
+                  <a href="<?= base_url('admin/form_barangmasuk') ?>" style="float:right;margin-right:20px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data Masuk</a>
+                    <form class="form-horizontal" action="<?=base_url('admin/proses_excel_upload')?>" method="post" enctype="multipart/form-data">
+                      <div class="form-group" style="width:25%;margin-left:2px">
+                          <input type="file" name="xlsx_file" class="form-control" id="username">
+                      </div>
+
+                      <div class="form-group">
+                        <div class="col-sm-10">
+                          <button type="submit" class="btn btn-success"><i class="fa fa-send" aria-hidden="true"></i>&nbsp;Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+
                 <!-- start datatable -->
-                <table id="site_datatable" class="table table-bordered table-striped">
+                <table id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -298,11 +297,16 @@
                   </tfoot>
                 </table>
               </div>
-              <!-- /.tab-content -->
+              <!-- /.box-body -->
             </div>
-            <!-- /.nav-tabs-custom -->
+
+
+
+            <!-- /.box -->
           </div>
-          <!-- /.row -->
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
       </section>
       <!-- /.content -->
     </div>
@@ -358,7 +362,7 @@
     });
 
     $(function() {
-      $('#site_datatable').DataTable()
+      $('#example1').DataTable()
       $('#example2').DataTable({
         'paging': true,
         'lengthChange': false,
