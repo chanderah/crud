@@ -150,7 +150,7 @@
           </a>
           <ul class="treeview-menu">
             <li class="active"><a href="<?= base_url('admin/tabel_permintaanmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Permintaan Masuk</a></li>
-            <li><a href="<?= base_url('admin/tabel_barangmasuk')?>"><i class="fa fa-circle-o"></i> Table Database SITE ID</a></li>
+            <li><a href="<?= base_url('admin/tabel_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
             <li><a href="<?= base_url('admin/tabel_barangkeluar')?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
            </ul>
         </li>
@@ -173,12 +173,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Table Database SITE ID
+        Tabel Database SITE ID
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?=base_url('admin')?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li>Tables</li>
-        <li class="active"><a href="<?=base_url('admin/tabel_permintaanmasuk')?>">Table Database SITE ID</li>
+        <li class="active"><a href="<?=base_url('admin/tabel_permintaanmasuk')?>">Tabel Database SITE ID</li>
       </ol>
     </section>
 

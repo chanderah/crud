@@ -150,7 +150,7 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?= base_url('admin/tabel_barangmasuk')?>"><i class="fa fa-circle-o"></i> Table Database SITE ID</a></li>
+            <li><a href="<?= base_url('admin/tabel_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
             <li class="active"><a href="<?= base_url('admin/site_id')?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
            </ul>
         </li>
