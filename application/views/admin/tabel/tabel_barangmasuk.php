@@ -4,9 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Table Data Masuk</title>
+  <title>JIS | Table Data Masuk</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -149,7 +151,7 @@
             </a>
             <ul class="treeview-menu">
               <li class=""><a href="<?= base_url('admin/tabel_permintaanmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Permintaan Masuk</a></li>
-              <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Data Masuk</a></li>
+              <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Table Database SITE ID</a></li>
               <li><a href="<?= base_url('admin/tabel_barangkeluar') ?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
             </ul>
           </li>
@@ -172,12 +174,12 @@
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          Tabel Data Masuk
+          Table Database SITE ID
         </h1>
         <ol class="breadcrumb">
           <li><a href="<?= base_url('admin') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
           <li>Tables</li>
-          <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>">Tabel Data Masuk</li>
+          <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>">Table Database SITE ID</li>
         </ol>
       </section>
 
@@ -189,7 +191,7 @@
             <!-- /.box -->
             <div class="box">
               <div class="box-header">
-                <h3 class="box-title"><i class="fa fa-table" aria-hidden="true"></i> Permintaan Masuk</h3>
+                <h3 class="box-title"><i class="fa fa-table" aria-hidden="true"></i> Tabel Database SITE ID</h3>
               </div>
               <!-- /.box-header -->
               <div class="box-body">
