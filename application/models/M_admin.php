@@ -175,11 +175,11 @@ public function update_single_record_table($table_name, $where, $data) {
 
 public function get_all(){
 
-  return $this->db->get("product")->result_array();
+  return $this->db->get("tb_site_in")->result_array();
 }
 
 public function add_data($datas){
-  return $this->db->insert_batch("product",$datas);
+  return $this->db->insert_batch("tb_site_in",$datas);
   }
 
 }
