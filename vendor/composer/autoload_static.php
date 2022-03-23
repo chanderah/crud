@@ -38,6 +38,10 @@ class ComposerStaticInit1b31d3b5c417390c19f7b714734d3652
             'Svg\\' => 4,
             'Sabberworm\\CSS\\' => 15,
         ),
+        'R' => 
+        array (
+            'Romans\\' => 7,
+        ),
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
@@ -108,6 +112,10 @@ class ComposerStaticInit1b31d3b5c417390c19f7b714734d3652
         array (
             0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
         ),
+        'Romans\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wandersonwhcr/romans/src',
+        ),
         'Psr\\SimpleCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
@@ -118,8 +126,8 @@ class ComposerStaticInit1b31d3b5c417390c19f7b714734d3652
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (

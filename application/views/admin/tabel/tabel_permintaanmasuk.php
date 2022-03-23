@@ -173,12 +173,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Tabel Database SITE ID
+        Tabel Permintaan Masuk
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?=base_url('admin')?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li>Tables</li>
-        <li class="active"><a href="<?=base_url('admin/tabel_permintaanmasuk')?>">Tabel Database SITE ID</li>
+        <li class="active"><a href="<?=base_url('admin/tabel_permintaanmasuk')?>">Tabel Permintaan Masuk</li>
       </ol>
     </section>
 

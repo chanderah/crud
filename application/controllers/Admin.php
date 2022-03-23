@@ -151,7 +151,7 @@ class Admin extends CI_Controller
 
     if (!$this->upload->do_upload('xlsx_file')) {
       $this->session->set_flashdata('msg_error_gambar', $this->upload->display_errors());
-      $this->load->view('product');
+      redirect(base_url('admin/tabel_barangmasuk'));
     } else {
       $upload_data = $this->upload->data();
       $nama_file = $upload_data['file_name'];
@@ -159,9 +159,18 @@ class Admin extends CI_Controller
 
       $this->import_excel();
       $this->session->set_flashdata('msg_berhasil_gambar', 'Excel Berhasil Di Upload');
-      redirect(base_url('product'));
+      redirect(base_url('admin/tabel_barangmasuk'));
+      
     }
   }
+
+  public function download($filename = 'importsite_format.xlsx') {
+    $this->load->helper('download');
+    $path = file_get_contents(base_url()."xlsx/".$filename); // get file name
+    $name = $filename; // new name for your file
+    force_download($name, $path); // start download`
+}
+
 
   public function add_data($datas)
   {
@@ -182,18 +191,18 @@ class Admin extends CI_Controller
       $dummy_id = $sha1 . $sha2;      
 
       $data["dummy_id"] = $dummy_id;
-      $data["site_id"] = $t[1];
-      $data["region"] = $t[2];
-      $data["provinsi"] = $t[3];
-      $data["kabupaten"] = $t[4];
-      $data["kecamatan"] = $t[5];
-      $data["desa"] = $t[6];
-      $data["paket"] = $t[7];
-      $data["batch_"] = $t[8];
-      $data["ctrm"] = $t[9];
-      $data["ctsi"] = $t[10];
-      $data["amount_insured"] = $t[11];
-      $data["keterangan"] = $t[12];
+      $data["site_id"] = $t[0];
+      $data["region"] = $t[1];
+      $data["provinsi"] = $t[2];
+      $data["kabupaten"] = $t[3];
+      $data["kecamatan"] = $t[4];
+      $data["desa"] = $t[5];
+      $data["paket"] = $t[6];
+      $data["batch_"] = $t[7];
+      $data["ctrm"] = $t[8];
+      $data["ctsi"] = $t[9];
+      $data["amount_insured"] = $t[10];
+      $data["keterangan"] = $t[11];
 
       if ($data["keterangan"] == "300 Site") {
         $cmop = '0608032100001';
@@ -210,9 +219,6 @@ class Admin extends CI_Controller
       }
 
       $data["cmop"] = $cmop;
-      $data["no_sertif"] = $t[13];
-      $data["linked_with"] = $t[14];
-
       array_push($datas, $data);
     }
     $result = $this->add_data($datas);

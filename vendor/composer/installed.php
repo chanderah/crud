@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '7f0ae9ef937f068d46b553f2a1b6f4bd3ea7c398',
+        'reference' => 'b292640d9c3bad34310015666e7afc2213eb5771',
         'name' => 'codeigniter/framework',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '7f0ae9ef937f068d46b553f2a1b6f4bd3ea7c398',
+            'reference' => 'b292640d9c3bad34310015666e7afc2213eb5771',
             'dev_requirement' => false,
         ),
         'doctrine/instantiator' => array(
@@ -426,6 +426,15 @@
             'aliases' => array(),
             'reference' => '2c309e258adeb9970229042be39b360d34986fad',
             'dev_requirement' => true,
+        ),
+        'wandersonwhcr/romans' => array(
+            'pretty_version' => 'v1.4.0',
+            'version' => '1.4.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../wandersonwhcr/romans',
+            'aliases' => array(),
+            'reference' => '3067eac6bedf85a402b9ef71b06630b9fce82e51',
+            'dev_requirement' => false,
         ),
         'webmozart/assert' => array(
             'pretty_version' => '1.10.0',
