@@ -44,7 +44,6 @@ class Report extends CI_Controller
         // set font
         //$pdf->SetFont('times', '', 15); 
         foreach ($data as $d) {
-            foreach ($data2 as $desc) {
                 // add a page
                 $pdf->AddPage();
                 // create some HTML content    
@@ -234,8 +233,12 @@ class Report extends CI_Controller
                                         <tr>
                                             <td align="right">Signed On Behalf</td>
                                         </tr>
-                                        <tr><br><br><br><br><br>
-                                            <td align="right">{namaPerusahaan}</td>
+                                        <tr style="margin-right:100px">
+                                            <td align="right"><img src="pdf/signature.png" style="margin-right:200px" width="auto" height="90px">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">{namaPerusahaan}<img src="pdf/paraf.png" width="auto" height="25px"></td>
                                         </tr>
                                     </table>    
                                 </div>';
@@ -360,6 +363,7 @@ class Report extends CI_Controller
                 $html = str_replace('{MOP_Header}', $mop_header, $html);
                 $html = str_replace('{invoice_ref_id}', $invoice_ref_id, $html);
                 $html = str_replace('{amountInsured}', number_format($d->amount_insured, 2), $html);
+                
                 // $html = str_replace('{the_insured}',$the_insured, $html);
                 // $html = str_replace('{address}',$address_, $html);
                 // $html = str_replace('{interest_insured}',$interest_insured, $html);
@@ -374,6 +378,7 @@ class Report extends CI_Controller
                 // $html = str_replace('{destination_to}',$destination_to, $html);
                 // output the HTML content
                 $pdf->writeHTML($html, true, false, true, false, '');
+                
                 // reset pointer to the last page
                 $pdf->lastPage();
                 // ---------------------------------------------------------
@@ -384,7 +389,6 @@ class Report extends CI_Controller
                     ob_end_clean();
                 }
                 $pdf->Output($pdf_file_name, 'I');
-            }
         }
     }
 }
