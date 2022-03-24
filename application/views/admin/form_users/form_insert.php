@@ -151,7 +151,7 @@
         </li>
 
 
-        <li class="header">LABELS</li>
+        <li class="header">MANAGE</li>
         <li>
           <a href="<?php echo base_url('admin/profile')?>">
          <i class="fa fa-cogs" aria-hidden="true"></i> <span>Profile</span></a>

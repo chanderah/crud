@@ -184,35 +184,35 @@
                 <div class="container">
                   <form id="form_insert_site" method="post" autocomplete="off" accept-charset="utf-8" style="width:95%;margin-left:10px">
                     <div class="form-group" style="display:inline-block; margin-left:75px">
-                      <button type="reset" class="btn btn-basic" name="btn_reset" style="width:95px;margin-left:-70px;margin-top:10px"><i class="fa fa-eraser" aria-hidden="true"></i> Reset</button>
+                      <button type="reset" class="btn btn-basic" name="btn_reset" style="width:95px;margin-left:-70px;"><i class="fa fa-eraser" aria-hidden="true"></i> Reset</button>
                     </div>
                     <?php foreach ($list_data as $d) { ?>
                       <div class="form-group form-group-lg col-md-12">
-                        <label for="site_id" style="display:inline;width:auto">SITE ID</label>
+                        <label for="site_id" style="display:inline;">SITE ID</label>
                         <input type="text" name="site_id" style="  display:inline;" readonly="readonly" class="form-control" placeholder="Site ID" value="<?= $d->site_id ?>">
                       </div>
                       <div class="form-group form-group-lg col-md-12">
-                        <label for="linked_with" style="display:inline;">Linked With</label>
+                        <label for="site_id" style="display:inline;">Linked With</label>
                         <input type="text" name="linked_with" class="form-control">
-                      </div>
+                      </div>'
                     <?php } ?>
                     <div class="form-group form-group-lg col-md-12">
                       <label for="the_insured">1. Nama Tertanggung</label>
                       <select name="the_insured" class="form-control">
-                        <!-- <option selected>Choose...</option> -->
+                        <option selected>Choose...</option>
                         <option value="PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)">PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)</option>
                         <option value="Lainnya">Lainnya</option>
                       </select>
                     </div>
                     <div class="form-group form-group-lg col-md-12">
                       <label for="address_">2. Alamat</label>
-                        <select class="form-control" name="address_">
-                          <!-- <option selected>Choose...</option> -->
-                          <option value="APL Tower, 30 Floor, Grogol, West Jakarta">APL Tower, 30 Floor, Grogol, West Jakarta</option>
-                          <option value="Lainnya">Lainnya</option>
-                        </select>
+                      <select class="form-control" name="address_">
+                        <option selected>Choose...</option>
+                        <option value="APL Tower, 30 Floor, Grogol, West Jakarta">APL Tower, 30 Floor, Grogol, West Jakarta</option>
+                        <option value="Lainnya">Lainnya</option>
+                      </select>
                     </div>
-                    <!-- <table id="cart_table" class="table table-sm table-stripped table-hover" style="margin-left:7px;width:99%">
+                    <table id="cart_table" class="table table-sm table-stripped table-hover" style="margin-left:7px;width:99%">
                       <thead>
                         <tr>
                           <th width="80%">3. Jenis Barang yang Dikirim</th>
@@ -226,12 +226,12 @@
                         <tr>
                           <td>
                             <div class="form-group form-group-lg">
-                              <input type="text" name="txtTitle[]" placeholder="Jenis Barang" class="form-control" />
+                              <input type="text" name="txtTitle[]" placeholder="Jenis Barang" required="required" class="form-control" />
                             </div>
                           </td>
                           <td>
                             <div class="form-group form-group-lg">
-                              <input type="number" name="txtDescription[]" class="form-control" placeholder="@ pcs"/>
+                              <input type="number" name="txtDescription[]" class="form-control" placeholder="@ pcs" required="required" />
                             </div>
                           </td>
                           <td>
@@ -240,31 +240,26 @@
                           </td>
                         </tr>
                       </tbody>
-                    </table> -->
-
-                    <div class="form-group form-group-lg col-md-12">
-                        <label for="itemInsured" style="display:inline;">3. Jenis Barang yang Dikirim</label>
-                        <textarea class="form-control" style="margin-top:10px;" id="itemInsured" name="itemInsured" rows="3" placeholder="Jenis Barang"></textarea>
-                      </div>
-                    <div class="form-group form-group-lg col-md-12" style="">
+                    </table>
+                    <div class="form-group form-group-lg col-md-12" style="margin-top:-25px">
                       <label for="conveyance">4. Pengiriman Melalui</label>
-                        <select class="form-control" id="conveyance" name="conveyance">
-                          <option value="none">Choose...</option>
-                          <option value="Darat">Darat</option>
-                          <option value="Laut">Laut</option>
-                          <option value="Udara">Udara</option>
-                        </select>
+                      <select class="form-control" id="conveyance" name="conveyance">
+                        <option value="none">Choose...</option>
+                        <option value="Darat">Darat</option>
+                        <option value="Laut">Laut</option>
+                        <option value="Udara">Udara</option>
+                      </select>
                     </div>
                     <div class="conveyance_select" id="Darat">
                       <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_type">Jenis Alat Angkut</label>
-                          <select class="form-control" id="conveyance_type" name="conveyance_type">
-                            <option value="Car">Car</option>
-                            <option value="Truck">Truck</option>
-                            <option value="Pick Up">Pick Up</option>
-                            <option value="Container">Container</option>
-                            <!-- <option value="Lainnya">Lainnya</option> -->
-                          </select>
+                        <select class="form-control" id="conveyance_type" name="conveyance_type">
+                          <option value="Car">Car</option>
+                          <option value="Truck">Truck</option>
+                          <option value="Pick Up">Pick Up</option>
+                          <option value="Container">Container</option>
+                          <option value="Lainnya">Lainnya</option>
+                        </select>
                       </div>
                       <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_policeno">Plat Nomor</label>
@@ -314,11 +309,11 @@
                     </div>
                     <div class="form-group form-group-lg col-md-6">
                       <label for="destination_from">5. Tempat Keberangkatan</label>
-                      <textarea class="form-control" id="destination_from" name="destination_from" placeholder="Dari" rows="4"></textarea>
+                      <input type="text" name="destination_from" class="form-control" placeholder="Dari">
                     </div>
                     <div class="form-group form-group-lg col-md-6">
                       <label for="destination_to">Tujuan Akhir</label>
-                      <textarea class="form-control" id="destination_to" name="destination_to" placeholder="Ke" rows="4"></textarea>
+                      <input type="text" class="form-control" name="destination_to" placeholder="Ke">
                     </div>
                     <div class="form-group form-group-lg col-md-12">
                       <label for="sailing_date">6. Tanggal Keberangkatan</label>
@@ -326,17 +321,9 @@
                     </div>
                     <div class="form-group form-group-lg col-md-12">
                       <label for="amount_insured">7. Nilai Barang yang Diangkut</label>
-                      <select class="form-control" id="currency" name="currency" style="margin-bottom:5px;width:fit-content" >
-                          <option value="IDR">IDR</option>
-                        </select>
-                      <input type="number" name="amount_insured" placeholder="Nilai Barang" required="required" class="form-control"/>
+                      <input type="number" name="amount_insured" placeholder="Nilai Barang" required="required" class="form-control" />
                     </div>
                     <div class="form-group form-group-lg col-md-12">
-                      <label for="amount_insured">8. Tanggal Penerbitan</label>
-                      <input type="date" value="<?php echo date("Y-m-d")?>" name="issuedDate" required="required" class="form-control" />
-                    </div>               
-                    
-                    <!-- <div class="form-group form-group-lg col-md-12">
                       <label for="lampiran">8. Lampiran Data Pendukung</label>
                     </div>
                     <div class="form-group form-group-lg col-md-4">
@@ -358,7 +345,7 @@
                     <div class="form-group form-group-lg col-md-6">
                       <label for="lampiran_DO">Delivery Order (DO)</label>
                       <input type="text" class="form-control" name="lampiran_DO" placeholder="DO">
-                    </div> -->
+                    </div>
                     <div class="box-footer col-md-12" style="width:100%; margin-left:30px; margin-bottom:10px; margin-top:5px">
                       <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" onclick="history.back(-1)" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
                       <a type="button" class="btn btn-info" style="width:18%;margin-right:20%" href="<?= base_url('admin/tabel_barangkeluar') ?>" name="btn_listbarang">

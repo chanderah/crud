@@ -155,7 +155,7 @@
               <li><a href="<?= base_url('admin/tabel_barangkeluar') ?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
             </ul>
           </li>
-          <li class="header">LABELS</li>
+          <li class="header">MANAGE</li>
           <li>
             <a href="<?php echo base_url('admin/profile') ?>">
               <i class="fa fa-cogs" aria-hidden="true"></i> <span>Profile</span></a>

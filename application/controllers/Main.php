@@ -95,6 +95,8 @@ class Main extends CI_Controller {
         $the_insured =$this->input->post("the_insured");
         $address_ =$this->input->post("address_");
         $conveyance =$this->input->post("conveyance");
+        $itemInsured =$this->input->post("itemInsured");
+
         $destination_from =$this->input->post("destination_from");
         $destination_to =$this->input->post("destination_to");
         $sailing_date =$this->input->post("sailing_date");
@@ -104,7 +106,6 @@ class Main extends CI_Controller {
         $lampiran_invoice =$this->input->post("lampiran_invoice");
         $lampiran_PL =$this->input->post("lampiran_PL");
         $lampiran_DO =$this->input->post("lampiran_DO");
-
         
         $conveyance =$this->input->post("conveyance");
         $conveyance_type =$this->input->post("conveyance_type");
@@ -126,21 +127,20 @@ class Main extends CI_Controller {
         $id = $max_id=$this->m_admin->get_max_id('id','tb_site_out');
         $no_sertif = $max_id=$this->m_admin->get_max_id('no_sertif','tb_site_out');
 
-        $list = array();
-        $title =$this->input->post("txtTitle");
-        for($i=0; $i<count($title); $i++) {
-            $data = [
-                //tb_site_items
-                //'site_id2' => $site_id,
-                'dummy_id' => $dummy_id,
-                'bill_id' => $id,
-                'title' => $this->input->post("txtTitle")[$i],
-				'description' => $this->input->post("txtDescription")[$i]
-            ];
-            array_push($list,$data);
-        }
+        // $list = array();
+        // $title =$this->input->post("txtTitle");
+        // for($i=0; $i<count($title); $i++) {
+        //     $data = [
+        //         //tb_site_items
+        //         'dummy_id' => $dummy_id,
+        //         'bill_id' => $id,
+        //         'title' => $this->input->post("txtTitle")[$i],
+		// 		'description' => $this->input->post("txtDescription")[$i]
+        //     ];
+        //     array_push($list,$data);
+        // }
         
-        $explodeLink = explode(', ', $d->linked_with);
+        // $explodeLink = explode(', ', $d->linked_with);
         $linked_with =$this->input->post("linked_with");
         
         $data =       
@@ -152,17 +152,20 @@ class Main extends CI_Controller {
         
             'the_insured' => $the_insured,
             'address_' => $address_,
+            'itemInsured' => $itemInsured,
+
             'conveyance' => $conveyance,
             'destination_from' => $destination_from,
             'destination_to' => $destination_to,
             'sailing_date' => $sailing_date,
             'amount_insured' => $amount_insured,
-            'lampiran_BL' => $lampiran_BL,
-            'lampiran_LC' => $lampiran_LC,
-            'lampiran_invoice' => $lampiran_invoice,
-            'lampiran_PL' => $lampiran_PL,
-            'lampiran_DO' => $lampiran_DO,
-            //'site_id' => $site_id,
+            
+            // 'lampiran_BL' => $lampiran_BL,
+            // 'lampiran_LC' => $lampiran_LC,
+            // 'lampiran_invoice' => $lampiran_invoice,
+            // 'lampiran_PL' => $lampiran_PL,
+            // 'lampiran_DO' => $lampiran_DO,
+
             'id' => $id,
             
             //--------------DARAT---------------
@@ -181,13 +184,13 @@ class Main extends CI_Controller {
             'conveyance_plane_AWB' => $conveyance_plane_AWB,
         ];
 
-        if( $this->m_admin->insert_into_table("tb_site_out", $data) and 
-            $this->m_admin->insert_batch_into_table("tb_site_items", $list)) {                                    
-                                    
-                echo '<div class="alert alert-success alert-dismissible">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Success!</strong> Data Berhasil Keluar.
-                    </div>';
+        // if( $this->m_admin->insert_into_table("tb_site_out", $data) and 
+        //     $this->m_admin->insert_batch_into_table("tb_site_items", $list)) {   
+        if($this->m_admin->insert_into_table("tb_site_out", $data)) {                                 
+            echo '<div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Success!</strong> Data Berhasil Keluar.
+                </div>';
 
         } else {
             echo '<div class="alert alert-danger alert-dismissible">

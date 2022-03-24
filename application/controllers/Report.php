@@ -100,90 +100,146 @@ class Report extends CI_Controller
                     <tr>
                         <td colspan="2">Interest Insured</td>
                         <td colspan="1" align="right">:</td>
+                        <td colspan="8">'.nl2br($d->itemInsured).'</td>
                     </tr> 
+                    </table>
                 ';
-                //2
-                $no = 1;
-                foreach ($data2 as $d2) {
-                    $html .= '
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td colspan="8">' . $no . '. ' . $d2->title . ' - ' . $d2->description . ' Pcs</td>
-                        </tr>
-                        ';
-                    $no++;
-                    $pdf->Ln();
-                }
-                $html .= '</table>';
                 $html .= '
-            <table border="" cellpadding="3">
-                <tr>
-                <td colspan="2">Mark/Numbers</td>
-                <td colspan="1" align="right">:</td>
-                <td colspan="8"align="justify">-</td>
-                </tr>
-                <tr>
-                    <td colspan="2">Amount Insured</td>
-                    <td colspan="1" align="right">:</td>
-                    <td colspan="8"align="justify">IDR{amountInsured}</td>
-                </tr>
-                <tr>
-                    <td colspan="2">L/C</td>
-                    <td colspan="1" align="right">:</td>
-                    <td colspan="8"align="justify">' . $d->lampiran_LC . '</td>
-                </tr>
-                <tr>
-                    <td colspan="2">B/L</td>
-                    <td colspan="1" align="right">:</td>
-                    <td colspan="8"align="justify">' . $d->lampiran_BL . '</td>
-                </tr>
-                <tr>
-                    <td colspan="2">Invoice Number</td>
-                    <td colspan="1" align="right">:</td>
-                    <td colspan="8"align="justify">' . $d->lampiran_invoice . '</td>
-                </tr>
-                <tr>
-                    <td colspan="2">Scope of Cover</td>
-                    <td colspan="1" align="right">:</td>
-                    <td colspan="8"align="justify">As per M.O.P No. : {scopeCover}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">Date of Sailing</td>
-                    <td colspan="1" align="right">:</td>
-                    <td colspan="8"align="justify">' . $sailing_date . '</td>
-                </tr>
-                <tr>
-                    <td colspan="2">Conveyance</td>
-                    <td colspan="1" align="right">:</td>
-                    <td colspan="8"align="justify">{conveyance}</td>
-                </tr>
-                <tr>
-                    <td colspan="2">Destination</td>
-                </tr>
-                <tr>
-                    <td colspan="2">   - At & From</td>
-                    <td colspan="1" align="right">:</td>
-                    <td colspan="8"align="justify">' . $d->destination_from . '</td>
-                </tr>
-                <tr>
-                    <td colspan="2">   - Transhipment</td>
-                    <td colspan="1" align="right">:</td>
-                    <td colspan="8"align="justify">-</td>
-                </tr>
-                <tr>
-                    <td colspan="2">   - To</td>
-                    <td colspan="1" align="right">:</td>
-                    <td colspan="8"align="justify">' . $d->destination_to . '</td>
-                </tr>
-            </table>';
+                            <table border="" cellpadding="3">
+                                <tr>
+                                <td colspan="2">Mark/Numbers</td>
+                                <td colspan="1" align="right">:</td>
+                                <td colspan="8"align="justify">-</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Amount Insured</td>
+                                    <td colspan="1" align="right">:</td>
+                                    <td colspan="8"align="justify">IDR {amountInsured}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">L/C</td>
+                                    <td colspan="1" align="right">:</td>
+                                    <td colspan="8"align="justify">' . $d->lampiran_LC . '</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">B/L</td>
+                                    <td colspan="1" align="right">:</td>
+                                    <td colspan="8"align="justify">' . $d->lampiran_BL . '</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Invoice Number</td>
+                                    <td colspan="1" align="right">:</td>
+                                    <td colspan="8"align="justify">' . $d->lampiran_invoice . '</td>
+                                </tr>';
+
+                                //MOP Logic
+                                $whereMOP = array('site_id' => $d->site_id);
+                                $dataMOP = $this->M_admin->get_data('tb_site_in', $whereMOP);
+                                foreach ($dataMOP as $dMOP) {
+                                    $firstMOP = $dMOP->cmop;
+                                }
+
+                                if ($d->linked_with == true) {
+                                    $linkedExploded = explode(', ', $d->linked_with);
+                                    $bmop = [];
+                                    foreach ($linkedExploded as $dd2) {
+                                        $where = array('site_id' => $dd2);
+                                        $data22 = $this->M_admin->get_data('tb_site_in', $where);
+                                        foreach ($data22 as $ddd2) {
+                                            $bmop[] = $ddd2->cmop;
+                                        }
+                                    }
+
+                                    //push first site id MOP
+                                    array_push($bmop, $firstMOP);
+                                    sort($bmop);
+                                    $amop = implode(", ", array_unique($bmop));
+                                    $html = str_replace('{MOP}', $amop, $html);
+                                    
+                                    $scopeCover = implode("<br>", array_unique($bmop));
+                                    $countScopeCover = str_word_count($scopeCover);
+
+                                    if ($countScopeCover==0){
+                                        $html .= '  <tr>   
+                                                        <td colspan="2">Scope of Cover</td>
+                                                        <td colspan="1" align="right">:</td>
+                                                        <td colspan="8" align="justify">As per M.O.P No. : ' . $amop . '</td>
+                                                    </tr>';}
+                                    else{
+                                        $explodeLinkUnique = array_unique($bmop);
+                                        $x = 1;
+
+                                        foreach ($explodeLinkUnique as $d2) {  
+
+                                            if($x === 1){
+                                                $html .= '  
+                                                <tr>  
+                                                    <td colspan="2">Scope of Cover</td>       
+                                                    <td colspan="1" align="right">:</td>
+                                                    <td colspan="8" align="justify">
+                                                        <ul>
+                                                            <li>' . $d2 . '</li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>';
+                                                $pdf->Ln();
+                                            }else{
+                                                $html .= '  
+                                                <tr>  
+                                                    <td colspan="2"></td>       
+                                                    <td colspan="1" align="right"></td>
+                                                    <td colspan="8" align="justify">
+                                                        <ul>
+                                                            <li>' . $d2 . '</li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>';
+                                                $pdf->Ln();
+                                            }
+                                            $x++;
+                                        }
+                                    }
+                                } else {
+                                    $html = str_replace('{MOP}', $firstMOP, $html);
+                                    $html = str_replace('{scopeCover}', $firstMOP, $html);
+                                }
+
+                $html .= '
+                                <tr>
+                                    <td colspan="2">Date of Sailing</td>
+                                    <td colspan="1" align="right">:</td>
+                                    <td colspan="8"align="justify">' . $sailing_date . '</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Conveyance</td>
+                                    <td colspan="1" align="right">:</td>
+                                    <td colspan="8"align="justify">{conveyance}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Destination</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">   - At & From</td>
+                                    <td colspan="1" align="right">:</td>
+                                    <td colspan="8"align="justify">'.nl2br($d->destination_from).'</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">   - Transhipment</td>
+                                    <td colspan="1" align="right">:</td>
+                                    <td colspan="8"align="justify">-</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">   - To</td>
+                                    <td colspan="1" align="right">:</td>
+                                    <td colspan="8"align="justify">'.strtok($d->destination_to, "\n").'</td>
+                                </tr>
+                            </table>';
                 if (defined('FPDF_FONTPATH')) {
                     $this->fontpath = FPDF_FONTPATH;
                     if (substr($this->fontpath, -1) != '/' && substr($this->fontpath, -1) != '\\')
                         $this->fontpath .= '/';
                 }
+
                 if ($d->linked_with == true) {
                     $explodeLink = explode(', ', $d->linked_with);
                     $totalLink = count($explodeLink);
@@ -219,10 +275,7 @@ class Report extends CI_Controller
                         <tr>
                             <td colspan="2">Consignee</td>
                             <td colspan="1" align="right">:</td>
-                            <td colspan="8"align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</td>
+                            <td colspan="8"align="justify">'.nl2br($d->destination_to).'</td>
                         </tr>
                     </table>';
                     $html .=    '<div style="page-break-inside:avoid;">
@@ -288,10 +341,10 @@ class Report extends CI_Controller
                         $no = 1;
                         foreach ($explodeLink as $d2) {
                             $html .= '  <tr>
-                                                            <td style="width:33%"></td> 
-                                                            <td border="1" style="width:10%">' . $no . '</td>
-                                                            <td border="1">' . $d2 . '</td>
-                                                        </tr>
+                                            <td style="width:33%"></td> 
+                                            <td border="1" style="width:10%">' . $no . '</td>
+                                            <td border="1">' . $d2 . '</td>
+                                        </tr>
                                                     ';
                             $no++;
                             $pdf->Ln();
@@ -308,39 +361,7 @@ class Report extends CI_Controller
                                 </div>';
                     }
                 }
-                //MOP Logic
-                $whereMOP = array('site_id' => $d->site_id);
-                $dataMOP = $this->M_admin->get_data('tb_site_in', $whereMOP);
-                foreach ($dataMOP as $dMOP) {
-                    $firstMOP = $dMOP->cmop;
-                }
-                if ($d->linked_with == true) {
-                    $linkedExploded = explode(', ', $d->linked_with);
-                    $bmop = [];
-                    foreach ($linkedExploded as $dd2) {
-                        $where = array('site_id' => $dd2);
-                        $data22 = $this->M_admin->get_data('tb_site_in', $where);
-                        foreach ($data22 as $ddd2) {
-                            $bmop[] = $ddd2->cmop;
-                        }
-                    }
-                    //push first site id MOP
-                    array_push($bmop, $firstMOP);
-                    sort($bmop);
-                    $amop = implode(", ", array_unique($bmop));
-                    $scopeCover = implode("<br>", array_unique($bmop));
-                    $html = str_replace('{MOP}', $amop, $html);
-                    $countScopeCover = str_word_count($scopeCover);
-                    if ($countScopeCover==0){
-                        $html = str_replace('{scopeCover}', $scopeCover, $html);
-                    }
-                    else{
-                        $html = str_replace('{scopeCover}','<br>'.$scopeCover, $html);
-                    }
-                } else {   //linked_with empty
-                    $html = str_replace('{MOP}', $firstMOP, $html);
-                    $html = str_replace('{scopeCover}', $firstMOP, $html);
-                }
+                
                 if ($d->conveyance == 'Darat') {
                     $darat = 'By ' . $d->conveyance_type . ' - ' . $d->conveyance_policeno . '<br>Age  : ' . $d->conveyance_age . '<br>Driver  : ' . $d->conveyance_driver;
                     $html = str_replace('{conveyance}', $darat, $html);
