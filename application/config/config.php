@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/crud';
+$config['base_url'] = 'http://crud.ptjis.com';
 
 /*
 |--------------------------------------------------------------------------
@@ -138,7 +138,6 @@ $config['subclass_prefix'] = 'MY_';
 */
 //$config['composer_autoload'] = FALSE;
 $config['composer_autoload'] = "vendor/autoload.php";
-
 
 /*
 |--------------------------------------------------------------------------
