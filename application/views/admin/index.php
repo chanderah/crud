@@ -267,7 +267,7 @@
             <?php }else{ ?>
               <h3>0</h3>
             <?php } ?>
-              <p>Jumlah Data Masuk</p>
+              <p>Jumlah SITE ID</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
