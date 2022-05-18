@@ -250,7 +250,7 @@
 
                 <?php if($d->conveyance=='Darat'){ ?>
                   <div class="form-group form-group-lg col-md-3">
-                    <label for="conveyance_type">Jenis Alat Angkut</label>
+                    <label for="conveyance_type">By</label>
                     <input type="text" name="conveyance_type" readonly="readonly" class="form-control" value="<?=$d->conveyance_type?>">
                   </div>
                   <div class="form-group form-group-lg col-md-3">

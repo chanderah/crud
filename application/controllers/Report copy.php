@@ -97,9 +97,8 @@ class Report extends CI_Controller
                 // (length,start,marginstart,end,)
                 $html .= $nopolisHeader;
                 $pdf->setListIndentWidth(4.75);
-
                 $html .= '
-                <table border="0" cellpadding="3">
+                <table border="" cellpadding="3">
                     <tr><br>
                         <td colspan="2"><b>The Insured</b></td>
                         <td colspan="1" align="right">:</td>
@@ -110,18 +109,13 @@ class Report extends CI_Controller
                         <td colspan="1" align="right">:</td>
                         <td colspan="8"align="justify">' . $d->address_ . '</td>
                     </tr>
-                </table>';
-                
-                $html .= '
-                <table border="0" cellpadding="3">
-                    <tr style="line-height: 150%;">
+                    <tr>
                         <td colspan="2">Interest Insured</td>
-                        <td colspan="1" align="right" style="width:51px">:</td>
+                        <td colspan="1" align="right">:</td>
                         <td colspan="8">'.nl2br($replacedItemInsured).'</td>
                     </tr> 
-                </table>
+                    </table>
                 ';
-
                 $html .= '
                             <table border="" cellpadding="3">
                                 <tr>
@@ -194,11 +188,6 @@ class Report extends CI_Controller
                                                 <tr>  
                                                     <td colspan="2">Scope of Cover</td>       
                                                     <td colspan="1" align="right">:</td>
-                                                    <td colspan="8" align="justify">As per M.O.P No. :</td>
-                                                </tr>
-                                                <tr>  
-                                                    <td colspan="2"></td>       
-                                                    <td colspan="1" align="right"></td>
                                                     <td colspan="8" align="justify">
                                                         <ul>
                                                             <li>' . $d2 . '</li>
@@ -298,7 +287,7 @@ class Report extends CI_Controller
                         <tr>
                             <td colspan="2">Consignee</td>
                             <td colspan="1" align="right">:</td>
-                            <td colspan="8"align="justify">In '.nl2br($d->destination_to).'</td>
+                            <td colspan="8"align="justify">'.nl2br($d->destination_to).'</td>
                         </tr>
                     </table>';
                     $html .=    '<div style="page-break-inside:avoid;">
