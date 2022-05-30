@@ -11,14 +11,27 @@ class Admin extends CI_Controller
     $this->load->library('upload');
   }
 
+  public function maintenance()
+  {
+    $this->load->view('admin/maintenance');
+
+    // redirect(base_url('admin'));
+  }
+
   public function index()
   {
-    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+    if ($this->session->userdata('name') == 'admin'){
+      //maintenance warn
+      redirect(base_url('admin/maintenance'));      
+    }
+    
+    elseif ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
       $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
       $data['jumlahPermintaan'] = $this->M_admin->numrows('tb_site_in');
       $data['jumlahSite'] = $this->M_admin->numrows('tb_site_out');
       $data['dataUser'] = $this->M_admin->numrows('user');
       $this->load->view('admin/index', $data);
+      
     } else {
       $this->load->view('login/login');
     }
@@ -29,6 +42,7 @@ class Admin extends CI_Controller
     session_destroy();
     redirect('login');
   }
+
 
   ####################################
   // Profile

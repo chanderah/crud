@@ -422,6 +422,8 @@ class Report extends CI_Controller
                 // $html = str_replace('{destination_to}',$destination_to, $html);
                 // output the HTML content
                 $pdf->writeHTML($html, true, false, true, false, '');
+                $pdf->writeHTML('This is my disclaimer. <b>THESE WORDS NEED TO BE BOLD.</b> These words do not need to be bold.');
+
                 
                 // reset pointer to the last page
                 $pdf->lastPage();
