@@ -137,17 +137,17 @@ class Report extends CI_Controller
                                 <tr>
                                     <td colspan="2">L/C</td>
                                     <td colspan="1" align="right">:</td>
-                                    <td colspan="8"align="justify">' . $d->lampiran_LC . '</td>
+                                    <td colspan="8"align="justify">-' . $d->lampiran_LC . '</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">B/L</td>
                                     <td colspan="1" align="right">:</td>
-                                    <td colspan="8"align="justify">' . $d->lampiran_BL . '</td>
+                                    <td colspan="8"align="justify">TBA' . $d->lampiran_BL . '</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Invoice Number</td>
                                     <td colspan="1" align="right">:</td>
-                                    <td colspan="8"align="justify">' . $d->lampiran_invoice . '</td>
+                                    <td colspan="8"align="justify">-' . $d->lampiran_invoice . '</td>
                                 </tr>';
 
                                 //MOP Logic
@@ -304,13 +304,13 @@ class Report extends CI_Controller
                     $html .=    '<div style="page-break-inside:avoid;">
                                     <table cellpadding="2">
                                         <tr>
-                                            <td align="right">Issued {dateIssued}</td>
+                                            <td align="right">Issued at Bogor, {dateIssued}</td>
                                         </tr>
                                         <tr>
                                             <td align="right">Signed On Behalf</td>
                                         </tr>
                                         <tr style="margin-right:100px">
-                                            <td align="right"><img src="pdf/signature.png" style="margin-right:200px;margin-top:200px" width="auto" height="90px">
+                                            <td align="right"><img src="pdf/signature.png" style="margin-right:200px;margin-top:200px" width="auto" height="120px">
                                             </td>
                                         </tr>
                                         <tr>
