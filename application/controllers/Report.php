@@ -250,7 +250,7 @@ class Report extends CI_Controller
                                 <tr>
                                     <td colspan="2">   - At & From</td>
                                     <td colspan="1" align="right">:</td>
-                                    <td colspan="8"align="justify">'.nl2br($d->destination_from).'</td>
+                                    <td colspan="8"align="justify" class="line14">'.nl2br($d->destination_from).'</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">   - Transhipment</td>
@@ -303,34 +303,51 @@ class Report extends CI_Controller
 
                 //sabar
                 $arr = explode("\n", $d->destination_to);
+                // $output = implode("<br>", $arr);
 
-                $output = implode("<br>", $arr);
+                $x = 0;
 
-                $html .=    '   
-                    <table border="" cellpadding="3">
-                        <tr>
-                            <td colspan="2">Consignee</td>
-                            <td colspan="1" align="right">:</td>
-                            <td colspan="8"align="justify" class="underlined">In '.$output.':</td>
-                        </tr>
-                    </table>';
+                foreach ($arr as $yuhu){
+                    if ($x===0){
+                        $html .=    '   
+                        <table border="" cellpadding="3">
+                            <tr>
+                                <td colspan="2">Consignee</td>
+                                <td colspan="1" align="right">:</td>
+                                <td colspan="8"align="justify" class="underlined">In '.$yuhu.':</td>
+                            </tr>';
+                    }
 
-                    
+                    else {
 
-                $html .=    '<div style="page-break-inside:avoid">
-                                <table cellpadding="2">
+                        $html .= '
+                            <tr class="line10">
+                                <td colspan="2"></td>
+                                <td colspan="1" align="right"></td>
+                                <td colspan="8"align="justify">'.$yuhu.'</td>
+                            </tr>';
+                    }
+                $x++;
+                }
+
+                $html .=    '</table>'; 
+                
+                $html .=    ' 
+                            <div style="page-break-inside:avoid">
+                                <table cellpadding="0" border="0" align="right">
                                     <tr>
-                                        <td align="right">Issued at Bogor, {dateIssued}</td>
+                                        <td>Issued at Bogor, {dateIssued}</td>
                                     </tr>
                                     <tr>
-                                        <td align="right">Signed On Behalf</td>
-                                    </tr>
-                                    <tr style="margin-right:300px">
-                                        <td align="right"><img src="pdf/signature.png" width="auto" height="120px" class="minus500">
-                                        </td>
+                                        <td>Signed On Behalf</td>
                                     </tr>
                                     <tr>
-                                        <td align="right">{namaPerusahaan}<img src="pdf/paraf.png" width="auto" height="20px" style="margin-top:20px"></td>
+                                        <td class="line0" cellpadding="0" cellspacing="0">
+                                        <img src="pdf/signature.png" height="125px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="line0" cellpadding="0" cellspacing="0">
+                                        {namaPerusahaan}<img src="pdf/paraf.png" width="auto" height="20px" style="margin-top:20px"></td>
                                     </tr>
                                 </table>    
                             </div>';
