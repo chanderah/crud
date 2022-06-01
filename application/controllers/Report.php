@@ -68,7 +68,7 @@ class Report extends CI_Controller
                 $nopolisHeader =   '<font face="lucida" font size="10">
                                         <table cellpadding="5">
                                             <tr>
-                                                <td colspan="1" align="left">THIS TO CERTIFY that insurance has been effected as per Open Policy No. {MOP}</td>
+                                                <td colspan="1" align="left" class="">THIS TO CERTIFY that insurance has been effected as per Open Policy No. {MOP}</td>
                                             </tr>
                                         </table>
                                     </font>';
@@ -98,6 +98,8 @@ class Report extends CI_Controller
                 $html .= $nopolisHeader;
                 $pdf->setListIndentWidth(4.75);
 
+                $html .= '<style>'.file_get_contents(base_url()."pdf/".'stylesheet.css').'</style>';
+
                 $html .= '
                 <table border="0" cellpadding="3">
                     <tr><br>
@@ -114,10 +116,10 @@ class Report extends CI_Controller
                 
                 $html .= '
                 <table border="0" cellpadding="3">
-                    <tr style="line-height: 150%;">
+                    <tr>
                         <td colspan="2">Interest Insured</td>
                         <td colspan="1" align="right" style="width:51px">:</td>
-                        <td colspan="8">'.nl2br($replacedItemInsured).'</td>
+                        <td colspan="8" class="line15">'.nl2br($replacedItemInsured).'</td>
                     </tr> 
                 </table>
                 ';
@@ -171,8 +173,12 @@ class Report extends CI_Controller
                                     //push first site id MOP
                                     array_push($bmop, $firstMOP);
                                     sort($bmop);
-                                    $amop = implode(", ", array_unique($bmop));
-                                    $html = str_replace('{MOP}', $amop, $html);
+                                    $bmop = array_unique($bmop);
+
+                                    $lasttMOP = " & " . array_pop($bmop);
+                                    $amop = implode(", ", $bmop);
+
+                                    $html = str_replace('{MOP}', $amop.$lasttMOP, $html);
                                     
                                     $scopeCover = implode("<br>", array_unique($bmop));
                                     $countScopeCover = str_word_count($scopeCover);
@@ -199,9 +205,9 @@ class Report extends CI_Controller
                                                 <tr>  
                                                     <td colspan="2"></td>       
                                                     <td colspan="1" align="right"></td>
-                                                    <td colspan="8" align="justify">
+                                                    <td colspan="8" align="justify" class="">
                                                         <ul>
-                                                            <li>' . $d2 . '</li>
+                                                            <li class="line13">' . $d2 . '</li>
                                                         </ul>
                                                     </td>
                                                 </tr>';
@@ -213,7 +219,7 @@ class Report extends CI_Controller
                                                     <td colspan="1" align="right"></td>
                                                     <td colspan="8" align="justify">
                                                         <ul>
-                                                            <li>' . $d2 . '</li>
+                                                            <li class="line13">' . $d2 . '</li>
                                                         </ul>
                                                     </td>
                                                 </tr>';
@@ -257,6 +263,7 @@ class Report extends CI_Controller
                                     <td colspan="8"align="justify">'.strtok($d->destination_to, "\n").'</td>
                                 </tr>
                             </table>';
+
                 if (defined('FPDF_FONTPATH')) {
                     $this->fontpath = FPDF_FONTPATH;
                     if (substr($this->fontpath, -1) != '/' && substr($this->fontpath, -1) != '\\')
@@ -273,7 +280,7 @@ class Report extends CI_Controller
                         sort($explodeLink);
                         $explodeLinkUnique = array_unique($explodeLink);
                         foreach ($explodeLinkUnique as $d2) {
-                            $html .= '  <tr><table border="" cellpadding="1">   
+                            $html .= '  <tr><table border="" cellpadding="1" class="line15">   
                                                     <td colspan="2"></td>
                                                     <td colspan="1"></td>
                                                     <td colspan="8"> ' . $no . '. SITE ID : ' . $d2 . '</td>
@@ -285,43 +292,54 @@ class Report extends CI_Controller
                     } else {
                         $html .= '<table border="" cellpadding="1">
                                 <tr>
-                                <td colspan="2"></td>
-                                <td colspan="1"></td>
-                                <td colspan="8"> SITE ID : As Attached</td>
+                                    <td colspan="2"></td>
+                                    <td colspan="1"></td>
+                                    <td colspan="8"> SITE ID : As Attached</td>
                                 </tr>
                              ';
                     }
                 }
                 $html .= '</table>';
+
+                //sabar
+                $arr = explode("\n", $d->destination_to);
+
+                $output = implode("<br>", $arr);
+
                 $html .=    '   
                     <table border="" cellpadding="3">
                         <tr>
                             <td colspan="2">Consignee</td>
                             <td colspan="1" align="right">:</td>
-                            <td colspan="8"align="justify">In '.nl2br($d->destination_to).'</td>
+                            <td colspan="8"align="justify" class="underlined">In '.$output.':</td>
                         </tr>
                     </table>';
-                    $html .=    '<div style="page-break-inside:avoid;">
-                                    <table cellpadding="2">
-                                        <tr>
-                                            <td align="right">Issued at Bogor, {dateIssued}</td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right">Signed On Behalf</td>
-                                        </tr>
-                                        <tr style="margin-right:100px">
-                                            <td align="right"><img src="pdf/signature.png" style="margin-right:200px;margin-top:200px" width="auto" height="120px">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right">{namaPerusahaan}<img src="pdf/paraf.png" width="auto" height="20px" style="margin-top:20px"></td>
-                                        </tr>
-                                    </table>    
-                                </div>';
+
+                    
+
+                $html .=    '<div style="page-break-inside:avoid">
+                                <table cellpadding="2">
+                                    <tr>
+                                        <td align="right">Issued at Bogor, {dateIssued}</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">Signed On Behalf</td>
+                                    </tr>
+                                    <tr style="margin-right:300px">
+                                        <td align="right"><img src="pdf/signature.png" width="auto" height="120px" class="minus500">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">{namaPerusahaan}<img src="pdf/paraf.png" width="auto" height="20px" style="margin-top:20px"></td>
+                                    </tr>
+                                </table>    
+                            </div>';
+
                 //Certificate Attachment
                 if ($d->linked_with == true) {
                     $explodeLink = explode(', ', $d->linked_with);
                     $totalLink = count($explodeLink);
+
                     if ($totalLink > 9) {
                         // $pdf->AddPage();
                         $html .=   '<div>
@@ -422,8 +440,6 @@ class Report extends CI_Controller
                 // $html = str_replace('{destination_to}',$destination_to, $html);
                 // output the HTML content
                 $pdf->writeHTML($html, true, false, true, false, '');
-                $pdf->writeHTML('This is my disclaimer. <b>THESE WORDS NEED TO BE BOLD.</b> These words do not need to be bold.');
-
                 
                 // reset pointer to the last page
                 $pdf->lastPage();
