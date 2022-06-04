@@ -48,11 +48,12 @@ class Report extends CI_Controller
                 $pdf->AddPage();
                 // create some HTML content    
                 $sailing_date = date("F j<\s\up>S</\s\up>, Y", strtotime($d->sailing_date));
-                $dateIssued = date("F j<\s\up>S</\s\up>, Y", strtotime($d->created_at));
-                $yearIssued = date("y", strtotime($d->created_at));
+                $dateIssued = date("F j<\s\up>S</\s\up>, Y", strtotime($d->issuedDate));
+                $yearIssued = date("y", strtotime($d->issuedDate));
+                $yearIssued2 = date("Y", strtotime($d->issuedDate));
 
-                    $numToRoman = new IntToRoman();
-                    $roman = $numToRoman->filter(date("m", strtotime($d->created_at)));
+                $numToRoman = new IntToRoman();
+                $roman = $numToRoman->filter(date("m", strtotime($d->issuedDate)));
                 $monthIssued = $roman;
 
                 //$data = 'ABC Company';
@@ -160,7 +161,7 @@ class Report extends CI_Controller
                                 }
 
                                 if ($d->linked_with == true) {
-                                    $linkedExploded = explode(', ', $d->linked_with);
+                                    $linkedExploded = explode(',', $d->linked_with);
                                     $bmop = [];
                                     foreach ($linkedExploded as $dd2) {
                                         $where = array('site_id' => $dd2);
@@ -175,10 +176,16 @@ class Report extends CI_Controller
                                     sort($bmop);
                                     $bmop = array_unique($bmop);
 
-                                    $lasttMOP = " & " . array_pop($bmop);
+                                    $lasttMOP = array_pop($bmop);
                                     $amop = implode(", ", $bmop);
 
-                                    $html = str_replace('{MOP}', $amop.$lasttMOP, $html);
+                                    if (count($bmop) > 1) {
+                                        $html = str_replace('{MOP}', $amop." & ".$lasttMOP, $html);
+                                    }
+
+                                    else{
+                                        $html = str_replace('{MOP}', $lasttMOP, $html);
+                                    }
                                     
                                     $scopeCover = implode("<br>", array_unique($bmop));
                                     $countScopeCover = str_word_count($scopeCover);
@@ -187,9 +194,10 @@ class Report extends CI_Controller
                                         $html .= '  <tr>   
                                                         <td colspan="2">Scope of Cover</td>
                                                         <td colspan="1" align="right">:</td>
-                                                        <td colspan="8" align="justify">As per M.O.P No. : ' . $amop . '</td>
+                                                        <td colspan="8" align="justify">As per M.O.P No. : ' . $lasttMOP . '</td>
                                                     </tr>';}
                                     else{
+                                        array_push($bmop,$lasttMOP);
                                         $explodeLinkUnique = array_unique($bmop);
                                         $x = 1;
 
@@ -250,7 +258,7 @@ class Report extends CI_Controller
                                 <tr>
                                     <td colspan="2">   - At & From</td>
                                     <td colspan="1" align="right">:</td>
-                                    <td colspan="8"align="justify" class="line14">'.nl2br($d->destination_from).'</td>
+                                    <td colspan="8"align="justify" class="line15">'.nl2br($d->destination_from).'</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">   - Transhipment</td>
@@ -290,7 +298,7 @@ class Report extends CI_Controller
                             $pdf->Ln();
                         }
                     } else {
-                        $html .= '<table border="" cellpadding="1">
+                        $html .= '<table border="" cellpadding="3">
                                 <tr>
                                     <td colspan="2"></td>
                                     <td colspan="1"></td>
@@ -307,14 +315,14 @@ class Report extends CI_Controller
 
                 $x = 0;
 
-                foreach ($arr as $yuhu){
+                foreach ($arr as $a){
                     if ($x===0){
                         $html .=    '   
                         <table border="" cellpadding="3">
                             <tr>
                                 <td colspan="2">Consignee</td>
                                 <td colspan="1" align="right">:</td>
-                                <td colspan="8"align="justify" class="underlined">In '.$yuhu.':</td>
+                                <td colspan="8"align="justify" class="underlined">In '.$a.' :</td>
                             </tr>';
                     }
 
@@ -324,7 +332,7 @@ class Report extends CI_Controller
                             <tr class="line10">
                                 <td colspan="2"></td>
                                 <td colspan="1" align="right"></td>
-                                <td colspan="8"align="justify">'.$yuhu.'</td>
+                                <td colspan="8"align="justify">'.$a.'</td>
                             </tr>';
                     }
                 $x++;
@@ -378,13 +386,13 @@ class Report extends CI_Controller
                                                 <tr>
                                                     <td colspan="2" style="width:15%">Certificate No</td>
                                                     <td colspan="1" align="right">:</td>
-                                                    <td colspan="8" align="justify">JIS22-{MOP_Header}-{no_sertif}<br><br></td>   
+                                                    <td colspan="8" align="justify">JIS'.$yearIssued.'-{MOP_Header}-'.$monthIssued.'-{no_sertif}<br><br></td> 
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2" style="width:22%;">Details of SITE ID</td>
                                                     <td colspan="2" style="width:25%;">:</td>
                                                 </tr>
-                                            </table>
+                                            </table>`
                                         </font>                                        
                                         ';
                         $html .= '
@@ -395,9 +403,13 @@ class Report extends CI_Controller
                                                 <td border="1" style="width:20%">Site ID</td>
                                             </tr> 
                                      ';
+
+                        
                         array_unshift($explodeLink, $d->site_id);
+                        $explodeLinks = array_unique($explodeLink);
+
                         $no = 1;
-                        foreach ($explodeLink as $d2) {
+                        foreach ($explodeLinks as $d2) {
                             $html .= '  <tr>
                                             <td style="width:33%"></td> 
                                             <td border="1" style="width:10%">' . $no . '</td>
@@ -421,20 +433,34 @@ class Report extends CI_Controller
                 }
                 
                 if ($d->conveyance == 'Darat') {
-                    $darat = 'By ' . $d->conveyance_type . ' - ' . $d->conveyance_policeno . '<br>Age  : ' . $d->conveyance_age . '<br>Driver  : ' . $d->conveyance_driver;
+                    $darat = 'By ' . $d->conveyance_by . 
+                    '<br>Type : ' . $d->conveyance_type . 
+                    '<br>Police No. : ' . $d->conveyance_policeno . 
+                    '<br>Driver  : ' . $d->conveyance_driver;
                     $html = str_replace('{conveyance}', $darat, $html);
+
                 } elseif ($d->conveyance == 'Laut') {
-                    // $laut = 'By Vessel - ' . $d->conveyance_ship_name . '<br>Type  : ' . $d->conveyance_ship_type . '<br>GRT  : ' . $d->conveyance_ship_GRT . '<br>Year of Built  : ' . $d->conveyance_ship_age;
-                    $laut = 'By Vessel - ' . $d->conveyance_ship_name . '<br>Type  : ' . $d->conveyance_ship_type . '<br>GRT  : ' . $d->conveyance_ship_GRT . '<br>Year of Built  : ' . $d->conveyance_ship_age;
+                    $conveyance_age = $yearIssued2 - $d->conveyance_ship_birth;
+
+                    $laut = 'By Vessel - ' . $d->conveyance_ship_name . 
+                    '<br>Type  : ' . $d->conveyance_ship_type . 
+                    '<br>GRT  : ' . $d->conveyance_ship_GRT . 
+                    '<br>Age : ' . $conveyance_age;
+                    '<br>Container No. : ' . $d->conveyance_ship_containerno;
                     $html = str_replace('{conveyance}', $laut, $html);
+
                 } elseif ($d->conveyance == 'Udara') {
-                    $udara = 'By ' . $d->conveyance_plane_type . '<>No. AWB : ' . $d->conveyance_plane_AWB;
+                    $udara = 'By Plane' .
+                    '<br>Type : ' . $d->conveyance_plane_type . 
+                    '<br>No. AWB : ' . $d->conveyance_plane_AWB;
                     $html = str_replace('{conveyance}', $udara, $html);
                 }
+
                 $no_sertif = $d->no_sertif;
                 $mop_header = '0608032100001';
                 $str_length = 5;
                 $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
+
                 $html = str_replace('{no_sertif}', $no_sertif_5, $html);
                 $html = str_replace('{namaPerusahaan}', $namaPerusahaan, $html);
                 $html = str_replace('{dateIssued}', $dateIssued, $html);

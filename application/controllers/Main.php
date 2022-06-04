@@ -100,6 +100,7 @@ class Main extends CI_Controller {
         $destination_from =$this->input->post("destination_from");
         $destination_to =$this->input->post("destination_to");
         $sailing_date =$this->input->post("sailing_date");
+        $issuedDate =$this->input->post("issuedDate");
         $amount_insured =$this->input->post("amount_insured");
         $lampiran_BL =$this->input->post("lampiran_BL");
         $lampiran_LC =$this->input->post("lampiran_LC");
@@ -108,6 +109,7 @@ class Main extends CI_Controller {
         $lampiran_DO =$this->input->post("lampiran_DO");
         
         $conveyance =$this->input->post("conveyance");
+        $conveyance_by =$this->input->post("conveyance_by");
         $conveyance_type =$this->input->post("conveyance_type");
         $conveyance_total =$this->input->post("conveyance_total");
         $conveyance_policeno =$this->input->post("conveyance_policeno");
@@ -115,8 +117,9 @@ class Main extends CI_Controller {
         $conveyance_driver =$this->input->post("conveyance_driver");
         $conveyance_ship_name =$this->input->post("conveyance_ship_name");
         $conveyance_ship_type =$this->input->post("conveyance_ship_type");
-        $conveyance_ship_age =$this->input->post("conveyance_ship_age");
+        $conveyance_ship_birth =$this->input->post("conveyance_ship_birth");
         $conveyance_ship_GRT =$this->input->post("conveyance_ship_GRT");
+        $conveyance_ship_containerno =$this->input->post("conveyance_ship_containerno");
         $conveyance_plane_type =$this->input->post("conveyance_plane_type");
         $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
 
@@ -141,10 +144,14 @@ class Main extends CI_Controller {
         // }
         
         // $explodeLink = explode(', ', $d->linked_with);
-        $linked_with =$this->input->post("linked_with");
+        $input =$this->input->post("linked_with");
+        $excludeSpace = str_replace(' ', '', $input);
+        $excludeSpace = str_replace(',', ', ', $excludeSpace);
+        $excludeSpace = str_replace('  ', '', $input);
+        $linked_with =$excludeSpace;
         
         $data =       
-        [
+        [   
             'dummy_id' => $dummy_id,
             'no_sertif' => $no_sertif,
             'site_id' => $site_id,
@@ -153,12 +160,14 @@ class Main extends CI_Controller {
             'the_insured' => $the_insured,
             'address_' => $address_,
             'itemInsured' => $itemInsured,
+            'issuedDate' => $issuedDate,
 
             'conveyance' => $conveyance,
             'destination_from' => $destination_from,
             'destination_to' => $destination_to,
             'sailing_date' => $sailing_date,
             'amount_insured' => $amount_insured,
+            
             
             // 'lampiran_BL' => $lampiran_BL,
             // 'lampiran_LC' => $lampiran_LC,
@@ -169,6 +178,7 @@ class Main extends CI_Controller {
             'id' => $id,
             
             //--------------DARAT---------------
+            'conveyance_by' => $conveyance_by,
             'conveyance_type' => $conveyance_type,
             //'conveyance_total' => $conveyance_total,
             'conveyance_policeno' => $conveyance_policeno,
@@ -177,8 +187,9 @@ class Main extends CI_Controller {
             //--------------LAUT---------------
             'conveyance_ship_name' => $conveyance_ship_name,
             'conveyance_ship_type' => $conveyance_ship_type,
-            'conveyance_ship_age' => $conveyance_ship_age,
+            'conveyance_ship_birth' => $conveyance_ship_birth,
             'conveyance_ship_GRT' => $conveyance_ship_GRT,
+            'conveyance_ship_containerno' => $conveyance_ship_containerno,
             //--------------UDARA---------------
             'conveyance_plane_type' => $conveyance_plane_type,
             'conveyance_plane_AWB' => $conveyance_plane_AWB,
@@ -226,7 +237,7 @@ class Main extends CI_Controller {
         $conveyance_driver =$this->input->post("conveyance_driver");
         $conveyance_ship_name =$this->input->post("conveyance_ship_name");
         $conveyance_ship_type =$this->input->post("conveyance_ship_type");
-        $conveyance_ship_age =$this->input->post("conveyance_ship_age");
+        $conveyance_ship_birth =$this->input->post("conveyance_ship_birth");
         $conveyance_ship_GRT =$this->input->post("conveyance_ship_GRT");
         $conveyance_plane_type =$this->input->post("conveyance_plane_type");
         $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
@@ -282,7 +293,7 @@ class Main extends CI_Controller {
             //--------------LAUT---------------
             'conveyance_ship_name' => $conveyance_ship_name,
             'conveyance_ship_type' => $conveyance_ship_type,
-            'conveyance_ship_age' => $conveyance_ship_age,
+            'conveyance_ship_birth' => $conveyance_ship_birth,
             'conveyance_ship_GRT' => $conveyance_ship_GRT,
             //--------------UDARA---------------
             'conveyance_plane_type' => $conveyance_plane_type,
@@ -332,7 +343,7 @@ class Main extends CI_Controller {
         $conveyance_driver =$this->input->post("conveyance_driver");
         $conveyance_ship_name =$this->input->post("conveyance_ship_name");
         $conveyance_ship_type =$this->input->post("conveyance_ship_type");
-        $conveyance_ship_age =$this->input->post("conveyance_ship_age");
+        $conveyance_ship_birth =$this->input->post("conveyance_ship_birth");
         $conveyance_ship_GRT =$this->input->post("conveyance_ship_GRT");
         $conveyance_plane_type =$this->input->post("conveyance_plane_type");
         $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
@@ -385,7 +396,7 @@ class Main extends CI_Controller {
             //--------------LAUT---------------
             'conveyance_ship_name' => $conveyance_ship_name,
             'conveyance_ship_type' => $conveyance_ship_type,
-            'conveyance_ship_age' => $conveyance_ship_age,
+            'conveyance_ship_birth' => $conveyance_ship_birth,
             'conveyance_ship_GRT' => $conveyance_ship_GRT,
             //--------------UDARA---------------
             'conveyance_plane_type' => $conveyance_plane_type,

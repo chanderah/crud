@@ -208,8 +208,8 @@
                       <label for="address_">2. Alamat</label>
                         <select class="form-control" name="address_">
                           <!-- <option selected>Choose...</option> -->
-                          <option value="APL Tower, 30 Floor, Grogol, West Jakarta">APL Tower, 30 Floor, Grogol, West Jakarta</option>
-                          <option value="Lainnya">Lainnya</option>
+                          <option selected value="APL Tower, 30 Floor, Grogol, West Jakarta">APL Tower, 30 Floor, Grogol, West Jakarta</option>
+                          <!-- <option value="Lainnya">Lainnya</option> -->
                         </select>
                     </div>
                     <!-- <table id="cart_table" class="table table-sm table-stripped table-hover" style="margin-left:7px;width:99%">
@@ -257,8 +257,8 @@
                     </div>
                     <div class="conveyance_select" id="Darat">
                       <div class="form-group form-group-lg col-md-3">
-                        <label for="conveyance_type">Jenis Alat Angkut</label>
-                          <select class="form-control" id="conveyance_type" name="conveyance_type">
+                        <label for="conveyance_type">Dengan</label>
+                          <select class="form-control" id="conveyance_by" name="conveyance_by">
                             <option value="Car">Car</option>
                             <option value="Truck">Truck</option>
                             <option value="Pick Up">Pick Up</option>
@@ -267,34 +267,38 @@
                           </select>
                       </div>
                       <div class="form-group form-group-lg col-md-3">
+                        <label for="conveyance_type">Jenis Kendaraan</label>
+                        <input type="text" class="form-control" name="conveyance_type" placeholder="Type">
+                      </div>
+                      <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_policeno">Plat Nomor</label>
-                        <input type="text" class="form-control" name="conveyance_policeno" placeholder="Plat Nomor">
+                        <input type="text" class="form-control" name="conveyance_policeno" placeholder="Police Number">
                       </div>
                       <div class="form-group form-group-lg col-md-3">
-                        <label for="conveyance_age">Usia Kendaraan</label>
-                        <input type="number" class="form-control" name="conveyance_age" placeholder="Usia Kendaraan">
-                      </div>
-                      <div class="form-group form-group-lg col-md-3">
-                        <label for="conveyance_driver">No. SIM / Registrasi Pengemudi</label>
-                        <input type="text" class="form-control" name="conveyance_driver" placeholder="No. SIM / Registrasi Pengemudi">
+                        <label for="conveyance_driver">Pengemudi</label>
+                        <input type="text" class="form-control" name="conveyance_driver" placeholder="Driver">
                       </div>
                     </div>
                     <div class="conveyance_select" id="Laut">
                       <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_ship_name">Nama Kapal</label>
-                        <input type="text" class="form-control" name="conveyance_ship_name" placeholder="Nama Kapal">
+                        <input type="text" class="form-control" name="conveyance_ship_name" placeholder="Ship Name">
                       </div>
                       <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_ship_type">Jenis Kapal</label>
-                        <input type="text" class="form-control" name="conveyance_ship_type" placeholder="Jenis Kapal">
+                        <input type="text" class="form-control" name="conveyance_ship_type" placeholder="Ship Type">
                       </div>
                       <div class="form-group form-group-lg col-md-3">
-                        <label for="conveyance_ship_age">Usia Kapal</label>
-                        <input type="number" class="form-control" name="conveyance_ship_age" placeholder="Usia Kapal">
+                        <label for="conveyance_ship_birth">Tahun Pembuatan Kapal</label>
+                        <input type="number" class="form-control" name="conveyance_ship_birth" placeholder="Year of Built">
                       </div>
                       <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_ship_GRT">GRT Kapal</label>
                         <input type="text" class="form-control" name="conveyance_ship_GRT" placeholder="GRT Kapal">
+                      </div>
+                      <div class="form-group form-group-lg col-md-3">
+                        <label for="conveyance_ship_containerno">Container No.</label>
+                        <input type="text" class="form-control" name="conveyance_ship_containerno" placeholder="conveyance_ship_containerno">
                       </div>
                     </div>
                     <div class="conveyance_select" id="Udara">
@@ -314,15 +318,15 @@
                     </div>
                     <div class="form-group form-group-lg col-md-6">
                       <label for="destination_from">5. Tempat Keberangkatan</label>
-                      <textarea class="form-control" id="destination_from" name="destination_from" placeholder="Dari" rows="4"></textarea>
+                      <textarea class="form-control" id="destination_from" name="destination_from" placeholder="From" rows="4"></textarea>
                     </div>
                     <div class="form-group form-group-lg col-md-6">
                       <label for="destination_to">Tujuan Akhir</label>
-                      <textarea class="form-control" id="destination_to" name="destination_to" placeholder="Ke" rows="4"></textarea>
+                      <textarea class="form-control" id="destination_to" name="destination_to" placeholder="To" rows="4"></textarea>
                     </div>
                     <div class="form-group form-group-lg col-md-12">
                       <label for="sailing_date">6. Tanggal Keberangkatan</label>
-                      <input type="date" placeholder="Tanggal Keberangkatan" name="sailing_date" required="required" class="form-control" />
+                      <input type="date" placeholder="Sailing Date" name="sailing_date" required="required" class="form-control" />
                     </div>
                     <div class="form-group form-group-lg col-md-12">
                       <label for="amount_insured">7. Nilai Barang yang Diangkut</label>
@@ -332,7 +336,7 @@
                       <input type="number" name="amount_insured" placeholder="Nilai Barang" required="required" class="form-control"/>
                     </div>
                     <div class="form-group form-group-lg col-md-12">
-                      <label for="amount_insured">8. Tanggal Penerbitan</label>
+                      <label for="issuedDate">8. Tanggal Penerbitan</label>
                       <input type="date" value="<?php echo date("Y-m-d")?>" name="issuedDate" required="required" class="form-control" />
                     </div>               
                     

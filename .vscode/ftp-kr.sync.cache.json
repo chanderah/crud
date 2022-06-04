@@ -1,10 +1,10 @@
 {
-  "ftp://ftp.ptjis.com:21@chandra@ptjis.com": {
+  "ftp://chandra@ptjis.com@ftp.ptjis.com:21": {
     "crud": {
       ".editorconfig": {
         "type": "-",
         "size": 317,
-        "lmtime": 1648759586425,
+        "lmtime": 0,
         "modified": false
       },
       ".git": {},
@@ -16,9 +16,9 @@
       },
       ".gitignore": {
         "type": "-",
-        "size": 113,
+        "size": 397,
         "lmtime": 0,
-        "modified": false
+        "modified": true
       },
       ".htaccess": {
         "type": "-",
@@ -45,7 +45,360 @@
         "lmtime": 0,
         "modified": false
       },
-      "application": {},
+      "application": {
+        "views": {
+          "admin": {
+            "add_bill.php": {
+              "type": "-",
+              "size": 9998,
+              "lmtime": 0,
+              "modified": false
+            },
+            "form_barangmasuk": {},
+            "form_permintaan": {},
+            "form_satuan": {},
+            "form_users": {},
+            "index.php": {
+              "type": "-",
+              "size": 18494,
+              "lmtime": 1649159528636,
+              "modified": false
+            },
+            "index2.php": {
+              "type": "-",
+              "size": 71060,
+              "lmtime": 0,
+              "modified": false
+            },
+            "perpindahan_data": {},
+            "profile.php": {
+              "type": "-",
+              "size": 16077,
+              "lmtime": 0,
+              "modified": false
+            },
+            "starter.php": {
+              "type": "-",
+              "size": 15938,
+              "lmtime": 0,
+              "modified": false
+            },
+            "tabel": {},
+            "users.php": {
+              "type": "-",
+              "size": 13614,
+              "lmtime": 0,
+              "modified": false
+            }
+          }
+        },
+        "logs": {
+          "index.html": {
+            "type": "-",
+            "size": 142,
+            "lmtime": 0,
+            "modified": false
+          }
+        },
+        "libraries": {
+          "tcpdf": {
+            "CHANGELOG.TXT": {
+              "type": "-",
+              "size": 119640,
+              "lmtime": 0,
+              "modified": false
+            },
+            "LICENSE.TXT": {
+              "type": "-",
+              "size": 43682,
+              "lmtime": 0,
+              "modified": false
+            },
+            "README.md": {
+              "type": "-",
+              "size": 4767,
+              "lmtime": 0,
+              "modified": false
+            },
+            "VERSION": {
+              "type": "-",
+              "size": 6,
+              "lmtime": 0,
+              "modified": false
+            },
+            "composer.json": {
+              "type": "-",
+              "size": 1238,
+              "lmtime": 0,
+              "modified": false
+            },
+            "config": {},
+            "examples": {},
+            "fonts": {},
+            "images": {},
+            "include": {},
+            "tcpdf.php": {
+              "type": "-",
+              "size": 903180,
+              "lmtime": 1652776015475,
+              "modified": false
+            },
+            "tcpdf_autoconfig.php": {
+              "type": "-",
+              "size": 7155,
+              "lmtime": 0,
+              "modified": false
+            },
+            "tcpdf_barcodes_1d.php": {
+              "type": "-",
+              "size": 73291,
+              "lmtime": 0,
+              "modified": false
+            },
+            "tcpdf_barcodes_2d.php": {
+              "type": "-",
+              "size": 14665,
+              "lmtime": 0,
+              "modified": false
+            },
+            "tcpdf_import.php": {
+              "type": "-",
+              "size": 3323,
+              "lmtime": 0,
+              "modified": false
+            },
+            "tcpdf_parser.php": {
+              "type": "-",
+              "size": 27600,
+              "lmtime": 0,
+              "modified": false
+            },
+            "tools": {}
+          }
+        },
+        "controllers": {
+          "AddMoreController.php": {
+            "type": "-",
+            "size": 936,
+            "lmtime": 0,
+            "modified": false
+          },
+          "Add_Remove.php": {
+            "type": "-",
+            "size": 1238,
+            "lmtime": 0,
+            "modified": false
+          },
+          "Admin.php": {
+            "type": "-",
+            "size": 29126,
+            "lmtime": 0,
+            "modified": true
+          },
+          "Login.php": {
+            "type": "-",
+            "size": 1982,
+            "lmtime": 0,
+            "modified": false
+          },
+          "Main.php": {
+            "type": "-",
+            "size": 18432,
+            "lmtime": 1653166559557,
+            "modified": false
+          },
+          "Maintenance.php": {
+            "type": "-",
+            "size": 306,
+            "lmtime": 0,
+            "modified": false
+          },
+          "PhpspreadsheetController.php": {
+            "type": "-",
+            "size": 1672,
+            "lmtime": 0,
+            "modified": false
+          },
+          "Product.php": {
+            "type": "-",
+            "size": 1149,
+            "lmtime": 0,
+            "modified": false
+          },
+          "Register.php": {
+            "type": "-",
+            "size": 1867,
+            "lmtime": 0,
+            "modified": false
+          },
+          "Report copy.php": {
+            "type": "-",
+            "size": 25340,
+            "lmtime": 0,
+            "modified": false
+          },
+          "Report.php": {
+            "type": "-",
+            "size": 26046,
+            "lmtime": 1654023535691,
+            "modified": false
+          },
+          "User.php": {
+            "type": "-",
+            "size": 4881,
+            "lmtime": 0,
+            "modified": false
+          },
+          "Welcome.php": {
+            "type": "-",
+            "size": 537,
+            "lmtime": 0,
+            "modified": false
+          },
+          "index.html": {
+            "type": "-",
+            "size": 142,
+            "lmtime": 0,
+            "modified": false
+          }
+        },
+        "config": {
+          "autoload.php": {
+            "type": "-",
+            "size": 4250,
+            "lmtime": 0,
+            "modified": false
+          },
+          "config.php": {
+            "type": "-",
+            "size": 19029,
+            "lmtime": 0,
+            "modified": false
+          },
+          "constants.php": {
+            "type": "-",
+            "size": 4407,
+            "lmtime": 0,
+            "modified": false
+          },
+          "database.php": {
+            "type": "-",
+            "size": 4591,
+            "lmtime": 0,
+            "modified": false
+          },
+          "doctypes.php": {
+            "type": "-",
+            "size": 2465,
+            "lmtime": 0,
+            "modified": false
+          },
+          "foreign_chars.php": {
+            "type": "-",
+            "size": 3096,
+            "lmtime": 0,
+            "modified": false
+          },
+          "hooks.php": {
+            "type": "-",
+            "size": 430,
+            "lmtime": 0,
+            "modified": false
+          },
+          "index.html": {
+            "type": "-",
+            "size": 142,
+            "lmtime": 0,
+            "modified": false
+          },
+          "memcached.php": {
+            "type": "-",
+            "size": 517,
+            "lmtime": 0,
+            "modified": false
+          },
+          "migration.php": {
+            "type": "-",
+            "size": 3116,
+            "lmtime": 0,
+            "modified": false
+          },
+          "mimes.php": {
+            "type": "-",
+            "size": 10240,
+            "lmtime": 0,
+            "modified": false
+          },
+          "profiler.php": {
+            "type": "-",
+            "size": 491,
+            "lmtime": 0,
+            "modified": false
+          },
+          "routes.php": {
+            "type": "-",
+            "size": 2102,
+            "lmtime": 0,
+            "modified": false
+          },
+          "smileys.php": {
+            "type": "-",
+            "size": 3245,
+            "lmtime": 0,
+            "modified": false
+          },
+          "user_agents.php": {
+            "type": "-",
+            "size": 6346,
+            "lmtime": 0,
+            "modified": false
+          }
+        },
+        "models": {
+          "Htmltopdf_model.php": {
+            "type": "-",
+            "size": 1001,
+            "lmtime": 0,
+            "modified": false
+          },
+          "M_admin.php": {
+            "type": "-",
+            "size": 4536,
+            "lmtime": 0,
+            "modified": false
+          },
+          "M_login.php": {
+            "type": "-",
+            "size": 901,
+            "lmtime": 0,
+            "modified": false
+          },
+          "M_product.php": {
+            "type": "-",
+            "size": 108,
+            "lmtime": 0,
+            "modified": false
+          },
+          "M_site_id.php": {
+            "type": "-",
+            "size": 2403,
+            "lmtime": 0,
+            "modified": false
+          },
+          "M_user.php": {
+            "type": "-",
+            "size": 430,
+            "lmtime": 0,
+            "modified": false
+          },
+          "index.html": {
+            "type": "-",
+            "size": 142,
+            "lmtime": 0,
+            "modified": false
+          }
+        }
+      },
       "assets": {},
       "composer.json": {
         "type": "-",
@@ -90,13 +443,116 @@
         "lmtime": 0,
         "modified": false
       },
-      "pdf": {},
+      "pdf": {
+        "asuransi.png": {
+          "type": "-",
+          "size": 172064,
+          "lmtime": 0,
+          "modified": false
+        },
+        "jis.png": {
+          "type": "-",
+          "size": 16755,
+          "lmtime": 0,
+          "modified": false
+        },
+        "maximus.png": {
+          "type": "-",
+          "size": 109781,
+          "lmtime": 0,
+          "modified": false
+        },
+        "paraf.png": {
+          "type": "-",
+          "size": 3761,
+          "lmtime": 0,
+          "modified": false
+        },
+        "signature.png": {
+          "type": "-",
+          "size": 26088,
+          "lmtime": 0,
+          "modified": false
+        },
+        "stylesheet.css": {
+          "type": "-",
+          "size": 175,
+          "lmtime": 1654023499267,
+          "modified": false
+        }
+      },
       "phpmyadmin": {
-        "libraries": {
-          "classes": {
-            "Plugins": {
-              "Import": {
-                "Upload": {}
+        "vendor": {
+          "tecnickcom": {
+            "tcpdf": {
+              "CHANGELOG.TXT": {
+                "type": "-",
+                "size": 121018,
+                "lmtime": 1652776005210,
+                "modified": false
+              },
+              "LICENSE.TXT": {
+                "type": "-",
+                "size": 43682,
+                "lmtime": 0,
+                "modified": false
+              },
+              "README.md": {
+                "type": "-",
+                "size": 4767,
+                "lmtime": 0,
+                "modified": false
+              },
+              "VERSION": {
+                "type": "-",
+                "size": 6,
+                "lmtime": 0,
+                "modified": false
+              },
+              "composer.json": {
+                "type": "-",
+                "size": 1238,
+                "lmtime": 0,
+                "modified": false
+              },
+              "config": {},
+              "fonts": {},
+              "include": {},
+              "tcpdf.php": {
+                "type": "-",
+                "size": 905665,
+                "lmtime": 1652776000246,
+                "modified": false
+              },
+              "tcpdf_autoconfig.php": {
+                "type": "-",
+                "size": 7155,
+                "lmtime": 0,
+                "modified": false
+              },
+              "tcpdf_barcodes_1d.php": {
+                "type": "-",
+                "size": 73303,
+                "lmtime": 0,
+                "modified": false
+              },
+              "tcpdf_barcodes_2d.php": {
+                "type": "-",
+                "size": 14671,
+                "lmtime": 0,
+                "modified": false
+              },
+              "tcpdf_import.php": {
+                "type": "-",
+                "size": 3325,
+                "lmtime": 0,
+                "modified": false
+              },
+              "tcpdf_parser.php": {
+                "type": "-",
+                "size": 27600,
+                "lmtime": 0,
+                "modified": false
               }
             }
           }
@@ -106,7 +562,7 @@
       "tb_permintaan_masuk.sql": {
         "type": "-",
         "size": 232601,
-        "lmtime": 1647917751000,
+        "lmtime": 0,
         "modified": false
       },
       "user_guide": {},

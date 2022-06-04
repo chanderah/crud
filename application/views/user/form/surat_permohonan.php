@@ -240,9 +240,9 @@
 
                   <div class="form-group form-group-lg col-md-3">
 
-                    <label for="conveyance_ship_age">Usia Kapal</label>
+                    <label for="conveyance_ship_birth">Usia Kapal</label>
 
-                    <input type="number" class="form-control" name="conveyance_ship_age" placeholder="Usia Kapal">
+                    <input type="number" class="form-control" name="conveyance_ship_birth" placeholder="Usia Kapal">
 
                   </div>
 

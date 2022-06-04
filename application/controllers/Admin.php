@@ -20,12 +20,13 @@ class Admin extends CI_Controller
 
   public function index()
   {
-    if ($this->session->userdata('name') == 'admin'){
-      //maintenance warn
-      redirect(base_url('admin/maintenance'));      
-    }
+    // if ($this->session->userdata('name') == 'admin'){
+    //   //maintenance warn
+    //   redirect(base_url('admin/maintenance'));      
+    // }
     
-    elseif ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+    // else
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
       $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
       $data['jumlahPermintaan'] = $this->M_admin->numrows('tb_site_in');
       $data['jumlahSite'] = $this->M_admin->numrows('tb_site_out');
