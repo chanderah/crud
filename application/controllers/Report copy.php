@@ -24,7 +24,7 @@ class Report extends CI_Controller
         $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         //
         $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetAuthor('Chandra SA');
+        $pdf->SetAuthor('PT. Jasmine Indah Servistama');
         $pdf->SetTitle('Invoice');
         $pdf->SetSubject('Invoice');
         $pdf->SetKeywords('PDF, Invoice');
@@ -67,7 +67,7 @@ class Report extends CI_Controller
                                         </table>   
                                     </font>';
                 $nopolisHeader =   '<font face="lucida" font size="10">
-                                        <table cellpadding="5">
+                                        <table cellpadding="5" border="0">
                                             <tr>
                                                 <td colspan="1" align="left" class="">THIS TO CERTIFY that insurance has been effected as per Open Policy No. {MOP}</td>
                                             </tr>
@@ -94,7 +94,7 @@ class Report extends CI_Controller
                 $pdf->SetFont('lucida', '', 9.5);
                 $html .= $nosertifHeader;
                 $style = array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0));
-                $pdf->Line(185.5, 51, 21, 51, $style);
+                $pdf->Line(181.5, 51, 25, 51, $style);
                 // (length,start,marginstart,end,)
                 $html .= $nopolisHeader;
                 $pdf->setListIndentWidth(4.75);
