@@ -73,13 +73,6 @@ class Report extends CI_Controller
                                             </tr>
                                         </table>   
                                     </font>';
-                $nopolisHeader =   '<font face="lucida" font size="10">
-                                        <table cellpadding="5" border="0">
-                                            <tr>
-                                                <td colspan="1" align="left">THIS TO CERTIFY that insurance has been effected as per Open Policy No. {MOP}</td>
-                                            </tr>
-                                        </table>
-                                    </font>';
 
                 $replacedItemInsured = str_replace(',', '-', $d->itemInsured);
                 $replacedItemInsured = str_replace('-', ' - ', $replacedItemInsured);
@@ -97,7 +90,13 @@ class Report extends CI_Controller
                 $style = array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0));
                 $pdf->Line(181.5, 51, 25, 51, $style);
                 // (length,start,marginstart,end,)
-                $html .= $nopolisHeader;
+                
+                $html .= ' <table cellpadding="0" border="0" class="line18">
+                                <tr>
+                                    <td colspan="1" align="left">THIS TO CERTIFY that insurance has been effected as per Open Policy No. <span class="italic">{MOP}</span></td>
+                                </tr>
+                            </table>';
+
                 $pdf->setListIndentWidth(4.75);
 
                 $html .= '<style>'.file_get_contents(base_url()."pdf/".'stylesheet.css').'</style>';
@@ -256,6 +255,7 @@ class Report extends CI_Controller
                         $html = str_replace('{scopeCover}', $firstMOP, $html);
                     }
 
+
                 $html .= '
                     <tr>
                         <td colspan="2">Date of Sailing</td>
@@ -265,13 +265,88 @@ class Report extends CI_Controller
                     <tr>
                         <td colspan="2">Conveyance</td>
                         <td colspan="1" align="right">:</td>
-                        <td colspan="8"align="justify">{conveyance}</td>
+                        <td colspan="8"align="justify">{conveyance}';
+
+
+                if ($d->conveyance == 'Darat') {
+                    $darat = 
+                    'By ' . $d->conveyance_by . '
+                        </td>
                     </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="1" align="right"></td>
+                        <td colspan="8"align="justify">Type : ' . $d->conveyance_type . '</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="1" align="right"></td>
+                        <td colspan="8"align="justify">Police No. : ' . $d->conveyance_policeno . '</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="1" align="right"></td>
+                        <td colspan="8"align="justify">Driver :'  . $d->conveyance_driver . '</td>
+                    </tr>
+                    ';
+
+                    $html = str_replace('{conveyance}', $darat, $html);
+
+                } elseif ($d->conveyance == 'Laut') {
+
+                    $laut = 
+                    'By Vessel - ' . $d->conveyance_ship_name .'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="1" align="right"></td>
+                        <td colspan="8"align="justify">Type : ' . $d->conveyance_ship_type . '</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="1" align="right"></td>
+                        <td colspan="8"align="justify">GRT : ' . $d->conveyance_ship_GRT . '</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="1" align="right"></td>
+                        <td colspan="8"align="justify">Year of Build : '  . $d->conveyance_ship_birth . '</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="1" align="right"></td>
+                        <td colspan="8"align="justify">Container No. : '  . $d->conveyance_ship_containerno . '</td>
+                    </tr>
+                    ';
+
+                    $html = str_replace('{conveyance}', $laut, $html);
+
+                } elseif ($d->conveyance == 'Udara') {
+                    $udara =
+                    'By Plane    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="1" align="right"></td>
+                        <td colspan="8"align="justify">Type : ' . $d->conveyance_plane_type . '</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td colspan="1" align="right"></td>
+                        <td colspan="8"align="justify">AWB No. : ' . $d->conveyance_plane_AWB . '</td>
+                    </tr>
+                    '; 
+
+                    $html = str_replace('{conveyance}', $udara, $html);
+                }
+
+                $html .= '
                     <tr>
                         <td colspan="2">Destination</td>
                     </tr>';
 
-                    
                 $explodedDestinationFrom = explode("\n", $d->destination_from);
                 $x = 0;
                 foreach ($explodedDestinationFrom as $a){
@@ -308,13 +383,15 @@ class Report extends CI_Controller
 
                 if ($d->linked_with == true) {
                     $explodeLink = explode(', ', $d->linked_with);
+                    
+                    sort($explodeLink);
+                    array_unshift($explodeLink, $d->site_id);
+                    $explodeLinkUnique = array_unique($explodeLink);
                     $totalLink = count($explodeLink);
                     if ($totalLink < 10) {
                         //disini
                         $x = 1;
-                        array_push($explodeLink, $d->site_id);
-                        sort($explodeLink);
-                        $explodeLinkUnique = array_unique($explodeLink);
+
                         foreach ($explodeLinkUnique as $d2) {
                             $html .= '
                             <tr class="line10">   
@@ -335,6 +412,7 @@ class Report extends CI_Controller
                             </tr>';
                     }
                 }
+
                 $html .= '<br class="line10">';
                 $arr = explode("\n", $d->destination_to);
                 // $output = implode("<br>", $arr);
@@ -416,7 +494,7 @@ class Report extends CI_Controller
                                                     <td colspan="2" style="width:22%;">Details of SITE ID</td>
                                                     <td colspan="2" style="width:25%;">:</td>
                                                 </tr>
-                                            </table>`
+                                            </table>
                                         </font>                                        
                                         ';
                         $html .= '
@@ -454,30 +532,6 @@ class Report extends CI_Controller
                                     </table>
                                 </div>';
                     }
-                }
-                
-                if ($d->conveyance == 'Darat') {
-                    $darat = 'By ' . $d->conveyance_by . 
-                    '<br>Type : ' . $d->conveyance_type . 
-                    '<br>Police No. : ' . $d->conveyance_policeno . 
-                    '<br>Driver  : ' . $d->conveyance_driver;
-                    $html = str_replace('{conveyance}', $darat, $html);
-
-                } elseif ($d->conveyance == 'Laut') {
-                    $conveyance_age = $yearIssued2 - $d->conveyance_ship_birth;
-
-                    $laut = 'By Vessel - ' . $d->conveyance_ship_name . 
-                    '<br>Type  : ' . $d->conveyance_ship_type . 
-                    '<br>GRT  : ' . $d->conveyance_ship_GRT . 
-                    '<br>Age : ' . $conveyance_age;
-                    '<br>Container No. : ' . $d->conveyance_ship_containerno;
-                    $html = str_replace('{conveyance}', $laut, $html);
-
-                } elseif ($d->conveyance == 'Udara') {
-                    $udara = 'By Plane' .
-                    '<br>Type : ' . $d->conveyance_plane_type . 
-                    '<br>No. AWB : ' . $d->conveyance_plane_AWB;
-                    $html = str_replace('{conveyance}', $udara, $html);
                 }
 
                 $no_sertif = $d->no_sertif;

@@ -2,6 +2,11 @@
     text-decoration: underline;
 }
 
+.line18 {
+    line-height: 1.8;
+
+}
+
 .line16 {
     line-height: 1.6;
 
@@ -43,9 +48,12 @@
 }
 
 .italic {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
+
 }
 
 .minus500{
     margin-right:-500px;
 }
+

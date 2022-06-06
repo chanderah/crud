@@ -145,17 +145,17 @@ class Main extends CI_Controller {
         
         // $explodeLink = explode(', ', $d->linked_with);
         $input =$this->input->post("linked_with");
-        $excludeSpace = str_replace(' ', '', $input);
-        $excludeSpace = str_replace(',', ', ', $excludeSpace);
+        $excludeSpace = str_replace('   ', '', $input);
         $excludeSpace = str_replace('  ', '', $input);
-        $linked_with =$excludeSpace;
+        $excludeSpace = str_replace(' ', '', $excludeSpace);
+        $excludeSpace = str_replace(',', ', ', $excludeSpace);
         
         $data =       
         [   
             'dummy_id' => $dummy_id,
             'no_sertif' => $no_sertif,
             'site_id' => $site_id,
-            'linked_with' => $linked_with,
+            'linked_with' => $excludeSpace,
         
             'the_insured' => $the_insured,
             'address_' => $address_,

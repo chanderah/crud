@@ -290,7 +290,7 @@
                       </div>
                       <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_ship_birth">Tahun Pembuatan Kapal</label>
-                        <input type="number" class="form-control" name="conveyance_ship_birth" placeholder="Year of Built">
+                        <input type="number" class="form-control" name="conveyance_ship_birth" placeholder="Year of Build">
                       </div>
                       <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_ship_GRT">GRT Kapal</label>
