@@ -567,7 +567,20 @@
       },
       "user_guide": {},
       "vendor": {},
-      "xlsx": {}
+      "xlsx": {
+        "import_siteid.xlsx": {
+          "type": "-",
+          "size": 11000,
+          "lmtime": 0,
+          "modified": true
+        },
+        "importsite_format.xlsx": {
+          "type": "-",
+          "size": 9939,
+          "lmtime": 1654377230517,
+          "modified": false
+        }
+      }
     }
   },
   "$version": 1

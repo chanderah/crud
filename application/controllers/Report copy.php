@@ -48,11 +48,12 @@ class Report extends CI_Controller
                 $pdf->AddPage();
                 // create some HTML content    
                 $sailing_date = date("F j<\s\up>S</\s\up>, Y", strtotime($d->sailing_date));
-                $dateIssued = date("F j<\s\up>S</\s\up>, Y", strtotime($d->created_at));
-                $yearIssued = date("y", strtotime($d->created_at));
+                $dateIssued = date("F j<\s\up>S</\s\up>, Y", strtotime($d->issuedDate));
+                $yearIssued = date("y", strtotime($d->issuedDate));
+                $yearIssued2 = date("Y", strtotime($d->issuedDate));
 
-                    $numToRoman = new IntToRoman();
-                    $roman = $numToRoman->filter(date("m", strtotime($d->created_at)));
+                $numToRoman = new IntToRoman();
+                $roman = $numToRoman->filter(date("m", strtotime($d->issuedDate)));
                 $monthIssued = $roman;
 
                 //$data = 'ABC Company';
@@ -68,7 +69,7 @@ class Report extends CI_Controller
                 $nopolisHeader =   '<font face="lucida" font size="10">
                                         <table cellpadding="5">
                                             <tr>
-                                                <td colspan="1" align="left">THIS TO CERTIFY that insurance has been effected as per Open Policy No. {MOP}</td>
+                                                <td colspan="1" align="left" class="">THIS TO CERTIFY that insurance has been effected as per Open Policy No. {MOP}</td>
                                             </tr>
                                         </table>
                                     </font>';
@@ -97,8 +98,11 @@ class Report extends CI_Controller
                 // (length,start,marginstart,end,)
                 $html .= $nopolisHeader;
                 $pdf->setListIndentWidth(4.75);
+
+                $html .= '<style>'.file_get_contents(base_url()."pdf/".'stylesheet.css').'</style>';
+
                 $html .= '
-                <table border="" cellpadding="3">
+                <table border="0" cellpadding="3">
                     <tr><br>
                         <td colspan="2"><b>The Insured</b></td>
                         <td colspan="1" align="right">:</td>
@@ -109,13 +113,18 @@ class Report extends CI_Controller
                         <td colspan="1" align="right">:</td>
                         <td colspan="8"align="justify">' . $d->address_ . '</td>
                     </tr>
+                </table>';
+                
+                $html .= '
+                <table border="0" cellpadding="3">
                     <tr>
                         <td colspan="2">Interest Insured</td>
-                        <td colspan="1" align="right">:</td>
-                        <td colspan="8">'.nl2br($replacedItemInsured).'</td>
+                        <td colspan="1" align="right" style="width:51px">:</td>
+                        <td colspan="8" class="line15">'.nl2br($replacedItemInsured).'</td>
                     </tr> 
-                    </table>
+                </table>
                 ';
+
                 $html .= '
                             <table border="" cellpadding="3">
                                 <tr>
@@ -131,17 +140,17 @@ class Report extends CI_Controller
                                 <tr>
                                     <td colspan="2">L/C</td>
                                     <td colspan="1" align="right">:</td>
-                                    <td colspan="8"align="justify">' . $d->lampiran_LC . '</td>
+                                    <td colspan="8"align="justify">-' . $d->lampiran_LC . '</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">B/L</td>
                                     <td colspan="1" align="right">:</td>
-                                    <td colspan="8"align="justify">' . $d->lampiran_BL . '</td>
+                                    <td colspan="8"align="justify">TBA' . $d->lampiran_BL . '</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Invoice Number</td>
                                     <td colspan="1" align="right">:</td>
-                                    <td colspan="8"align="justify">' . $d->lampiran_invoice . '</td>
+                                    <td colspan="8"align="justify">-' . $d->lampiran_invoice . '</td>
                                 </tr>';
 
                                 //MOP Logic
@@ -152,7 +161,7 @@ class Report extends CI_Controller
                                 }
 
                                 if ($d->linked_with == true) {
-                                    $linkedExploded = explode(', ', $d->linked_with);
+                                    $linkedExploded = explode(',', $d->linked_with);
                                     $bmop = [];
                                     foreach ($linkedExploded as $dd2) {
                                         $where = array('site_id' => $dd2);
@@ -165,8 +174,18 @@ class Report extends CI_Controller
                                     //push first site id MOP
                                     array_push($bmop, $firstMOP);
                                     sort($bmop);
-                                    $amop = implode(", ", array_unique($bmop));
-                                    $html = str_replace('{MOP}', $amop, $html);
+                                    $bmop = array_unique($bmop);
+
+                                    $lasttMOP = array_pop($bmop);
+                                    $amop = implode(", ", $bmop);
+
+                                    if (count($bmop) > 1) {
+                                        $html = str_replace('{MOP}', $amop." & ".$lasttMOP, $html);
+                                    }
+
+                                    else{
+                                        $html = str_replace('{MOP}', $lasttMOP, $html);
+                                    }
                                     
                                     $scopeCover = implode("<br>", array_unique($bmop));
                                     $countScopeCover = str_word_count($scopeCover);
@@ -175,9 +194,10 @@ class Report extends CI_Controller
                                         $html .= '  <tr>   
                                                         <td colspan="2">Scope of Cover</td>
                                                         <td colspan="1" align="right">:</td>
-                                                        <td colspan="8" align="justify">As per M.O.P No. : ' . $amop . '</td>
+                                                        <td colspan="8" align="justify">As per M.O.P No. : ' . $lasttMOP . '</td>
                                                     </tr>';}
                                     else{
+                                        array_push($bmop,$lasttMOP);
                                         $explodeLinkUnique = array_unique($bmop);
                                         $x = 1;
 
@@ -188,9 +208,14 @@ class Report extends CI_Controller
                                                 <tr>  
                                                     <td colspan="2">Scope of Cover</td>       
                                                     <td colspan="1" align="right">:</td>
-                                                    <td colspan="8" align="justify">
+                                                    <td colspan="8" align="justify">As per M.O.P No. :</td>
+                                                </tr>
+                                                <tr>  
+                                                    <td colspan="2"></td>       
+                                                    <td colspan="1" align="right"></td>
+                                                    <td colspan="8" align="justify" class="">
                                                         <ul>
-                                                            <li>' . $d2 . '</li>
+                                                            <li class="line13">' . $d2 . '</li>
                                                         </ul>
                                                     </td>
                                                 </tr>';
@@ -202,7 +227,7 @@ class Report extends CI_Controller
                                                     <td colspan="1" align="right"></td>
                                                     <td colspan="8" align="justify">
                                                         <ul>
-                                                            <li>' . $d2 . '</li>
+                                                            <li class="line13">' . $d2 . '</li>
                                                         </ul>
                                                     </td>
                                                 </tr>';
@@ -233,7 +258,7 @@ class Report extends CI_Controller
                                 <tr>
                                     <td colspan="2">   - At & From</td>
                                     <td colspan="1" align="right">:</td>
-                                    <td colspan="8"align="justify">'.nl2br($d->destination_from).'</td>
+                                    <td colspan="8"align="justify" class="line15">'.nl2br($d->destination_from).'</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">   - Transhipment</td>
@@ -246,6 +271,7 @@ class Report extends CI_Controller
                                     <td colspan="8"align="justify">'.strtok($d->destination_to, "\n").'</td>
                                 </tr>
                             </table>';
+
                 if (defined('FPDF_FONTPATH')) {
                     $this->fontpath = FPDF_FONTPATH;
                     if (substr($this->fontpath, -1) != '/' && substr($this->fontpath, -1) != '\\')
@@ -262,7 +288,7 @@ class Report extends CI_Controller
                         sort($explodeLink);
                         $explodeLinkUnique = array_unique($explodeLink);
                         foreach ($explodeLinkUnique as $d2) {
-                            $html .= '  <tr><table border="" cellpadding="1">   
+                            $html .= '  <tr><table border="" cellpadding="1" class="line15">   
                                                     <td colspan="2"></td>
                                                     <td colspan="1"></td>
                                                     <td colspan="8"> ' . $no . '. SITE ID : ' . $d2 . '</td>
@@ -272,45 +298,73 @@ class Report extends CI_Controller
                             $pdf->Ln();
                         }
                     } else {
-                        $html .= '<table border="" cellpadding="1">
+                        $html .= '<table border="" cellpadding="3">
                                 <tr>
-                                <td colspan="2"></td>
-                                <td colspan="1"></td>
-                                <td colspan="8"> SITE ID : As Attached</td>
+                                    <td colspan="2"></td>
+                                    <td colspan="1"></td>
+                                    <td colspan="8"> SITE ID : As Attached</td>
                                 </tr>
                              ';
                     }
                 }
                 $html .= '</table>';
-                $html .=    '   
-                    <table border="" cellpadding="3">
-                        <tr>
-                            <td colspan="2">Consignee</td>
-                            <td colspan="1" align="right">:</td>
-                            <td colspan="8"align="justify">'.nl2br($d->destination_to).'</td>
-                        </tr>
-                    </table>';
-                    $html .=    '<div style="page-break-inside:avoid;">
-                                    <table cellpadding="2">
-                                        <tr>
-                                            <td align="right">Issued {dateIssued}</td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right">Signed On Behalf</td>
-                                        </tr>
-                                        <tr style="margin-right:100px">
-                                            <td align="right"><img src="pdf/signature.png" style="margin-right:200px;margin-top:200px" width="auto" height="90px">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right">{namaPerusahaan}<img src="pdf/paraf.png" width="auto" height="20px" style="margin-top:20px"></td>
-                                        </tr>
-                                    </table>    
-                                </div>';
+
+                //sabar
+                $arr = explode("\n", $d->destination_to);
+                // $output = implode("<br>", $arr);
+
+                $x = 0;
+
+                foreach ($arr as $a){
+                    if ($x===0){
+                        $html .=    '   
+                        <table border="" cellpadding="3">
+                            <tr>
+                                <td colspan="2">Consignee</td>
+                                <td colspan="1" align="right">:</td>
+                                <td colspan="8"align="justify" class="underlined">In '.$a.' :</td>
+                            </tr>';
+                    }
+
+                    else {
+
+                        $html .= '
+                            <tr class="line10">
+                                <td colspan="2"></td>
+                                <td colspan="1" align="right"></td>
+                                <td colspan="8"align="justify">'.$a.'</td>
+                            </tr>';
+                    }
+                $x++;
+                }
+
+                $html .=    '</table>'; 
+                
+                $html .=    ' 
+                            <div style="page-break-inside:avoid">
+                                <table cellpadding="0" border="0" align="right">
+                                    <tr>
+                                        <td>Issued at Bogor, {dateIssued}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Signed On Behalf</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="line0" cellpadding="0" cellspacing="0">
+                                        <img src="pdf/signature.png" height="125px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="line0" cellpadding="0" cellspacing="0">
+                                        {namaPerusahaan}<img src="pdf/paraf.png" width="auto" height="20px" style="margin-top:20px"></td>
+                                    </tr>
+                                </table>    
+                            </div>';
+
                 //Certificate Attachment
                 if ($d->linked_with == true) {
                     $explodeLink = explode(', ', $d->linked_with);
                     $totalLink = count($explodeLink);
+
                     if ($totalLink > 9) {
                         // $pdf->AddPage();
                         $html .=   '<div>
@@ -332,13 +386,13 @@ class Report extends CI_Controller
                                                 <tr>
                                                     <td colspan="2" style="width:15%">Certificate No</td>
                                                     <td colspan="1" align="right">:</td>
-                                                    <td colspan="8" align="justify">JIS22-{MOP_Header}-{no_sertif}<br><br></td>   
+                                                    <td colspan="8" align="justify">JIS'.$yearIssued.'-{MOP_Header}-'.$monthIssued.'-{no_sertif}<br><br></td> 
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2" style="width:22%;">Details of SITE ID</td>
                                                     <td colspan="2" style="width:25%;">:</td>
                                                 </tr>
-                                            </table>
+                                            </table>`
                                         </font>                                        
                                         ';
                         $html .= '
@@ -349,9 +403,13 @@ class Report extends CI_Controller
                                                 <td border="1" style="width:20%">Site ID</td>
                                             </tr> 
                                      ';
+
+                        
                         array_unshift($explodeLink, $d->site_id);
+                        $explodeLinks = array_unique($explodeLink);
+
                         $no = 1;
-                        foreach ($explodeLink as $d2) {
+                        foreach ($explodeLinks as $d2) {
                             $html .= '  <tr>
                                             <td style="width:33%"></td> 
                                             <td border="1" style="width:10%">' . $no . '</td>
@@ -375,20 +433,34 @@ class Report extends CI_Controller
                 }
                 
                 if ($d->conveyance == 'Darat') {
-                    $darat = 'By ' . $d->conveyance_type . ' - ' . $d->conveyance_policeno . '<br>Age  : ' . $d->conveyance_age . '<br>Driver  : ' . $d->conveyance_driver;
+                    $darat = 'By ' . $d->conveyance_by . 
+                    '<br>Type : ' . $d->conveyance_type . 
+                    '<br>Police No. : ' . $d->conveyance_policeno . 
+                    '<br>Driver  : ' . $d->conveyance_driver;
                     $html = str_replace('{conveyance}', $darat, $html);
+
                 } elseif ($d->conveyance == 'Laut') {
-                    // $laut = 'By Vessel - ' . $d->conveyance_ship_name . '<br>Type  : ' . $d->conveyance_ship_type . '<br>GRT  : ' . $d->conveyance_ship_GRT . '<br>Year of Built  : ' . $d->conveyance_ship_age;
-                    $laut = 'By Vessel - ' . $d->conveyance_ship_name . '<br>Type  : ' . $d->conveyance_ship_type . '<br>GRT  : ' . $d->conveyance_ship_GRT . '<br>Year of Built  : ' . $d->conveyance_ship_age;
+                    $conveyance_age = $yearIssued2 - $d->conveyance_ship_birth;
+
+                    $laut = 'By Vessel - ' . $d->conveyance_ship_name . 
+                    '<br>Type  : ' . $d->conveyance_ship_type . 
+                    '<br>GRT  : ' . $d->conveyance_ship_GRT . 
+                    '<br>Age : ' . $conveyance_age;
+                    '<br>Container No. : ' . $d->conveyance_ship_containerno;
                     $html = str_replace('{conveyance}', $laut, $html);
+
                 } elseif ($d->conveyance == 'Udara') {
-                    $udara = 'By ' . $d->conveyance_plane_type . '<>No. AWB : ' . $d->conveyance_plane_AWB;
+                    $udara = 'By Plane' .
+                    '<br>Type : ' . $d->conveyance_plane_type . 
+                    '<br>No. AWB : ' . $d->conveyance_plane_AWB;
                     $html = str_replace('{conveyance}', $udara, $html);
                 }
+
                 $no_sertif = $d->no_sertif;
                 $mop_header = '0608032100001';
                 $str_length = 5;
                 $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
+
                 $html = str_replace('{no_sertif}', $no_sertif_5, $html);
                 $html = str_replace('{namaPerusahaan}', $namaPerusahaan, $html);
                 $html = str_replace('{dateIssued}', $dateIssued, $html);

@@ -94,7 +94,7 @@ class Report extends CI_Controller
                 $pdf->SetFont('lucida', '', 9.5);
                 $html .= $nosertifHeader;
                 $style = array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0));
-                $pdf->Line(185.5, 51, 21, 51, $style);
+                $pdf->Line(182, 51, 25, 51, $style);
                 // (length,start,marginstart,end,)
                 $html .= $nopolisHeader;
                 $pdf->setListIndentWidth(4.75);
