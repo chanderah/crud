@@ -66,13 +66,6 @@ class Report extends CI_Controller
                 //$data = 'ABC Company';
                 $invoice_ref_id = '2013/12/03/0001';
                 $namaPerusahaan = 'PT. ASURANSI MAXIMUS GRAHA PERSADA, Tbk';
-                $nosertifHeader =  '<font face="narrowi">
-                                        <table cellpadding="5">
-                                            <tr>
-                                                <td align="center"><font size="13" font face="monotype">No. </font><font size="11" font face="narrowi">JIS'.$yearIssued.'-{MOP_Header}-'.$monthIssued.'-{no_sertif}</font></td>
-                                            </tr>
-                                        </table>   
-                                    </font>';
 
                 $replacedItemInsured = str_replace(',', '-', $d->itemInsured);
                 $replacedItemInsured = str_replace('-', ' - ', $replacedItemInsured);
@@ -86,7 +79,14 @@ class Report extends CI_Controller
                 // $replacedItemInsured = str_replace('   ', ' ', $replacedItemInsured);
 
                 $pdf->SetFont('lucida', '', 9.5);
-                $html .= $nosertifHeader;
+                $html .= '
+                        <font face="narrowi">
+                            <table cellpadding="5">
+                                <tr>
+                                    <td align="center"><font size="13" font face="monotype">No. </font><font size="11" font face="narrowi">JIS'.$yearIssued.'-{MOP_Header}-'.$monthIssued.'-{no_sertif}</font></td>
+                                </tr>
+                            </table>   
+                        </font>';
                 $style = array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0));
                 $pdf->Line(181.5, 51, 25, 51, $style);
                 // (length,start,marginstart,end,)
@@ -439,7 +439,7 @@ class Report extends CI_Controller
                     }
                 $x++;
                 }
-                $html .= '<br><br></table>';
+                $html .= '</table><br><br>';
 
                 $signatureImg= base_url()."pdf/".'stylesheet.css';
 

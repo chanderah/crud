@@ -405,11 +405,23 @@ class Admin extends CI_Controller
   {
     $where = array('dummy_id' => $dummy_id);
     $where2 = array('dummy_id' => $dummy_id);
+    
     $data['data_barang_desc'] = $this->M_admin->get_data('tb_site_items', $where);
     $data['data_barang_update'] = $this->M_admin->get_data('tb_site_in', $where);
     $data['data_linked_with'] = $this->M_admin->getAllDataLinkedWith('tb_site_in');
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_barangmasuk/form_update', $data);
+  }
+
+  public function update_datakeluar($dummy_id)
+  { 
+    $where = array('dummy_id' => $dummy_id);
+    
+    $data['data_barang_desc'] = $this->M_admin->get_data('tb_site_items', $where);
+    $data['data_barang_update'] = $this->M_admin->get_data('tb_site_out', $where);
+
+    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+    $this->load->view('admin/form_barangmasuk/form_update_keluar', $data);
   }
 
   public function info_datamasuk($dummy_id)
@@ -569,61 +581,6 @@ class Admin extends CI_Controller
     }
   }
 
-  public function proses_datamasuk_move()
-  {
-    $this->load->helper('string');
-    $this->form_validation->set_rules('dummy_id', 'Dummy ID', 'required');
-
-    if ($this->form_validation->run() == TRUE) {
-      $dummy_id = $this->input->post('dummy_id', TRUE);
-      $site_id = $this->input->post('site_id', TRUE);
-      $region = $this->input->post('region', TRUE);
-      $provinsi = $this->input->post('provinsi', TRUE);
-      $kabupaten = $this->input->post('kabupaten', TRUE);
-      $kecamatan = $this->input->post('kecamatan', TRUE);
-      $desa = $this->input->post('desa', TRUE);
-      $paket = $this->input->post('paket', TRUE);
-      $batch_ = $this->input->post('batch_', TRUE);
-      $ctrm = $this->input->post('ctrm', TRUE);
-      $ctsi = $this->input->post('ctsi', TRUE);
-      $amount_insured = $this->input->post('amount_insured', TRUE);
-      $no_sertif = $this->input->post('no_sertif', TRUE);
-      $keterangan = $this->input->post('keterangan', TRUE);
-      $qty = $this->input->post('qty', TRUE);
-
-      $data = array(
-        'dummy_id' => $dummy_id,
-        'site_id' => $site_id,
-        'region' => $region,
-        'provinsi' => $provinsi,
-        'kabupaten' => $kabupaten,
-        'kecamatan' => $kecamatan,
-        'desa' => $desa,
-        'paket' => $paket,
-        'batch_' => $batch_,
-        'ctrm' => $ctrm,
-        'ctsi' => $ctsi,
-        'amount_insured' => $amount_insured,
-        'no_sertif' => $no_sertif,
-        'keterangan' => $keterangan
-      );
-
-      $data2 = array(
-        'dummy_id' => $dummy_id,
-        'site_id2' => $site_id,
-        'qty' => $qty
-      );
-
-      $this->M_admin->insert('tb_site_in', $data);
-      $this->M_admin->insert('tb_site_items', $data2);
-
-      $this->session->set_flashdata('msg_berhasil', 'Data Barang Berhasil Ditambahkan');
-      redirect(base_url('admin/form_barangmasuk'));
-    } else {
-      $this->load->view('admin/form_barangmasuk/form_insert', $data);
-    }
-  }
-
   public function proses_datamasuk_update()
   {
     $this->form_validation->set_rules('dummy_id', 'dummy_id', 'required');
@@ -685,7 +642,7 @@ class Admin extends CI_Controller
 
 
       $this->M_admin->update('tb_site_in', $data, $where);
-      $this->session->set_flashdata('msg_berhasil', 'Data Barang Berhasil Diupdate');
+      $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
       redirect(base_url('admin/tabel_barangmasuk'));
     } else {
       $this->load->view('admin/form_barangmasuk/form_update');
@@ -699,86 +656,99 @@ class Admin extends CI_Controller
   // DATA MASUK KE DATA KELUAR
   ####################################
 
-  public function proses_data_keluar()
+  public function proses_datakeluar_update()
   {
     $this->form_validation->set_rules('dummy_id', 'Dummy ID', 'trim|required');
     if ($this->form_validation->run() === TRUE) {
-      $no_sertif = $max_id = $this->M_admin->get_max_id('no_sertif', 'tb_site_in');
 
-      $dummy_id = $this->input->post('dummy_id', TRUE);
-      $site_id = $this->input->post('site_id', TRUE);
-      $linked_with = $this->input->post('linked_with', TRUE);
+        $dummy_id =$this->input->post("dummy_id");
 
-      $region = $this->input->post('region', TRUE);
-      $provinsi = $this->input->post('provinsi', TRUE);
-      $kabupaten = $this->input->post('kabupaten', TRUE);
-      $kecamatan = $this->input->post('kecamatan', TRUE);
-      $desa = $this->input->post('desa', TRUE);
-      $paket = $this->input->post('paket', TRUE);
-      $batch_ = $this->input->post('batch_', TRUE);
-      $ctrm = $this->input->post('ctrm', TRUE);
-      $ctsi = $this->input->post('ctsi', TRUE);
-      $amount_insured = $this->input->post('amount_insured', TRUE);
+        $site_id =$this->input->post("site_id");
+        $no_sertif =$this->input->post("no_sertif");
 
-      $keterangan = $this->input->post('keterangan', TRUE);
-      $the_insured = $this->input->post("the_insured");
-      $address_ = $this->input->post("address_");
-      $conveyance = $this->input->post("conveyance");
-      $destination_from = $this->input->post("destination_from");
-      $destination_to = $this->input->post("destination_to");
-      $sailing_date = $this->input->post("sailing_date");
-      $amount_insured = $this->input->post("amount_insured");
-      $lampiran_BL = $this->input->post("lampiran_BL");
-      $lampiran_LC = $this->input->post("lampiran_LC");
-      $lampiran_invoice = $this->input->post("lampiran_invoice");
-      $lampiran_PL = $this->input->post("lampiran_PL");
-      $lampiran_DO = $this->input->post("lampiran_DO");
+        $the_insured =$this->input->post("the_insured");
+        $address_ =$this->input->post("address_");
+        $conveyance =$this->input->post("conveyance");
+        $itemInsured =$this->input->post("itemInsured");
 
-      //$the_insured = $this->db->get_where('tb_site_in', array('dummy_id' => $dummy_id));
-      //$terbit = $this->input->post('terbit',TRUE);
+        $destination_from =$this->input->post("destination_from");
+        $destination_to =$this->input->post("destination_to");
+        $sailing_date =$this->input->post("sailing_date");
+        $issuedDate =$this->input->post("issuedDate");
+        $amount_insured =$this->input->post("amount_insured");
 
-      $where = array('dummy_id' => $dummy_id);
-      $data = array(
-        //'the_insured' => $the_insured,
-        'no_sertif' => $no_sertif,
-        'dummy_id' => $dummy_id,
-        'site_id' => $site_id,
-        'linked_with' => $linked_with,
+        // $lampiran_BL =$this->input->post("lampiran_BL");
+        // $lampiran_LC =$this->input->post("lampiran_LC");
+        // $lampiran_invoice =$this->input->post("lampiran_invoice");
+        // $lampiran_PL =$this->input->post("lampiran_PL");
+        // $lampiran_DO =$this->input->post("lampiran_DO");
 
-        'region' => $region,
-        'provinsi' => $provinsi,
-        'kabupaten' => $kabupaten,
-        'kecamatan' => $kecamatan,
-        'desa' => $desa,
-        'paket' => $paket,
-        'batch_' => $batch_,
-        'ctrm' => $ctrm,
-        'ctsi' => $ctsi,
-        'amount_insured' => $amount_insured,
-        'keterangan' => $keterangan,
+        // $conveyance =$this->input->post("conveyance");
+        // $conveyance_by =$this->input->post("conveyance_by");
+        // $conveyance_type =$this->input->post("conveyance_type");
+        // $conveyance_total =$this->input->post("conveyance_total");
+        // $conveyance_policeno =$this->input->post("conveyance_policeno");
+        // $conveyance_age =$this->input->post("conveyance_age");
+        // $conveyance_driver =$this->input->post("conveyance_driver");
+        // $conveyance_ship_name =$this->input->post("conveyance_ship_name");
+        // $conveyance_ship_type =$this->input->post("conveyance_ship_type");
+        // $conveyance_ship_birth =$this->input->post("conveyance_ship_birth");
+        // $conveyance_ship_GRT =$this->input->post("conveyance_ship_GRT");
+        // $conveyance_ship_containerno =$this->input->post("conveyance_ship_containerno");
+        // $conveyance_plane_type =$this->input->post("conveyance_plane_type");
+        // $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
+        
+        $input =$this->input->post("linked_with");
+        $excludeSpace = str_replace('   ', '', $input);
+        $excludeSpace = str_replace('  ', '', $input);
+        $excludeSpace = str_replace(' ', '', $excludeSpace);
+        $excludeSpace = str_replace(',', ', ', $excludeSpace);
 
-        //'terbit' => $terbit
+        $where = array('dummy_id' => $dummy_id);
+        $data = array(
+          'dummy_id' => $dummy_id,
+          'no_sertif' => $no_sertif,
+          'site_id' => $site_id,
+          'linked_with' => $excludeSpace,
+      
+          'the_insured' => $the_insured,
+          'address_' => $address_,
+          'itemInsured' => $itemInsured,
+          'issuedDate' => $issuedDate,
 
-        'the_insured' => $the_insured,
-        'address_' => $address_,
-        'conveyance' => $conveyance,
-        'destination_from' => $destination_from,
-        'destination_to' => $destination_to,
-        'sailing_date' => $sailing_date,
-        'amount_insured' => $amount_insured,
-        'lampiran_BL' => $lampiran_BL,
-        'lampiran_LC' => $lampiran_LC,
-        'lampiran_invoice' => $lampiran_invoice,
-        'lampiran_PL' => $lampiran_PL,
-        'lampiran_DO' => $lampiran_DO,
-      );
-      $this->M_admin->update('tb_site_in', $data, $where);
-      $this->session->set_flashdata('msg_berhasil_keluar', 'Data Berhasil Keluar');
-      redirect(base_url('admin/tabel_barangmasuk'));
-    } else {
-      $this->load->view('perpindahan_data/form_update/' . $dummy_id);
-    }
+          'conveyance' => $conveyance,
+          'destination_from' => $destination_from,
+          'destination_to' => $destination_to,
+          'amount_insured' => $amount_insured,
+          'sailing_date' => $sailing_date,
+
+          // //--------------DARAT---------------
+          // 'conveyance_by' => $conveyance_by,
+          // 'conveyance_type' => $conveyance_type,
+          // //'conveyance_total' => $conveyance_total,
+          // 'conveyance_policeno' => $conveyance_policeno,
+          // 'conveyance_age' => $conveyance_age,
+          // 'conveyance_driver' => $conveyance_driver,
+          // //--------------LAUT---------------
+          // 'conveyance_ship_name' => $conveyance_ship_name,
+          // 'conveyance_ship_type' => $conveyance_ship_type,
+          // 'conveyance_ship_birth' => $conveyance_ship_birth,
+          // 'conveyance_ship_GRT' => $conveyance_ship_GRT,
+          // 'conveyance_ship_containerno' => $conveyance_ship_containerno,
+          // //--------------UDARA---------------
+          // 'conveyance_plane_type' => $conveyance_plane_type,
+          // 'conveyance_plane_AWB' => $conveyance_plane_AWB,
+        );
+  
+  
+        $this->M_admin->update('tb_site_out', $data, $where);
+        $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
+        redirect(base_url('admin/tabel_barangkeluar'));
+      } else {
+        $this->load->view('admin/form_barangmasuk/form_update_keluar');
+      }
   }
+  
   ####################################
   // END DATA MASUK KE DATA KELUAR
   ####################################
