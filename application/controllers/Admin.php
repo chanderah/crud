@@ -368,6 +368,7 @@ class Admin extends CI_Controller
     $uri = $this->uri->segment(3);
     $where = array('dummy_id' => $uri);
     $data['list_data'] = $this->M_admin->get_data('tb_site_in', $where);
+    $data['list_data_out'] = $this->M_admin->get_data('tb_site_out', $where);
     $data['list_data_desc'] = $this->M_admin->get_data('tb_site_items', $where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_barangmasuk/form_move', $data);

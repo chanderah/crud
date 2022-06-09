@@ -338,55 +338,21 @@
                     <div class="form-group form-group-lg col-md-12">
                       <label for="issuedDate">8. Tanggal Penerbitan</label>
                       <input type="date" value="<?php echo date("Y-m-d")?>" name="issuedDate" required="required" class="form-control" />
-                    </div>               
-                    
-                    <!-- <div class="form-group form-group-lg col-md-12">
-                      <label for="lampiran">8. Lampiran Data Pendukung</label>
-                    </div>
-                    <div class="form-group form-group-lg col-md-4">
-                      <label for="lampiran_BL">Bill of Lading (B/L)</label>
-                      <input type="text" class="form-control" name="lampiran_BL" placeholder="B/L">
-                    </div>
-                    <div class="form-group form-group-lg col-md-4">
-                      <label for="lampiran_LC">Letter of Credit (L/C) *</label>
-                      <input type="text" class="form-control" name="lampiran_LC" placeholder="L/C">
-                    </div>
-                    <div class="form-group form-group-lg col-md-4">
-                      <label for="lampiran_invoice">Invoice</label>
-                      <input type="text" class="form-control" name="lampiran_invoice" placeholder="Invoice">
-                    </div>
-                    <div class="form-group form-group-lg col-md-6">
-                      <label for="lampiran_PL">Packing List</label>
-                      <input type="text" class="form-control" name="lampiran_PL" placeholder="Packing List">
-                    </div>
-                    <div class="form-group form-group-lg col-md-6">
-                      <label for="lampiran_DO">Delivery Order (DO)</label>
-                      <input type="text" class="form-control" name="lampiran_DO" placeholder="DO">
-                    </div> -->
+                    </div> 
+
                     <div class="box-footer col-md-12" style="width:100%; margin-left:30px; margin-bottom:10px; margin-top:5px">
                       <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" onclick="history.back(-1)" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
-                      <a type="button" class="btn btn-info" style="width:18%;margin-right:20%" href="<?= base_url('admin/tabel_barangkeluar') ?>" name="btn_listbarang">
-                        <i class="fa fa-table" aria-hidden="true"></i> Lihat Data Keluar</a>
+                      <a type="button" class="btn btn-info" style="width:18%;margin-right:20%" 
+                          href="<?= base_url('admin/tabel_barangkeluar') ?>" 
+                          onclick="location.href='';" target="_blank"
+                          name="btn_listbarang">
+                        <i class="fa fa-table" aria-hidden="true"></i><? $max_id ?> Lihat Data Keluar</a>
                       <button type="submit" input type="submit" style="width:20%" id="btnSave" class="btn btn-md btn-success"><i class="fa fa-check" aria-hidden="true"></i>Create</button>
                     </div>
                     <div id="user_message" style="display:inline-block"></div>
                   </form>
                 </div>
-              </div>
-              <!-- /.box -->
-              <!-- Form Element sizes -->
-              <!-- /.box -->
-              <!-- /.box -->
-              <!-- Input addon -->
-              <!-- /.box -->
-            </div>
-            <!--/.col (left) -->
-            <!-- right column -->
-            <!-- <div class="col-md-6">
-          <!-- Horizontal Form -->
-            <!-- /.box -->
-            <!-- general form elements disabled -->
-            <!-- /.box -->
+              </div> 
           </div>
         </div>
         <!--/.col (right) -->

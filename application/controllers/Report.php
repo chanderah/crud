@@ -441,8 +441,6 @@ class Report extends CI_Controller
                 }
                 $html .= '</table><br><br>';
 
-                $signatureImg= base_url()."pdf/".'stylesheet.css';
-
                 //signature
                 $html .=    '
                             <div style="page-break-inside:avoid">
@@ -455,7 +453,7 @@ class Report extends CI_Controller
                                     </tr>
                                     <tr>
                                         <td cellpadding="0" cellspacing="0" class="signature">
-                                        <img src="pdf/signature.png" height="125px"></td>
+                                        <img src="pdf/signature.png" height="115px"></td>
                                     </tr>
                                     <tr>
                                         <td cellpadding="0" cellspacing="0">
