@@ -77,13 +77,17 @@ class Report extends CI_Controller
                 // $foo = preg_replace('/\s+/', ' ', $foo);
                 // $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
                 // $replacedItemInsured = str_replace('   ', ' ', $replacedItemInsured);
+                
+                $no_sertif = $d->no_sertif;
+                $str_length = 5;
+                $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
 
                 $pdf->SetFont('lucida', '', 9.5);
                 $html .= '
                         <font face="narrowi">
                             <table cellpadding="5">
                                 <tr>
-                                    <td align="center"><font size="13" font face="monotype">No. </font><font size="11" font face="narrowi">JIS'.$yearIssued.'-{MOP_Header}-'.$monthIssued.'-{no_sertif}</font></td>
+                                    <td align="center"><font size="13" font face="monotype">No. </font><font size="11" font face="narrowi">JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5.'</font></td>
                                 </tr>
                             </table>   
                         </font>';
@@ -381,13 +385,16 @@ class Report extends CI_Controller
                         <td colspan="8"align="justify">'.strtok($d->destination_to, "\n").'</td>
                     </tr>';
 
+                //set plus one if attachment needed
+                $attachments = 0;
+
                 if ($d->linked_with == true) {
                     $explodeLink = explode(', ', $d->linked_with);
                     
                     sort($explodeLink);
                     array_unshift($explodeLink, $d->site_id);
                     $explodeLinkUnique = array_unique($explodeLink);
-                    $totalLink = count($explodeLink);
+                    $totalLink = count($explodeLinkUnique);
                     if ($totalLink < 10) {
                         //disini
                         $x = 1;
@@ -404,11 +411,12 @@ class Report extends CI_Controller
                             // $pdf->Ln();
                         }
                     } else {
+                        $attachments++;
                         $html .= '
                             <tr>
                                 <td colspan="2"></td>
                                 <td colspan="1"></td>
-                                <td colspan="8"> SITE ID : As Attached</td>
+                                <td colspan="8"> SITE ID : As Attached '.$totalLink.'</td>
                             </tr>';
                     }
                 }
@@ -439,119 +447,104 @@ class Report extends CI_Controller
                     }
                 $x++;
                 }
-                $html .= '</table><br><br>';
+                $html .= '</table><br><br><br>'; 
+                $pdf->writeHTML($html, true, false, true, false, '');
 
                 //signature
-                $html .=    '
+                $signature .=    '
                             <div style="page-break-inside:avoid">
-                                <table cellpadding="0" border="0" align="right">
+                                <table align="right" border="0" cellpadding="1">
                                     <tr>
-                                        <td>Issued at Bogor, {dateIssued}</td>
+                                        <td style="width:95%">Issued at Bogor, '.$dateIssued.'</td> 
                                     </tr>
                                     <tr>
-                                        <td>Signed On Behalf</td>
+                                        <td style="width:95%" class="">Signed On Behalf</td>
                                     </tr>
                                     <tr>
-                                        <td cellpadding="0" cellspacing="0" class="signature">
-                                        <img src="pdf/signature.png" height="115px"></td>
+                                        <td style="height:72px"> </td>
                                     </tr>
                                     <tr>
-                                        <td cellpadding="0" cellspacing="0">
-                                        {namaPerusahaan}<img src="pdf/paraf.png" width="auto" height="20px" style="margin-top:20px"></td>
+                                        <td style="width:100%">'.$namaPerusahaan.'<img src="pdf/paraf.png" width="auto" height="20px" style="margin-top:20px"></td>
                                     </tr>
                                 </table>    
                             </div>';
 
-                //Certificate Attachment
-                if ($d->linked_with == true) {
-                    $explodeLink = explode(', ', $d->linked_with);
-                    $totalLink = count($explodeLink);
-
-                    if ($totalLink > 9) {
-                        // $pdf->AddPage();
-                        $html .=   '<div>
-                                        <br pagebreak="true"/>
-                                        <font size="16">
-                                            <table cellpadding="5">
-                                                <tr>
-                                                    <td colspan="1" align="center">CERTIFICATE ATTACHMENT<br></td>
-                                                </tr>
-                                            </table>
-                                        </font>
-                                        <font size="8">
-                                            <table border="" cellpadding="3">
-                                                <tr>
-                                                    <td colspan="2" style="width:15%">The Insured</td>
-                                                    <td colspan="1" align="right">:</td>
-                                                    <td colspan="8" align="justify">' . $d->the_insured . ' and/or subsidiary and/or affiliated companies including those required or incorporated during the period of insurance for their respective rights and interest.<br></td>   
-                                                </tr> 
-                                                <tr>
-                                                    <td colspan="2" style="width:15%">Certificate No</td>
-                                                    <td colspan="1" align="right">:</td>
-                                                    <td colspan="8" align="justify">JIS'.$yearIssued.'-{MOP_Header}-'.$monthIssued.'-{no_sertif}<br><br></td> 
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" style="width:22%;">Details of SITE ID</td>
-                                                    <td colspan="2" style="width:25%;">:</td>
-                                                </tr>
-                                            </table>
-                                        </font>                                        
-                                        ';
-                        $html .= '
-                                        <table cellpadding="1" align="center">
-                                            <tr>
-                                                <td style="width:33%"></td>
-                                                <td border="1" style="width:10%;margin-left:10px">No.</td>
-                                                <td border="1" style="width:20%">Site ID</td>
-                                            </tr> 
-                                     ';
-
-                        
-                        array_unshift($explodeLink, $d->site_id);
-                        $explodeLinks = array_unique($explodeLink);
-
-                        $no = 1;
-                        foreach ($explodeLinks as $d2) {
-                            $html .= '  <tr>
-                                            <td style="width:33%"></td> 
-                                            <td border="1" style="width:10%">' . $no . '</td>
-                                            <td border="1">' . $d2 . '</td>
-                                        </tr>
-                                                    ';
-                            $no++;
-                            $pdf->Ln();
-                        }
-                        $html .= '</table>
-                                    <table cellpadding="2">
-                                        <tr>
-                                            <td colspan="1" align="center"><br><br>Lampiran ini harus dilekatkan pada Sertifikat</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="1" align="center">This attachment must attached to the Certificate</td>
-                                        </tr>
-                                    </table>
-                                </div>';
-                    }
-                }
-
-                $no_sertif = $d->no_sertif;
-                $mop_header = '0608032100001';
-                $str_length = 5;
-                $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
-
-                $html = str_replace('{no_sertif}', $no_sertif_5, $html);
-                $html = str_replace('{namaPerusahaan}', $namaPerusahaan, $html);
-                $html = str_replace('{dateIssued}', $dateIssued, $html);
-                //$html = str_replace('{linked_with}',$d->linked_with, $html);
-                $html = str_replace('{MOP_Header}', $mop_header, $html);
-                $html = str_replace('{invoice_ref_id}', $invoice_ref_id, $html);
-                $html = str_replace('{amountInsured}', number_format($d->amount_insured, 2), $html);
-                //end table
-
                 // output the HTML content
-                $pdf->writeHTML($html, true, false, true, false, '');
+
+                $pdf->Image('pdf/signature.png', $x = '', $y = '', $w = 35, $h = 0, $type = '', $link = '', $align = '', $resize = false, $dpi = '', $palign = 'R', $ismask = false, $imgmask = false, $border = 0, $fitbox = false, $hidden = false, $fitonpage = false, $alt = false, $altimgs = array() );                
                 
-                // reset pointer to the last page
+                $pdf->writeHTML($signature, true, false, true, false, '');
+
+                //Certificate Attachment
+
+                if ($attachments === 1) {
+                    // $pdf->AddPage();
+                    $attachment .=   '<div>
+                                    <br pagebreak="true"/>
+                                    <font size="16">
+                                        <table cellpadding="5">
+                                            <tr>
+                                                <td colspan="1" align="center">CERTIFICATE ATTACHMENT<br></td>
+                                            </tr>
+                                        </table>
+                                    </font>
+                                    <font size="8">
+                                        <table border="" cellpadding="3">
+                                            <tr>
+                                                <td colspan="2" style="width:15%">The Insured</td>
+                                                <td colspan="1" align="right">:</td>
+                                                <td colspan="8" align="justify">' . $d->the_insured . ' and/or subsidiary and/or affiliated companies including those required or incorporated during the period of insurance for their respective rights and interest.<br></td>   
+                                            </tr> 
+                                            <tr>
+                                                <td colspan="2" style="width:15%">Certificate No</td>
+                                                <td colspan="1" align="right">:</td>
+                                                <td colspan="8" align="justify">JIS'.$yearIssued.'-{MOP_Header}-'.$monthIssued.'-{no_sertif}<br><br></td> 
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="width:22%;">Details of SITE ID</td>
+                                                <td colspan="2" style="width:25%;">:</td>
+                                            </tr>
+                                        </table>
+                                    </font>                                        
+                                    ';
+                    $attachment .= '
+                                    <table cellpadding="1" align="center">
+                                        <tr>
+                                            <td style="width:33%"></td>
+                                            <td border="1" style="width:10%;margin-left:10px">No.</td>
+                                            <td border="1" style="width:20%">Site ID</td>
+                                        </tr> 
+                                 ';
+
+                    
+                    array_unshift($explodeLink, $d->site_id);
+                    $explodeLinks = array_unique($explodeLink);
+
+                    $no = 1;
+                    foreach ($explodeLinks as $d2) {
+                        $attachment .= '  <tr>
+                                        <td style="width:33%"></td> 
+                                        <td border="1" style="width:10%">' . $no . '</td>
+                                        <td border="1">' . $d2 . '</td>
+                                    </tr>
+                                                ';
+                        $no++;
+                        $pdf->Ln();
+                    }
+                    $attachment .= '</table>
+                                <table cellpadding="2">
+                                    <tr>
+                                        <td colspan="1" align="center"><br><br>Lampiran ini harus dilekatkan pada Sertifikat</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" align="center">This attachment must attached to the Certificate</td>
+                                    </tr>
+                                </table>
+                            </div>';
+                    $pdf->writeHTML($attachment, true, false, true, false, '');
+                }
+                
+
                 // $pdf->lastPage();
                 // ---------------------------------------------------------
                 //Close and output PDF document

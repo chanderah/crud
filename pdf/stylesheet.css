@@ -47,6 +47,11 @@
 
 }
 
+.line0 {
+    line-height: -20;
+
+}
+
 .italic {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
@@ -61,3 +66,6 @@
     padding-top:200px;
 }
 
+.span{
+    color: #fff;
+}
