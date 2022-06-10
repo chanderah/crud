@@ -42,7 +42,6 @@ class Main extends CI_Controller {
         $title =$this->input->post("txtTitle");
         for($i=0; $i<count($title); $i++) {
             $data = [
-                //tb_site_items
                 //'site_id2' => $site_id,
                 'dummy_id' => $dummy_id,
                 'bill_id' => $id,
@@ -73,8 +72,7 @@ class Main extends CI_Controller {
             'status' => "1",
         ];
 
-        if( $this->m_admin->insert_into_table("tb_site_in", $data) and 
-            $this->m_admin->insert_batch_into_table("tb_site_items", $list)) {
+        if( $this->m_admin->insert_into_table("tb_site_in", $data)) {
                 
                 echo '<div class="alert alert-success alert-dismissible">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -134,7 +132,6 @@ class Main extends CI_Controller {
         // $title =$this->input->post("txtTitle");
         // for($i=0; $i<count($title); $i++) {
         //     $data = [
-        //         //tb_site_items
         //         'dummy_id' => $dummy_id,
         //         'bill_id' => $id,
         //         'title' => $this->input->post("txtTitle")[$i],
@@ -245,7 +242,6 @@ class Main extends CI_Controller {
         // $title =$this->input->post("txtTitle");
         // for($i=0; $i<count($title); $i++) {
         //     $data = [
-        //         //tb_site_items
         //         'dummy_id' => $dummy_id,
         //         'bill_id' => $id,
         //         'title' => $this->input->post("txtTitle")[$i],
@@ -307,7 +303,6 @@ class Main extends CI_Controller {
         ];
 
         // if( $this->m_admin->insert_into_table("tb_site_out", $data) and 
-        //     $this->m_admin->insert_batch_into_table("tb_site_items", $list)) {   
         if($this->m_admin->insert_into_table("tb_site_out", $data)) {                                 
             echo '<div class="alert alert-success alert-dismissible">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -360,7 +355,6 @@ class Main extends CI_Controller {
         $title =$this->input->post("txtTitle");
         for($i=0; $i<count($title); $i++) {
             $data = [
-                //tb_site_items
                 //'site_id2' => $site_id,
                 'dummy_id' => $dummy_id,
                 'bill_id' => $id,
@@ -469,7 +463,6 @@ class Main extends CI_Controller {
         $title =$this->input->post("txtTitle");
         for($i=0; $i<count($title); $i++) {
             $data = [
-                //tb_site_items
                 //'site_id2' => $site_id,
                 'dummy_id' => $dummy_id,
                 'bill_id' => $id,
@@ -514,8 +507,7 @@ class Main extends CI_Controller {
             'conveyance_plane_AWB' => $conveyance_plane_AWB,
         ];
 
-        if( $this->m_admin->insert_into_table("tb_request_in", $data) and 
-            $this->m_admin->insert_batch_into_table("tb_site_items", $list)) {                                    
+        if( $this->m_admin->insert_into_table("tb_request_in", $data)) {                                    
                                     
                 echo '<div class="alert alert-success alert-dismissible">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

@@ -25,7 +25,6 @@ class Report2 extends CI_Controller
         $ls = array('dummy_id' => $id);
         //$ls   = array('site_id' => $id ,'provinsi' => $tgl1.'/'.$tgl2.'/'.$tgl3);
         $data = $this->M_admin->get_data('tb_site_out', $ls);
-        $data2 = $this->M_admin->get_data('tb_site_items', $ls);
         //create
         $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         //
@@ -37,7 +36,7 @@ class Report2 extends CI_Controller
         // 
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
         //
-        $pdf->SetMargins(PDF_MARGIN_LEFT, 35, PDF_MARGIN_RIGHT);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, 36, PDF_MARGIN_RIGHT);
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
         //
@@ -86,17 +85,17 @@ class Report2 extends CI_Controller
                 $html .= '
                             <table cellpadding="0">
                                 <tr>
-                                    <td align="center"><font face="monotype" size="24" class="line12">Certificate of Insurance</font></td>
+                                    <td align="center"><font face="monotype" size="24" class="line10">Certificate of Insurance</font></td>
                                 </tr>
                                 <tr class="line13">
-                                    <td align="center"><font size="13" font face="monotype">No. </font><font size="11" font face="narrowi">JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5.'</font></td>
+                                    <td align="center"><font size="13" font face="monotype" class="line15">No. </font><font size="11" font face="narrowi">JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5.'</font></td>
                                 </tr>
                             </table>
                             ';
 
-                $html .= ' <table cellpadding="0" border="0" class="line18">
+                $html .= ' <table cellpadding="0" border="0">
                                 <tr>
-                                    <td align="left">THIS TO CERTIFY that insurance has been effected as per Open Policy No. <span class="italic">{MOP}</span></td>
+                                    <td align="left" class="line18">THIS TO CERTIFY that insurance has been effected as per Open Policy No. <span class="italic">{MOP}</span></td>
                                 </tr>
                             </table>';
 

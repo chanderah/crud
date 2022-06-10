@@ -369,7 +369,6 @@ class Admin extends CI_Controller
     $where = array('dummy_id' => $uri);
     $data['list_data'] = $this->M_admin->get_data('tb_site_in', $where);
     $data['list_data_out'] = $this->M_admin->get_data('tb_site_out', $where);
-    $data['list_data_desc'] = $this->M_admin->get_data('tb_site_items', $where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_barangmasuk/form_move', $data);
   }
@@ -379,7 +378,6 @@ class Admin extends CI_Controller
     $uri = $this->uri->segment(3);
     $where = array('dummy_id' => $uri);
     $data['list_data'] = $this->M_admin->get_data('tb_request_in', $where);
-    $data['list_data_desc'] = $this->M_admin->get_data('tb_site_items', $where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_permintaan/form_move_permintaan', $data);
   }
@@ -407,7 +405,6 @@ class Admin extends CI_Controller
     $where = array('dummy_id' => $dummy_id);
     $where2 = array('dummy_id' => $dummy_id);
     
-    $data['data_barang_desc'] = $this->M_admin->get_data('tb_site_items', $where);
     $data['data_barang_update'] = $this->M_admin->get_data('tb_site_in', $where);
     $data['data_linked_with'] = $this->M_admin->getAllDataLinkedWith('tb_site_in');
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
@@ -418,9 +415,7 @@ class Admin extends CI_Controller
   { 
     $where = array('dummy_id' => $dummy_id);
     
-    $data['data_barang_desc'] = $this->M_admin->get_data('tb_site_items', $where);
     $data['data_barang_update'] = $this->M_admin->get_data('tb_site_out', $where);
-
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_barangmasuk/form_update_keluar', $data);
   }
@@ -429,7 +424,6 @@ class Admin extends CI_Controller
   {
     $where = array('dummy_id' => $dummy_id);
     $data['data_barang_info'] = $this->M_admin->get_data('tb_request_in', $where);
-    $data['data_barang_desc'] = $this->M_admin->get_data('tb_site_items', $where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_permintaan/form_request_info', $data);
   }
@@ -438,7 +432,6 @@ class Admin extends CI_Controller
   {
     $where = array('dummy_id' => $dummy_id);
     $this->M_admin->delete('tb_site_in', $where);
-    $this->M_admin->delete('tb_site_items', $where);
     redirect(base_url('admin/tabel_barangmasuk'));
   }
 
@@ -446,7 +439,6 @@ class Admin extends CI_Controller
   {
     $where = array('dummy_id' => $dummy_id);
     $this->M_admin->delete('tb_request_in', $where);
-    $this->M_admin->delete('tb_site_items', $where);
     redirect(base_url('admin/tabel_permintaanmasuk'));
   }
 
@@ -454,7 +446,6 @@ class Admin extends CI_Controller
   {
     $where = array('dummy_id' => $dummy_id);
     $this->M_admin->delete('tb_site_out', $where);
-    $this->M_admin->delete('tb_site_items', $where);
 
     $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Dihapus');
     redirect(base_url('admin/tabel_barangkeluar'));
@@ -506,7 +497,6 @@ class Admin extends CI_Controller
       );
 
       $this->M_admin->insert('tb_site_in', $data);
-      $this->M_admin->insert('tb_site_items', $data2);
 
       $this->session->set_flashdata('msg_berhasil', 'Data Barang Berhasil Ditambahkan');
       redirect(base_url('admin/form_barangmasuk'));
