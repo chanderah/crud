@@ -104,6 +104,8 @@ class Report extends CI_Controller
                 $pdf->setListIndentWidth(4.75);
 
                 $html .= '<style>'.file_get_contents(base_url()."pdf/".'stylesheet.css').'</style>';
+                $signature .= '<style>'.file_get_contents(base_url()."pdf/".'stylesheet.css').'</style>';
+                $attachment .= '<style>'.file_get_contents(base_url()."pdf/".'stylesheet.css').'</style>';
 
                 //start table
                 $html .= '
@@ -290,7 +292,7 @@ class Report extends CI_Controller
                     <tr>
                         <td colspan="2"></td>
                         <td colspan="1" align="right"></td>
-                        <td colspan="8"align="justify">Driver :'  . $d->conveyance_driver . '</td>
+                        <td colspan="8"align="justify">Driver : '  . $d->conveyance_driver . '</td>
                     </tr>
                     ';
 
@@ -395,7 +397,7 @@ class Report extends CI_Controller
                     array_unshift($explodeLink, $d->site_id);
                     $explodeLinkUnique = array_unique($explodeLink);
                     $totalLink = count($explodeLinkUnique);
-                    if ($totalLink < 10) {
+                    if ($totalLink < 9) {
                         //disini
                         $x = 1;
 
@@ -416,7 +418,7 @@ class Report extends CI_Controller
                             <tr>
                                 <td colspan="2"></td>
                                 <td colspan="1"></td>
-                                <td colspan="8"> SITE ID : As Attached '.$totalLink.'</td>
+                                <td colspan="8"> SITE ID : As Attached</td>
                             </tr>';
                     }
                 }
@@ -498,7 +500,7 @@ class Report extends CI_Controller
                                             <tr>
                                                 <td colspan="2" style="width:15%">Certificate No</td>
                                                 <td colspan="1" align="right">:</td>
-                                                <td colspan="8" align="justify">JIS'.$yearIssued.'-{MOP_Header}-'.$monthIssued.'-{no_sertif}<br><br></td> 
+                                                <td colspan="8" align="justify">JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5.'<br><br></td> 
                                             </tr>
                                             <tr>
                                                 <td colspan="2" style="width:22%;">Details of SITE ID</td>
@@ -534,7 +536,7 @@ class Report extends CI_Controller
                     $attachment .= '</table>
                                 <table cellpadding="2">
                                     <tr>
-                                        <td colspan="1" align="center"><br><br>Lampiran ini harus dilekatkan pada Sertifikat</td>
+                                        <td colspan="1" align="center" class="underlined"><br><br>Lampiran ini harus dilekatkan pada Sertifikat</td>
                                     </tr>
                                     <tr>
                                         <td colspan="1" align="center">This attachment must attached to the Certificate</td>
