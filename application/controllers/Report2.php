@@ -4,7 +4,7 @@ ob_start();
 defined('BASEPATH') or exit('No direct script access allowed');
 use Romans\Filter\IntToRoman;
 
-class Report extends CI_Controller
+class Report2 extends CI_Controller
 {
     public function __construct()
     {
@@ -37,9 +37,9 @@ class Report extends CI_Controller
         // 
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
         //
-        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, 35, PDF_MARGIN_RIGHT);
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
         //
         $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
         //
@@ -52,7 +52,14 @@ class Report extends CI_Controller
         //$pdf->SetFont('times', '', 15); 
         foreach ($data as $d) {
                 // add a page
-                $pdf->AddPage();
+                $pdf->AddPage();  
+                //adjust the x and y positions of this text ... first two parameters
+
+                $style = array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0));
+                $pdf->Line(185, 51, 24, 51, $style);
+                // (length,start,marginstart,end,)
+                $pdf->setListIndentWidth(4.75);
+
                 // create some HTML content    
                 $sailing_date = date("F j<\s\up>S</\s\up>, Y", strtotime($d->sailing_date));
                 $dateIssued = date("F j<\s\up>S</\s\up>, Y", strtotime($d->issuedDate));
@@ -74,27 +81,24 @@ class Report extends CI_Controller
                 $no_sertif = $d->no_sertif;
                 $str_length = 5;
                 $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
-
+            
                 $pdf->SetFont('lucida', '', 9.5);
                 $html .= '
-                        <font face="narrowi">
-                            <table cellpadding="5">
+                            <table cellpadding="0">
                                 <tr>
+                                    <td align="center"><font face="monotype" size="24" class="line12">Certificate of Insurance</font></td>
+                                </tr>
+                                <tr class="line13">
                                     <td align="center"><font size="13" font face="monotype">No. </font><font size="11" font face="narrowi">JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5.'</font></td>
                                 </tr>
-                            </table>   
-                        </font>';
-                $style = array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0));
-                $pdf->Line(181.5, 51, 25, 51, $style);
-                // (length,start,marginstart,end,)
-                
+                            </table>
+                            ';
+
                 $html .= ' <table cellpadding="0" border="0" class="line18">
                                 <tr>
-                                    <td colspan="1" align="left">THIS TO CERTIFY that insurance has been effected as per Open Policy No. <span class="italic">{MOP}</span></td>
+                                    <td align="left">THIS TO CERTIFY that insurance has been effected as per Open Policy No. <span class="italic">{MOP}</span></td>
                                 </tr>
                             </table>';
-
-                $pdf->setListIndentWidth(4.75);
 
                 $html .= '<style>'.file_get_contents(base_url()."pdf/".'stylesheet.css').'</style>';
                 $signature .= '<style>'.file_get_contents(base_url()."pdf/".'stylesheet.css').'</style>';

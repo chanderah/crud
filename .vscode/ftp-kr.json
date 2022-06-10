@@ -8,7 +8,7 @@
     "fileNameEncoding": "utf8",
     "autoUpload": true,
     "autoDelete": true,
-    "autoDownload": true,
+    "autoDownload": false,
     "ignoreRemoteModification": true,
     "ignore": [
         "/.vscode",
