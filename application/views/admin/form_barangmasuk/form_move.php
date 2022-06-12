@@ -250,7 +250,7 @@
                     <div class="form-group form-group-lg col-md-12" style="">
                       <label for="conveyance">4. Pengiriman Melalui</label>
                         <select class="form-control" id="conveyance" name="conveyance">
-                          <option value="none">Choose...</option>
+                          <option value="Darat">Choose...</option>
                           <option value="Darat">Darat</option>
                           <option value="Laut">Laut</option>
                           <option value="Udara">Udara</option>
@@ -309,7 +309,7 @@
                           <option value="Car">Cargo</option>
                           <option value="Truck">Penumpang</option>
                           <option value="Pick Up">Helicopter</option>
-                          <option value="Container">Charter</option>
+                          <option value="Charter">Charter</option>
                         </select>
                       </div>
                       <div class="form-group form-group-lg col-md-6">

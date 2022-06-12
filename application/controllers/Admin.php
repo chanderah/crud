@@ -523,7 +523,13 @@ class Admin extends CI_Controller
     $dummy_id = $sha1.$sha2;
     
     $site_id = $this->input->post('site_id', TRUE);
-  
+    
+    $input =$this->input->post("linked_with");
+    $excludeSpace = str_replace('   ', '', $input);
+    $excludeSpace = str_replace('  ', '', $input);
+    $excludeSpace = str_replace(' ', '', $excludeSpace);
+    $excludeSpace = str_replace(',', ', ', $excludeSpace);
+
     //ini pake $d->
     $where = array('site_id' => $site_id);
     $data2 = $this->M_admin->get_data('tb_site_in', $where);
@@ -545,13 +551,8 @@ class Admin extends CI_Controller
         'amount_insured' => $d->amount_insured,
         'keterangan' => $d->keterangan
       );
+      $this->M_admin->insert('tb_site_in_exported', $siteExported);
     }
-  
-    $input =$this->input->post("linked_with");
-    $excludeSpace = str_replace('   ', '', $input);
-    $excludeSpace = str_replace('  ', '', $input);
-    $excludeSpace = str_replace(' ', '', $excludeSpace);
-    $excludeSpace = str_replace(',', ', ', $excludeSpace);
   
     $the_insured =$this->input->post("the_insured");
     $address_ =$this->input->post("address_");
@@ -579,13 +580,19 @@ class Admin extends CI_Controller
     $conveyance_plane_type =$this->input->post("conveyance_plane_type");
     $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
   
+    $input2 =$this->input->post("linked_with");
+    $excludeSpace2 = str_replace('   ', '', $input2);
+    $excludeSpace2 = str_replace('  ', '', $excludeSpace2);
+    $excludeSpace2 = str_replace(' ', '', $excludeSpace2);
+    $excludeSpace2 = str_replace(',', ', ', $excludeSpace2);
+
     $siteOut = array(
       'id' => $id,
   
       'dummy_id' => $dummy_id,
       'no_sertif' => $no_sertif,
       'site_id' => $site_id,
-      'linked_with' => $excludeSpace,
+      'linked_with' => $excludeSpace2,
   
       'the_insured' => $the_insured,
       'address_' => $address_,
@@ -617,7 +624,6 @@ class Admin extends CI_Controller
     );
   
     if ($this->form_validation->run() == TRUE) {
-      $this->M_admin->insert('tb_site_in_exported', $siteExported);
       $this->M_admin->insert('tb_site_out', $siteOut);
   
       $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
