@@ -194,7 +194,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             <div class="container">
-            <form action="<?=base_url('admin/proses_insert_datamasuk')?>" role="form" method="post" style="width:95%;margin-left:10px">
+            <form action="<?=base_url('admin/proses_datamasuk_insert')?>" role="form" method="post" style="width:95%;margin-left:10px">
 
               <?php if(validation_errors()){ ?>
               <div class="alert alert-warning alert-dismissible">

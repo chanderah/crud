@@ -465,46 +465,40 @@ class Admin extends CI_Controller
     $this->load->helper('string');
     $this->form_validation->set_rules('dummy_id', 'Dummy ID', 'required');
 
+    $dummy_id = $this->input->post('dummy_id', TRUE);
+    $site_id = $this->input->post('site_id', TRUE);
+    $region = $this->input->post('region', TRUE);
+    $provinsi = $this->input->post('provinsi', TRUE);
+    $kabupaten = $this->input->post('kabupaten', TRUE);
+    $kecamatan = $this->input->post('kecamatan', TRUE);
+    $desa = $this->input->post('desa', TRUE);
+    $paket = $this->input->post('paket', TRUE);
+    $batch_ = $this->input->post('batch_', TRUE);
+    $ctrm = $this->input->post('ctrm', TRUE);
+    $ctsi = $this->input->post('ctsi', TRUE);
+    $amount_insured = $this->input->post('amount_insured', TRUE);
+    $no_sertif = $this->input->post('no_sertif', TRUE);
+    $keterangan = $this->input->post('keterangan', TRUE);
+    $qty = $this->input->post('qty', TRUE);
+
+    $data = array(
+      'dummy_id' => $dummy_id,
+      'site_id' => $site_id,
+      'region' => $region,
+      'provinsi' => $provinsi,
+      'kabupaten' => $kabupaten,
+      'kecamatan' => $kecamatan,
+      'desa' => $desa,
+      'paket' => $paket,
+      'batch_' => $batch_,
+      'ctrm' => $ctrm,
+      'ctsi' => $ctsi,
+      'amount_insured' => $amount_insured,
+      'no_sertif' => $no_sertif,
+      'keterangan' => $keterangan
+    );
+
     if ($this->form_validation->run() == TRUE) {
-      $dummy_id = $this->input->post('dummy_id', TRUE);
-      $site_id = $this->input->post('site_id', TRUE);
-      $region = $this->input->post('region', TRUE);
-      $provinsi = $this->input->post('provinsi', TRUE);
-      $kabupaten = $this->input->post('kabupaten', TRUE);
-      $kecamatan = $this->input->post('kecamatan', TRUE);
-      $desa = $this->input->post('desa', TRUE);
-      $paket = $this->input->post('paket', TRUE);
-      $batch_ = $this->input->post('batch_', TRUE);
-      $ctrm = $this->input->post('ctrm', TRUE);
-      $ctsi = $this->input->post('ctsi', TRUE);
-      $amount_insured = $this->input->post('amount_insured', TRUE);
-      $no_sertif = $this->input->post('no_sertif', TRUE);
-      $keterangan = $this->input->post('keterangan', TRUE);
-      $qty = $this->input->post('qty', TRUE);
-
-      $data = array(
-        'dummy_id' => $dummy_id,
-        'site_id' => $site_id,
-        'region' => $region,
-        'provinsi' => $provinsi,
-        'kabupaten' => $kabupaten,
-        'kecamatan' => $kecamatan,
-        'desa' => $desa,
-        'paket' => $paket,
-        'batch_' => $batch_,
-        'ctrm' => $ctrm,
-        'ctsi' => $ctsi,
-        'amount_insured' => $amount_insured,
-        'no_sertif' => $no_sertif,
-        'keterangan' => $keterangan
-      );
-
-      $data2 = array(
-        'dummy_id' => $dummy_id,
-        'site_id2' => $site_id,
-        'qty' => $qty
-      );
-
       $this->M_admin->insert('tb_site_in', $data);
 
       $this->session->set_flashdata('msg_berhasil', 'Data Barang Berhasil Ditambahkan');
@@ -584,68 +578,78 @@ class Admin extends CI_Controller
   public function proses_datamasuk_update()
   {
     $this->form_validation->set_rules('dummy_id', 'dummy_id', 'required');
-    //$this->form_validation->set_rules('kecamatan','Kecamatan','required');
-    //$this->form_validation->set_rules('desa','Desa','required');
-    //$this->form_validation->set_rules('batch_','Batch','required');
+    
+    $dummy_id = $this->input->post('dummy_id', TRUE);
+    $site_id = $this->input->post('site_id', TRUE);
+    $linked_with = $this->input->post('linked_with', TRUE);
+    $region = $this->input->post('region', TRUE);
+    $provinsi = $this->input->post('provinsi', TRUE);
+    $kabupaten = $this->input->post('kabupaten', TRUE);
+    $kecamatan = $this->input->post('kecamatan', TRUE);
+    $desa = $this->input->post('desa', TRUE);
+    $paket = $this->input->post('paket', TRUE);
+    $batch_ = $this->input->post('batch_', TRUE);
+    $ctrm = $this->input->post('ctrm', TRUE);
+    $ctsi = $this->input->post('ctsi', TRUE);
+    $amount_insured = $this->input->post('amount_insured', TRUE);
+    $keterangan = $this->input->post('keterangan', TRUE);
+
+    if ($keterangan == "300 Site") {
+      $cmop = '0608032100001';
+    } elseif ($keterangan == "58 Site") {
+      $cmop = '0608032100003';
+    } elseif ($keterangan == "216 Site") {
+      $cmop = '0608032100004';
+    } elseif ($keterangan == "491 Site") {
+      $cmop = '0608032100005';
+    } elseif ($keterangan == "180 Site") {
+      $cmop = '0608032100006';
+    } elseif ($keterangan == "236 Site") {
+      $cmop = '0608032100007';
+    }
+
+    $where = array('dummy_id' => $dummy_id);
+    $data = array(
+      'dummy_id' => $dummy_id,
+      'site_id' => $site_id,
+      'keterangan' => $keterangan,
+      'cmop' => $cmop,
+
+      'region' => $region,
+      'provinsi' => $provinsi,
+      'kabupaten' => $kabupaten,
+      'kecamatan' => $kecamatan,
+      'desa' => $desa,
+      'paket' => $paket,
+      'batch_' => $batch_,
+      'ctrm' => $ctrm,
+      'ctsi' => $ctsi,
+      'amount_insured' => $amount_insured,
+      'linked_with' => $linked_with,
+      //'terbit' => $terbit
+    );
+
+    $data2 = $this->M_admin->get_data('tb_site_in', $where);
+    foreach ($data2 as $d){
+      $newSiteID = array(
+        'dummy_id' => $dummy_id,
+        'old_site_id' => $d->site_id,
+        'new_site_id' => $site_id,
+      );
+    }
+
+    
+    //if input post same as serven data
+    if ($d->site_id!==$site_id){
+      $this->M_admin->insert('tb_site_in_changes', $newSiteID);
+    }
 
     if ($this->form_validation->run() == TRUE) {
-      $dummy_id = $this->input->post('dummy_id', TRUE);
-      $site_id = $this->input->post('site_id', TRUE);
-      $linked_with = $this->input->post('linked_with', TRUE);
-      $region = $this->input->post('region', TRUE);
-      $provinsi = $this->input->post('provinsi', TRUE);
-      $kabupaten = $this->input->post('kabupaten', TRUE);
-      $kecamatan = $this->input->post('kecamatan', TRUE);
-      $desa = $this->input->post('desa', TRUE);
-      $paket = $this->input->post('paket', TRUE);
-      $batch_ = $this->input->post('batch_', TRUE);
-      $ctrm = $this->input->post('ctrm', TRUE);
-      $ctsi = $this->input->post('ctsi', TRUE);
-      $amount_insured = $this->input->post('amount_insured', TRUE);
-      $keterangan = $this->input->post('keterangan', TRUE);
-      //$terbit = $this->input->post('terbit',TRUE);
-
-      if ($keterangan == "300 Site") {
-        $cmop = '0608032100001';
-      } elseif ($keterangan == "58 Site") {
-        $cmop = '0608032100003';
-      } elseif ($keterangan == "216 Site") {
-        $cmop = '0608032100004';
-      } elseif ($keterangan == "491 Site") {
-        $cmop = '0608032100005';
-      } elseif ($keterangan == "180 Site") {
-        $cmop = '0608032100006';
-      } elseif ($keterangan == "236 Site") {
-        $cmop = '0608032100007';
-      }
-
-      $where = array('dummy_id' => $dummy_id);
-      $data = array(
-        'dummy_id' => $dummy_id,
-        'site_id' => $site_id,
-        'keterangan' => $keterangan,
-        'cmop' => $cmop,
-
-        'region' => $region,
-        'provinsi' => $provinsi,
-        'kabupaten' => $kabupaten,
-        'kecamatan' => $kecamatan,
-        'desa' => $desa,
-        'paket' => $paket,
-        'batch_' => $batch_,
-        'ctrm' => $ctrm,
-        'ctsi' => $ctsi,
-        'amount_insured' => $amount_insured,
-        'linked_with' => $linked_with,
-        //'terbit' => $terbit
-      );
-
-
       $this->M_admin->update('tb_site_in', $data, $where);
       $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
       redirect(base_url('admin/tabel_barangmasuk'));
     } else {
-      $this->load->view('admin/form_barangmasuk/form_update');
+      $this->load->view('admin/form_barangmasuk/form_update',$data);
     }
   }
   ####################################

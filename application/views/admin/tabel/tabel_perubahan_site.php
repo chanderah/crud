@@ -214,7 +214,7 @@
                   <thead>
                     <tr>
                       <th style="width:2%">No</th>
-                      <th >Old Site ID</th>
+                      <th>Old Site ID</th>
                       <th>New Site ID</th>
                       <th>Changed At</th>
                     </tr>
@@ -238,9 +238,9 @@
                   <tfoot>
                     <tr>
                       <th>No</th>
-                      <th>SITE ID</th>
-                      <th>Region</th>
-                      <th>Provinsi</th>
+                      <th>Old Site ID</th>
+                      <th>New Site ID</th>
+                      <th>Changed At</th>
                     </tr>
                   </tfoot>
                 </table>
