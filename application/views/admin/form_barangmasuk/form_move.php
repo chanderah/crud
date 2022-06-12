@@ -167,7 +167,7 @@
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
           <li><a href="#">Forms</a></li>
-          <li class="active">Data Barang</li>
+          <li class="active">Data</li>
         </ol>
       </section>
       <!-- Main content -->
@@ -467,7 +467,7 @@
         var data = $("#form_insert_site").serialize();
         $.ajax({
           type: "POST",
-          url: '<?php echo base_url("main/move_datamasuk"); ?>',
+          url: '<?php echo base_url("admin/proses_datamasuk_move"); ?>',
           data: data,
           success: function(data) {
             $("#user_message").html(data);

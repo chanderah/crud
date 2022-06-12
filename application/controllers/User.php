@@ -148,7 +148,7 @@ class User extends CI_Controller
 
       $this->M_admin->insert('tb_site_in',$data);
 
-      $this->session->set_flashdata('msg_berhasil','Data Barang Berhasil Ditambahkan');
+      $this->session->set_flashdata('msg_berhasil','Data Berhasil Ditambahkan');
       redirect(base_url('user/index'));
     }else {
       //$this->load->view('user/tabel/tabel_barangmasuk');

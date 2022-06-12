@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             //'terbit' => $terbit       
       );
       $this->M_admin->insert_batch('tb_tb',$data,$where);
-      //$this->session->set_flashdata('msg_berhasil','Data Barang Berhasil Diupdate');
+      //$this->session->set_flashdata('msg_berhasil','Data Berhasil Diupdate');
       redirect(base_url('add_remove'));
     }else{
       $this->load->view('add_remove');

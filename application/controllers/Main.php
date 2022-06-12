@@ -162,31 +162,6 @@ class Main extends CI_Controller {
             'destination_to' => $destination_to,
             'sailing_date' => $sailing_date,
             'amount_insured' => $amount_insured,
-            
-            // 'lampiran_BL' => $lampiran_BL,
-            // 'lampiran_LC' => $lampiran_LC,
-            // 'lampiran_invoice' => $lampiran_invoice,
-            // 'lampiran_PL' => $lampiran_PL,
-            // 'lampiran_DO' => $lampiran_DO,
-
-            // 'id' => $id,
-            
-            // //--------------DARAT---------------
-            // 'conveyance_by' => $conveyance_by,
-            // 'conveyance_type' => $conveyance_type,
-            // //'conveyance_total' => $conveyance_total,
-            // 'conveyance_policeno' => $conveyance_policeno,
-            // 'conveyance_age' => $conveyance_age,
-            // 'conveyance_driver' => $conveyance_driver,
-            // //--------------LAUT---------------
-            // 'conveyance_ship_name' => $conveyance_ship_name,
-            // 'conveyance_ship_type' => $conveyance_ship_type,
-            // 'conveyance_ship_birth' => $conveyance_ship_birth,
-            // 'conveyance_ship_GRT' => $conveyance_ship_GRT,
-            // 'conveyance_ship_containerno' => $conveyance_ship_containerno,
-            // //--------------UDARA---------------
-            // 'conveyance_plane_type' => $conveyance_plane_type,
-            // 'conveyance_plane_AWB' => $conveyance_plane_AWB,
         ];
 
         $where = array('dummy_id' => $dummy_id);
@@ -238,19 +213,6 @@ class Main extends CI_Controller {
         $id = $max_id=$this->m_admin->get_max_id('id','tb_site_out');
         $no_sertif = $max_id=$this->m_admin->get_max_id('no_sertif','tb_site_out');
 
-        // $list = array();
-        // $title =$this->input->post("txtTitle");
-        // for($i=0; $i<count($title); $i++) {
-        //     $data = [
-        //         'dummy_id' => $dummy_id,
-        //         'bill_id' => $id,
-        //         'title' => $this->input->post("txtTitle")[$i],
-		// 		'description' => $this->input->post("txtDescription")[$i]
-        //     ];
-        //     array_push($list,$data);
-        // }
-        
-        // $explodeLink = explode(', ', $d->linked_with);
         $input =$this->input->post("linked_with");
         $excludeSpace = str_replace('   ', '', $input);
         $excludeSpace = str_replace('  ', '', $input);
