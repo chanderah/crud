@@ -531,29 +531,37 @@ class Admin extends CI_Controller
     $excludeSpace = str_replace(',', ', ', $excludeSpace);
 
     //ini pake $d->
-    $where = array('site_id' => $site_id);
-    $data2 = $this->M_admin->get_data('tb_site_in', $where);
 
-    foreach($data2 as $d){
-      $siteExported = array(
-        'dummy_id' => $dummy_id,
-        'site_id' => $d->site_id,
-        'region' => $d->region,
-        'provinsi' => $d->provinsi,
-        'kabupaten' => $d->kabupaten,
-        'kecamatan' => $d->kecamatan,
-        'desa' => $d->desa,
-        'paket' => $d->paket,
-        'batch_' => $d->batch_,
-        'ctrm' => $d->ctrm,
-        'cmop' => $d->cmop,
-        'ctsi' => $d->ctsi,
-        'amount_insured' => $d->amount_insured,
-        'keterangan' => $d->keterangan
-      );
-      $this->M_admin->insert('tb_site_in_exported', $siteExported);
-    }
-  
+
+    $explodeLinkedWith = explode(", ", $excludeSpace);
+    array_unshift($explodeLinkedWith, $site_id);
+
+    foreach ($explodeLinkedWith as $d){
+        //foreach ntb2132, ntb232992
+      $where = array('site_id' => $d);
+      $data2 = $this->M_admin->get_data('tb_site_in', $where);
+        
+      foreach($data2 as $d2){
+        $siteExported = array(
+          'dummy_id' => $dummy_id,
+          'site_id' => $d2->site_id,
+          'region' => $d2->region,
+          'provinsi' => $d2->provinsi,
+          'kabupaten' => $d2->kabupaten,
+          'kecamatan' => $d2->kecamatan,
+          'desa' => $d2->desa,
+          'paket' => $d2->paket,
+          'batch_' => $d2->batch_,
+          'ctrm' => $d2->ctrm,
+          'cmop' => $d2->cmop,
+          'ctsi' => $d2->ctsi,
+          'amount_insured' => $d2->amount_insured,
+          'keterangan' => $d2->keterangan
+        );
+        $this->M_admin->insert('tb_site_in_exported', $siteExported);
+      } 
+    };
+
     $the_insured =$this->input->post("the_insured");
     $address_ =$this->input->post("address_");
     $conveyance =$this->input->post("conveyance");
