@@ -514,52 +514,119 @@ class Admin extends CI_Controller
   {
     $this->load->helper('string');
     $this->form_validation->set_rules('site_id', 'site_id', 'required');
-
+  
+    $id = $this->M_admin->get_max_id('id','tb_site_out');
+    $no_sertif = $this->M_admin->get_max_id('no_sertif','tb_site_out');
+  
     $sha1 = random_string('alpha', 10);
     $sha2 = random_string('sha1');
     $dummy_id = $sha1.$sha2;
     
     $site_id = $this->input->post('site_id', TRUE);
-    $region = $this->input->post('region', TRUE);
-    $provinsi = $this->input->post('provinsi', TRUE);
-    $kabupaten = $this->input->post('kabupaten', TRUE);
-    $kecamatan = $this->input->post('kecamatan', TRUE);
-    $desa = $this->input->post('desa', TRUE);
-    $paket = $this->input->post('paket', TRUE);
-    $batch_ = $this->input->post('batch_', TRUE);
-    $ctrm = $this->input->post('ctrm', TRUE);
-    $ctsi = $this->input->post('ctsi', TRUE);
-    $amount_insured = $this->input->post('amount_insured', TRUE);
-    $no_sertif = $this->input->post('no_sertif', TRUE);
-    $keterangan = $this->input->post('keterangan', TRUE);
-    $qty = $this->input->post('qty', TRUE);
+  
+    //ini pake $d->
+    $where = array('site_id' => $site_id);
+    $data2 = $this->M_admin->get_data('tb_site_in', $where);
 
-    $data = array(
+    foreach($data2 as $d){
+      $siteExported = array(
+        'dummy_id' => $dummy_id,
+        'site_id' => $d->site_id,
+        'region' => $d->region,
+        'provinsi' => $d->provinsi,
+        'kabupaten' => $d->kabupaten,
+        'kecamatan' => $d->kecamatan,
+        'desa' => $d->desa,
+        'paket' => $d->paket,
+        'batch_' => $d->batch_,
+        'ctrm' => $d->ctrm,
+        'cmop' => $d->cmop,
+        'ctsi' => $d->ctsi,
+        'amount_insured' => $d->amount_insured,
+        'keterangan' => $d->keterangan
+      );
+    }
+  
+    $input =$this->input->post("linked_with");
+    $excludeSpace = str_replace('   ', '', $input);
+    $excludeSpace = str_replace('  ', '', $input);
+    $excludeSpace = str_replace(' ', '', $excludeSpace);
+    $excludeSpace = str_replace(',', ', ', $excludeSpace);
+  
+    $the_insured =$this->input->post("the_insured");
+    $address_ =$this->input->post("address_");
+    $conveyance =$this->input->post("conveyance");
+    $itemInsured =$this->input->post("itemInsured");
+    
+    $destination_from =$this->input->post("destination_from");
+    $destination_to =$this->input->post("destination_to");
+    $sailing_date =$this->input->post("sailing_date");
+    $issuedDate =$this->input->post("issuedDate");
+    $amount_insured2 =$this->input->post("amount_insured"); 
+    
+    $conveyance =$this->input->post("conveyance");
+    $conveyance_by =$this->input->post("conveyance_by");
+    $conveyance_type =$this->input->post("conveyance_type");
+    $conveyance_total =$this->input->post("conveyance_total");
+    $conveyance_policeno =$this->input->post("conveyance_policeno");
+    $conveyance_age =$this->input->post("conveyance_age");
+    $conveyance_driver =$this->input->post("conveyance_driver");
+    $conveyance_ship_name =$this->input->post("conveyance_ship_name");
+    $conveyance_ship_type =$this->input->post("conveyance_ship_type");
+    $conveyance_ship_birth =$this->input->post("conveyance_ship_birth");
+    $conveyance_ship_GRT =$this->input->post("conveyance_ship_GRT");
+    $conveyance_ship_containerno =$this->input->post("conveyance_ship_containerno");
+    $conveyance_plane_type =$this->input->post("conveyance_plane_type");
+    $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
+  
+    $siteOut = array(
+      'id' => $id,
+  
       'dummy_id' => $dummy_id,
+      'no_sertif' => $no_sertif,
       'site_id' => $site_id,
-      'region' => $region,
-      'provinsi' => $provinsi,
-      'kabupaten' => $kabupaten,
-      'kecamatan' => $kecamatan,
-      'desa' => $desa,
-      'paket' => $paket,
-      'batch_' => $batch_,
-      'ctrm' => $ctrm,
-      'ctsi' => $ctsi,
-      'amount_insured' => $amount_insured,
-      'keterangan' => $keterangan
+      'linked_with' => $excludeSpace,
+  
+      'the_insured' => $the_insured,
+      'address_' => $address_,
+      'itemInsured' => $itemInsured,
+      'issuedDate' => $issuedDate,
+  
+      'conveyance' => $conveyance,
+      'destination_from' => $destination_from,
+      'destination_to' => $destination_to,
+      'sailing_date' => $sailing_date,
+      'amount_insured' => $amount_insured2,
+               
+      //--------------DARAT---------------
+      'conveyance_by' => $conveyance_by,
+      'conveyance_type' => $conveyance_type,
+      //'conveyance_total' => $conveyance_total,
+      'conveyance_policeno' => $conveyance_policeno,
+      'conveyance_age' => $conveyance_age,
+      'conveyance_driver' => $conveyance_driver,
+      //--------------LAUT---------------
+      'conveyance_ship_name' => $conveyance_ship_name,
+      'conveyance_ship_type' => $conveyance_ship_type,
+      'conveyance_ship_birth' => $conveyance_ship_birth,
+      'conveyance_ship_GRT' => $conveyance_ship_GRT,
+      'conveyance_ship_containerno' => $conveyance_ship_containerno,
+      //--------------UDARA---------------
+      'conveyance_plane_type' => $conveyance_plane_type,
+      'conveyance_plane_AWB' => $conveyance_plane_AWB,
     );
-
+  
     if ($this->form_validation->run() == TRUE) {
-      $this->M_admin->insert('tb_site_in_exported', $data);
-
+      $this->M_admin->insert('tb_site_in_exported', $siteExported);
+      $this->M_admin->insert('tb_site_out', $siteOut);
+  
       $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
-      redirect(base_url('admin/tabel_barangmasuk'));
+      redirect(base_url('admin/tabel_barangkeluar'));
     } else {
-      $this->load->view('admin/form_barangmasuk/form_insert', $data);
+      $this->load->view('admin/form_barangmasuk/form_insert', $siteExported);
     }
   }
-
+    
   public function proses_datamasuk_update()
   {
     $this->form_validation->set_rules('dummy_id', 'dummy_id', 'required');

@@ -183,7 +183,7 @@
                 <!-- /.box-header -->
                 <!-- form start -->
                 <div class="container">
-                  <form id="form_insert_site" method="post" autocomplete="off" accept-charset="utf-8" style="width:95%;margin-left:10px">
+                  <form action="<?=base_url('admin/proses_datamasuk_move')?>" role="form" method="post" autocomplete="on" accept-charset="utf-8" style="width:95%;margin-left:10px">
                     <div class="form-group" style="display:inline-block; margin-left:75px">
                       <button type="reset" class="btn btn-basic" name="btn_reset" style="width:95px;margin-left:-70px;margin-top:10px"><i class="fa fa-eraser" aria-hidden="true"></i> Reset</button>
                     </div>
@@ -281,23 +281,23 @@
                       </div>
                     </div>
                     <div class="conveyance_select" id="Laut">
-                      <div class="form-group form-group-lg col-md-3">
+                      <div class="form-group form-group-lg col-md-4">
                         <label for="conveyance_ship_name">Nama Kapal</label>
                         <input type="text" class="form-control" name="conveyance_ship_name" placeholder="Ship Name">
                       </div>
-                      <div class="form-group form-group-lg col-md-3">
+                      <div class="form-group form-group-lg col-md-4">
                         <label for="conveyance_ship_type">Jenis Kapal</label>
                         <input type="text" class="form-control" name="conveyance_ship_type" placeholder="Ship Type">
                       </div>
-                      <div class="form-group form-group-lg col-md-3">
+                      <div class="form-group form-group-lg col-md-4">
                         <label for="conveyance_ship_birth">Tahun Pembuatan Kapal</label>
                         <input type="number" class="form-control" name="conveyance_ship_birth" placeholder="Year of Build">
                       </div>
-                      <div class="form-group form-group-lg col-md-3">
+                      <div class="form-group form-group-lg col-md-6">
                         <label for="conveyance_ship_GRT">GRT Kapal</label>
                         <input type="text" class="form-control" name="conveyance_ship_GRT" placeholder="GRT Kapal">
                       </div>
-                      <div class="form-group form-group-lg col-md-3">
+                      <div class="form-group form-group-lg col-md-6">
                         <label for="conveyance_ship_containerno">Container No.</label>
                         <input type="text" class="form-control" name="conveyance_ship_containerno" placeholder="conveyance_ship_containerno">
                       </div>
@@ -400,85 +400,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
-  <script type="text/javascript">
-    var i = 1,
-      max = 50;
-    var cartTable = {
-      options: {
-        table: "#cart_table"
-      },
-      initialize: function() {
-        this.setVars().events();
-      },
-      setVars: function() {
-        this.$table = $(this.options.table);
-        this.$totalLines = $(this.options.table).find('tr').length - 1;
-        return this;
-      },
-      updateLines: function() {
-        var totalLines = $(this.options.table).find('tr').length - 1;
-        if (totalLines == 1) {
-          $('.add_button').show();
-          $('.remove_button').hide();
-        }
-        return this;
-      },
-      events: function() {
-        var _self = this;
-        _self.updateLines();
-        this.$table.on('click', 'button.add_button', function(e) {
-          e.preventDefault();
-          if (max > i) {
-            var $tr = $(this).closest('tr');
-            var $clone = $tr.clone();
-            $clone.find(':text').val('');
-            $tr.after($clone);
-            if (_self.setVars().$totalLines > 1) {
-              $('.remove_button').show();
-              $('.add_button').show();
-            }
-            i++;
-          }
-        }).on('click', 'button.remove_button', function(e) {
-          if (i > 1) {
-            e.preventDefault();
-            var $tr = $(this).closest('tr');
-            $tr.remove();
-            //if have delete last button with button add visible, add another button to last tr
-            if (_self.setVars().$totalLines > 1) {
-              _self.$table.find('tr:last').find('.add').show();
-            }
-            i--;
-          }
-        });
-        return this;
-      }
-    };
-    function initializeCartTable() {
-      cartTable.initialize();
-    }
-    window.addEventListener('load', initializeCartTable, false);
-  </script>
-  <script>
-    var display_bill_table = "";
-    $(document).ready(function() {
-      $('#form_insert_site').submit(function(e) {
-        e.preventDefault();
-        var data = $("#form_insert_site").serialize();
-        $.ajax({
-          type: "POST",
-          url: '<?php echo base_url("admin/proses_datamasuk_move"); ?>',
-          data: data,
-          success: function(data) {
-            $("#user_message").html(data);
-            $(":text").val('');
-            display_bill_table.ajax.reload();
-          },
-        });
-      });
-      //end
-    });
-  </script>
   <script>
     $(document).ready(function() {
       $('.conveyance_select').hide();

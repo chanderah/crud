@@ -8,6 +8,11 @@ class M_admin extends CI_Model
     $this->db->insert($tabel,$data);
   }
 
+    
+  public function insert_into_table($table_name, $data) {
+    return $this->db->insert($table_name, $data);
+  }
+
   public function select($tabel)
   {
     $query = $this->db->get($tabel);
@@ -136,10 +141,6 @@ return $max_id;
       ->get($table_name)->row_array();
 $max_id = $row[$table_id] + 1; 
 return $max_id;
-}
-
-public function insert_into_table($table_name, $data) {
-    return $this->db->insert($table_name, $data);
 }
 
 public function update_into_table($tabel,$data2,$where)

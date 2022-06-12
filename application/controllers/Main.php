@@ -221,6 +221,8 @@ class Main extends CI_Controller {
         
         $data =       
         [   
+            'id' => $id,
+
             'dummy_id' => $dummy_id,
             'no_sertif' => $no_sertif,
             'site_id' => $site_id,
@@ -236,16 +238,7 @@ class Main extends CI_Controller {
             'destination_to' => $destination_to,
             'sailing_date' => $sailing_date,
             'amount_insured' => $amount_insured,
-            
-            
-            // 'lampiran_BL' => $lampiran_BL,
-            // 'lampiran_LC' => $lampiran_LC,
-            // 'lampiran_invoice' => $lampiran_invoice,
-            // 'lampiran_PL' => $lampiran_PL,
-            // 'lampiran_DO' => $lampiran_DO,
-
-            'id' => $id,
-            
+                     
             //--------------DARAT---------------
             'conveyance_by' => $conveyance_by,
             'conveyance_type' => $conveyance_type,
