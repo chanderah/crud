@@ -178,7 +178,7 @@ class Report extends CI_Controller
 
                     //MOP Logic
                     $whereMOP = array('site_id' => $d->site_id);
-                    $dataMOP = $this->M_admin->get_data('tb_site_in', $whereMOP);
+                    $dataMOP = $this->M_admin->get_data('tb_site_in_exported', $whereMOP);
                     foreach ($dataMOP as $dMOP) {
                         $firstMOP = $dMOP->cmop;
                     }
@@ -188,7 +188,7 @@ class Report extends CI_Controller
                         $bmop = [];
                         foreach ($linkedExploded as $dd2) {
                             $where = array('site_id' => $dd2);
-                            $data22 = $this->M_admin->get_data('tb_site_in', $where);
+                            $data22 = $this->M_admin->get_data('tb_site_in_exported', $where);
                             foreach ($data22 as $ddd2) {
                                 $bmop[] = $ddd2->cmop;
                             }
