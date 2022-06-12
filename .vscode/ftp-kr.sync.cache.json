@@ -16,7 +16,7 @@
       },
       ".gitignore": {
         "type": "-",
-        "size": 397,
+        "size": 428,
         "lmtime": 0,
         "modified": true
       },
@@ -1515,9 +1515,9 @@
       },
       "composer.lock": {
         "type": "-",
-        "size": 102021,
+        "size": 104822,
         "lmtime": 0,
-        "modified": false
+        "modified": true
       },
       "contributing.md": {
         "type": "-",

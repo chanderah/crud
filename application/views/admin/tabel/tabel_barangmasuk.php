@@ -139,7 +139,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="<?= base_url('admin/form_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tambah Data Masuk</a></li>
+              <li><a href="<?= base_url('admin/form_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tambah Data</a></li>
             </ul>
           </li>
           <li class="treeview active">
@@ -150,8 +150,9 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li class=""><a href="<?= base_url('admin/tabel_permintaanmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Permintaan Masuk</a></li>
+              <!-- <li><a href="<?= base_url('admin/tabel_permintaanmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Permintaan Masuk</a></li> -->
               <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
+              <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
               <li><a href="<?= base_url('admin/tabel_barangkeluar') ?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
             </ul>
           </li>
@@ -190,7 +191,7 @@
             <ul class="nav nav-tabs">
               <li><a href="#main" style="" data-toggle="tab"></a></li>
               <li class="active"><a href="#main" style="" data-toggle="tab">Main</a></li>
-              <li><a href="#counter" style="" data-toggle="tab">Counter</a></li>
+              <!-- <li><a href="#counter" style="" data-toggle="tab">Counter</a></li> -->
               <li><a href="#import" style="" data-toggle="tab">Import</a></li>
             </ul>
             <div class="tab-content">
@@ -214,79 +215,8 @@
                 </div>
               </div>
 
-              <div class="tab-pane" id="counter">
-              <table id="site_counter" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>No</th>
-                    <th>SITE ID</th>
-                    <th>Region</th>
-                    <th>Provinsi</th>
-                    <th>Kota</th>
-                    <th>Kecamatan</th>
-                    <th>Desa</th>
-                    <th>Paket</th>
-                    <th>Batch</th>
-                    <th>TRM</th>
-                    <th>TSI</th>
-                    <th>Amount Insured</th>
-                    <th>Keterangan</th>
-                    <!-- <th>Terbit</th> </-->
-                    <th>Update</th>
-                    <th>Delete</th>
-                    <th>Keluarkan</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <?php if (is_array($list_data)) { ?>
-                    <?php $no = 1; ?>
-                    <?php foreach ($list_data as $dd) : ?>
-                        <td><?= $no ?></td>
-                        <td><?= $dd->site_id ?></td>
-                        <td><?= $dd->region ?></td>
-                        <td><?= $dd->provinsi ?></td>
-                        <td><?= $dd->kabupaten ?></td>
-                        <td><?= $dd->kecamatan ?></td>
-                        <td><?= $dd->desa ?></td>
-                        <td><?= $dd->paket ?></td>
-                        <td><?= $dd->batch_ ?></td>
-                        <td><?= $dd->ctrm ?></td>
-                        <td><?= $dd->ctsi ?></td>
-                        <td>IDR<?= number_format($dd->amount_insured, 2) ?></td>
-                        <td><?= $dd->keterangan ?></td>
-                        <td><a type="button" class="btn btn-info" href="<?= base_url('admin/update_datamasuk/' . $dd->dummy_id) ?>" name="btn_update" style="margin:auto;"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-                        <td><a type="button" class="btn btn-danger btn-delete" href="<?= base_url('admin/delete_data/' . $dd->dummy_id) ?>" name="btn_delete" style="margin:auto;"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                        <td><a type="button" class="btn btn-success btn-barangkeluar" href="<?= base_url('admin/move_data/' . $dd->dummy_id) ?>" name="btn_barangkeluar" style="margin:auto;"><i class="fa fa-sign-out" aria-hidden="true"></i></a></td>
-                </tr>
-                <?php $no++; ?>
-                <?php endforeach; ?>
-            <?php } else { ?>
-                <td colspan="7" align="center"><strong>Data Kosong</strong></td>
-            <?php } ?>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>No</th>
-                    <th>SITE ID</th>
-                    <th>Region</th>
-                    <th>Provinsi</th>
-                    <th>Kota</th>
-                    <th>Kecamatan</th>
-                    <th>Desa</th>
-                    <th>Paket</th>
-                    <th>Batch</th>
-                    <th>TRM</th>
-                    <th>TSI</th>
-                    <th>Amount Insured</th>
-                    <th>Keterangan</th>
-                </tr>
-                </tfoot>
-            </table>
-              </div>
-
               <div class="tab-pane active" id="main">
-                <a href="<?= base_url('admin/form_barangmasuk') ?>" style="margin-bottom:10px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data Masuk</a>
+                <a href="<?= base_url('admin/form_barangmasuk') ?>" style="margin-bottom:10px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data</a>
                 <?php if ($this->session->flashdata('msg_berhasil')) { ?>
                   <div class="alert alert-success alert-dismissible" style="width:100%">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -318,7 +248,6 @@
                       <th>TSI</th>
                       <th>Amount Insured</th>
                       <th>Keterangan</th>
-                      <!-- <th>Terbit</th> </-->
                       <th>Update</th>
                       <th>Delete</th>
                       <th>Keluarkan</th>

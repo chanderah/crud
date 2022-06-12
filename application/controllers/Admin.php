@@ -382,6 +382,15 @@ class Admin extends CI_Controller
     $this->load->view('admin/form_permintaan/form_move_permintaan', $data);
   }
 
+  public function tabel_permintaanmasuk()
+  {
+    $data = array(
+      'list_data' => $this->M_admin->select('tb_request_in'),
+      'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
+    );
+    $this->load->view('admin/tabel/tabel_permintaanmasuk', $data);
+  }
+
   public function tabel_barangmasuk()
   {
     $data = array(
@@ -391,13 +400,13 @@ class Admin extends CI_Controller
     $this->load->view('admin/tabel/tabel_barangmasuk', $data);
   }
 
-  public function tabel_permintaanmasuk()
+  public function tabel_perubahan_site()
   {
     $data = array(
-      'list_data' => $this->M_admin->select('tb_request_in'),
+      'list_data' => $this->M_admin->select('tb_site_in_changes'),
       'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
     );
-    $this->load->view('admin/tabel/tabel_permintaanmasuk', $data);
+    $this->load->view('admin/tabel/tabel_perubahan_site', $data);
   }
 
   public function update_datamasuk($dummy_id)

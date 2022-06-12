@@ -151,8 +151,8 @@
             </a>
             <ul class="treeview-menu">
               <!-- <li><a href="<?= base_url('admin/tabel_permintaanmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Permintaan Masuk</a></li> -->
-              <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
-              <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
+              <li><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
+              <li class="active"><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
               <li><a href="<?= base_url('admin/tabel_barangkeluar') ?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
             </ul>
           </li>
@@ -175,7 +175,7 @@
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          Tabel Database SITE ID
+          Tabel Perubahan SITE ID
         </h1>
         <ol class="breadcrumb">
           <li><a href="<?= base_url('admin') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -187,107 +187,14 @@
       <!-- Main content -->
       <section class="content">
         <div class="col-md-12">
-          <div class="nav-tabs-custom" style="">
+          <div class="nav-tabs-custom" style="width:60%;padding:10px">
             <ul class="nav nav-tabs">
-              <li><a href="#main" style="" data-toggle="tab"></a></li>
+              <!-- <li><a href="#main" style="" data-toggle="tab"></a></li> -->
               <li class="active"><a href="#main" style="" data-toggle="tab">Main</a></li>
-              <li><a href="#counter" style="" data-toggle="tab">Counter</a></li>
-              <li><a href="#import" style="" data-toggle="tab">Import</a></li>
+              <!-- <li><a href="#counter" style="" data-toggle="tab">Counter</a></li> -->
             </ul>
             <div class="tab-content">
-              <div class="tab-pane" id="import">
-                <form class="form-horizontal" action="<?= base_url('admin/download') ?>" method="post" enctype="multipart/form-data">
-                  <div class="form-group" style="width:25%;margin:10px">
-                    <button type="download" class="btn btn-download"><i class="fa fa-download" aria-hidden="true"></i> Download Format</button>
-                  </div>
-                  
-                </form>
-                <div class="column">
-                <?php $fname='importsite_format.xlsx'; ?>
-                  <form class="form-horizontal" action="<?= base_url('admin/proses_excel_upload') ?>" method="post" enctype="multipart/form-data">
-                    <div class="form-group" style="width:25%;margin:5px">
-                      <label for="username" class="col-sm-12 control-label" style="text-align:left">Upload .xlsx File</label>
-                      <input type="file" name="xlsx_file" class="form-control" id="username"><br>
-                      <button type="submit" class="btn btn-success"><i class="fa fa-send" aria-hidden="true"></i>&nbsp;Submit</button>
-                    </div>
-                  </form>                  
-                  
-                </div>
-              </div>
-
-              <div class="tab-pane" id="counter">
-                  <table id="site_counter" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>SITE ID</th>
-                        <th>Region</th>
-                        <th>Provinsi</th>
-                        <th>Kota</th>
-                        <th>Kecamatan</th>
-                        <th>Desa</th>
-                        <th>Paket</th>
-                        <th>Batch</th>
-                        <th>TRM</th>
-                        <th>TSI</th>
-                        <th>Amount Insured</th>
-                        <th>Keterangan</th>
-                        <!-- <th>Terbit</th> </-->
-                        <th>Update</th>
-                        <th>Delete</th>
-                        <th>Keluarkan</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <?php if (is_array($list_data)) { ?>
-                        <?php $no = 1; ?>
-                        <?php foreach ($list_data as $dd) : ?>
-                            <td><?= $no ?></td>
-                            <td><?= $dd->site_id ?></td>
-                            <td><?= $dd->region ?></td>
-                            <td><?= $dd->provinsi ?></td>
-                            <td><?= $dd->kabupaten ?></td>
-                            <td><?= $dd->kecamatan ?></td>
-                            <td><?= $dd->desa ?></td>
-                            <td><?= $dd->paket ?></td>
-                            <td><?= $dd->batch_ ?></td>
-                            <td><?= $dd->ctrm ?></td>
-                            <td><?= $dd->ctsi ?></td>
-                            <td>IDR<?= number_format($dd->amount_insured, 2) ?></td>
-                            <td><?= $dd->keterangan ?></td>
-                            <td><a type="button" class="btn btn-info" href="<?= base_url('admin/update_datamasuk/' . $dd->dummy_id) ?>" name="btn_update" style="margin:auto;"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-                            <td><a type="button" class="btn btn-danger btn-delete" href="<?= base_url('admin/delete_data/' . $dd->dummy_id) ?>" name="btn_delete" style="margin:auto;"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                            <td><a type="button" class="btn btn-success btn-barangkeluar" href="<?= base_url('admin/move_data/' . $dd->dummy_id) ?>" name="btn_barangkeluar" style="margin:auto;"><i class="fa fa-sign-out" aria-hidden="true"></i></a></td>
-                    </tr>
-                    <?php $no++; ?>
-                    <?php endforeach; ?>
-                <?php } else { ?>
-                    <td colspan="7" align="center"><strong>Data Kosong</strong></td>
-                <?php } ?>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>SITE ID</th>
-                        <th>Region</th>
-                        <th>Provinsi</th>
-                        <th>Kota</th>
-                        <th>Kecamatan</th>
-                        <th>Desa</th>
-                        <th>Paket</th>
-                        <th>Batch</th>
-                        <th>TRM</th>
-                        <th>TSI</th>
-                        <th>Amount Insured</th>
-                        <th>Keterangan</th>
-                    </tr>
-                    </tfoot>
-                </table>
-              </div>
-
               <div class="tab-pane active" id="main">
-                <a href="<?= base_url('admin/form_barangmasuk') ?>" style="margin-bottom:10px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data</a>
                 <?php if ($this->session->flashdata('msg_berhasil')) { ?>
                   <div class="alert alert-success alert-dismissible" style="width:100%">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -306,23 +213,10 @@
                 <table id="site_datatable" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                      <th>No</th>
-                      <th>SITE ID</th>
-                      <th>Region</th>
-                      <th>Provinsi</th>
-                      <th>Kota</th>
-                      <th>Kecamatan</th>
-                      <th>Desa</th>
-                      <th>Paket</th>
-                      <th>Batch</th>
-                      <th>TRM</th>
-                      <th>TSI</th>
-                      <th>Amount Insured</th>
-                      <th>Keterangan</th>
-                      <!-- <th>Terbit</th> </-->
-                      <th>Update</th>
-                      <th>Delete</th>
-                      <th>Keluarkan</th>
+                      <th style="width:2%">No</th>
+                      <th >Old Site ID</th>
+                      <th>New Site ID</th>
+                      <th>Changed At</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -331,29 +225,15 @@
                         <?php $no = 1; ?>
                         <?php foreach ($list_data as $dd) : ?>
                           <td><?= $no ?></td>
-                          <td><?= $dd->site_id ?></td>
-                          <td><?= $dd->region ?></td>
-                          <td><?= $dd->provinsi ?></td>
-                          <td><?= $dd->kabupaten ?></td>
-                          <td><?= $dd->kecamatan ?></td>
-                          <td><?= $dd->desa ?></td>
-                          <td><?= $dd->paket ?></td>
-                          <td><?= $dd->batch_ ?></td>
-                          <td><?= $dd->ctrm ?></td>
-                          <td><?= $dd->ctsi ?></td>
-                          <td>IDR<?= number_format($dd->amount_insured, 2) ?></td>
-                          <td><?= $dd->keterangan ?></td>
-                          <td><a type="button" class="btn btn-info" href="<?= base_url('admin/update_datamasuk/' . $dd->dummy_id) ?>" name="btn_update" style="margin:auto;"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-                          <td><a type="button" class="btn btn-danger btn-delete" href="<?= base_url('admin/delete_data/' . $dd->dummy_id) ?>" name="btn_delete" style="margin:auto;"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                          <td><a type="button" class="btn btn-success btn-barangkeluar" href="<?= base_url('admin/move_data/' . $dd->dummy_id) ?>" name="btn_barangkeluar" style="margin:auto;"><i class="fa fa-sign-out" aria-hidden="true"></i></a></td>
-
-
+                          <td><?= $dd->old_site_id ?></td>
+                          <td><?= $dd->new_site_id ?></td>
+                          <td><?= $dd->created_at ?></td>
                     </tr>
                     <?php $no++; ?>
                   <?php endforeach; ?>
-                <?php } else { ?>
-                  <td colspan="7" align="center"><strong>Data Kosong</strong></td>
-                <?php } ?>
+                    <?php } else { ?>
+                    <td colspan="7" align="center"><strong>Data Kosong</strong></td>
+                    <?php } ?>
                   </tbody>
                   <tfoot>
                     <tr>
@@ -361,15 +241,6 @@
                       <th>SITE ID</th>
                       <th>Region</th>
                       <th>Provinsi</th>
-                      <th>Kota</th>
-                      <th>Kecamatan</th>
-                      <th>Desa</th>
-                      <th>Paket</th>
-                      <th>Batch</th>
-                      <th>TRM</th>
-                      <th>TSI</th>
-                      <th>Amount Insured</th>
-                      <th>Keterangan</th>
                     </tr>
                   </tfoot>
                 </table>
@@ -435,14 +306,6 @@
 
     $(function() {
       $('#site_datatable').DataTable({
-        'paging': true,
-        'lengthChange': true,
-        'searching': true,
-        'ordering': true,
-        'info': true,
-        'autoWidth': false
-      })
-      $('#site_counter').DataTable({
         'paging': true,
         'lengthChange': true,
         'searching': true,
