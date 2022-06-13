@@ -190,7 +190,7 @@
                       <button type="reset" class="btn btn-basic" name="btn_reset" style="width:95px;margin-left:-70px;margin-top:10px"><i class="fa fa-eraser" aria-hidden="true"></i> Reset</button>
                     </div>
                     <div class="form-group">
-                      <label for="dummy_id" style="display:none;">ID</label>
+                      <label for="dummy_id" style="display:none;">Old Dummy ID</label>
                       <input type="text" name="dummy_id" style="  display:none;" class="form-control"   value="<?=$d->dummy_id?>">
                     </div> 
                     <div class="form-group">
@@ -234,7 +234,7 @@
                     <!-- <div class="form-group form-group-lg col-md-12" style="">
                       <label for="conveyance">4. Pengiriman Melalui</label>
                         <select class="form-control" id="conveyance" name="conveyance">
-                          <option value="none">Choose...</option>
+                          <option value="Darat">Choose...</option>
                           <option value="Darat">Darat</option>
                           <option value="Laut">Laut</option>
                           <option value="Udara">Udara</option>
