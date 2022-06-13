@@ -210,7 +210,6 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?php echo base_url('admin/form_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tambah Data</a></li>
-            <li><a href="<?php echo base_url('admin/form_satuan')?>"><i class="fa fa-circle-o"></i> Tambah Paket Barang</a></li>
           </ul>
         </li>
         <li class="treeview active">
@@ -340,7 +339,7 @@
     <div class="pull-right hidden-xs">
        <b>Version</b> 1
     </div>
-    <strong>Copyright &copy; <?=date('Y')?></strong>
+    <strong>PT. Jasmine Indah Servistama. Copyright &copy; <?=date('Y')?></strong>
   </footer>
 
    

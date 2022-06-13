@@ -135,7 +135,6 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?= base_url('admin/form_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tambah Data</a></li>
-            <li class="active"><a href="<?= base_url('admin/form_satuan')?>"><i class="fa fa-circle-o"></i> Tambah Paket Barang</a></li>
           </ul>
         </li>
         <li class="treeview ">
@@ -189,7 +188,6 @@
             <!-- general form elements -->
           <div class="box box-primary" style="width:94%;">
             <div class="box-header with-border">
-              <h3 class="box-title"><i class="fa fa-archive" aria-hidden="true"></i> Tambah Paket Barang</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -270,7 +268,7 @@
     <div class="pull-right hidden-xs">
        <b>Version</b> 1
     </div>
-    <strong>Copyright &copy; <?=date('Y')?></strong>
+    <strong>PT. Jasmine Indah Servistama. Copyright &copy; <?=date('Y')?></strong>
     
   </footer>
 
