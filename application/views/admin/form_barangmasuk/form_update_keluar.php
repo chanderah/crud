@@ -138,8 +138,8 @@
             </a>
             <ul class="treeview-menu">
               <!-- <li><a href="<?= base_url('admin/tabel_permintaanmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Permintaan Masuk</a></li> -->
-              <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
               <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
+              <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
               <li><a href="<?= base_url('admin/tabel_barangkeluar') ?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
             </ul>
           </li>
@@ -224,82 +224,77 @@
                     <div class="form-group form-group-lg col-md-12">
                         <label for="itemInsured" style="display:inline;">3. Jenis Barang yang Dikirim</label>
                         <textarea class="form-control" style="margin-top:10px;" id="itemInsured" rows="5" name="itemInsured"><?= $d->itemInsured ?></textarea>
-                      </div>
-                      
+                      </div>                
+
                     <div class="form-group form-group-lg col-md-12" style="">
                       <label for="conveyance">4. Pengiriman Melalui</label>
-                      <input type="text" name="conveyance" style="display:inline;" readonly="readonly" class="form-control" placeholder="conveyance" value="<?= $d->conveyance ?>">
-                    </div>                  
-
-                    <!-- <div class="form-group form-group-lg col-md-12" style="">
-                      <label for="conveyance">4. Pengiriman Melalui</label>
                         <select class="form-control" id="conveyance" name="conveyance">
-                          <option value="Darat">Choose...</option>
-                          <option value="Darat">Darat</option>
-                          <option value="Laut">Laut</option>
-                          <option value="Udara">Udara</option>
+                          <option value="Darat" <?php if($d->conveyance=="Darat"){echo "selected";} ?> >Darat</option>
+                          <option value="Laut" <?php if($d->conveyance=="Laut"){echo "selected";} ?> >Laut</option>
+                          <option value="Udara" <?php if($d->conveyance=="Udara"){echo "selected";} ?> >Udara</option>
                         </select>
                     </div>
+
                     <div class="conveyance_select" id="Darat">
                       <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_type">Dengan</label>
                           <select class="form-control" id="conveyance_by" name="conveyance_by">
-                            <option value="Car">Car</option>
-                            <option value="Truck">Truck</option>
-                            <option value="Pick Up">Pick Up</option>
-                            <option value="Container">Container</option>
+                            <option value="Car" <?php if($d->conveyance=="Car"){echo "selected";} ?> >Car</option>
+                            <option value="Truck" <?php if($d->conveyance=="Truck"){echo "selected";} ?> >Truck</option>
+                            <option value="Pick Up" <?php if($d->conveyance=="Pick Up"){echo "selected";} ?> >Pick Up</option>
+                            <option value="Container" <?php if($d->conveyance=="Container"){echo "selected";} ?> >Container</option>
                           </select>
                       </div>
                       <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_type">Jenis Kendaraan</label>
-                        <input type="text" class="form-control" name="conveyance_type" placeholder="Type">
+                        <input type="text" class="form-control" name="conveyance_type" placeholder="Type" value="<?= $d->conveyance_type ?>">
                       </div>
                       <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_policeno">Plat Nomor</label>
-                        <input type="text" class="form-control" name="conveyance_policeno" placeholder="Police Number">
+                        <input type="text" class="form-control" name="conveyance_policeno" placeholder="Police Number" value="<?= $d->conveyance_policeno ?>">
                       </div>
                       <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_driver">Pengemudi</label>
-                        <input type="text" class="form-control" name="conveyance_driver" placeholder="Driver">
+                        <input type="text" class="form-control" name="conveyance_driver" placeholder="Driver" value="<?= $d->conveyance_driver ?>">
                       </div>
                     </div>
                     <div class="conveyance_select" id="Laut">
-                      <div class="form-group form-group-lg col-md-3">
+                      <div class="form-group form-group-lg col-md-4">
                         <label for="conveyance_ship_name">Nama Kapal</label>
-                        <input type="text" class="form-control" name="conveyance_ship_name" placeholder="Ship Name">
+                        <input type="text" class="form-control" name="conveyance_ship_name" placeholder="Ship Name" value="<?= $d->conveyance_ship_name ?>">
                       </div>
-                      <div class="form-group form-group-lg col-md-3">
+                      <div class="form-group form-group-lg col-md-4">
                         <label for="conveyance_ship_type">Jenis Kapal</label>
-                        <input type="text" class="form-control" name="conveyance_ship_type" placeholder="Ship Type">
+                        <input type="text" class="form-control" name="conveyance_ship_type" placeholder="Ship Type" value="<?= $d->conveyance_ship_type ?>">
                       </div>
-                      <div class="form-group form-group-lg col-md-3">
+                      <div class="form-group form-group-lg col-md-4">
                         <label for="conveyance_ship_birth">Tahun Pembuatan Kapal</label>
-                        <input type="number" class="form-control" name="conveyance_ship_birth" placeholder="Year of Build">
+                        <input type="number" class="form-control" name="conveyance_ship_birth" placeholder="Year of Build" value="<?= $d->conveyance_ship_birth ?>">
                       </div>
-                      <div class="form-group form-group-lg col-md-3">
+                      <div class="form-group form-group-lg col-md-6">
                         <label for="conveyance_ship_GRT">GRT Kapal</label>
-                        <input type="text" class="form-control" name="conveyance_ship_GRT" placeholder="GRT Kapal">
+                        <input type="text" class="form-control" name="conveyance_ship_GRT" placeholder="GRT Kapal" value="<?= $d->conveyance_ship_GRT ?>">
                       </div>
-                      <div class="form-group form-group-lg col-md-3">
+                      <div class="form-group form-group-lg col-md-6">
                         <label for="conveyance_ship_containerno">Container No.</label>
-                        <input type="text" class="form-control" name="conveyance_ship_containerno" placeholder="conveyance_ship_containerno">
+                        <input type="text" class="form-control" name="conveyance_ship_containerno" placeholder="Container Number" value="<?= $d->conveyance_ship_containerno ?>">
                       </div>
                     </div>
                     <div class="conveyance_select" id="Udara">
                       <div class="form-group form-group-lg col-md-6">
                         <label for="conveyance_plane_type">Jenis Pesawat</label>
                         <select class="form-control" id="conveyance_plane_type" name="conveyance_plane_type">
-                          <option value="Car">Cargo</option>
-                          <option value="Truck">Penumpang</option>
-                          <option value="Pick Up">Helicopter</option>
-                          <option value="Container">Charter</option>
+                          <option value="Cargo" <?php if($d->conveyance=="Cargo"){echo "selected";} ?> >Cargo</option>
+                          <option value="Penumpang" <?php if($d->conveyance=="Penumpang"){echo "selected";} ?> >Penumpang</option>
+                          <option value="Helicopter" <?php if($d->conveyance=="Helicopter"){echo "selected";} ?> >Helicopter</option>
+                          <option value="Charter" <?php if($d->conveyance=="Charter"){echo "selected";} ?> >Charter</option>
                         </select>
                       </div>
                       <div class="form-group form-group-lg col-md-6">
                         <label for="conveyance_plane_AWB">No. AWB</label>
-                        <input type="text" class="form-control" name="conveyance_plane_AWB" placeholder="No. AWB">
+                        <input type="text" class="form-control" name="conveyance_plane_AWB" placeholder="No. AWB" value="<?= $d->conveyance_plane_AWB ?>">
                       </div>
-                    </div> -->
+                    </div>
                     
                     <div class="form-group form-group-lg col-md-6">
                       <label for="destination_from">5. Tempat Keberangkatan</label>
@@ -317,8 +312,8 @@
                       <label for="amount_insured">7. Nilai Barang yang Diangkut</label>
                       <select class="form-control" id="currency" name="currency" style="margin-bottom:5px;width:fit-content" >
                           <option value="IDR">IDR</option>
-                        </select>
-                      <input type="number" name="amount_insured" placeholder="Nilai Barang" required="required" class="form-control" value="<?= $d->amount_insured ?>"/>
+                      </select>
+                      <input id="amount_insured" type="number" name="amount_insured" placeholder="Nilai Barang" required="required" class="form-control" value="<?= $d->amount_insured ?>"/>
                     </div>
                     <div class="form-group form-group-lg col-md-12">
                       <label for="issuedDate">8. Tanggal Penerbitan</label>
@@ -383,73 +378,24 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
-  <script type="text/javascript">
-    var i = 1,
-      max = 50;
-    var cartTable = {
-      options: {
-        table: "#cart_table"
-      },
-      initialize: function() {
-        this.setVars().events();
-      },
-      setVars: function() {
-        this.$table = $(this.options.table);
-        this.$totalLines = $(this.options.table).find('tr').length - 1;
-        return this;
-      },
-      updateLines: function() {
-        var totalLines = $(this.options.table).find('tr').length - 1;
-        if (totalLines == 1) {
-          $('.add_button').show();
-          $('.remove_button').hide();
-        }
-        return this;
-      },
-      events: function() {
-        var _self = this;
-        _self.updateLines();
-        this.$table.on('click', 'button.add_button', function(e) {
-          e.preventDefault();
-          if (max > i) {
-            var $tr = $(this).closest('tr');
-            var $clone = $tr.clone();
-            $clone.find(':text').val('');
-            $tr.after($clone);
-            if (_self.setVars().$totalLines > 1) {
-              $('.remove_button').show();
-              $('.add_button').show();
-            }
-            i++;
-          }
-        }).on('click', 'button.remove_button', function(e) {
-          if (i > 1) {
-            e.preventDefault();
-            var $tr = $(this).closest('tr');
-            $tr.remove();
-            //if have delete last button with button add visible, add another button to last tr
-            if (_self.setVars().$totalLines > 1) {
-              _self.$table.find('tr:last').find('.add').show();
-            }
-            i--;
-          }
-        });
-        return this;
-      }
-    };
-    function initializeCartTable() {
-      cartTable.initialize();
-    }
-    window.addEventListener('load', initializeCartTable, false);
-  </script>
+
   <script>
-    $(document).ready(function() {
+    var conveyance="<?php echo $d->conveyance ;?>";  
+
+    function loadConveyanceData() {
       $('.conveyance_select').hide();
+        $('#'+conveyance).show();
+    }
+
+    window.onload = loadConveyanceData;
+
+    $(document).ready(function() {
       $('#conveyance').change(function() {
         $('.conveyance_select').hide();
         $('#' + $(this).val()).show();
       });
     });
   </script>
+  
 </body>
 </html>

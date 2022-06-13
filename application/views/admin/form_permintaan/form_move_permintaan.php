@@ -146,8 +146,8 @@
           </a>
           <ul class="treeview-menu">
             <!-- <li class="active"><a href="<?= base_url('admin/tabel_permintaanmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Permintaan Masuk</a></li> -->
-            <li><a href="<?= base_url('admin/tabel_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
             <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
+            <li><a href="<?= base_url('admin/tabel_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
             <li><a href="<?= base_url('admin/tabel_barangkeluar')?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
            </ul>
         </li>

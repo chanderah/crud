@@ -530,7 +530,88 @@ class Admin extends CI_Controller
     }
   }
 
-  public function proses_datamasuk_move()
+  public function proses_datamasuk_update()
+  {
+    $this->form_validation->set_rules('dummy_id', 'dummy_id', 'required');
+    $dummy_id = $this->input->post('dummy_id', TRUE);
+    $site_id = $this->input->post('site_id', TRUE);
+    trim($site_id);
+    $region = $this->input->post('region', TRUE);
+    $provinsi = $this->input->post('provinsi', TRUE);
+    $kabupaten = $this->input->post('kabupaten', TRUE);
+    $kecamatan = $this->input->post('kecamatan', TRUE);
+    $desa = $this->input->post('desa', TRUE);
+    $paket = $this->input->post('paket', TRUE);
+    $batch_ = $this->input->post('batch_', TRUE);
+    $ctrm = $this->input->post('ctrm', TRUE);
+    $ctsi = $this->input->post('ctsi', TRUE);
+    $amount_insured = $this->input->post('amount_insured', TRUE);
+    $keterangan = $this->input->post('keterangan', TRUE);
+
+    if ($keterangan == "300 Site") {
+      $cmop = '0608032100001';
+    } elseif ($keterangan == "58 Site") {
+      $cmop = '0608032100003';
+    } elseif ($keterangan == "216 Site") {
+      $cmop = '0608032100004';
+    } elseif ($keterangan == "491 Site") {
+      $cmop = '0608032100005';
+    } elseif ($keterangan == "180 Site") {
+      $cmop = '0608032100006';
+    } elseif ($keterangan == "236 Site") {
+      $cmop = '0608032100007';
+    }
+
+    $where = array('dummy_id' => $dummy_id);
+    $data = array(
+      'dummy_id' => $dummy_id,
+      'site_id' => $site_id,
+      'keterangan' => $keterangan,
+      'cmop' => $cmop,
+
+      'region' => $region,
+      'provinsi' => $provinsi,
+      'kabupaten' => $kabupaten,
+      'kecamatan' => $kecamatan,
+      'desa' => $desa,
+      'paket' => $paket,
+      'batch_' => $batch_,
+      'ctrm' => $ctrm,
+      'ctsi' => $ctsi,
+      'amount_insured' => $amount_insured,
+    );
+
+    $data2 = $this->M_admin->get_data('tb_site_in', $where);
+    foreach ($data2 as $d){
+      $newSiteID = array(
+        'dummy_id' => $dummy_id,
+        'old_site_id' => $d->site_id,
+        'new_site_id' => $site_id,
+      );
+    }
+
+    //if input post same as serven data
+    if ($d->site_id!==$site_id){
+      $this->M_admin->insert('tb_site_in_changes', $newSiteID);
+    }
+
+    if ($this->form_validation->run() == TRUE) {
+      $this->M_admin->update('tb_site_in', $data, $where);
+      $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
+      redirect(base_url('admin/tabel_barangmasuk'));
+    } else {
+      $this->load->view('admin/form_barangmasuk/form_update',$data);
+    }
+  }
+  ####################################
+  // END DATA Data Masuk
+  ####################################
+
+  ####################################
+  // DATA MASUK KE DATA KELUAR
+  ####################################
+
+  public function proses_datamasuk_keluar()
   {
     $this->load->helper('string');
     $this->form_validation->set_rules('site_id', 'site_id', 'required');
@@ -660,87 +741,6 @@ class Admin extends CI_Controller
     }
   }
     
-  public function proses_datamasuk_update()
-  {
-    $this->form_validation->set_rules('dummy_id', 'dummy_id', 'required');
-    $dummy_id = $this->input->post('dummy_id', TRUE);
-    $site_id = $this->input->post('site_id', TRUE);
-    trim($site_id);
-    $region = $this->input->post('region', TRUE);
-    $provinsi = $this->input->post('provinsi', TRUE);
-    $kabupaten = $this->input->post('kabupaten', TRUE);
-    $kecamatan = $this->input->post('kecamatan', TRUE);
-    $desa = $this->input->post('desa', TRUE);
-    $paket = $this->input->post('paket', TRUE);
-    $batch_ = $this->input->post('batch_', TRUE);
-    $ctrm = $this->input->post('ctrm', TRUE);
-    $ctsi = $this->input->post('ctsi', TRUE);
-    $amount_insured = $this->input->post('amount_insured', TRUE);
-    $keterangan = $this->input->post('keterangan', TRUE);
-
-    if ($keterangan == "300 Site") {
-      $cmop = '0608032100001';
-    } elseif ($keterangan == "58 Site") {
-      $cmop = '0608032100003';
-    } elseif ($keterangan == "216 Site") {
-      $cmop = '0608032100004';
-    } elseif ($keterangan == "491 Site") {
-      $cmop = '0608032100005';
-    } elseif ($keterangan == "180 Site") {
-      $cmop = '0608032100006';
-    } elseif ($keterangan == "236 Site") {
-      $cmop = '0608032100007';
-    }
-
-    $where = array('dummy_id' => $dummy_id);
-    $data = array(
-      'dummy_id' => $dummy_id,
-      'site_id' => $site_id,
-      'keterangan' => $keterangan,
-      'cmop' => $cmop,
-
-      'region' => $region,
-      'provinsi' => $provinsi,
-      'kabupaten' => $kabupaten,
-      'kecamatan' => $kecamatan,
-      'desa' => $desa,
-      'paket' => $paket,
-      'batch_' => $batch_,
-      'ctrm' => $ctrm,
-      'ctsi' => $ctsi,
-      'amount_insured' => $amount_insured,
-    );
-
-    $data2 = $this->M_admin->get_data('tb_site_in', $where);
-    foreach ($data2 as $d){
-      $newSiteID = array(
-        'dummy_id' => $dummy_id,
-        'old_site_id' => $d->site_id,
-        'new_site_id' => $site_id,
-      );
-    }
-
-    //if input post same as serven data
-    if ($d->site_id!==$site_id){
-      $this->M_admin->insert('tb_site_in_changes', $newSiteID);
-    }
-
-    if ($this->form_validation->run() == TRUE) {
-      $this->M_admin->update('tb_site_in', $data, $where);
-      $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
-      redirect(base_url('admin/tabel_barangmasuk'));
-    } else {
-      $this->load->view('admin/form_barangmasuk/form_update',$data);
-    }
-  }
-  ####################################
-  // END DATA Data Masuk
-  ####################################
-
-  ####################################
-  // DATA MASUK KE DATA KELUAR
-  ####################################
-
   public function proses_datakeluar_update()
   {
       $old_dummy_id =$this->input->post("dummy_id");
@@ -750,6 +750,8 @@ class Admin extends CI_Controller
       $new_dummy_id = $sha1 . $sha2;   
 
       $site_id =$this->input->post("site_id");
+      trim($site_id);
+      
       $no_sertif =$this->input->post("no_sertif");
 
       $the_insured =$this->input->post("the_insured");
@@ -762,6 +764,7 @@ class Admin extends CI_Controller
       $sailing_date =$this->input->post("sailing_date");
       $issuedDate =$this->input->post("issuedDate");
       $amount_insured =$this->input->post("amount_insured");
+      preg_replace('~\D~', '', $amount_insured);
 
       // $lampiran_BL =$this->input->post("lampiran_BL");
       // $lampiran_LC =$this->input->post("lampiran_LC");
@@ -769,20 +772,20 @@ class Admin extends CI_Controller
       // $lampiran_PL =$this->input->post("lampiran_PL");
       // $lampiran_DO =$this->input->post("lampiran_DO");
 
-      // $conveyance =$this->input->post("conveyance");
-      // $conveyance_by =$this->input->post("conveyance_by");
-      // $conveyance_type =$this->input->post("conveyance_type");
-      // $conveyance_total =$this->input->post("conveyance_total");
-      // $conveyance_policeno =$this->input->post("conveyance_policeno");
-      // $conveyance_age =$this->input->post("conveyance_age");
-      // $conveyance_driver =$this->input->post("conveyance_driver");
-      // $conveyance_ship_name =$this->input->post("conveyance_ship_name");
-      // $conveyance_ship_type =$this->input->post("conveyance_ship_type");
-      // $conveyance_ship_birth =$this->input->post("conveyance_ship_birth");
-      // $conveyance_ship_GRT =$this->input->post("conveyance_ship_GRT");
-      // $conveyance_ship_containerno =$this->input->post("conveyance_ship_containerno");
-      // $conveyance_plane_type =$this->input->post("conveyance_plane_type");
-      // $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
+      $conveyance =$this->input->post("conveyance");
+      $conveyance_by =$this->input->post("conveyance_by");
+      $conveyance_type =$this->input->post("conveyance_type");
+      $conveyance_total =$this->input->post("conveyance_total");
+      $conveyance_policeno =$this->input->post("conveyance_policeno");
+      $conveyance_age =$this->input->post("conveyance_age");
+      $conveyance_driver =$this->input->post("conveyance_driver");
+      $conveyance_ship_name =$this->input->post("conveyance_ship_name");
+      $conveyance_ship_type =$this->input->post("conveyance_ship_type");
+      $conveyance_ship_birth =$this->input->post("conveyance_ship_birth");
+      $conveyance_ship_GRT =$this->input->post("conveyance_ship_GRT");
+      $conveyance_ship_containerno =$this->input->post("conveyance_ship_containerno");
+      $conveyance_plane_type =$this->input->post("conveyance_plane_type");
+      $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
       
       $input =$this->input->post("linked_with");
       $excludeSpace = str_replace('   ', '', $input);
@@ -834,28 +837,28 @@ class Admin extends CI_Controller
         'itemInsured' => $itemInsured,
         'issuedDate' => $issuedDate,
 
-        'conveyance' => $conveyance,
         'destination_from' => $destination_from,
         'destination_to' => $destination_to,
         'amount_insured' => $amount_insured,
         'sailing_date' => $sailing_date,
 
-        // //--------------DARAT---------------
-        // 'conveyance_by' => $conveyance_by,
-        // 'conveyance_type' => $conveyance_type,
-        // //'conveyance_total' => $conveyance_total,
-        // 'conveyance_policeno' => $conveyance_policeno,
-        // 'conveyance_age' => $conveyance_age,
-        // 'conveyance_driver' => $conveyance_driver,
-        // //--------------LAUT---------------
-        // 'conveyance_ship_name' => $conveyance_ship_name,
-        // 'conveyance_ship_type' => $conveyance_ship_type,
-        // 'conveyance_ship_birth' => $conveyance_ship_birth,
-        // 'conveyance_ship_GRT' => $conveyance_ship_GRT,
-        // 'conveyance_ship_containerno' => $conveyance_ship_containerno,
-        // //--------------UDARA---------------
-        // 'conveyance_plane_type' => $conveyance_plane_type,
-        // 'conveyance_plane_AWB' => $conveyance_plane_AWB,
+        'conveyance' => $conveyance,
+        //--------------DARAT---------------
+        'conveyance_by' => $conveyance_by,
+        'conveyance_type' => $conveyance_type,
+        //'conveyance_total' => $conveyance_total,
+        'conveyance_policeno' => $conveyance_policeno,
+        'conveyance_age' => $conveyance_age,
+        'conveyance_driver' => $conveyance_driver,
+        //--------------LAUT---------------
+        'conveyance_ship_name' => $conveyance_ship_name,
+        'conveyance_ship_type' => $conveyance_ship_type,
+        'conveyance_ship_birth' => $conveyance_ship_birth,
+        'conveyance_ship_GRT' => $conveyance_ship_GRT,
+        'conveyance_ship_containerno' => $conveyance_ship_containerno,
+        //--------------UDARA---------------
+        'conveyance_plane_type' => $conveyance_plane_type,
+        'conveyance_plane_AWB' => $conveyance_plane_AWB,
       );
 
 

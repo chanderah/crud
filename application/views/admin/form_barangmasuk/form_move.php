@@ -138,8 +138,8 @@
             </a>
             <ul class="treeview-menu">
               <!-- <li><a href="<?= base_url('admin/tabel_permintaanmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Permintaan Masuk</a></li> -->
-              <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
               <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
+              <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
               <li><a href="<?= base_url('admin/tabel_barangkeluar') ?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
             </ul>
           </li>
@@ -183,7 +183,7 @@
                 <!-- /.box-header -->
                 <!-- form start -->
                 <div class="container">
-                  <form action="<?=base_url('admin/proses_datamasuk_move')?>" role="form" method="post" autocomplete="on" accept-charset="utf-8" style="width:95%;margin-left:10px">
+                  <form action="<?=base_url('admin/proses_datamasuk_keluar')?>" role="form" method="post" autocomplete="on" accept-charset="utf-8" style="width:95%;margin-left:10px">
                     <div class="form-group" style="display:inline-block; margin-left:75px">
                       <button type="reset" class="btn btn-basic" name="btn_reset" style="width:95px;margin-left:-70px;margin-top:10px"><i class="fa fa-eraser" aria-hidden="true"></i> Reset</button>
                     </div>
