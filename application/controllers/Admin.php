@@ -175,7 +175,6 @@ class Admin extends CI_Controller
       $this->import_excel();
       $this->session->set_flashdata('msg_berhasil_gambar', 'Excel Berhasil Di Upload');
       redirect(base_url('admin/tabel_barangmasuk'));
-      
     }
   }
 
@@ -200,6 +199,7 @@ class Admin extends CI_Controller
     $d = $spreadsheet->getSheet(0)->toArray();
     unset($d[0]);
     $datas = array();
+
     foreach ($d as $t) {
       $sha1 = random_string('alpha', 10);
       $sha2 = random_string('sha1');
@@ -216,25 +216,31 @@ class Admin extends CI_Controller
       $data["batch_"] = $t[7];
       $data["ctrm"] = $t[8];
       $data["ctsi"] = $t[9];
-      $data["amount_insured"] = $t[10];
-      $data["keterangan"] = $t[11];
 
-      if ($data["keterangan"] == "300 Site") {
+      $keepNumeric = preg_replace('~\D~', '', $t[10]);
+      $data["amount_insured"] = $keepNumeric;
+
+      $keteranganSite = $data["keterangan"] = $t[11];
+      array_map('trim', $keteranganSite);
+
+      if ($keteranganSite == "300 Site") {
         $cmop = '0608032100001';
-      } elseif ($data["keterangan"] == "58 Site") {
+      } elseif ($keteranganSite == "58 Site") {
         $cmop = '0608032100003';
-      } elseif ($data["keterangan"] == "216 Site") {
+      } elseif ($keteranganSite == "216 Site") {
         $cmop = '0608032100004';
-      } elseif ($data["keterangan"] == "491 Site") {
+      } elseif ($keteranganSite == "491 Site") {
         $cmop = '0608032100005';
-      } elseif ($data["keterangan"] == "180 Site") {
+      } elseif ($keteranganSite == "180 Site") {
         $cmop = '0608032100006';
-      } elseif ($data["keterangan"] == "236 Site") {
+      } elseif ($keteranganSite == "236 Site") {
         $cmop = '0608032100007';
       }
 
       $data["cmop"] = $cmop;
       array_push($datas, $data);
+
+      array_map('trim', $datas);
     }
     $result = $this->add_data($datas);
     if ($result) {
@@ -480,9 +486,21 @@ class Admin extends CI_Controller
     $ctrm = $this->input->post('ctrm', TRUE);
     $ctsi = $this->input->post('ctsi', TRUE);
     $amount_insured = $this->input->post('amount_insured', TRUE);
-    $no_sertif = $this->input->post('no_sertif', TRUE);
     $keterangan = $this->input->post('keterangan', TRUE);
-    $qty = $this->input->post('qty', TRUE);
+    
+    if ($keterangan == "300 Site") {
+      $cmop = '0608032100001';
+    } elseif ($keterangan == "58 Site") {
+      $cmop = '0608032100003';
+    } elseif ($keterangan == "216 Site") {
+      $cmop = '0608032100004';
+    } elseif ($keterangan == "491 Site") {
+      $cmop = '0608032100005';
+    } elseif ($keterangan == "180 Site") {
+      $cmop = '0608032100006';
+    } elseif ($keterangan == "236 Site") {
+      $cmop = '0608032100007';
+    }
 
     $data = array(
       'dummy_id' => $dummy_id,
@@ -497,6 +515,7 @@ class Admin extends CI_Controller
       'ctrm' => $ctrm,
       'ctsi' => $ctsi,
       'amount_insured' => $amount_insured,
+      'cmop' => $cmop,
       'keterangan' => $keterangan
     );
 
@@ -647,7 +666,7 @@ class Admin extends CI_Controller
     
     $dummy_id = $this->input->post('dummy_id', TRUE);
     $site_id = $this->input->post('site_id', TRUE);
-    $linked_with = $this->input->post('linked_with', TRUE);
+    trim($site_id);
     $region = $this->input->post('region', TRUE);
     $provinsi = $this->input->post('provinsi', TRUE);
     $kabupaten = $this->input->post('kabupaten', TRUE);
@@ -691,7 +710,6 @@ class Admin extends CI_Controller
       'ctrm' => $ctrm,
       'ctsi' => $ctsi,
       'amount_insured' => $amount_insured,
-      'linked_with' => $linked_with,
     );
 
     $data2 = $this->M_admin->get_data('tb_site_in', $where);
@@ -703,7 +721,6 @@ class Admin extends CI_Controller
       );
     }
 
-    
     //if input post same as serven data
     if ($d->site_id!==$site_id){
       $this->M_admin->insert('tb_site_in_changes', $newSiteID);

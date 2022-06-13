@@ -197,11 +197,11 @@
             <form action="<?=base_url('admin/proses_datamasuk_update')?>" role="form" method="post" style="width:95%;margin-left:10px">
 
               <?php if(validation_errors()){ ?>
-              <div class="alert alert-warning alert-dismissible">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  <strong>Warning!</strong><br> <?php echo validation_errors(); ?>
-             </div>
-            <?php } ?>
+                <div class="alert alert-warning alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Warning!</strong><br> <?php echo validation_errors(); ?>
+                </div>
+              <?php } ?>
               <div class="box-body">
                 <?php foreach($data_barang_update as $d){ ?>
                     <div class="form-group form-group-lg col-md-12"style="margin-top:20px;">
@@ -278,7 +278,7 @@
                   <a type="button" class="btn btn-info" style="width:18%;margin-right:20%" href="<?=base_url('admin/tabel_barangmasuk')?>" name="btn_listbarang">
                   <i class="fa fa-table" aria-hidden="true"></i> Lihat Database SITE ID</a>
                   <button type="submit" input type="submit" style="width:20%" id="btnSave" class="btn btn-md btn-success"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
-                </div>
+              </div>
             </form>
           </div>
           </div>
