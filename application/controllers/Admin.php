@@ -179,12 +179,13 @@ class Admin extends CI_Controller
   }
 
   public function download($filename = 'importsite_format.xlsx') {
-    $this->load->helper('download');
-    $path = file_get_contents(base_url()."xlsx/".$filename); // get file name
-    $name = $filename; // new name for your file
-    force_download($name, $path); // start download`
-}
+      $this->load->helper('download');
+      $path = file_get_contents(base_url()."xlsx/".$filename); // get file name
+      $name = $filename; // new name for your file
+      force_download($name, $path); // start download`
+  }
 
+  //ALTER TABLE tablename AUTO_INCREMENT = 1
 
   public function add_data($datas)
   {
@@ -235,6 +236,8 @@ class Admin extends CI_Controller
         $cmop = '0608032100006';
       } elseif ($keteranganSite == "236 Site") {
         $cmop = '0608032100007';
+      } elseif ($keteranganSite == "15 Site") {
+        $cmop = '0608032200001';
       }
 
       $data["cmop"] = $cmop;
@@ -501,6 +504,8 @@ class Admin extends CI_Controller
       $cmop = '0608032100006';
     } elseif ($keterangan == "236 Site") {
       $cmop = '0608032100007';
+    } elseif ($keterangan == "15 Site") {
+      $cmop = '0608032200001';
     }
 
     $data = array(
@@ -560,7 +565,9 @@ class Admin extends CI_Controller
       $cmop = '0608032100006';
     } elseif ($keterangan == "236 Site") {
       $cmop = '0608032100007';
-    }
+    } elseif ($keterangan == "15 Site") {
+      $cmop = '0608032200001';
+    } 
 
     $where = array('dummy_id' => $dummy_id);
     $data = array(

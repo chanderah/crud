@@ -427,7 +427,7 @@ class Report2 extends CI_Controller
                             <tr>
                                 <td colspan="2"></td>
                                 <td colspan="1"></td>
-                                <td colspan="8"> SITE ID : As Attached</td>
+                                <td colspan="8">SITE ID : As Attached</td>
                             </tr>';
                     }
                 }
