@@ -214,11 +214,10 @@
                   <?php if(is_array($list_data)){ ?>
                   <?php $no = 1;?>
                   <?php foreach($list_data as $dd): ?>
-                    <? $linkedWithUnique = array_unique($dd->linked_with) ?>
                     <td><?=$no?></td>
                     <td><?=$dd->site_id?></td>
                     <td><?=$dd->linked_with?></td>
-                    <td><?=$dd->no_sertif?></td>
+                    <td><?=$dd->no_sertif?></td>  
                     <td><?=$dd->issuedDate?></td>
                     <td><?=$dd->created_at?></td>
                     <td><a type="button" class="btn btn-info" href="<?= base_url('admin/update_datakeluar/' . $dd->dummy_id) ?>" name="btn_update" style="margin:auto;"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>

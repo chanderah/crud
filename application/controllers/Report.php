@@ -28,9 +28,23 @@ class Report extends CI_Controller
         //create
         $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         //
+
+        foreach ($data as $d){
+            $no_sertif = $d->no_sertif;
+            $str_length = 5;
+            $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
+        
+            $yearIssued = date("y", strtotime($d->issuedDate));
+            $numToRoman = new IntToRoman();
+            $roman = $numToRoman->filter(date("m", strtotime($d->issuedDate)));
+            $monthIssued = $roman;
+            
+            $headerSertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
+        }
+
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('PT. Jasmine Indah Servistama');
-        $pdf->SetTitle('Invoice');
+        $pdf->SetTitle($headerSertif);
         $pdf->SetSubject('Invoice');
         $pdf->SetKeywords('PDF, Invoice');
         // 
@@ -555,7 +569,8 @@ class Report extends CI_Controller
                 // $pdf->lastPage();
                 // ---------------------------------------------------------
                 //Close and output PDF document
-                $pdf_file_name = $d->site_id . ' Certificate of Insurance.pdf';
+                //CERTIFICATE MARINE CARGO NO. JIS22-0608032100001-VI-01289
+                $pdf_file_name = 'CERTIFICATE MARINE CARGO NO. '.$headerSertif;
                 $pdf->IncludeJS("print();");
                 while (ob_get_level()) {
                     ob_end_clean(); 

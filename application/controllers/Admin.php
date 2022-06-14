@@ -744,7 +744,7 @@ class Admin extends CI_Controller
       $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
       redirect(base_url('admin/tabel_barangkeluar'));
     } else {
-      $this->load->view('admin/form_barangmasuk/form_insert', $siteExported);
+      $this->load->view('admin/form_barangmasuk/form_move', $siteExported);
     }
   }
     

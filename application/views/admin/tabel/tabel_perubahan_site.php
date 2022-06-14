@@ -181,7 +181,7 @@
         <ol class="breadcrumb">
           <li><a href="<?= base_url('admin') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
           <li>Tables</li>
-          <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>">Tabel Database SITE ID</li>
+          <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>">Tabel Perubahan SITE ID</li>
         </ol>
       </section>
 
