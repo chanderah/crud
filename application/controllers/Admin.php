@@ -633,17 +633,15 @@ class Admin extends CI_Controller
     $site_id = $this->input->post('site_id', TRUE);
     
     $input =$this->input->post("linked_with");
-    $excludeSpace = str_replace('   ', '', $input);
-    $excludeSpace = str_replace('  ', '', $input);
-    $excludeSpace = str_replace(' ', '', $excludeSpace);
-    $excludeSpace = str_replace(',', ', ', $excludeSpace);
+    $excludeSpace = str_replace(' ', '', $input);
+
+    $sitePlusLink = $site_id . ',' . $excludeSpace;
+    //ntb12,ntb22
 
     //ini pake $d->
+    $linkedSiteUnique = array_unique(explode(',', $sitePlusLink));
 
-    $explodeLinkedWith = explode(", ", $excludeSpace);
-    array_unshift($explodeLinkedWith, $site_id);
-
-    foreach ($explodeLinkedWith as $d){
+    foreach ($linkedSiteUnique as $d){
         //foreach ntb2132, ntb232992
       $where = array('site_id' => $d);
       $data2 = $this->M_admin->get_data('tb_site_in', $where);
@@ -696,10 +694,9 @@ class Admin extends CI_Controller
     $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
   
     $input2 =$this->input->post("linked_with");
-    $excludeSpace2 = str_replace('   ', '', $input2);
-    $excludeSpace2 = str_replace('  ', '', $excludeSpace2);
-    $excludeSpace2 = str_replace(' ', '', $excludeSpace2);
-    $excludeSpace2 = str_replace(',', ', ', $excludeSpace2);
+    $excludeSpace2 = str_replace(' ', '', $input2);
+
+    $LinkedWithUnique = implode(', ',array_unique(explode(',', $excludeSpace2)));
 
     $siteOut = array(
       'id' => $id,
@@ -707,7 +704,7 @@ class Admin extends CI_Controller
       'dummy_id' => $dummy_id,
       'no_sertif' => $no_sertif,
       'site_id' => $site_id,
-      'linked_with' => $excludeSpace2,
+      'linked_with' => $LinkedWithUnique,
   
       'the_insured' => $the_insured,
       'address_' => $address_,
@@ -795,15 +792,15 @@ class Admin extends CI_Controller
       $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
       
       $input =$this->input->post("linked_with");
-      $excludeSpace = str_replace('   ', '', $input);
-      $excludeSpace = str_replace('  ', '', $input);
-      $excludeSpace = str_replace(' ', '', $excludeSpace);
-      $excludeSpace = str_replace(',', ', ', $excludeSpace);
+      $excludeSpace = str_replace(' ', '', $input);
+  
+      $sitePlusLink = $site_id . ',' . $excludeSpace;
+      //ntb12,ntb22
+  
+      //ini pake $d->
+      $linkedSiteUnique = array_unique(explode(',', $sitePlusLink));
 
-      $explodeLinkedWith = explode(", ", $excludeSpace);
-      array_unshift($explodeLinkedWith, $site_id);
-
-      foreach ($explodeLinkedWith as $d){
+      foreach ($linkedSiteUnique as $d){
           //foreach ntb2132, ntb232992
         $where = array('site_id' => $d);
         $data2 = $this->M_admin->get_data('tb_site_in', $where);
@@ -832,12 +829,17 @@ class Admin extends CI_Controller
         } 
       };
       
+      $input2 =$this->input->post("linked_with");
+      $excludeSpace2 = str_replace(' ', '', $input2);
+  
+      $LinkedWithUnique = implode(', ',array_unique(explode(',', $excludeSpace2)));
+  
       $where = array('dummy_id' => $old_dummy_id);
-      $data = array(
+      $siteOut = array(
         'dummy_id' => $new_dummy_id,
         'no_sertif' => $no_sertif,
         'site_id' => $site_id,
-        'linked_with' => $excludeSpace,
+        'linked_with' => $LinkedWithUnique,
     
         'the_insured' => $the_insured,
         'address_' => $address_,
@@ -869,7 +871,7 @@ class Admin extends CI_Controller
       );
 
 
-      $this->M_admin->update('tb_site_out', $data, $where);
+      $this->M_admin->update('tb_site_out', $siteOut, $where);
       $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
       redirect(base_url('admin/tabel_barangkeluar'));
     
