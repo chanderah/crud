@@ -128,36 +128,43 @@ class M_admin extends CI_Model
 
     return $query->result();
   }
-  
+
+  public function get_max_idd($table_id, $table_name) {
+    $this->db->select_max($table_id);
+    $result = $this->db->get($table_name)->row();  
+
+    return $result->no_sertif;
+  }
+
   public function get_max_id($table_id, $table_name) {
     $row = $this->db->select_max($table_id)
       ->get($table_name)->row_array();
     $max_id = $row[$table_id] + 1; 
-return $max_id;
-}
+    return $max_id;
+  }
 
   public function get_max_sertif_id($table_id, $table_name) {
     $row = $this->db->select_max($table_id)
       ->get($table_name)->row_array();
-$max_id = $row[$table_id] + 1; 
-return $max_id;
-}
+    $max_id = $row[$table_id] + 1; 
+    return $max_id;
+    }
 
-public function update_into_table($tabel,$data2,$where)
-{
-  $this->db->where($where);
-  $this->db->update($tabel,$data2);
-}
+  public function update_into_table($tabel,$data2,$where)
+  {
+    $this->db->where($where);
+    $this->db->update($tabel,$data2);
+  }
 
-public function insert_batch_into_table($table_name, $data) {
-    return $this->db->insert_batch($table_name, $data);
-}
+  public function insert_batch_into_table($table_name, $data) {
+      return $this->db->insert_batch($table_name, $data);
+  }
 
-public function get_multiple_rows_from_table($table_name, $where) {
-    return $this->db->where($where)
-                    ->get($table_name)
-                    ->result();
-}
+  public function get_multiple_rows_from_table($table_name, $where) {
+      return $this->db->where($where)
+                      ->get($table_name)
+                      ->result();
+  }
 
 public function delete_record_from_table($table_name, $where) {
     return $this->db->delete($table_name, $where);

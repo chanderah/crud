@@ -610,7 +610,7 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('site_id', 'site_id', 'required');
   
     $id = $this->M_admin->get_max_id('id','tb_site_out');
-    $no_sertif = $this->M_admin->get_max_id('no_sertif','tb_site_out');
+    $no_sertif = $this->M_admin->get_max_id('no_sertif','tb_site_out');  
   
     $sha1 = random_string('alpha', 10);
     $sha2 = random_string('sha1');
