@@ -17,7 +17,7 @@
       body {
   font-family: "Open Sans", sans-serif;
   height: 100vh;
-  background: url("https://i.imgur.com/HgflTDf.jpg") 50% fixed;
+  background: url("https://crud.ptjis.com/assets/bg.jpg") 50% fixed;
   background-size: cover;
 }
 
@@ -201,10 +201,10 @@ footer a, footer a:link {
     <?php }else {
       redirect(base_url());
     }?>
-    <?php echo anchor(base_url('login/register'),'Register') ?><br>
-    <!-- <a href="#">Forgot your password?</a> -->
+    <!--<?php echo anchor(base_url('login/register'),'Register') ?><br>
+    <a href="#">Forgot your password?</a> -->
     <button>
-      <!-- <i class="spinner"></i> -->
+      <i class="spinner"></i>
       <span class="state"><i class="fa fa-sign-in" aria-hidden="true"></i> Log in</span>
     </button>
   </form>

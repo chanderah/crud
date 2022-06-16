@@ -8,6 +8,7 @@ class Admin extends CI_Controller
   public function __construct()
   {
     parent::__construct();
+    
     $this->load->model('M_admin');
     $this->load->library('upload');
   }
@@ -25,8 +26,7 @@ class Admin extends CI_Controller
     //   //maintenance warn
     //   redirect(base_url('admin/maintenance'));      
     // }
-    
-    // else
+
     if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
       $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
       $data['jumlahPermintaan'] = $this->M_admin->numrows('tb_site_in');
@@ -389,40 +389,60 @@ class Admin extends CI_Controller
 
   public function tabel_barangmasuk()
   {
-    $data = array(
-      'list_data' => $this->M_admin->select('tb_site_in'),
-      'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
-    );
-    $this->load->view('admin/tabel/tabel_barangmasuk', $data);
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+
+      $data = array(
+        'list_data' => $this->M_admin->select('tb_site_in'),
+        'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
+      );
+      $this->load->view('admin/tabel/tabel_barangmasuk', $data);  
+      
+    } else {
+      $this->load->view('login/login');
+    }
   }
 
   public function tabel_perubahan_site()
   {
-    $data = array(
-      'list_data' => $this->M_admin->select('tb_site_in_changes'),
-      'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
-    );
-    $this->load->view('admin/tabel/tabel_perubahan_site', $data);
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $data = array(
+        'list_data' => $this->M_admin->select('tb_site_in_changes'),
+        'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
+      );
+      $this->load->view('admin/tabel/tabel_perubahan_site', $data);
+      
+    } else {
+      $this->load->view('login/login');
+    }
   }
 
   public function update_datamasuk($dummy_id)
   {
-    $where = array('dummy_id' => $dummy_id);
-    $where2 = array('dummy_id' => $dummy_id);
-    
-    $data['data_barang_update'] = $this->M_admin->get_data('tb_site_in', $where);
-    $data['data_linked_with'] = $this->M_admin->getAllDataLinkedWith('tb_site_in');
-    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
-    $this->load->view('admin/form_barangmasuk/form_update', $data);
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $where = array('dummy_id' => $dummy_id);
+      $where2 = array('dummy_id' => $dummy_id);
+      
+      $data['data_barang_update'] = $this->M_admin->get_data('tb_site_in', $where);
+      $data['data_linked_with'] = $this->M_admin->getAllDataLinkedWith('tb_site_in');
+      $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+      $this->load->view('admin/form_barangmasuk/form_update', $data);
+      
+    } else {
+      $this->load->view('login/login');
+    }
   }
 
   public function update_datakeluar($dummy_id)
   { 
-    $where = array('dummy_id' => $dummy_id);
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+      $where = array('dummy_id' => $dummy_id);
     
-    $data['data_barang_update'] = $this->M_admin->get_data('tb_site_out', $where);
-    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
-    $this->load->view('admin/form_barangmasuk/form_update_keluar', $data);
+      $data['data_barang_update'] = $this->M_admin->get_data('tb_site_out', $where);
+      $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+      $this->load->view('admin/form_barangmasuk/form_update_keluar', $data);
+    } else {
+      $this->load->view('login/login');
+    }
   }
 
   public function info_datamasuk($dummy_id)

@@ -191,99 +191,69 @@ class Report extends CI_Controller
                     </tr>';
 
                     //MOP Logic
-                    $whereMOP = array('site_id' => $d->site_id);
-                    $dataMOP = $this->M_admin->get_data('tb_site_in_exported', $whereMOP);
-                    foreach ($dataMOP as $dMOP) {
-                        $firstMOP = $dMOP->cmop;
-                    }
+                    $dataMop = $d->linked_mop;
+                    $explodedDataMop = explode(', ',$dataMop);
+             
+                    $countMop = count($explodedDataMop);
 
-                    if ($d->linked_with == true) {
-                        $linkedExploded = explode(', ', $d->linked_with);
-                        $bmop = [];
-                        foreach ($linkedExploded as $dd2) {
-                            // $where = array('site_id' => $dd2);
-                            $where = array(
-                                'site_id' => $dd2,
-                                'dummy_id' => $id
-                            );
-                            $data22 = $this->M_admin->get_data('tb_site_in_exported', $where);
-                            foreach ($data22 as $ddd2) {
-                                $bmop[] = $ddd2->cmop;
+                    $lastMop = array_pop($explodedDataMop);
+                
+                    if ($countMop > 1) {
+                        $withAndMop = implode(', ',$explodedDataMop).' & '.$lastMop;
+                        $html = str_replace('{MOP}', $withAndMop, $html);
+
+                        //scope of cover
+                        $x = 1;
+                        $explodedDataMop2 = explode(', ',$dataMop);
+                        foreach ($explodedDataMop2 as $d2) {  
+                            if($x === 1){
+                                $html .= '  
+                                            <tr>  
+                                                <td colspan="2">Scope of Cover</td>       
+                                                <td colspan="1" align="right">:</td>
+                                                <td colspan="8" align="justify">As per M.O.P No. :</td>
+                                            </tr>
+                                            <tr>  
+                                                <td colspan="2"></td>       
+                                                <td colspan="1" align="right"></td>
+                                                <td colspan="8" align="justify">
+                                                    <ul>
+                                                        <li>' . $d2 . '</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>';
+                                $pdf->Ln();
+                            }else{
+                                $html .= '  
+                                            <tr>  
+                                                <td colspan="2"></td>       
+                                                <td colspan="1" align="right"></td>
+                                                <td colspan="8" align="justify">
+                                                    <ul>
+                                                        <li>' . $d2 . '</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>';
+                                $pdf->Ln();
                             }
+                            $x++;
                         }
-
-                        //push first site id MOP
-                        array_push($bmop, $firstMOP);
-                        sort($bmop);
-                        $bmop = array_unique($bmop);
-
-                        $lasttMOP = array_pop($bmop);
-                        $amop = implode(", ", $bmop);
-
-                        if (count($bmop) > 1) {
-                            $html = str_replace('{MOP}', $amop." & ".$lasttMOP, $html);
-                        }
-
-                        else{
-                            $html = str_replace('{MOP}', $lasttMOP, $html);
-                        }
-                        
-                        $scopeCover = implode("<br>", array_unique($bmop));
-                        $countScopeCover = str_word_count($scopeCover);
-
-                        if ($countScopeCover==0){
-                            $html .= ' 
-                                                <tr>   
-                                                    <td colspan="2">Scope of Cover</td>
-                                                    <td colspan="1" align="right">:</td>
-                                                    <td colspan="8" align="justify">As per M.O.P No. : ' . $lasttMOP . '</td>
-                                                </tr>';
-                        
-                        }else{
-                            array_push($bmop,$lasttMOP);
-                            $explodeLinkUnique = array_unique($bmop);
-                            $x = 1;
-
-                            foreach ($explodeLinkUnique as $d2) {  
-
-                                if($x === 1){
-                                    $html .= '  
-                                                <tr>  
-                                                    <td colspan="2">Scope of Cover</td>       
-                                                    <td colspan="1" align="right">:</td>
-                                                    <td colspan="8" align="justify">As per M.O.P No. :</td>
-                                                </tr>
-                                                <tr>  
-                                                    <td colspan="2"></td>       
-                                                    <td colspan="1" align="right"></td>
-                                                    <td colspan="8" align="justify">
-                                                        <ul>
-                                                            <li>' . $d2 . '</li>
-                                                        </ul>
-                                                    </td>
-                                                </tr>';
-                                    $pdf->Ln();
-                                }else{
-                                    $html .= '  
-                                                <tr>  
-                                                    <td colspan="2"></td>       
-                                                    <td colspan="1" align="right"></td>
-                                                    <td colspan="8" align="justify">
-                                                        <ul>
-                                                            <li>' . $d2 . '</li>
-                                                        </ul>
-                                                    </td>
-                                                </tr>';
-                                    $pdf->Ln();
-                                }
-                                $x++;
-                            }
-                        }
-                    } else {
-                        $html = str_replace('{MOP}', $firstMOP, $html);
-                        $html = str_replace('{scopeCover}', $firstMOP, $html);
                     }
+                    elseif ($countMop = 1){
+                        $html = str_replace('{MOP}', $dataMop, $html);
 
+                        //scope of cover
+                        $html .= ' 
+                        <tr>   
+                            <td colspan="2">Scope of Cover</td>
+                            <td colspan="1" align="right">:</td>
+                            <td colspan="8" align="justify">As per M.O.P No. : ' . $dataMop . '</td>
+                        </tr>';
+
+                    }
+                    else {
+                        $html = str_replace('{MOP}', '<span class="red"><br>MOP Number is not found. Please do recheck your SITE ID.</span>', $html);
+                    }
 
                 $html .= '
                     <tr>
@@ -413,39 +383,33 @@ class Report extends CI_Controller
                 //set plus one if attachment needed
                 $attachments = 0;
 
-                if ($d->linked_with == true) {
-                    $explodeLink = explode(', ', $d->linked_with);
-                    
-                    sort($explodeLink);
-                    array_unshift($explodeLink, $d->site_id);
-                    $explodeLinkUnique = array_unique($explodeLink);
-                    $totalLink = count($explodeLinkUnique);
-                    if ($totalLink < 9) {
-                        //disini
-                        $x = 1;
+                $where = array('dummy_id' => $d->dummy_id);
+                $getDataSite = $this->M_admin->get_data('tb_site_in_exported', $where);
+                $countDataSite = count($getDataSite);
 
-                        foreach ($explodeLinkUnique as $d2) {
-                            $html .= '
-                            <tr class="line10">   
-                                <td colspan="2"></td>
-                                <td colspan="1"></td>
-                                <td colspan="8"> ' . $x . '. SITE ID : ' . $d2 . '</td>
-                            </tr>';
-
-                            $x++;
-                            // $pdf->Ln();
-                        }
-                    } else {
-                        $attachments++;
+                if ($countDataSite <= 10){
+                    $x = 1;
+                    foreach ($getDataSite as $d2) {
                         $html .= '
-                            <tr>
-                                <td colspan="2"></td>
-                                <td colspan="1"></td>
-                                <td colspan="8">SITE ID : As Attached</td>
-                            </tr>';
+                        <tr class="line10">   
+                            <td colspan="2"></td>
+                            <td colspan="1"></td>
+                            <td colspan="8"> ' . $x . '. SITE ID : ' . $d2->site_id . '</td>
+                        </tr>';
+
+                        $x++;
                     }
                 }
-
+                else{
+                    $attachments++;
+                    $html .= '
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1"></td>
+                            <td colspan="8">SITE ID : As Attached</td>
+                        </tr>';
+                }
+                
                 $html .= '<br class="line10">';
                 $arr = explode("\n", $d->destination_to);
                 // $output = implode("<br>", $arr);
@@ -503,7 +467,7 @@ class Report extends CI_Controller
                 //Certificate Attachment
 
                 if ($attachments === 1) {
-                    // $pdf->AddPage();
+                    $pdf->AddPage();
                     $attachment .=   '<div>
                                     <br pagebreak="true"/>
                                     <font size="16">
@@ -542,20 +506,17 @@ class Report extends CI_Controller
                                  ';
 
                     
-                    array_unshift($explodeLink, $d->site_id);
-                    $explodeLinks = array_unique($explodeLink);
-
                     $no = 1;
-                    foreach ($explodeLinks as $d2) {
-                        $attachment .= '  <tr>
+                    foreach ($getDataSite as $d2) {
+                        $attachment .= '  
+                                    <tr>
                                         <td style="width:33%"></td> 
                                         <td border="1" style="width:10%">' . $no . '</td>
-                                        <td border="1">' . $d2 . '</td>
-                                    </tr>
-                                                ';
+                                        <td border="1">' . $d2->site_id . '</td>
+                                    </tr>';
                         $no++;
-                        $pdf->Ln();
                     }
+                    
                     $attachment .= '</table>
                                 <table cellpadding="2">
                                     <tr>

@@ -2,6 +2,25 @@
     text-decoration: underline;
 }
 
+.bottom {
+    vertical-align: bottom;
+}
+
+.line30 {
+    line-height: 3.0;
+
+}
+ 
+.line27 {
+    line-height: 2.7;
+
+}
+ 
+.line25 {
+    line-height: 2.5;
+
+}
+ 
 .line20 {
     line-height: 2.0;
 
@@ -57,11 +76,6 @@
 
 }
 
-.line0 {
-    line-height: -20;
-
-}
-
 .italic {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
@@ -78,4 +92,13 @@
 
 .span{
     color: #fff;
+}
+
+.red{
+    color:red;
+}
+
+.center{
+    align-items: center;
+    text-align: center;
 }
