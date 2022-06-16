@@ -141,7 +141,7 @@
               <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
               <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
               <li><a href="<?= base_url('admin/tabel_barangkeluar') ?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
-            <!-- <li><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> -->
+            <li><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> 
            </ul>
           </li>
           <li>
@@ -210,7 +210,7 @@
                       <label for="the_insured">1. Nama Tertanggung</label>
                       <select name="the_insured" class="form-control">
                         <option value="PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)">PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)</option>
-                        <!-- <option value="Lainnya">Lainnya</option> -->
+                        <!-- <!-- <option value="Lainnya">Lainnya</option> --> -->
                       </select>
                     </div>
                     <div class="form-group form-group-lg col-md-12">
@@ -218,7 +218,7 @@
                         <select class="form-control" name="address_">
                           <!-- <option selected>Choose...</option> -->
                           <option selected value="APL Tower, 30 Floor, Grogol, West Jakarta">APL Tower, 30 Floor, Grogol, West Jakarta</option>
-                          <!-- <option value="Lainnya">Lainnya</option> -->
+                          <!-- <!-- <option value="Lainnya">Lainnya</option> --> -->
                         </select>
                     </div>
                     

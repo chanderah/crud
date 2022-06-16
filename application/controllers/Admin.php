@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+use Romans\Filter\IntToRoman;
 
 class Admin extends CI_Controller
 {
@@ -221,29 +222,14 @@ class Admin extends CI_Controller
       $keepNumeric = preg_replace('~\D~', '', $t[10]);
       $data["amount_insured"] = $keepNumeric;
 
-      $keteranganSite = $data["keterangan"] = $t[11];
-      array_map('trim', $keteranganSite);
+      $keepNumeric2 = preg_replace('~\D~', '', $t[11]);
+      $keteranganSite = $keepNumeric2 . ' Site';
 
-      if ($keteranganSite == "300 Site") {
-        $cmop = '0608032100001';
-      } elseif ($keteranganSite == "58 Site") {
-        $cmop = '0608032100003';
-      } elseif ($keteranganSite == "216 Site") {
-        $cmop = '0608032100004';
-      } elseif ($keteranganSite == "491 Site") {
-        $cmop = '0608032100005';
-      } elseif ($keteranganSite == "180 Site") {
-        $cmop = '0608032100006';
-      } elseif ($keteranganSite == "236 Site") {
-        $cmop = '0608032100007';
-      } elseif ($keteranganSite == "15 Site") {
-        $cmop = '0608032200001';
-      }
+      $data["keterangan"] = $keteranganSite;
 
-      $data["cmop"] = $cmop;
       array_push($datas, $data);
 
-      array_map('trim', $datas);
+      array_map('trim', $data);
     }
     $result = $this->add_data($datas);
     if ($result) {
@@ -368,6 +354,7 @@ class Admin extends CI_Controller
 
   public function form_barangmasuk()
   {
+    $data['list_keterangan'] = $this->M_admin->select('tb_mop');
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_barangmasuk/form_insert', $data);
   }
@@ -490,23 +477,14 @@ class Admin extends CI_Controller
     $ctrm = $this->input->post('ctrm', TRUE);
     $ctsi = $this->input->post('ctsi', TRUE);
     $amount_insured = $this->input->post('amount_insured', TRUE);
+    
     $keterangan = $this->input->post('keterangan', TRUE);
     
-    if ($keterangan == "300 Site") {
-      $cmop = '0608032100001';
-    } elseif ($keterangan == "58 Site") {
-      $cmop = '0608032100003';
-    } elseif ($keterangan == "216 Site") {
-      $cmop = '0608032100004';
-    } elseif ($keterangan == "491 Site") {
-      $cmop = '0608032100005';
-    } elseif ($keterangan == "180 Site") {
-      $cmop = '0608032100006';
-    } elseif ($keterangan == "236 Site") {
-      $cmop = '0608032100007';
-    } elseif ($keterangan == "15 Site") {
-      $cmop = '0608032200001';
-    }
+    $where = array('keterangan' => $keterangan);
+    $getMop = $this->M_admin->get_data('tb_mop', $where);
+    $cmop= $getMop->mop;
+
+    $keterangan = $keterangan.' Site';
 
     $data = array(
       'dummy_id' => $dummy_id,
@@ -553,21 +531,9 @@ class Admin extends CI_Controller
     $amount_insured = $this->input->post('amount_insured', TRUE);
     $keterangan = $this->input->post('keterangan', TRUE);
 
-    if ($keterangan == "300 Site") {
-      $cmop = '0608032100001';
-    } elseif ($keterangan == "58 Site") {
-      $cmop = '0608032100003';
-    } elseif ($keterangan == "216 Site") {
-      $cmop = '0608032100004';
-    } elseif ($keterangan == "491 Site") {
-      $cmop = '0608032100005';
-    } elseif ($keterangan == "180 Site") {
-      $cmop = '0608032100006';
-    } elseif ($keterangan == "236 Site") {
-      $cmop = '0608032100007';
-    } elseif ($keterangan == "15 Site") {
-      $cmop = '0608032200001';
-    } 
+    $where = array('keterangan' => $keterangan);
+    $getMop = $this->M_admin->get_data('tb_mop', $where);
+    $cmop= $getMop->mop;
 
     $where = array('dummy_id' => $dummy_id);
     $data = array(
@@ -641,12 +607,21 @@ class Admin extends CI_Controller
     //ini pake $d->
     $linkedSiteUnique = array_unique(explode(',', $sitePlusLink));
 
+    $getAllMop = array();
     foreach ($linkedSiteUnique as $d){
         //foreach ntb2132, ntb232992
       $where = array('site_id' => $d);
       $data2 = $this->M_admin->get_data('tb_site_in', $where);
-        
+        //takenote
       foreach($data2 as $d2){
+        $where = array('keterangan' => $d2->keterangan);
+        $getMop = $this->M_admin->get_data('tb_mop', $where);
+        
+        foreach ($getMop as $dd2){
+          $cmop = $dd2->mop;
+          $getAllMop[] = $dd2->mop;
+        }
+
         $siteExported = array(
           'dummy_id' => $dummy_id,
           'site_id' => $d2->site_id,
@@ -658,7 +633,7 @@ class Admin extends CI_Controller
           'paket' => $d2->paket,
           'batch_' => $d2->batch_,
           'ctrm' => $d2->ctrm,
-          'cmop' => $d2->cmop,
+          'cmop' => $cmop,
           'ctsi' => $d2->ctsi,
           'amount_insured' => $d2->amount_insured,
           'keterangan' => $d2->keterangan
@@ -696,15 +671,36 @@ class Admin extends CI_Controller
     $input2 =$this->input->post("linked_with");
     $excludeSpace2 = str_replace(' ', '', $input2);
 
+    //get header sertif
+    $str_length = 5;
+    $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
+
+    $yearIssued = date("y", strtotime($issuedDate));
+
+    $numToRoman = new IntToRoman();
+    $roman = $numToRoman->filter(date("m", strtotime($issuedDate)));
+    $monthIssued = $roman;
+    //end 
+
+    $header_sertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
+
     $LinkedWithUnique = implode(', ',array_unique(explode(',', $excludeSpace2)));
+
+    sort($getAllMop);
+    $linked_cmop = array_unique($getAllMop);
+    $linked_cmop = implode(', ',$linked_cmop);
 
     $siteOut = array(
       'id' => $id,
   
       'dummy_id' => $dummy_id,
-      'no_sertif' => $no_sertif,
       'site_id' => $site_id,
       'linked_with' => $LinkedWithUnique,
+
+      'linked_mop' => $linked_cmop,
+      
+      'no_sertif' => $no_sertif,
+      'header_sertif' => $header_sertif,
   
       'the_insured' => $the_insured,
       'address_' => $address_,
@@ -800,12 +796,21 @@ class Admin extends CI_Controller
       //ini pake $d->
       $linkedSiteUnique = array_unique(explode(',', $sitePlusLink));
 
+      $getAllMop = array();
       foreach ($linkedSiteUnique as $d){
           //foreach ntb2132, ntb232992
         $where = array('site_id' => $d);
         $data2 = $this->M_admin->get_data('tb_site_in', $where);
           
         foreach($data2 as $d2){
+          $where = array('keterangan' => $d2->keterangan);
+          $getMop = $this->M_admin->get_data('tb_mop', $where);
+
+          foreach ($getMop as $dd2){
+            $cmop = $dd2->mop;
+            $getAllMop[] = $dd2->mop;
+          }
+
           $siteExported = array(
             'dummy_id' => $new_dummy_id,
             'site_id' => $d2->site_id,
@@ -817,7 +822,7 @@ class Admin extends CI_Controller
             'paket' => $d2->paket,
             'batch_' => $d2->batch_,
             'ctrm' => $d2->ctrm,
-            'cmop' => $d2->cmop,
+            'cmop' => $cmop,
             'ctsi' => $d2->ctsi,
             'amount_insured' => $d2->amount_insured,
             'keterangan' => $d2->keterangan
@@ -832,15 +837,36 @@ class Admin extends CI_Controller
       $input2 =$this->input->post("linked_with");
       $excludeSpace2 = str_replace(' ', '', $input2);
   
+      //get header sertif
+      $str_length = 5;
+      $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
+
+      $yearIssued = date("y", strtotime($issuedDate));
+
+      $numToRoman = new IntToRoman();
+      $roman = $numToRoman->filter(date("m", strtotime($issuedDate)));
+      $monthIssued = $roman;
+      //end 
+
+      $header_sertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
+
       $LinkedWithUnique = implode(', ',array_unique(explode(',', $excludeSpace2)));
-  
+      
+      sort($getAllMop);
+      $linked_cmop = array_unique($getAllMop);
+      $linked_cmop = implode(', ',$linked_cmop);
+
       $where = array('dummy_id' => $old_dummy_id);
       $siteOut = array(
         'dummy_id' => $new_dummy_id,
-        'no_sertif' => $no_sertif,
         'site_id' => $site_id,
         'linked_with' => $LinkedWithUnique,
+
+        'linked_mop' => $linked_cmop,
     
+        'no_sertif' => $no_sertif,
+        'header_sertif' => $header_sertif,
+
         'the_insured' => $the_insured,
         'address_' => $address_,
         'itemInsured' => $itemInsured,
@@ -888,8 +914,108 @@ class Admin extends CI_Controller
 
   public function tabel_barangkeluar()
   {
-    $data['list_data'] = $this->M_admin->select('tb_site_out');
-    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
-    $this->load->view('admin/tabel/tabel_barangkeluar', $data);
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+
+      $data['list_data'] = $this->M_admin->select('tb_site_out');
+      $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+      $this->load->view('admin/tabel/tabel_barangkeluar', $data);
+      
+    } else {
+      $this->load->view('login/login');
+    }
   }
+
+  ####################################
+  // Tabel MOP
+  ####################################
+
+  public function tabel_mop()
+  {
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+
+      $data = array(
+        'list_data' => $this->M_admin->select('tb_mop'),
+        'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
+      );
+      $this->load->view('admin/tabel/tabel_mop', $data);
+      
+    } else {
+      $this->load->view('login/login');
+    }
+  } 
+  
+  public function form_datamop()
+  {
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+
+      $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+      $this->load->view('admin/form_datamop/form_insert', $data);
+      
+    } else {
+      $this->load->view('login/login');
+    }
+  }
+  
+  public function proses_datamop_insert()
+  {
+    $id = $this->M_admin->get_max_id('id','tb_mop');
+
+    $this->load->helper('string');
+
+    $mop = $this->input->post('mop');
+    $keterangan = $this->input->post('keterangan');
+    $keteranganSite = $keterangan.' Site';
+
+    $data = array(
+      'id' => $id,
+      'keterangan' => $keteranganSite,
+      'mop' => $mop,
+    );
+
+    $this->M_admin->insert('tb_mop', $data);
+
+    $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
+    redirect(base_url('admin/tabel_mop'));
+  }
+
+  public function proses_datamop_update()
+  {
+    $this->load->helper('string');
+
+    $id = $this->input->post('id', TRUE);
+    $mop = $this->input->post('mop');
+    $keterangan = $this->input->post('keterangan');
+
+    $keteranganSite = $keterangan.' Site';
+
+    $data = array(
+      'keterangan' => $keteranganSite,
+      'mop' => $mop,
+    );
+    
+    $where = array('id' => $id);
+    $this->M_admin->update('tb_mop', $data, $where);
+
+    $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
+    redirect(base_url('admin/tabel_mop'));
+  }
+  
+  public function update_mop($id)
+  {
+    $where = array('id' => $id);
+    
+    $data['data_barang_update'] = $this->M_admin->get_data('tb_mop', $where);
+    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+    $this->load->view('admin/form_datamop/form_update', $data);
+  }
+
+  public function delete_mop($id)
+  {
+    $where = array('id' => $id);
+    $this->M_admin->delete('tb_mop', $where);
+
+    $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Dihapus');
+    redirect(base_url('admin/tabel_mop'));
+  }
+
 }

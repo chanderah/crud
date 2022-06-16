@@ -236,7 +236,7 @@ class Report extends CI_Controller
                                                 <tr>   
                                                     <td colspan="2">Scope of Cover</td>
                                                     <td colspan="1" align="right">:</td>
-                                                    <td colspan="8" align="justify">As per M.O.P No. : '. $lasttMOP. $lasttMOP . '</td>
+                                                    <td colspan="8" align="justify">As per M.O.P No. : ' . $lasttMOP . '</td>
                                                 </tr>';
                         
                         }else{

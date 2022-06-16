@@ -144,7 +144,7 @@
             <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
             <li><a href="<?= base_url('admin/tabel_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
             <li class="active"><a href="<?= base_url('admin/tabel_barangkeluar')?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
-            <!-- <li><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> -->
+            <li><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> 
            </ul>
         </li>
         <li class="header">MANAGE</li>
@@ -191,8 +191,6 @@
                </div>
               <?php } ?>
               <a href="<?=base_url('admin/tabel_barangmasuk')?>" style="margin-bottom:10px;" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data Keluar</a>
-              <!-- <a href="<?=base_url('report/barangKeluarManual')?>" style="margin-bottom:10px;" type="button" class="btn btn-danger" name="laporan_data"><i class="fa fa-file-text" aria-hidden="true"></i> Invoice Manual</a>
-              -->
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -200,13 +198,12 @@
                   <th>SITE ID</th>
                   <th>Linked</th>
                   <th>Sertifikat</th>
+                  <th>Header</th>
                   <th>Issued At</th>
                   <th>Created At</th>
                   <th>Update</th>
                   <th>Delete</th>
-                  <!--<th>Info</th>-->
                   <th>Invoice</th>
-                  <!-- <th></th> -->
                 </tr>
                 </thead>
                 <tbody>
@@ -218,6 +215,7 @@
                     <td><?=$dd->site_id?></td>
                     <td><?=$dd->linked_with?></td>
                     <td><?=$dd->no_sertif?></td>  
+                    <td><?=$dd->header_sertif?></td>  
                     <td><?=$dd->issuedDate?></td>
                     <td><?=$dd->created_at?></td>
                     <td><a type="button" class="btn btn-info" href="<?= base_url('admin/update_datakeluar/' . $dd->dummy_id) ?>" name="btn_update" style="margin:auto;"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
@@ -238,6 +236,7 @@
                   <th>SITE ID</th>
                   <th>Linked</th>
                   <th>Sertifikat</th>
+                  <th>Header</th>
                   <th>Issued At</th>
                   <th>Created At</th>
                   <th>Update</th>
@@ -309,7 +308,7 @@ jQuery(document).ready(function($){
       'searching'   : false,
       'ordering'    : true,
       'info'        : true,
-      'autoWidth'   : false
+      'autoWidth'   : true
     })
   });
 </script>

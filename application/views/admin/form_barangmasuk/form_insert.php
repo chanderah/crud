@@ -149,7 +149,7 @@
             <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
             <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
             <li><a href="<?= base_url('admin/tabel_barangkeluar')?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
-            <!-- <li><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> -->
+            <li><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> 
            </ul>
         </li>
         <li>
@@ -204,17 +204,15 @@
              </div>
             <?php } ?>
               <div class="box-body">
-                    <div class="form-group form-group-lg col-md-12"style="margin-top:20px;">
+                  <div class="form-group form-group-lg col-md-12"style="margin-top:20px;">
                     <label for="keterangan" style="display:inline;">Keterangan</label>
-                    <select class="form-control" name="keterangan" style="  display:inline;">
-                      <option value="">Keterangan</option>
-                      <option value="58 Site">58 Site</option>
-                      <option value="180 Site">180 Site</option>
-                      <option value="216 Site">216 Site</option>
-                      <option value="236 Site">236 Site</option>
-                      <option value="300 Site">300 Site</option>
-                      <option value="491 Site">491 Site</option>
-                      <option value="15 Site">15 Site</option>
+                    <select class="form-control" name="keterangan" style="display:inline">
+                      <?php 
+                      foreach($list_keterangan as $d)
+                      { 
+                        echo '<option value="'.$d->keterangan.'">'.$d->keterangan.'</option>';
+                      }
+                      ?>
                     </select>
                   </div>
                   <div class="form-group form-group-lg col-md-12" >

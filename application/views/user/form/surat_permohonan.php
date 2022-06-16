@@ -62,7 +62,7 @@
 
                       <option value="PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)">PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)</option>
 
-                      <option value="Lainnya">Lainnya</option>
+                      <!-- <option value="Lainnya">Lainnya</option> -->
 
                     </select>
 
@@ -80,7 +80,7 @@
 
                       <option value="APL Tower, 30 Floor, Grogol, West Jakarta">APL Tower, 30 Floor, Grogol, West Jakarta</option>
 
-                      <option value="Lainnya">Lainnya</option>
+                      <!-- <option value="Lainnya">Lainnya</option> -->
 
                     </select>
 
@@ -186,7 +186,7 @@
 
                         <option value="Container">Container</option>
 
-                        <option value="Lainnya">Lainnya</option>
+                        <!-- <option value="Lainnya">Lainnya</option> -->
 
                     </select>
 

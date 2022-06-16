@@ -148,7 +148,7 @@
             <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
             <li><a href="<?= base_url('admin/tabel_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
             <li><a href="<?= base_url('admin/tabel_barangkeluar')?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
-            <!-- <li><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> -->
+            <li><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> 
            </ul>
         </li>
         <li>
@@ -221,7 +221,7 @@
                     <option value="">Pilih</option>
                     <option value="fiberHome">PT. FiberHome Technologies Indonesia and/or BAKTI 
                       (Badan Aksesibilitas Telekomunikasi dan Informasi)</option>
-                    <option value="Lainnya">Lainnya</option>
+                    <!-- <option value="Lainnya">Lainnya</option> -->
                   </select>
                 </div>
                
@@ -231,7 +231,7 @@
                     <option value="">Pilih</option>
                     <option value="a_fiberHome">APL Tower, Jakarta Barat, RT.12/RW.6, Grogol, Grogol Petamburan, West Jakarta City, 
                       Jakarta 11440</option>
-                    <option value="Lainnya">Lainnya</option>
+                    <!-- <option value="Lainnya">Lainnya</option> -->
                   </select>
                 </div>
 
@@ -249,7 +249,7 @@
                     <option value="Darat">Darat</option>
                     <option value="Laut">Laut</option>
                     <option value="Udara">Udara</option>
-                    <option value="Lainnya">Lainnya</option>
+                    <!-- <option value="Lainnya">Lainnya</option> -->
                   </select>
                 </div>
               <!-- /.box-body -->

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>JIS - Users </title>
+  <title>Data Masuk | CRUD Database</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -14,12 +14,8 @@
   <link rel="stylesheet" href="<?php echo base_url()?>assets/web_admin/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?php echo base_url()?>assets/web_admin/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/web_admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url()?>assets/web_admin/dist/css/AdminLTE.min.css">
-
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/sweetalert/dist/sweetalert.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?php echo base_url()?>assets/web_admin/dist/css/skins/_all-skins.min.css">
@@ -32,8 +28,7 @@
   <![endif]-->
 
   <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -69,7 +64,7 @@
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <?php foreach($avatar as $a){ ?>
+                <?php foreach($avatar as $a){?>
                 <img src="<?php echo base_url('assets/upload/user/img/'.$a->nama_file)?>" class="img-circle" alt="User Image">
                 <?php } ?>
                 <p>
@@ -96,6 +91,7 @@
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
+
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -141,7 +137,7 @@
             <li><a href="<?= base_url('admin/form_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tambah Data</a></li>
            </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview active">
           <a href="#">
             <i class="fa fa-table"></i> <span>Tables</span>
             <span class="pull-right-container">
@@ -149,19 +145,20 @@
                 </span>
           </a>
           <ul class="treeview-menu">
+            <!-- <li><a href="<?= base_url('admin/tabel_permintaanmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Permintaan Masuk</a></li> -->
             <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
             <li><a href="<?= base_url('admin/tabel_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
             <li><a href="<?= base_url('admin/tabel_barangkeluar')?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
-            <li><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> 
+            <li class="active"><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> 
            </ul>
         </li>
-
+        <li>
         <li class="header">MANAGE</li>
         <li>
           <a href="<?php echo base_url('admin/profile')?>">
          <i class="fa fa-cogs" aria-hidden="true"></i> <span>Profile</span></a>
         </li>
-        <li class="active">
+        <li>
           <a href="<?php echo base_url('admin/users')?>">
          <i class="fa fa-fw fa-users" aria-hidden="true"></i> <span>Users</span></a>
         </li>
@@ -175,73 +172,89 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Tabel Users
+        Tambah Data
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?=base_url('admin')?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?=base_url('admin/users')?>" class="active">Users</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Forms</a></li>
+        <li class="active">General Elements</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class="col-xs-12">
-
-          <!-- /.box -->
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Users</h3>
+        <!-- left column -->
+        <div class="col-md-12">
+          <div class="container">
+            <!-- general form elements -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title"><i class="fa fa-archive" aria-hidden="true"></i> Update Data</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <!-- form start -->
+            <div class="container">
+            <form action="<?=base_url('admin/proses_datamop_update')?>" role="form" method="post" style="width:95%;margin-left:10px">
+              <?php if(validation_errors()){ ?>
+              <div class="alert alert-warning alert-dismissible">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Warning!</strong><br> <?php echo validation_errors(); ?>
+             </div>
+            <?php } ?>
 
-              <?php if($this->session->flashdata('msg_berhasil')){ ?>
-                <div class="alert alert-success alert-dismissible" style="width:100%">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Success!</strong><br> <?php echo $this->session->flashdata('msg_berhasil');?>
-               </div>
-              <?php } ?>
+            <?php foreach($data_barang_update as $d){ ?>
+              <div class="box-body" style="margin-top:20px;">
+                           <input type="hidden" name="id" value="<?=$d->id?>">
+                <div class="form-group form-group-lg col-md-12" >
+                    <label for="keterangan" style="display:inline;">Keterangan SITE</label>
+                    <input type="text" name="keterangan" style="display:inline;" class="form-control" value="<?= $d->keterangan ?>" readonly="">
+                </div>
+                <div class="form-group form-group-lg col-md-12">
+                    <label for="mop" style="display:inline;">Nomor MOP</label>
+                    <input type="number" name="mop" style="  display:inline;" class="form-control" placeholder="MOP Number" value="<?= $d->mop ?>">
+                </div>
+              </div>            
+            <?php } ?>
 
-              <a href="<?=base_url('admin/form_user')?>" style="margin-bottom:10px;" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data</a>
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                  <th>Last Login</th>
-                  <th>Update</th>
-                  <th>Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <?php if(is_array($list_users)){ ?>
-                  <?php foreach($list_users as $dd): ?>
-                    <td><?=$dd->username?></td>
-                    <td><?=$dd->email?></td>
-                    <?php if($dd->role == 1){ ?>
-                    <td>User Admin</td>
-                    <?php }else{?>
-                    <td>User Biasa</td>
-                    <?php }?>
-                    <td><?=$dd->last_login?></td>
-                    <td><a type="button" class="btn btn-info"  href="<?=base_url('admin/update_user/'.$dd->id)?>" name="btn_update" style="margin:auto;"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-                    <td><a type="button" class="btn btn-danger btn-delete"  href="<?=base_url('admin/proses_delete_user/'.$dd->id)?>" name="btn_delete" style="margin:auto;"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                </tr>
-              <?php endforeach;?>
-              <?php }else { ?>
-                    <td colspan="7" align="center"><strong>Data Kosong</strong></td>
-              <?php } ?>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
+              <!-- /.box-body -->
+              
+              <div class="box-footer col-md-12" style="width:100%; margin-left:30px; margin-bottom:10px; margin-top:5px">
+                  <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" onclick="history.back(-1)" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
+                  <a type="button" class="btn btn-info" style="width:18%;margin-right:20%" href="<?=base_url('admin/tabel_mop')?>" name="btn_listbarang">
+                  <i class="fa fa-table" aria-hidden="true"></i> Lihat Data MOP</a>
+                  <button type="submit" input type="submit" style="width:20%" id="btnSave" class="btn btn-md btn-success"><i class="fa fa-check" aria-hidden="true"></i>Submit</button>
+                </div>
+            </form>
           </div>
+          </div>
+          <!-- /.box -->
+
+          <!-- Form Element sizes -->
+
+          <!-- /.box -->
 
 
-        <!-- /.col -->
+          <!-- /.box -->
+
+          <!-- Input addon -->
+
+          <!-- /.box -->
+
+        </div>
+        <!--/.col (left) -->
+        <!-- right column -->
+        <!-- <div class="col-md-6">
+          <!-- Horizontal Form -->
+
+          <!-- /.box -->
+          <!-- general form elements disabled -->
+
+          <!-- /.box -->
+
+        </div>
+        </div>
+        <!--/.col (right) -->
       </div>
       <!-- /.row -->
     </section>
@@ -261,64 +274,18 @@
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
+  </div>
+  <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="<?php echo base_url()?>assets/web_admin/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="<?php echo base_url()?>assets/sweetalert/dist/sweetalert.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="<?php echo base_url()?>assets/web_admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="<?php echo base_url()?>assets/web_admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?php echo base_url()?>assets/web_admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="<?php echo base_url()?>assets/web_admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="<?php echo base_url()?>assets/web_admin/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url()?>assets/web_admin/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url()?>assets/web_admin/dist/js/demo.js"></script>
-<!-- page script -->
-<script>
-jQuery(document).ready(function($){
-      $('.btn-delete').on('click',function(){
-          var getLink = $(this).attr('href');
-          swal({
-                  title: 'Delete Data',
-                  text: 'Yakin ingin menghapus data?',
-                  html: true,
-                  confirmButtonColor: '#d9534f',
-                  showCancelButton: true,
-                  },function(){
-                  window.location.href = getLink
-              });
-          return false;
-      });
-  });
-
-  $(function () {
-    $('#example1').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : false,
-      'info'        : true,
-      'autoWidth'   : true
-
-    })
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : true
-    })
-  });
-
-
-</script>
-</body>
-</html>
+  <!-- jQuery 3 -->
+  <script src="<?php echo base_url()?>assets/web_admin/bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="<?php echo base_url()?>assets/web_admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- FastClick -->
+  <script src="<?php echo base_url()?>assets/web_admin/bower_components/fastclick/lib/fastclick.js"></script>
+  <!-- AdminLTE App -->
+  <script src="<?php echo base_url()?>assets/web_admin/dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="<?php echo base_url()?>assets/web_admin/dist/js/demo.js"></script>
+  </body>
+  </html>

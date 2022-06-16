@@ -151,10 +151,10 @@
             </a>
             <ul class="treeview-menu">
               <!-- <li><a href="<?= base_url('admin/tabel_permintaanmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Permintaan Masuk</a></li> -->
-              <li class="active"><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
-              <li><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
-              <li><a href="<?= base_url('admin/tabel_barangkeluar') ?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
-            <li><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> 
+                <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
+                <li><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
+                <li><a href="<?= base_url('admin/tabel_barangkeluar') ?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
+                <li class="active"><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> 
            </ul>
           </li>
           <li class="header">MANAGE</li>
@@ -176,12 +176,12 @@
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          Tabel Perubahan SITE ID
+          Tabel MOP
         </h1>
         <ol class="breadcrumb">
           <li><a href="<?= base_url('admin') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
           <li>Tables</li>
-          <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>">Tabel Perubahan SITE ID</li>
+          <li class="active"><a href="<?= base_url('admin/tabel_mop') ?>">Tabel MOP</li>
         </ol>
       </section>
 
@@ -196,28 +196,31 @@
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="main">
-                <?php if ($this->session->flashdata('msg_berhasil')) { ?>
-                  <div class="alert alert-success alert-dismissible" style="width:100%">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Success!</strong><br> <?php echo $this->session->flashdata('msg_berhasil'); ?>
-                  </div>
-                <?php } ?>
+                <a href="<?= base_url('admin/form_datamop') ?>" style="margin-bottom:10px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data</a>
+                    <?php if ($this->session->flashdata('msg_berhasil')) { ?>
+                    <div class="alert alert-success alert-dismissible" style="width:100%">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Success!</strong><br> <?php echo $this->session->flashdata('msg_berhasil'); ?>
+                    </div>
+                    <?php } ?>
 
-                <?php if ($this->session->flashdata('msg_berhasil_keluar')) { ?>
-                  <div class="alert alert-success alert-dismissible" style="width:100%">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Success!</strong><br> <?php echo $this->session->flashdata('msg_berhasil_keluar'); ?>
-                  </div>
-                <?php } ?>
+                    <?php if ($this->session->flashdata('msg_berhasil_keluar')) { ?>
+                    <div class="alert alert-success alert-dismissible" style="width:100%">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Success!</strong><br> <?php echo $this->session->flashdata('msg_berhasil_keluar'); ?>
+                    </div>
+                    <?php } ?>
 
                 <!-- start datatable -->
                 <table id="site_datatable" class="table table-bordered table-striped">
                   <thead>
                     <tr>
                       <th style="width:2%">No</th>
-                      <th>Old Site ID</th>
-                      <th>New Site ID</th>
-                      <th>Changed At</th>
+                      <th>Keterangan</th>
+                      <th>MOP Number</th>
+                      <th>Updated At</th>
+                      <th>Update</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -225,10 +228,12 @@
                       <?php if (is_array($list_data)) { ?>
                         <?php $no = 1; ?>
                         <?php foreach ($list_data as $dd) : ?>
-                          <td><?= $no ?></td>
-                          <td><?= $dd->old_site_id ?></td>
-                          <td><?= $dd->new_site_id ?></td>
-                          <td><?= $dd->created_at ?></td>
+                            <td><?= $no ?></td>
+                            <td><?= $dd->keterangan ?></td>
+                            <td><?= $dd->mop ?></td>
+                            <td><?= $dd->updated_at ?></td>
+                            <td><a type="button" class="btn btn-info" href="<?= base_url('admin/update_mop/' . $dd->id) ?>" name="btn_update" style="margin:auto;"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                            <td><a type="button" class="btn btn-danger btn-delete" href="<?=base_url('admin/delete_mop/'.$dd->id)?>" name="btn_delete" style="margin:auto;"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                     </tr>
                     <?php $no++; ?>
                   <?php endforeach; ?>
@@ -239,9 +244,11 @@
                   <tfoot>
                     <tr>
                       <th>No</th>
-                      <th>Old Site ID</th>
-                      <th>New Site ID</th>
-                      <th>Changed At</th>
+                      <th>Keterangan</th>
+                      <th>MOP Number</th>
+                      <th>Updated At</th>
+                      <th>Update</th>
+                      <th>Delete</th>
                     </tr>
                   </tfoot>
                 </table>
