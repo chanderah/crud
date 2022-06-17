@@ -23,13 +23,19 @@ class Report extends CI_Controller
         $this->load->helper('text');
         $id = $this->uri->segment(3);
         $ls = array('dummy_id' => $id);
-        //$ls   = array('site_id' => $id ,'provinsi' => $tgl1.'/'.$tgl2.'/'.$tgl3);
+        
         $data = $this->M_admin->get_data('tb_site_out', $ls);
+
+        if ($data==false){
+            redirect(base_url('admin/tabel_barangkeluar'));
+        }
+
         //create
         $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         //
 
         foreach ($data as $d){
+
             $no_sertif = $d->no_sertif;
             $str_length = 5;
             $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
@@ -415,6 +421,7 @@ class Report extends CI_Controller
             $arr = explode("\n", $d->destination_to);
             // $output = implode("<br>", $arr);
 
+            $toFn = '';
             $x = 0;
             foreach ($arr as $a){
                 if ($x===0){
@@ -424,6 +431,7 @@ class Report extends CI_Controller
                             <td colspan="1" align="right">:</td>
                             <td colspan="8"align="justify" class="underlined">In '.$a.' :</td>
                         </tr>';
+                    $toFn = $a;
                 }
 
                 else {
@@ -536,7 +544,7 @@ class Report extends CI_Controller
             // ---------------------------------------------------------
             //Close and output PDF document
             //CERTIFICATE MARINE CARGO NO. JIS22-0608032100001-VI-01289
-            $pdf_file_name = 'CERTIFICATE MARINE CARGO NO. '.$headerSertif;
+            $pdf_file_name = 'CERTIFICATE MARINE CARGO NO. '.$headerSertif.' - '.$countDataSite.' SITE'.' - '.$toFn.'.pdf';
             $pdf->IncludeJS("print();");
             while (ob_get_level()) {
                 ob_end_clean(); 
