@@ -445,7 +445,7 @@ class Report extends CI_Controller
                 }
             $x++;
             }
-            $html .= '</table><br><br><br>'; 
+            $html .= '</table><br>'; 
             $pdf->writeHTML($html, true, false, true, false, '');
 
             //signature
