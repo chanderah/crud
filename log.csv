@@ -1,0 +1,399 @@
+commit 85f846bca8571313a5fea7a9c7fa837bb3a6fa69
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-17 07:51:01
+
+    final
+
+commit 771821a4c725c5264fc22d6814e5026524a4553d
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-17 01:26:56
+
+    final
+
+commit a165fd40c441391df97f96b12ed2c8e745c99a70
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-16 23:41:38
+
+    signature fix + login redirect
+
+commit c665ad3deff8029bbf1fddceb512d3d3e37716c7
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-16 13:40:34
+
+    update cmop
+
+commit d2b9c3ba72873c4c5e4326b686bb240cc646a87e
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-15 15:48:48
+
+    unique move data + update data keluar
+
+commit 836e5cef4c25af06bd9211f0f99be7446490f0ce
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-14 23:41:53
+
+    ..
+
+commit 5fb97d58e85562d00a8644981ca2b39bdbe50005
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-14 14:12:53
+
+    add 15 site
+    
+     elseif ($keterangan == "15 Site") {
+          $cmop = '0608032200001';
+        }
+
+commit b7b77fbe6acc19b9409ba0d2faf6dd469c235b84
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-14 01:03:32
+
+    Update .gitignore
+
+commit 2a1e590f1944ebf17c17f3c945932cec5a34ecb3
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-14 01:01:49
+
+    Update .gitignore
+
+commit 24539d47f6ff0e6474a50127f4d4bc420ab0f3b5
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-13 21:45:56
+
+    Update tabel_barangkeluar.php
+
+commit e7f8fc637a811c326486a39c78f8309bf7545a48
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-13 21:45:05
+
+    copyright
+
+commit 3516d51039ca45de4cf6c07a26e46530af60cc23
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-13 21:38:48
+
+    hide mop table
+
+commit eead478abc1d5b0583eb6b1d7356074e33e3cc11
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-13 21:37:43
+
+    minor changes
+
+commit ded2e7eb9767682ebaa539ffaec6668041f48059
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-13 21:22:14
+
+    form update edit conveyance
+
+commit d107795fec33a8db790924cfe2dec4a57e7fa7b4
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-13 18:01:47
+
+    export data keluar done
+
+commit cfaf968cbfa59ba6de75008938c117601c5d0903
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-13 09:51:23
+
+    trim etc
+
+commit 7b74ccd7d620f3f5c803333ad8fc60a462739fd0
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-13 02:27:48
+
+    display report from tb_site_in_exported
+
+commit ae60be938ad4f055fe5428eddb8a433950255cf8
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-13 02:22:43
+
+    batch tb site exported
+
+commit 58c6395698f9c452dd77e5c00aeea49b2e371b71
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-13 02:09:25
+
+    ..
+
+commit f747305d9c26b1bacaed048108b8e620709189f0
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-13 01:52:37
+
+    ..
+
+commit 84c29006888d1101de93138ec3aafab9a76bbdd8
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-13 01:10:32
+
+    bntr
+
+commit 809e4f6061239b93c2bcb38ba6ae9ced7d5677cc
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-12 22:10:51
+
+    IF NEW SITE
+
+commit 5891c1be6ba6724affa173f9f27266443fd016a0
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-12 20:44:53
+
+    ..
+
+commit 7e39b2d6afecaa0f382707f68254eff1865b4bbd
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-10 21:25:40
+
+    last fix report2
+
+commit ea700aac0d0e5f1ab613cd66eae8179ce8a6a470
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-10 19:20:24
+
+    report2
+
+commit 535c9cad8bb4db7fdc2ab4988dfc45a940a23f2b
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-10 09:25:44
+
+    Update Report.php
+
+commit 746695f1bc63e2e39dc445bfc3079e06d3ea5684
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-09 21:52:32
+
+    signature done
+
+commit 2efe8e472abd59f6a451dd64f327b082691fa20e
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-09 11:08:47
+
+    ..
+
+commit b9c4ebd0781c785a8c2680b0bcaf1504e34e848b
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-09 09:53:28
+
+    ..
+
+commit fcd3a407d54e5f50b6c657ba8adfdc3b10183fd4
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-08 18:23:45
+
+    ..
+
+commit 249685b45a114e8129c317c786d817f096696981
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-07 00:21:56
+
+    fix
+
+commit 27871e606d6c0219606f54d79d1f171115415b4c
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-06 22:00:54
+
+    fix
+
+commit e59a39d6bd6aa7a7f42abf312346ca333c8ce559
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-06 15:50:02
+
+    ..
+
+commit 2488936f3e4aed7df7594e3a574d8dffc0b9f751
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-06 13:46:58
+
+    ..
+
+commit 2df9d06d4156101bd758e99ba15de87b83169b5f
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-05 04:13:57
+
+    Update importsite_format.xlsx
+
+commit 292c4a00882b04affbbea3c5e16d2313b6a451f4
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-05 04:00:28
+
+    Update importsite_format.xlsx
+
+commit 5f5f753390044f4e066fc198836dd6b5cde06dcc
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-05 03:57:09
+
+    ..
+
+commit b609474e4707772de38e48bcef7edfd1c00738e4
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-01 23:46:29
+
+    unfinished conveyance
+
+commit 7aae04f8f9045fed1f00ab48c0b2452c03142517
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-06-01 22:24:35
+
+    ..
+
+commit a6acb827e4bde43980b544032da588abc7a3ae0c
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-05-30 09:30:00
+
+    ..
+
+commit a95b10ab569c70e76370361bdf331e5068ce75b3
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-05-30 08:38:48
+
+    Update Report.php
+
+commit 07ccaa15f2971ae9dcddc393d120ca587f82c921
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-05-18 11:37:03
+
+    ..
+
+commit 66410c45440ac643169ab86fff21ba635ba88b19
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-05-14 17:05:19
+
+    Update .gitignore
+
+commit c80e69bf28016a958144b46ee85b9d6922c988f6
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-05-14 17:05:04
+
+    ..
+
+commit 38905dfb21cf412f24621b69d0c51c1d9cff4e2b
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-05-14 16:57:30
+
+    Update .gitignore
+
+commit d07b6a5d78210e6a38f8a29a670425b64987aac7
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-05-14 16:57:15
+
+    Update .gitignore
+
+commit 8c31dde1aaff6e9f7beaeaeffe84f9fdf93e29bb
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-04-13 03:23:59
+
+    Update index.php
+
+commit 98d7544ac4ff0ce4df9aae2e8913eda2c3805325
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-04-05 04:49:16
+
+    Update .gitignore
+
+commit a1af6175296573169a764cdc12321ebf472013ed
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-04-05 01:20:15
+
+    after corp fix
+
+commit 5ab9d8c12a654f3e56c50d358e95436e65f5fdaf
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-04-01 04:00:46
+
+    Update .gitignore
+
+commit 0d2a297dc69bca3ceee79615f75e1cad899895a8
+Author: Chandra Chansa <68021568+chanderah@users.noreply.github.com>
+Date:   2022-04-01 03:56:51
+
+    Update .gitignore
+
+commit 5b911fb2bcc15ddc4f15d821c14087c3c16c10e5
+Author: Chandra Sukmagalih Arifin <chandrachansa@gmail.com>
+Date:   2022-03-24 23:37:00
+
+    ..
+
+commit 6170413e042a2f72b19b7509b8e78b9703f22bd0
+Author: chanderah <chandrachansa@gmail.com>
+Date:   2022-03-24 08:49:52
+
+    before form text area changes
+
+commit 74582fe0b2a7afc2a6171a6671c1821146cc0965
+Author: chanderah <chandrachansa@gmail.com>
+Date:   2022-03-23 15:00:10
+
+    Roman, Revision
+
+commit b292640d9c3bad34310015666e7afc2213eb5771
+Author: chanderah <chandrachansa@gmail.com>
+Date:   2022-03-22 11:54:29
+
+    ..
+
+commit 1611fcf1329f41ff5a072d00a2d639466f64a970
+Author: chanderah <chandrachansa@gmail.com>
+Date:   2022-03-22 11:53:29
+
+    ..
+
+commit ac13e615495b22772b6b2615d5bab19c55934a22
+Author: chanderah <chandrachansa@gmail.com>
+Date:   2022-03-22 11:13:02
+
+    ..
+
+commit 0fdaec23052b1dd449c2a21231252305d4d6737f
+Author: chanderah <chandrachansa@gmail.com>
+Date:   2022-03-22 09:27:28
+
+    Update M_admin.php
+
+commit 7bb58435d550b6f7352d7e0a72353b08575cdc96
+Author: chanderah <chandrachansa@gmail.com>
+Date:   2022-03-22 09:12:50
+
+    ..
+
+commit 58e0bba7e047a4be828ea82a9dc98f975621b13c
+Author: chanderah <chandrachansa@gmail.com>
+Date:   2022-03-22 09:07:33
+
+    ..
+
+commit 1f71d77535e1767e84c011d67b481c2719cf2844
+Author: chanderah <chandrachansa@gmail.com>
+Date:   2022-03-21 16:57:51
+
+    ..
+
+commit 1d3eece7d32e71409dd5ac3b454e396732c826cf
+Author: chanderah <chandrachansa@gmail.com>
+Date:   2022-03-21 16:05:40
+
+    ..
+
+commit 7f0ae9ef937f068d46b553f2a1b6f4bd3ea7c398
+Author: chanderah <chandrachansa@gmail.com>
+Date:   2022-03-21 09:33:01
+
+    ..
+
+commit df8b4327d80e8878610209c3471742fe3e30aebf
+Author: chanderah <chandrachansa@gmail.com>
+Date:   2022-03-21 09:32:01
+
+    ..
+
+commit 697c7d31256506071351d434281952503310c97c
+Author: Chandra Sukmagalih Arifin <chandrachansa@gmail.com>
+Date:   2022-03-19 13:09:27
+
+    First
+
+commit 990db547086da39494eaf6834ed1c648a191187e
+Author: Chandra Sukmagalih Arifin <chandrachansa@gmail.com>
+Date:   2022-03-18 23:07:57
+
+    first commit
