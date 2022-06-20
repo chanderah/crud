@@ -468,10 +468,10 @@ class Report2 extends CI_Controller
 
             $signature .=   '
                                 <tr>
-                                    <td width="105%" class="line0"><img src="pdf/signature.png" height="110px" width="auto"></td>
+                                    <td width="102%" class="line0"><img src="pdf/signature.png" height="110px" width="auto"></td>
                                 </tr>
                                 <tr>
-                                    <td class="line0">'.$namaPerusahaan.'<img src="pdf/paraf.png" width="auto" height="20px"></td>
+                                    <td width="105%" class="line0">'.$namaPerusahaan.'<img src="pdf/paraf.png" width="auto" height="20px"></td>
                                 </tr>
                             </table>    
                         </div>';

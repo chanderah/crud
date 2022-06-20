@@ -260,7 +260,8 @@
                         <?php $no = 1; ?>
                         <?php foreach ($list_data as $dd) : ?>
                           <td><?= $no ?></td>
-                          <td><?= $dd->site_id ?></td>
+                          <td><?= $dd->site_id ?></td> 
+
                           <td><?= $dd->region ?></td>
                           <td><?= $dd->provinsi ?></td>
                           <td><?= $dd->kabupaten ?></td>

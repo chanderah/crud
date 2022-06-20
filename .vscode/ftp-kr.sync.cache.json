@@ -173,8 +173,8 @@
           },
           "Admin.php": {
             "type": "-",
-            "size": 36166,
-            "lmtime": 1655361036045,
+            "size": 36871,
+            "lmtime": 1655444568822,
             "modified": false
           },
           "Login.php": {
@@ -237,16 +237,22 @@
             "lmtime": 0,
             "modified": false
           },
+          "Report copy.php": {
+            "type": "-",
+            "size": 26426,
+            "lmtime": 1655372284905,
+            "modified": false
+          },
           "Report.php": {
             "type": "-",
-            "size": 24684,
-            "lmtime": 1655372607679,
+            "size": 24893,
+            "lmtime": 1655447510970,
             "modified": false
           },
           "Report2.php": {
             "type": "-",
-            "size": 24903,
-            "lmtime": 1655372710175,
+            "size": 25126,
+            "lmtime": 1655447522478,
             "modified": false
           },
           "Rpdf.php": {
@@ -271,12 +277,6 @@
             "type": "-",
             "size": 142,
             "lmtime": 0,
-            "modified": false
-          },
-          "Report copy.php": {
-            "type": "-",
-            "size": 26426,
-            "lmtime": 1655372284905,
             "modified": false
           }
         },
@@ -3472,9 +3472,9 @@
               },
               "tabel_barangmasuk.php": {
                 "type": "-",
-                "size": 18495,
-                "lmtime": 1655131113586,
-                "modified": true
+                "size": 18498,
+                "lmtime": 1655444566201,
+                "modified": false
               },
               "tabel_mop.php": {
                 "type": "-",
@@ -3490,7 +3490,7 @@
               },
               "tabel_perubahan_site.php": {
                 "type": "-",
-                "size": 14490,
+                "size": 14493,
                 "lmtime": 1655131113587,
                 "modified": true
               },
@@ -50413,7 +50413,7 @@
       "documents": {},
       "index.php": {
         "type": "-",
-        "size": 10594,
+        "size": 10593,
         "lmtime": 1655128431119,
         "modified": true
       },
@@ -50460,17 +50460,41 @@
           "lmtime": 0,
           "modified": false
         },
-        "signature.png": {
+        "signature - Copy (2).png": {
+          "type": "-",
+          "size": 25645,
+          "lmtime": 1655396368580,
+          "modified": false
+        },
+        "signature - Copy (3).png": {
+          "type": "-",
+          "size": 67715,
+          "lmtime": 1655445406943,
+          "modified": false
+        },
+        "signature - Copy.png": {
           "type": "-",
           "size": 21942,
           "lmtime": 0,
-          "modified": true
+          "modified": false
+        },
+        "signature.png": {
+          "type": "-",
+          "size": 43188,
+          "lmtime": 1655447345089,
+          "modified": false
+        },
+        "signature.psd": {
+          "type": "-",
+          "size": 186568,
+          "lmtime": 1655446260615,
+          "modified": false
         },
         "stylesheet.css": {
           "type": "-",
-          "size": 872,
+          "size": 1003,
           "lmtime": 1655365200346,
-          "modified": false
+          "modified": true
         }
       },
       "phpmyadmin": {
