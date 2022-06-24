@@ -354,9 +354,15 @@ class Admin extends CI_Controller
 
   public function form_barangmasuk()
   {
-    $data['list_keterangan'] = $this->M_admin->select('tb_mop');
-    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
-    $this->load->view('admin/form_barangmasuk/form_insert', $data);
+    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+
+      $data['list_keterangan'] = $this->M_admin->select('tb_mop');
+      $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+      $this->load->view('admin/form_barangmasuk/form_insert', $data);
+
+    } else {
+      $this->load->view('login/login');
+    }
   }
 
   public function move_data()
@@ -482,11 +488,9 @@ class Admin extends CI_Controller
     $this->load->helper('string');
     $this->form_validation->set_rules('site_id', 'site_id', 'required');
 
-    $sha1 = random_string('alpha', 10);
-    $sha2 = random_string('sha1');
-    $dummy_id = $sha1.$sha2;
-    
     $site_id = $this->input->post('site_id', TRUE);
+    trim($site_id);
+
     $region = $this->input->post('region', TRUE);
     $provinsi = $this->input->post('provinsi', TRUE);
     $kabupaten = $this->input->post('kabupaten', TRUE);
@@ -497,18 +501,17 @@ class Admin extends CI_Controller
     $ctrm = $this->input->post('ctrm', TRUE);
     $ctsi = $this->input->post('ctsi', TRUE);
     $amount_insured = $this->input->post('amount_insured', TRUE);
-    
     $keterangan = $this->input->post('keterangan', TRUE);
     
-    $where = array('keterangan' => $keterangan);
-    $getMop = $this->M_admin->get_data('tb_mop', $where);
-    $cmop= $getMop->mop;
-
-    $keterangan = $keterangan.' Site';
+    $sha1 = random_string('alpha', 10);
+    $sha2 = random_string('sha1');
+    $dummy_id = $sha1.$sha2;
 
     $data = array(
       'dummy_id' => $dummy_id,
       'site_id' => $site_id,
+      'keterangan' => $keterangan,
+
       'region' => $region,
       'provinsi' => $provinsi,
       'kabupaten' => $kabupaten,
@@ -519,17 +522,16 @@ class Admin extends CI_Controller
       'ctrm' => $ctrm,
       'ctsi' => $ctsi,
       'amount_insured' => $amount_insured,
-      'cmop' => $cmop,
-      'keterangan' => $keterangan
     );
 
     if ($this->form_validation->run() == TRUE) {
       $this->M_admin->insert('tb_site_in', $data);
-
       $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
       redirect(base_url('admin/tabel_barangmasuk'));
     } else {
-      $this->load->view('admin/form_barangmasuk/form_insert', $data);
+      redirect(base_url('admin/form_barangmasuk'));
+      $this->session->set_flashdata('msg_berhasil', 'Data Gagal Ditambahkan');
+      // $this->load->view('admin/form_barangmasuk/form_insert', $data);
     }
   }
 
