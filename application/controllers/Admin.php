@@ -645,17 +645,6 @@ class Admin extends CI_Controller
       $where = array('site_id' => $d);
       $data2 = $this->M_admin->get_data('tb_site_in', $where);
 
-      if ($data2 == 'empty'){
-        $siteNA = array(
-          'dummy_id' => $dummy_id,
-          'site_id' => $site_id,
-      
-          'keterangan' => 'N/A',
-          'cmop' => '0608032100000',
-        );
-        $this->M_admin->insert('tb_site_in_exported', $siteNA);  
-      }
-
       //takenote
       foreach($data2 as $d2){
       $where = array('keterangan' => $d2->keterangan);
