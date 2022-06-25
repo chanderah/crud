@@ -39,11 +39,19 @@ class M_admin extends CI_Model
 
   public function get_data($tabel,$dummy_id)
   {
+    
     $query = $this->db->select()
                       ->from($tabel)
                       ->where($dummy_id)
                       ->get();
-    return $query->result();
+
+    if ($query->num_rows() > 0) {
+      return $query->result();
+    } 
+    else
+    {
+      return 'empty';
+    }
   }
 
   public function getAllDataLinkedWith($tabel)

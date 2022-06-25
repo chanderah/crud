@@ -375,6 +375,16 @@ class Admin extends CI_Controller
     $this->load->view('admin/form_barangmasuk/form_move', $data);
   }
 
+  public function export_data()
+  {
+    $uri = $this->uri->segment(3);
+    $where = array('dummy_id' => $uri);
+    $data['list_data'] = $this->M_admin->get_data('tb_site_in', $where);
+    $data['list_data_out'] = $this->M_admin->get_data('tb_site_out', $where);
+    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+    $this->load->view('admin/form_barangmasuk/form_move2', $data);
+  }
+
   public function move_data_permintaan()
   {
     $uri = $this->uri->segment(3);
@@ -634,34 +644,46 @@ class Admin extends CI_Controller
         //foreach ntb2132, ntb232992
       $where = array('site_id' => $d);
       $data2 = $this->M_admin->get_data('tb_site_in', $where);
-        //takenote
-      foreach($data2 as $d2){
-        $where = array('keterangan' => $d2->keterangan);
-        $getMop = $this->M_admin->get_data('tb_mop', $where);
-        
-        foreach ($getMop as $dd2){
-          $cmop = $dd2->mop;
-          $getAllMop[] = $dd2->mop;
-        }
 
-        $siteExported = array(
+      if ($data2 == 'empty'){
+        $siteNA = array(
           'dummy_id' => $dummy_id,
-          'site_id' => $d2->site_id,
-          'region' => $d2->region,
-          'provinsi' => $d2->provinsi,
-          'kabupaten' => $d2->kabupaten,
-          'kecamatan' => $d2->kecamatan,
-          'desa' => $d2->desa,
-          'paket' => $d2->paket,
-          'batch_' => $d2->batch_,
-          'ctrm' => $d2->ctrm,
-          'cmop' => $cmop,
-          'ctsi' => $d2->ctsi,
-          'amount_insured' => $d2->amount_insured,
-          'keterangan' => $d2->keterangan
+          'site_id' => $site_id,
+      
+          'keterangan' => 'N/A',
+          'cmop' => '0608032100000',
         );
-        $this->M_admin->insert('tb_site_in_exported', $siteExported);
-      } 
+        $this->M_admin->insert('tb_site_in_exported', $siteNA);  
+      }
+
+      //takenote
+      foreach($data2 as $d2){
+      $where = array('keterangan' => $d2->keterangan);
+      $getMop = $this->M_admin->get_data('tb_mop', $where);
+      
+      foreach ($getMop as $dd2){
+        $cmop = $dd2->mop;
+        $getAllMop[] = $dd2->mop;
+      }
+
+      $siteExported = array(
+        'dummy_id' => $dummy_id,
+        'site_id' => $d2->site_id,
+        'region' => $d2->region,
+        'provinsi' => $d2->provinsi,
+        'kabupaten' => $d2->kabupaten,
+        'kecamatan' => $d2->kecamatan,
+        'desa' => $d2->desa,
+        'paket' => $d2->paket,
+        'batch_' => $d2->batch_,
+        'ctrm' => $d2->ctrm,
+        'cmop' => $cmop,
+        'ctsi' => $d2->ctsi,
+        'amount_insured' => $d2->amount_insured,
+        'keterangan' => $d2->keterangan
+      );
+      $this->M_admin->insert('tb_site_in_exported', $siteExported);
+    } 
     };
 
     $the_insured =$this->input->post("the_insured");
