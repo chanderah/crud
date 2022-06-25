@@ -499,7 +499,7 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('site_id', 'site_id', 'required');
 
     $site_id = $this->input->post('site_id', TRUE);
-    trim($site_id);
+    $site_id = str_replace(' ', '', $site_id);
 
     $region = $this->input->post('region', TRUE);
     $provinsi = $this->input->post('provinsi', TRUE);
@@ -550,7 +550,8 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('dummy_id', 'dummy_id', 'required');
     $dummy_id = $this->input->post('dummy_id', TRUE);
     $site_id = $this->input->post('site_id', TRUE);
-    trim($site_id);
+    $site_id = str_replace(' ', '', $site_id);
+
     $region = $this->input->post('region', TRUE);
     $provinsi = $this->input->post('provinsi', TRUE);
     $kabupaten = $this->input->post('kabupaten', TRUE);
@@ -629,6 +630,7 @@ class Admin extends CI_Controller
     $dummy_id = $sha1.$sha2;
     
     $site_id = $this->input->post('site_id', TRUE);
+    $site_id = str_replace(' ', '', $site_id);
     
     $input =$this->input->post("linked_with");
     $excludeSpace = str_replace(' ', '', $input);
@@ -639,7 +641,10 @@ class Admin extends CI_Controller
     //ini pake $d->
     $linkedSiteUnique = array_unique(explode(',', $sitePlusLink));
 
+    $inputSite = $linkedSiteUnique;
+
     $getAllMop = array();
+
     foreach ($linkedSiteUnique as $d){
         //foreach ntb2132, ntb232992
       $where = array('site_id' => $d);
@@ -728,6 +733,7 @@ class Admin extends CI_Controller
   
       'dummy_id' => $dummy_id,
       'site_id' => $site_id,
+
       'linked_with' => $LinkedWithUnique,
 
       'linked_mop' => $linked_cmop,
@@ -783,7 +789,7 @@ class Admin extends CI_Controller
       $new_dummy_id = $sha1 . $sha2;   
 
       $site_id =$this->input->post("site_id");
-      trim($site_id);
+      $site_id = str_replace(' ', '', $site_id);
       
       $no_sertif =$this->input->post("no_sertif");
 

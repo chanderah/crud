@@ -246,7 +246,7 @@ class Report extends CI_Controller
                         $x++;
                     }
                 }
-                elseif ($countMop = 1){
+                elseif ($countMop = 1 AND $dataMop != ''){
                     $html = str_replace('{MOP}', $dataMop, $html);
 
                     //scope of cover
@@ -258,8 +258,16 @@ class Report extends CI_Controller
                     </tr>';
 
                 }
-                else {
-                    $html = str_replace('{MOP}', '<span class="red"><br>MOP Number is not found. Please do recheck your SITE ID.</span>', $html);
+                else{//here
+                    $html = str_replace('{MOP}', '0608032100000', $html);
+
+                    //scope of cover
+                    $html .= ' 
+                    <tr>   
+                        <td colspan="2">Scope of Cover</td>
+                        <td colspan="1" align="right">:</td>
+                        <td colspan="8" align="justify">As per M.O.P No. : 0608032100000</td>
+                    </tr>';
                 }
 
             $html .= '
