@@ -20,23 +20,28 @@ class Admin extends CI_Controller
     // redirect(base_url('admin'));
   }
 
+  public function admin_true()
+  {
+    if ($this->session->userdata('status') != 'login' && $this->session->userdata('role') != 1) {
+      $this->load->view('login/login');
+    } 
+
+  }
+
   public function index()
   {
     // if ($this->session->userdata('name') == 'admin'){
     //   //maintenance warn
     //   redirect(base_url('admin/maintenance'));      
     // }
+    $this->admin_true();
 
-    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
-      $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
-      $data['jumlahPermintaan'] = $this->M_admin->numrows('tb_site_in');
-      $data['jumlahSite'] = $this->M_admin->numrows('tb_site_out');
-      $data['dataUser'] = $this->M_admin->numrows('user');
-      $this->load->view('admin/index', $data);
-      
-    } else {
-      $this->load->view('login/login');
-    }
+    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+    $data['jumlahPermintaan'] = $this->M_admin->numrows('tb_site_in');
+    $data['jumlahSite'] = $this->M_admin->numrows('tb_site_out');
+    $data['dataUser'] = $this->M_admin->numrows('user');
+    $this->load->view('admin/index', $data);
+
   }
 
   public function sigout()
@@ -152,6 +157,8 @@ class Admin extends CI_Controller
 
   public function proses_excel_upload()
   {
+    $this->admin_true();
+
     $config =  array(
       'upload_path'     => "./xlsx/",
       'file_name'     => "import_siteid.xlsx",
@@ -186,15 +193,10 @@ class Admin extends CI_Controller
       force_download($name, $path); // start download`
   }
 
-  //ALTER TABLE tablename AUTO_INCREMENT = 1
-
-  public function add_data($datas)
-  {
-    return $this->db->insert_batch("tb_site_in", $datas);
-  }
-
   public function import_excel()
   {
+    $this->admin_true();
+
     $path_xlsx = "./xlsx/import_siteid.xlsx";
     $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
     $spreadsheet = $reader->load($path_xlsx);
@@ -354,19 +356,17 @@ class Admin extends CI_Controller
 
   public function form_barangmasuk()
   {
-    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+    $this->admin_true();
 
-      $data['list_keterangan'] = $this->M_admin->select('tb_mop');
-      $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
-      $this->load->view('admin/form_barangmasuk/form_insert', $data);
-
-    } else {
-      $this->load->view('login/login');
-    }
+    $data['list_keterangan'] = $this->M_admin->select('tb_mop');
+    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+    $this->load->view('admin/form_barangmasuk/form_insert', $data);
   }
 
   public function move_data()
   {
+    $this->admin_true();
+
     $uri = $this->uri->segment(3);
     $where = array('dummy_id' => $uri);
     $data['list_data'] = $this->M_admin->get_data('tb_site_in', $where);
@@ -377,6 +377,8 @@ class Admin extends CI_Controller
 
   public function export_data()
   {
+    $this->admin_true();
+
     $uri = $this->uri->segment(3);
     $where = array('dummy_id' => $uri);
     $data['list_data'] = $this->M_admin->get_data('tb_site_in', $where);
@@ -387,6 +389,8 @@ class Admin extends CI_Controller
 
   public function move_data_permintaan()
   {
+    $this->admin_true();
+
     $uri = $this->uri->segment(3);
     $where = array('dummy_id' => $uri);
     $data['list_data'] = $this->M_admin->get_data('tb_request_in', $where);
@@ -396,6 +400,8 @@ class Admin extends CI_Controller
 
   public function tabel_permintaanmasuk()
   {
+    $this->admin_true();
+
     $data = array(
       'list_data' => $this->M_admin->select('tb_request_in'),
       'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
@@ -405,64 +411,55 @@ class Admin extends CI_Controller
 
   public function tabel_barangmasuk()
   {
-    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+    $this->admin_true();
 
-      $data = array(
-        'list_data' => $this->M_admin->select('tb_site_in'),
-        'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
-      );
-      $this->load->view('admin/tabel/tabel_barangmasuk', $data);  
-      
-    } else {
-      $this->load->view('login/login');
-    }
+    $data = array(
+      'list_data' => $this->M_admin->select('tb_site_in'),
+      'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
+    );
+    $this->load->view('admin/tabel/tabel_barangmasuk', $data);  
+    
   }
 
   public function tabel_perubahan_site()
   {
-    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
-      $data = array(
-        'list_data' => $this->M_admin->select('tb_site_in_changes'),
-        'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
-      );
-      $this->load->view('admin/tabel/tabel_perubahan_site', $data);
-      
-    } else {
-      $this->load->view('login/login');
-    }
+    $this->admin_true();
+
+    $data = array(
+      'list_data' => $this->M_admin->select('tb_site_in_changes'),
+      'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
+    );
+    $this->load->view('admin/tabel/tabel_perubahan_site', $data);
   }
 
   public function update_datamasuk($dummy_id)
   {
-    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
-      $where = array('dummy_id' => $dummy_id);
-      $where2 = array('dummy_id' => $dummy_id);
-      
-      $data['data_barang_update'] = $this->M_admin->get_data('tb_site_in', $where);
-      $data['data_linked_with'] = $this->M_admin->getAllDataLinkedWith('tb_site_in');
-      $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
-      $this->load->view('admin/form_barangmasuk/form_update', $data);
-      
-    } else {
-      $this->load->view('login/login');
-    }
+    $this->admin_true();
+
+    $where = array('dummy_id' => $dummy_id);
+    $where2 = array('dummy_id' => $dummy_id);
+    
+    $data['data_barang_update'] = $this->M_admin->get_data('tb_site_in', $where);
+    $data['data_linked_with'] = $this->M_admin->getAllDataLinkedWith('tb_site_in');
+    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+    $this->load->view('admin/form_barangmasuk/form_update', $data);
   }
 
   public function update_datakeluar($dummy_id)
   { 
-    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
-      $where = array('dummy_id' => $dummy_id);
-    
-      $data['data_barang_update'] = $this->M_admin->get_data('tb_site_out', $where);
-      $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
-      $this->load->view('admin/form_barangmasuk/form_update_keluar', $data);
-    } else {
-      $this->load->view('login/login');
-    }
+    $this->admin_true();
+
+    $where = array('dummy_id' => $dummy_id);
+  
+    $data['data_barang_update'] = $this->M_admin->get_data('tb_site_out', $where);
+    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+    $this->load->view('admin/form_barangmasuk/form_update_keluar', $data);
   }
 
   public function info_datamasuk($dummy_id)
   {
+    $this->admin_true();
+
     $where = array('dummy_id' => $dummy_id);
     $data['data_barang_info'] = $this->M_admin->get_data('tb_request_in', $where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
@@ -953,15 +950,11 @@ class Admin extends CI_Controller
 
   public function tabel_barangkeluar()
   {
-    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+    $this->admin_true();
 
-      $data['list_data'] = $this->M_admin->select('tb_site_out');
-      $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
-      $this->load->view('admin/tabel/tabel_barangkeluar', $data);
-      
-    } else {
-      $this->load->view('login/login');
-    }
+    $data['list_data'] = $this->M_admin->select('tb_site_out');
+    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+    $this->load->view('admin/tabel/tabel_barangkeluar', $data);
   }
 
   ####################################
@@ -970,29 +963,21 @@ class Admin extends CI_Controller
 
   public function tabel_mop()
   {
-    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+    $this->admin_true();
 
-      $data = array(
-        'list_data' => $this->M_admin->select('tb_mop'),
-        'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
-      );
-      $this->load->view('admin/tabel/tabel_mop', $data);
-      
-    } else {
-      $this->load->view('login/login');
-    }
+    $data = array(
+      'list_data' => $this->M_admin->select('tb_mop'),
+      'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
+    );
+    $this->load->view('admin/tabel/tabel_mop', $data);      
   } 
   
   public function form_datamop()
   {
-    if ($this->session->userdata('status') == 'login' && $this->session->userdata('role') == 1) {
+    $this->admin_true();
 
-      $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
-      $this->load->view('admin/form_datamop/form_insert', $data);
-      
-    } else {
-      $this->load->view('login/login');
-    }
+    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+    $this->load->view('admin/form_datamop/form_insert', $data);
   }
   
   public function proses_datamop_insert()
