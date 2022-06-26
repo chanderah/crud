@@ -346,9 +346,8 @@
                       <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" onclick="history.back(-1)" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
                       <a type="button" class="btn btn-info" style="width:18%;margin-right:20%" 
                           href="<?= base_url('admin/tabel_barangkeluar') ?>" 
-                          onclick="location.href='';" target="_blank"
                           name="btn_listbarang">
-                        <i class="fa fa-table" aria-hidden="true"></i><? $max_id ?> Lihat Data Keluar</a>
+                        <i class="fa fa-table" aria-hidden="true"></i>Lihat Data Keluar</a>
                       <button type="submit" input type="submit" style="width:20%" id="btnSave" class="btn btn-md btn-success"><i class="fa fa-check" aria-hidden="true"></i>Create</button>
                     </div>
                     <div id="user_message" style="display:inline-block"></div>

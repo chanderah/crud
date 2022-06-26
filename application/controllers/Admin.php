@@ -632,50 +632,65 @@ class Admin extends CI_Controller
     $input =$this->input->post("linked_with");
     $excludeSpace = str_replace(' ', '', $input);
 
-    $sitePlusLink = $site_id . ',' . $excludeSpace;
-    //ntb12,ntb22
+    if (!empty($excludeSpace)){
+      $sitePlusLink = $site_id . ',' . $excludeSpace;
+    }
+    else{
+      $sitePlusLink = $site_id;
+    }
 
-    //ini pake $d->
     $linkedSiteUnique = array_unique(explode(',', $sitePlusLink));
-
-    $inputSite = $linkedSiteUnique;
 
     $getAllMop = array();
 
     foreach ($linkedSiteUnique as $d){
-        //foreach ntb2132, ntb232992
+      //check site_in db first
       $where = array('site_id' => $d);
       $data2 = $this->M_admin->get_data('tb_site_in', $where);
 
-      //takenote
-      foreach($data2 as $d2){
-      $where = array('keterangan' => $d2->keterangan);
-      $getMop = $this->M_admin->get_data('tb_mop', $where);
-      
-      foreach ($getMop as $dd2){
-        $cmop = $dd2->mop;
-        $getAllMop[] = $dd2->mop;
+      if ($data2=='empty'){
+        //site_in not found
+        $siteNA = array(
+          'dummy_id' => $dummy_id,
+          'site_id' => $d,
+          'cmop' => '0608032100000',
+          'keterangan' => 'N/A',
+        );  
+        $this->M_admin->insert('tb_site_in_exported', $siteNA);
       }
 
-      $siteExported = array(
-        'dummy_id' => $dummy_id,
-        'site_id' => $d2->site_id,
-        'region' => $d2->region,
-        'provinsi' => $d2->provinsi,
-        'kabupaten' => $d2->kabupaten,
-        'kecamatan' => $d2->kecamatan,
-        'desa' => $d2->desa,
-        'paket' => $d2->paket,
-        'batch_' => $d2->batch_,
-        'ctrm' => $d2->ctrm,
-        'cmop' => $cmop,
-        'ctsi' => $d2->ctsi,
-        'amount_insured' => $d2->amount_insured,
-        'keterangan' => $d2->keterangan
-      );
-      $this->M_admin->insert('tb_site_in_exported', $siteExported);
-    } 
-    };
+      else{
+        //site_in found
+        foreach($data2 as $d2){
+          $where = array('keterangan' => $d2->keterangan);
+          $getMop = $this->M_admin->get_data('tb_mop', $where);
+          
+          foreach ($getMop as $dd2){
+            $cmop = $dd2->mop;
+            $getAllMop[] = $dd2->mop;
+          }
+  
+          $siteExported = array(
+            'dummy_id' => $dummy_id,
+            'site_id' => $d2->site_id,
+            'region' => $d2->region,
+            'provinsi' => $d2->provinsi,
+            'kabupaten' => $d2->kabupaten,
+            'kecamatan' => $d2->kecamatan,
+            'desa' => $d2->desa,
+            'paket' => $d2->paket,
+            'batch_' => $d2->batch_,
+            'ctrm' => $d2->ctrm,
+            'cmop' => $cmop,
+            'ctsi' => $d2->ctsi,
+            'amount_insured' => $d2->amount_insured,
+            'keterangan' => $d2->keterangan
+          );
+  
+          $this->M_admin->insert('tb_site_in_exported', $siteExported);
+        } 
+      }
+    }
 
     $the_insured =$this->input->post("the_insured");
     $address_ =$this->input->post("address_");
@@ -802,12 +817,6 @@ class Admin extends CI_Controller
       $amount_insured =$this->input->post("amount_insured");
       preg_replace('~\D~', '', $amount_insured);
 
-      // $lampiran_BL =$this->input->post("lampiran_BL");
-      // $lampiran_LC =$this->input->post("lampiran_LC");
-      // $lampiran_invoice =$this->input->post("lampiran_invoice");
-      // $lampiran_PL =$this->input->post("lampiran_PL");
-      // $lampiran_DO =$this->input->post("lampiran_DO");
-
       $conveyance =$this->input->post("conveyance");
       $conveyance_by =$this->input->post("conveyance_by");
       $conveyance_type =$this->input->post("conveyance_type");
@@ -826,49 +835,68 @@ class Admin extends CI_Controller
       $input =$this->input->post("linked_with");
       $excludeSpace = str_replace(' ', '', $input);
   
-      $sitePlusLink = $site_id . ',' . $excludeSpace;
-      //ntb12,ntb22
+      if (!empty($excludeSpace)){
+        $sitePlusLink = $site_id . ',' . $excludeSpace;
+      }
+      else{
+        $sitePlusLink = $site_id;
+      }
   
-      //ini pake $d->
       $linkedSiteUnique = array_unique(explode(',', $sitePlusLink));
-
+  
       $getAllMop = array();
+
       foreach ($linkedSiteUnique as $d){
-          //foreach ntb2132, ntb232992
+        //check site_in db first
         $where = array('site_id' => $d);
         $data2 = $this->M_admin->get_data('tb_site_in', $where);
-          
-        foreach($data2 as $d2){
-          $where = array('keterangan' => $d2->keterangan);
-          $getMop = $this->M_admin->get_data('tb_mop', $where);
-
-          foreach ($getMop as $dd2){
-            $cmop = $dd2->mop;
-            $getAllMop[] = $dd2->mop;
-          }
-
-          $siteExported = array(
+  
+        if ($data2=='empty'){
+          //site_in not found
+          $siteNA = array(
             'dummy_id' => $new_dummy_id,
-            'site_id' => $d2->site_id,
-            'region' => $d2->region,
-            'provinsi' => $d2->provinsi,
-            'kabupaten' => $d2->kabupaten,
-            'kecamatan' => $d2->kecamatan,
-            'desa' => $d2->desa,
-            'paket' => $d2->paket,
-            'batch_' => $d2->batch_,
-            'ctrm' => $d2->ctrm,
-            'cmop' => $cmop,
-            'ctsi' => $d2->ctsi,
-            'amount_insured' => $d2->amount_insured,
-            'keterangan' => $d2->keterangan
-          );
-
-          $where2 = array('dummy_id' => $old_dummy_id);
-          $this->M_admin->delete('tb_site_in_exported', $where2);
-          $this->M_admin->insert('tb_site_in_exported', $siteExported);
-        } 
-      };
+            'site_id' => $d,
+            'cmop' => '0608032100000',
+            'keterangan' => 'N/A',
+          );  
+          $this->M_admin->insert('tb_site_in_exported', $siteNA);
+        }
+  
+        else{
+          //site_in found
+          foreach($data2 as $d2){
+            $where = array('keterangan' => $d2->keterangan);
+            $getMop = $this->M_admin->get_data('tb_mop', $where);
+            
+            foreach ($getMop as $dd2){
+              $cmop = $dd2->mop;
+              $getAllMop[] = $dd2->mop;
+            }
+    
+            $siteExported = array(
+              'dummy_id' => $new_dummy_id,
+              'site_id' => $d2->site_id,
+              'region' => $d2->region,
+              'provinsi' => $d2->provinsi,
+              'kabupaten' => $d2->kabupaten,
+              'kecamatan' => $d2->kecamatan,
+              'desa' => $d2->desa,
+              'paket' => $d2->paket,
+              'batch_' => $d2->batch_,
+              'ctrm' => $d2->ctrm,
+              'cmop' => $cmop,
+              'ctsi' => $d2->ctsi,
+              'amount_insured' => $d2->amount_insured,
+              'keterangan' => $d2->keterangan
+            );
+    
+            $this->M_admin->insert('tb_site_in_exported', $siteExported);
+          } 
+        }
+        //delete old data
+        $where2 = array('dummy_id' => $old_dummy_id);
+        $this->M_admin->delete('tb_site_in_exported', $where2);
+      }
       
       $input2 =$this->input->post("linked_with");
       $excludeSpace2 = str_replace(' ', '', $input2);

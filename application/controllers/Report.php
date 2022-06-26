@@ -259,7 +259,7 @@ class Report extends CI_Controller
 
                 }
                 else{//here
-                    $html = str_replace('{MOP}', '0608032100000', $html);
+                    $html = str_replace('{MOP}', '0608032100000'.$countmop, $html);
 
                     //scope of cover
                     $html .= ' 
