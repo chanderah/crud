@@ -137,18 +137,16 @@ class Report extends CI_Controller
                 $replacedItemInsured = str_replace(',', '-', $d->itemInsured);
                 $replacedItemInsured = str_replace('-', ' - ', $replacedItemInsured);
                 $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
-                $replacedItemInsured = str_replace('pcs', 'PCS', $replacedItemInsured);
-                $replacedItemInsured = str_replace('Pcs', 'PCS', $replacedItemInsured);
-                $replacedItemInsured = str_replace('set', 'SET', $replacedItemInsured);
-                $replacedItemInsured = str_replace('Set', 'SET', $replacedItemInsured);
                     
                 $explodedItemInsured = explode("\n", $replacedItemInsured);
 
                 $x = 0;
                 foreach ($explodedItemInsured as $a){
                 //1. Cat 6 UTP Patch Cord - 2 Meters 1 PCS
+                $a = trim($a);
                 $a = explode(' ',$a);
                 $last_two_word = implode(' ',array_splice($a, -2 )); 
+                $upper_last_two = strtoupper($last_two_word);
                 $except_last_two = implode(' ', $a);
 
                 if ($x===0){
@@ -156,7 +154,7 @@ class Report extends CI_Controller
                         <tr>
                             <td colspan="2">Interest Insured</td>
                             <td colspan="1" align="right" style="width:51px">:</td>
-                            <td colspan="8">'.$except_last_two.' - '.$last_two_word.'</td>
+                            <td colspan="8">'.$except_last_two.' - '.$upper_last_two.'</td>
                         </tr>';
                     }
                     else{
@@ -164,7 +162,7 @@ class Report extends CI_Controller
                         <tr>
                             <td colspan="2"></td>
                             <td colspan="1"></td>
-                            <td colspan="8">'.$except_last_two.' - '.$last_two_word.'</td>
+                            <td colspan="8">'.$except_last_two.' - '.$upper_last_two.'</td>
                         </tr>';
                     }
                     $x++;
