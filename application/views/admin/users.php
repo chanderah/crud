@@ -305,7 +305,9 @@ jQuery(document).ready(function($){
       'searching'   : false,
       'ordering'    : false,
       'info'        : true,
-      'autoWidth'   : true
+      'autoWidth'   : true,
+      'scrollX': true
+
 
     })
     $('#example2').DataTable({
@@ -314,7 +316,9 @@ jQuery(document).ready(function($){
       'searching'   : false,
       'ordering'    : true,
       'info'        : true,
-      'autoWidth'   : true
+      'autoWidth'   : true,
+      'scrollX': true
+
     })
   });
 

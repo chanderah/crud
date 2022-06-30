@@ -319,7 +319,9 @@
         'searching': true,
         'ordering': true,
         'info': true,
-        'autoWidth': false
+        'autoWidth': false,
+        'scrollX': true
+
       })
     });
   </script>

@@ -328,7 +328,9 @@ jQuery(document).ready(function($){
       'searching'   : false,
       'ordering'    : true,
       'info'        : true,
-      'autoWidth'   : true
+      'autoWidth'   : true,
+      'scrollX': true
+
     })
   });
 

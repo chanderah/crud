@@ -52,6 +52,29 @@ class M_admin extends CI_Model
     {
       return 'empty';
     }
+  }  
+  
+  public function count_exported_site($site_id)
+  {
+    
+    $query = $this->db->select()
+                      ->from('tb_site_in_exported')
+                      ->where($site_id)
+                      ->get();
+
+    if ($query->num_rows() > 0) {
+      if ($query->num_rows() != 1) {
+        return $query->num_rows() . ' times';
+      }
+      else{
+        return $query->num_rows() . ' time';
+
+      }
+    }
+    else
+    {
+      return '-';
+    }
   }
 
   public function getAllDataLinkedWith($tabel)

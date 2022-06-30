@@ -195,7 +195,7 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>No</th>
+                  <th style="width:2%">No</th>
                   <th>SITE ID</th>
                   <th>Linked</th>
                   <th>Sertifikat</th>
@@ -309,7 +309,9 @@ jQuery(document).ready(function($){
       'searching'   : false,
       'ordering'    : true,
       'info'        : true,
-      'autoWidth'   : true
+      'autoWidth'   : true,
+      'scrollX': true
+
     })
   });
 </script>

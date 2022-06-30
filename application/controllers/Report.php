@@ -135,6 +135,7 @@ class Report extends CI_Controller
                 ';
                     
                 $replacedItemInsured = str_replace(',', '-', $d->itemInsured);
+                $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
                 $replacedItemInsured = str_replace('-', ' - ', $replacedItemInsured);
                 $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
                     

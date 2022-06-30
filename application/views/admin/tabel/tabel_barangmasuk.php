@@ -237,8 +237,9 @@
                 <table id="site_datatable" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                      <th>No</th>
+                      <th style="width:2%">No</th>
                       <th>SITE ID</th>
+                      <th style="width:2%">Exported</th>
                       <th>Region</th>
                       <th>Provinsi</th>
                       <th>Kota</th>
@@ -261,8 +262,12 @@
                         <?php $no = 1; ?>
                         <?php foreach ($list_data as $dd) : ?>
                           <td><?= $no ?></td>
-                          <td><?= $dd->site_id ?></td> 
-
+                          <td><?= $dd->site_id ?></td>
+                          <?php 
+                            $where = array('site_id' => $dd->site_id);
+                            $count_data_keluar = $this->M_admin->count_exported_site($where);
+                          ?>
+                          <td><?=$count_data_keluar ?></td> 
                           <td><?= $dd->region ?></td>
                           <td><?= $dd->provinsi ?></td>
                           <td><?= $dd->kabupaten ?></td>
@@ -297,6 +302,7 @@
                     <tr>
                       <th>No</th>
                       <th>SITE ID</th>
+                      <th>Exported</th>
                       <th>Region</th>
                       <th>Provinsi</th>
                       <th>Kota</th>
@@ -378,7 +384,8 @@
         'searching': true,
         'ordering': true,
         'info': true,
-        'autoWidth': false
+        'autoWidth': false,
+        'scrollX': true
       })
       $('#site_counter').DataTable({
         'paging': true,
@@ -386,7 +393,9 @@
         'searching': true,
         'ordering': true,
         'info': true,
-        'autoWidth': false
+        'autoWidth': false,
+        'scrollX': true
+
       })
     });
   </script>

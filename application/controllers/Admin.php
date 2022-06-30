@@ -157,8 +157,6 @@ class Admin extends CI_Controller
 
   public function proses_excel_upload()
   {
-    $this->admin_true();
-
     $config =  array(
       'upload_path'     => "./xlsx/",
       'file_name'     => "import_siteid.xlsx",
@@ -195,8 +193,6 @@ class Admin extends CI_Controller
 
   public function import_excel()
   {
-    $this->admin_true();
-
     $path_xlsx = "./xlsx/import_siteid.xlsx";
     $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
     $spreadsheet = $reader->load($path_xlsx);
@@ -239,6 +235,11 @@ class Admin extends CI_Controller
     } else {
       echo "Data gagal diimport.";
     }
+  }
+
+  public function add_data($datas)
+  {
+    return $this->db->insert_batch("tb_site_in", $datas);
   }
 
   ####################################
@@ -412,6 +413,8 @@ class Admin extends CI_Controller
   public function tabel_barangmasuk()
   {
     $this->admin_true();
+
+    $where = array('dummy_id' => $dummy_id);
 
     $data = array(
       'list_data' => $this->M_admin->select('tb_site_in'),
