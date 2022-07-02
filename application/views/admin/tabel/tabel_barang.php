@@ -127,13 +127,13 @@
   <script src="<?php echo base_url() ?>assets/web_admin/dist/js/demo.js"></script>
   
   <!-- DataTables Export -->
-  
-  <script src="<?php echo base_url()?>assets/js/2/buttons.html5.min.js"></script>
-  <script src="<?php echo base_url()?>assets/js/2/buttons.print.min.js"></script>
-  <script src="<?php echo base_url()?>assets/js/2/dataTables.buttons.min.js"></script>
-  <script src="<?php echo base_url()?>assets/js/2/jszip.min.js"></script>
-  <script src="<?php echo base_url()?>assets/js/2/pdfmake.min.js"></script>
-  <script src="<?php echo base_url()?>assets/js/2/vfs_fonts.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/JSZip-2.5.0/jszip.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/pdfmake-0.1.36/vfs_fonts.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/Buttons-2.2.3/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/Buttons-2.2.3/js/buttons.colVis.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/Buttons-2.2.3/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/Buttons-2.2.3/js/buttons.print.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/JSZip-2.5.0/jszip.min.js"></script>
   <!-- page script -->
   <script>
     jQuery(document).ready(function($) {
@@ -154,6 +154,10 @@
 
     $(function() {
       $('#site_datatable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
         'paging': true,
         'lengthChange': true,
         'searching': true,
@@ -162,16 +166,6 @@
         'autoWidth': false,
         'scrollX': true,
         lengthMenu: [10, 50, 100, 200, 500, 1000, 10000],
-      })
-      $('#site_counter').DataTable({
-        'paging': true,
-        'lengthChange': true,
-        'searching': true,
-        'ordering': true,
-        'info': true,
-        'autoWidth': false,
-        'scrollX': true
-
       })
     });
   </script>
