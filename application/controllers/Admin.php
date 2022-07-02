@@ -424,6 +424,18 @@ class Admin extends CI_Controller
     
   }
 
+  public function tabel_barang()
+  {
+    $this->admin_true();
+
+    $data = array(
+      'list_data' => $this->M_admin->select('tb_site_in'),
+      'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
+    );
+    $this->load->view('admin/tabel/tabel_barang', $data);  
+    
+  }
+
   public function tabel_perubahan_site()
   {
     $this->admin_true();
