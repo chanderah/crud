@@ -174,7 +174,7 @@
       </ol>
     </section>
     <!-- Main content -->
-    <section class="content">
+    <section class="content" style="">
       <div class="row">
         <div class="col-xs-12">
           <!-- /.box -->
@@ -302,16 +302,14 @@ jQuery(document).ready(function($){
       });
   });
   $(function () {
-    $('#example1').DataTable();
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : true,
-      'scrollX': true
-
+    $('#example1').DataTable({
+      'paging': true,
+        'lengthChange': true,
+        'searching': true,
+        'ordering': true,
+        'info': true,
+        'autoWidth': false,
+        'scrollX': true
     })
   });
 </script>
