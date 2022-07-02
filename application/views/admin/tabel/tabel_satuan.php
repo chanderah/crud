@@ -73,7 +73,7 @@
                 <img src="<?php echo base_url('assets/upload/user/img/'.$a->nama_file)?>" class="img-circle" alt="User Image">
                 <?php } ?>
                 <p>
-                  <?=$this->session->userdata('name')?> - Web Developer
+                  <?=$this->session->userdata('name')?> - Admin
                   <small>Last Login : <?=$this->session->userdata('last_login')?></small>
                 </p>
               </li>

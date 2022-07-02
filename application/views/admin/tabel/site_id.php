@@ -74,7 +74,7 @@
                 <?php } ?>
 
                 <p>
-                  <?=$this->session->userdata('name')?> - Web Developer
+                  <?=$this->session->userdata('name')?> - Admin
                   <small>Last Login : <?=$this->session->userdata('last_login')?></small>
                 </p>
               </li>

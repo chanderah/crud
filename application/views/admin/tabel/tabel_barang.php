@@ -36,16 +36,28 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body>
-    <div class="div" style="width:50%;margin:20px">
+    <div class="div" style="width:100%;margin:20px">
       <table id="site_datatable" class="table table-bordered table-striped" style="">
         <thead>
           <tr>
-            <th>No</th>
-            <th>Certificate No.</th>
-            <th>Endorsement No.</th>
-            <th>SITE ID</th>
-            <th>Linked</th>
-            <th>Issued At</th>
+            <th rowspan="2">No.</th>
+            <th rowspan="2">Certificate No.</th>
+            <th rowspan="2">Endorsement No.</th>
+            <th rowspan="2">Site ID</th>
+            <th rowspan="2">Master Open Police</th>
+            <th rowspan="2">Site</th>
+            <th rowspan="2">From</th>
+            <th rowspan="2">To</th>
+            <th rowspan="2">Date of Sailing</th>
+            <th rowspan="2">Interest Insured</th> 
+            <th colspan="4">Conveyance</th>
+            <th rowspan="2">Created At</th>
+          </tr>
+          <tr>
+            <th>C. Name</th>
+            <th>C. Type</th>
+            <th>C. GRT</th>
+            <th>C. Y.O.B</th>
           </tr>
         </thead>
         <tbody>
@@ -54,9 +66,18 @@
             <?php foreach ($list_data as $dd) : ?>
               <td><?=$no?></td>
               <td><?=$dd->header_sertif?></td>  
-              <td><?=$dd->endorsement_no?></td>  
+              <td>Endorsement No.</td>  
               <td><?=$dd->site_id?></td>
-              <td><?=$dd->linked_with?></td>
+              <td><?=$dd->linked_mop?></td>
+              <td>Total Site</td>
+              <td><?=$dd->destination_from?></td>
+              <td><?=$dd->destination_to?></td>
+              <td><?=$dd->sailing_date?></td>
+              <td><?=$dd->itemInsured?></td>
+              <td><?=$dd->conveyance_name?></td>
+              <td><?=$dd->conveyance_type?></td>
+              <td><?=$dd->conveyance_grt?></td>
+              <td><?=$dd->conveyance_yob?></td>
               <td><?=$dd->issuedDate?></td>
           </tr>
           <?php $no++; ?>
@@ -64,12 +85,21 @@
         </tbody>
         <tfoot>
           <tr>
-            <th>No</th>
+            <th>No.</th>
             <th>Certificate No.</th>
             <th>Endorsement No.</th>
-            <th>SITE ID</th>
-            <th>Linked</th>
-            <th>Issued At</th>
+            <th>Site ID</th>
+            <th>Master Open Police</th>
+            <th>Site</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Date of Sailing</th>
+            <th>Interest Insured</th> 
+            <th>Name</th>
+            <th>Type</th>
+            <th>GRT</th>
+            <th>Y.O.B</th>
+            <th>Created At</th>
           </tr>
         </tfoot>
       </table>
@@ -123,20 +153,28 @@
     $(function() {
       $('#site_datatable').DataTable({
         dom: 'Bfrtip',
-        "columnDefs": 
-        [
+        "columnDefs": [
           { "width": "2%", "targets": 0 }
         ],
+        searchHighlight: true,
         colReorder: true,
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+                extend: 'excel',
+                text: 'Export current data',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
+                    }
+                }
+            }
         ],
         'paging': true,
         'lengthChange': true,
         'searching': true,
         'ordering': true,
         'info': true,
-        'autoWidth': false,
+        'autoWidth': true,
         'scrollX': true,
         lengthMenu: [10, 50, 100, 200, 500, 1000, 10000],
       })

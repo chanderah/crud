@@ -67,7 +67,7 @@
                 <img src="<?php echo base_url('assets/upload/user/img/'.$a->nama_file)?>" class="img-circle" alt="User Image">
                 <?php } ?>
                 <p>
-                  <?=$this->session->userdata('name')?> - Web Developer
+                  <?=$this->session->userdata('name')?> - Admin
                   <small>Last Login : <?=$this->session->userdata('last_login')?></small>
                 </p>
               </li>
@@ -213,7 +213,7 @@
                   <?php $no = 1;?>
                   <?php foreach($list_data as $dd): ?>
                     <td><?=$no?></td>
-                    <td><?=$dd->site_id?></td>
+                    <td><?=$dd->site_id?><br></td>
                     <td><?=$dd->linked_with?></td>
                     <td><?=$dd->no_sertif?></td>  
                     <td><?=$dd->header_sertif?></td>  

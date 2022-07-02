@@ -636,14 +636,11 @@ class Admin extends CI_Controller
   
     $id = $this->M_admin->get_max_id('id','tb_site_out');
     $no_sertif = $this->M_admin->get_max_id('no_sertif','tb_site_out');  
-  
-    $sha1 = random_string('alpha', 10);
-    $sha2 = random_string('sha1');
+      $sha1 = random_string('alpha', 10);
+      $sha2 = random_string('sha1');
     $dummy_id = $sha1.$sha2;
-    
     $site_id = $this->input->post('site_id', TRUE);
     $site_id = str_replace(' ', '', $site_id);
-    
     $input =$this->input->post("linked_with");
     $excludeSpace = str_replace(' ', '', $input);
 
@@ -655,7 +652,6 @@ class Admin extends CI_Controller
     }
 
     $linkedSiteUnique = array_unique(explode(',', $sitePlusLink));
-
     $getAllMop = array();
 
     foreach ($linkedSiteUnique as $d){
