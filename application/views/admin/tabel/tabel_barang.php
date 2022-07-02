@@ -36,74 +36,40 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body>
-    <div class="div"style="margin:20px">
+    <div class="div" style="width:50%;margin:20px">
       <table id="site_datatable" class="table table-bordered table-striped" style="">
         <thead>
           <tr>
-            <th style="width:2%">No</th>
+            <th>No</th>
+            <th>Certificate No.</th>
+            <th>Endorsement No.</th>
             <th>SITE ID</th>
-            <th style="width:2%">Exported</th>
-            <th>Region</th>
-            <th>Provinsi</th>
-            <th>Kota</th>
-            <th>Kecamatan</th>
-            <th>Desa</th>
-            <th>Paket</th>
-            <th>Batch</th>
-            <th>TRM</th>
-            <th>TSI</th>
-            <th>Amount Insured</th>
-            <th>Keterangan</th>
+            <th>Linked</th>
+            <th>Issued At</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <?php $no = 1; ?>
             <?php foreach ($list_data as $dd) : ?>
-              <td><?= $no ?></td>
-              <td><?= $dd->site_id ?></td>
-              <?php 
-                $where = array('site_id' => $dd->site_id);
-                $count_data_keluar = $this->M_admin->count_exported_site($where);
-              ?>
-              <td><?=$count_data_keluar ?></td> 
-              <td><?= $dd->region ?></td>
-              <td><?= $dd->provinsi ?></td>
-              <td><?= $dd->kabupaten ?></td>
-              <td><?= $dd->kecamatan ?></td>
-              <td><?= $dd->desa ?></td>
-              <td><?= $dd->paket ?></td>
-              <td><?= $dd->batch_ ?></td>
-              <td><?= $dd->ctrm ?></td>
-              <td><?= $dd->ctsi ?></td>
-
-              <?php if(is_numeric($dd->amount_insured)){ ?>
-                <td>IDR<?= number_format($dd->amount_insured, 2) ?></td>
-
-              <?php }else{ ?>
-                <td>IDR0.00</td>
-              <?php } ?>
-
-              <td><?= $dd->keterangan ?></td>    </tr>
+              <td><?=$no?></td>
+              <td><?=$dd->header_sertif?></td>  
+              <td><?=$dd->endorsement_no?></td>  
+              <td><?=$dd->site_id?></td>
+              <td><?=$dd->linked_with?></td>
+              <td><?=$dd->issuedDate?></td>
+          </tr>
           <?php $no++; ?>
-        <?php endforeach; ?>
+          <?php endforeach; ?>
         </tbody>
         <tfoot>
           <tr>
             <th>No</th>
+            <th>Certificate No.</th>
+            <th>Endorsement No.</th>
             <th>SITE ID</th>
-            <th>Exported</th>
-            <th>Region</th>
-            <th>Provinsi</th>
-            <th>Kota</th>
-            <th>Kecamatan</th>
-            <th>Desa</th>
-            <th>Paket</th>
-            <th>Batch</th>
-            <th>TRM</th>
-            <th>TSI</th>
-            <th>Amount Insured</th>
-            <th>Keterangan</th>
+            <th>Linked</th>
+            <th>Issued At</th>
           </tr>
         </tfoot>
       </table>
@@ -134,6 +100,8 @@
   <script type="text/javascript" src="<?php echo base_url() ?>assets/js/Buttons-2.2.3/js/buttons.html5.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url() ?>assets/js/Buttons-2.2.3/js/buttons.print.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url() ?>assets/js/JSZip-2.5.0/jszip.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/JSZip-2.5.0/jszip.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/ColReorder-1.5.6/js/dataTables.colReorder.min.js"></script>
   <!-- page script -->
   <script>
     jQuery(document).ready(function($) {
@@ -155,6 +123,11 @@
     $(function() {
       $('#site_datatable').DataTable({
         dom: 'Bfrtip',
+        "columnDefs": 
+        [
+          { "width": "2%", "targets": 0 }
+        ],
+        colReorder: true,
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
         ],

@@ -223,13 +223,14 @@
                     <td><a type="button" class="btn btn-danger btn-delete" href="<?=base_url('admin/delete_datakeluar/'.$dd->dummy_id)?>" name="btn_delete" style="margin:auto;"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                     <!--<td><a type="button" class="btn btn-info" href="<?=base_url('admin/info_datamasuk/'.$dd->dummy_id)?>" name="btn_update" style="margin:auto;"><i class="fa fa-info" aria-hidden="true"></i></a></td> -->
                     <td><a type="button" class="btn btn-danger btn-report" href="<?=base_url('report2/dataKeluar/'.$dd->dummy_id)?>" target="blank" name="btn_report" style="margin:auto;"><i class="fa fa-file-text" aria-hidden="true"></i></a>
-                        <a type="button" class="btn btn-danger btn-report" href="<?=base_url('report/dataKeluar/'.$dd->dummy_id)?>" target="blank" name="btn_report" style="margin:auto;"><i class="fa fa-file-text" aria-hidden="true"></i></a></td>
+                        <a type="button" class="btn btn-danger btn-report" href="<?=base_url('report/dataKeluar/'.$dd->dummy_id)?>" target="blank" name="btn_report" style="margin:auto;"><i class="fa fa-file-text" aria-hidden="true"></i></a>
+                    </td>
                 </tr>
-              <?php $no++; ?>
-              <?php endforeach;?>
-              <?php }else { ?>
-                    <td colspan="7" align="center"><strong>Data Kosong</strong></td>
-              <?php } ?>
+                  <?php $no++; ?>
+                  <?php endforeach;?>
+                  <?php }else { ?>
+                        <td colspan="7" align="center"><strong>Data Kosong</strong></td>
+                  <?php } ?>
                 </tbody>
                 <tfoot>
                 <tr>
