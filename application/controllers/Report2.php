@@ -26,7 +26,7 @@ class Report2 extends CI_Controller
         
         $data = $this->M_admin->get_data('tb_site_out', $ls);
         
-        if ($data==false){
+        if ($data=='empty'){
             redirect(base_url('admin/tabel_barangkeluar'));
         }
         
@@ -93,8 +93,6 @@ class Report2 extends CI_Controller
             $namaPerusahaan = 'PT. ASURANSI MAXIMUS GRAHA PERSADA, Tbk';
 
             // $foo = preg_replace('/\s+/', ' ', $foo);
-            // $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
-            // $replacedItemInsured = str_replace('   ', ' ', $replacedItemInsured);
             
             $no_sertif = $d->no_sertif;
             $str_length = 5;
@@ -138,37 +136,25 @@ class Report2 extends CI_Controller
                 </tr>
                 ';
                     
-                $replacedItemInsured = str_replace(',', '-', $d->itemInsured);
-                $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
-                $replacedItemInsured = str_replace('-', ' - ', $replacedItemInsured);
-                $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
-                    
                 $explodedItemInsured = explode("\n", $replacedItemInsured);
-
                 $x = 0;
                 foreach ($explodedItemInsured as $a){
-                //1. Cat 6 UTP Patch Cord - 2 Meters 1 PCS
-                $a = trim($a);
-                $a = explode(' ',$a);
-                $last_two_word = implode(' ',array_splice($a, -2 )); 
-                $upper_last_two = strtoupper($last_two_word);
-                $except_last_two = implode(' ', $a);
-
+                    //1. Cat 6 UTP Patch Cord - 2 Meters 1 PCS
                 if ($x===0){
                         $html .= '
-                        <tr>
-                            <td colspan="2">Interest Insured</td>
-                            <td colspan="1" align="right" style="width:51px">:</td>
-                            <td colspan="8">'.$except_last_two.' - '.$upper_last_two.'</td>
-                        </tr>';
+                            <tr>
+                                <td colspan="2">Interest Insured</td>
+                                <td colspan="1" align="right" style="width:51px">:</td>
+                                <td colspan="8">'.$a.'</td>
+                            </tr>';
                     }
                     else{
                         $html .= '
-                        <tr>
-                            <td colspan="2"></td>
-                            <td colspan="1"></td>
-                            <td colspan="8">'.$except_last_two.' - '.$upper_last_two.'</td>
-                        </tr>';
+                            <tr>
+                                <td colspan="2"></td>
+                                <td colspan="1"></td>
+                                <td colspan="8">'.$a.'</td>
+                            </tr>';
                     }
                     $x++;
                 }

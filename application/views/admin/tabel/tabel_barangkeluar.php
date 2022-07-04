@@ -191,13 +191,12 @@
                </div>
               <?php } ?>
               <a href="<?=base_url('admin/tabel_barangmasuk')?>" style="margin-bottom:10px;" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data Keluar</a>
-              <a href="<?= base_url('admin/export_data') ?>" style="margin-bottom:10px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Export n/a Data</a>
+              <a href="<?= base_url('admin/move_data') ?>" style="margin-bottom:10px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Export n/a Data</a>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th style="width:2%">No</th>
                   <th>SITE ID</th>
-                  <th>Linked</th>
                   <th>Sertifikat</th>
                   <th>Header</th>
                   <th>Issued At</th>
@@ -214,7 +213,6 @@
                   <?php foreach($list_data as $dd): ?>
                     <td><?=$no?></td>
                     <td><?=$dd->site_id?><br></td>
-                    <td><?=$dd->linked_with?></td>
                     <td><?=$dd->no_sertif?></td>  
                     <td><?=$dd->header_sertif?></td>  
                     <td><?=$dd->issuedDate?></td>
@@ -236,7 +234,6 @@
                 <tr>
                   <th>No</th>
                   <th>SITE ID</th>
-                  <th>Linked</th>
                   <th>Sertifikat</th>
                   <th>Header</th>
                   <th>Issued At</th>
@@ -271,6 +268,7 @@
 <!-- ./wrapper -->
 <!-- jQuery 3 -->
 <script src="<?php echo base_url()?>assets/web_admin/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/dataTables.searchHighlight.min"></script>
 <script src="<?php echo base_url()?>assets/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url()?>assets/web_admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -285,6 +283,9 @@
 <script src="<?php echo base_url()?>assets/web_admin/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url()?>assets/web_admin/dist/js/demo.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.12.1/features/searchHighlight/dataTables.searchHighlight.css"/>
+<script type="text/javascript" src="https:////cdn.datatables.net/plug-ins/1.12.1/features/searchHighlight/dataTables.searchHighlight.min.js"></script>
+<script type="text/javascript" src="https://bartaz.github.io/sandbox.js/jquery.highlight.js"></script>
 <!-- page script -->
 <script>
 jQuery(document).ready(function($){
@@ -308,6 +309,7 @@ jQuery(document).ready(function($){
         'lengthChange': true,
         'searching': true,
         'ordering': true,
+        searchHighlight: true,
         'info': true,
         'autoWidth': false,
         'scrollX': true

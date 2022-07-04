@@ -226,10 +226,6 @@
                     <label for="site_id" style="display:inline;">SITE ID</label>
                     <input type="text" name="site_id" style="  display:inline;" class="form-control" placeholder="Site ID" value="<?=$d->site_id?>">
                   </div>
-                  <div class="form-group form-group-lg col-md-12" style="display:none">
-                    <label for="site_id" style="display:inline;">Linked With</label>  
-                    <input type="text" name="linked_with" class="form-control" value="<?=$d->linked_with?>">
-                  </div>
                   <div class="form-group form-group-lg col-md-12">
                     <label for="region" style="display:inline;">Region</label>
                     <input type="text" name="region" style="  display:inline;" class="form-control" placeholder="Region" value="<?=$d->region?>">

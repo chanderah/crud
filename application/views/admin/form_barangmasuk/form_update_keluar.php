@@ -199,18 +199,14 @@
                       <input type="text" name="no_sertif" style="  display:none;" class="form-control"   value="<?=$d->no_sertif?>">
                     </div> 
                       <div class="form-group form-group-lg col-md-12">
-                        <label for="site_id" style="display:inline;width:auto">SITE ID</label>
-                        <input type="text" name="site_id" style="  display:inline;" class="form-control" placeholder="Site ID" value="<?= $d->site_id ?>">
-                      </div>
-                      <div class="form-group form-group-lg col-md-12">
-                        <label for="linked_with" style="display:inline;">Linked With</label>
-                        <input type="text" name="linked_with" class="form-control" value="<?= $d->linked_with ?>">
+                        <label for="site_id" style="display:inline;width:auto">SITE ID (Separate by Comma)</label>
+                        <input type="text" name="site_id" style="display:inline;margin-top:10px" class="form-control" placeholder="Site ID" value="<?= $d->site_id ?>">
                       </div>
                     <div class="form-group form-group-lg col-md-12">
                       <label for="the_insured">1. Nama Tertanggung</label>
                       <select name="the_insured" class="form-control">
                         <option value="PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)">PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)</option>
-                        <!-- <!-- <option value="Lainnya">Lainnya</option> --> -->
+                        <!-- <option value="Lainnya">Lainnya</option> -->
                       </select>
                     </div>
                     <div class="form-group form-group-lg col-md-12">
@@ -218,7 +214,7 @@
                         <select class="form-control" name="address_">
                           <!-- <option selected>Choose...</option> -->
                           <option selected value="APL Tower, 30 Floor, Grogol, West Jakarta">APL Tower, 30 Floor, Grogol, West Jakarta</option>
-                          <!-- <!-- <option value="Lainnya">Lainnya</option> --> -->
+                          <!-- <option value="Lainnya">Lainnya</option> -->
                         </select>
                     </div>
                     

@@ -203,7 +203,7 @@
                       <select name="the_insured" class="form-control">
                         <!-- <option selected>Choose...</option> -->
                         <option value="PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)">PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)</option>
-                        <!-- <!-- <option value="Lainnya">Lainnya</option> --> -->
+                        <!-- <option value="Lainnya">Lainnya</option> -->
                       </select>
                     </div>
                     <div class="form-group form-group-lg col-md-12">
@@ -211,7 +211,7 @@
                         <select class="form-control" name="address_">
                           <!-- <option selected>Choose...</option> -->
                           <option selected value="APL Tower, 30 Floor, Grogol, West Jakarta">APL Tower, 30 Floor, Grogol, West Jakarta</option>
-                          <!-- <!-- <option value="Lainnya">Lainnya</option> --> -->
+                          <!-- <option value="Lainnya">Lainnya</option> -->
                         </select>
                     </div>
                     <!-- <table id="cart_table" class="table table-sm table-stripped table-hover" style="margin-left:7px;width:99%">
@@ -265,7 +265,7 @@
                             <option value="Truck">Truck</option>
                             <option value="Pick Up">Pick Up</option>
                             <option value="Container">Container</option>
-                            <!-- <!-- <option value="Lainnya">Lainnya</option> --> -->
+                            <!-- <option value="Lainnya">Lainnya</option> -->
                           </select>
                       </div>
                       <div class="form-group form-group-lg col-md-3">

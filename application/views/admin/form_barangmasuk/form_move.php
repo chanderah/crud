@@ -188,22 +188,25 @@
                     <div class="form-group" style="display:inline-block; margin-left:75px">
                       <button type="reset" class="btn btn-basic" name="btn_reset" style="width:95px;margin-left:-70px;margin-top:10px"><i class="fa fa-eraser" aria-hidden="true"></i> Reset</button>
                     </div>
-                    <?php foreach ($list_data as $d) { ?>
-                      <div class="form-group form-group-lg col-md-12">
-                        <label for="site_id" style="display:inline;width:auto">SITE ID</label>
-                        <input type="text" name="site_id" style="  display:inline;" readonly="readonly" class="form-control" placeholder="Site ID" value="<?= $d->site_id ?>">
-                      </div>
-                      <div class="form-group form-group-lg col-md-12">
-                        <label for="linked_with" style="display:inline;">Linked With</label>
-                        <input type="text" name="linked_with" class="form-control">
-                      </div>
-                    <?php } ?>
+                    <?php if($list_data!='empty'){
+                      foreach ($list_data as $d) { ?>
+                        <div class="form-group form-group-lg col-md-12">
+                          <label for="site_id" style="display:inline">SITE ID (Separate by Comma)</label>
+                          <input type="text" name="site_id" class="form-control" placeholder="Site ID" style="margin-top:10px" value="<?= $d->site_id ?>">
+                        </div>
+                    <?php }}
+                    else { ?>
+                        <div class="form-group form-group-lg col-md-12">
+                          <label for="site_id" style="display:inline">SITE ID (Separate by Comma)</label>
+                          <input type="text" name="site_id" class="form-control" placeholder="Site ID" style="margin-top:10px" value="">
+                        </div>
+                    <?php }?>
                     <div class="form-group form-group-lg col-md-12">
                       <label for="the_insured">1. Nama Tertanggung</label>
                       <select name="the_insured" class="form-control">
                         <!-- <option selected>Choose...</option> -->
                         <option value="PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)">PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)</option>
-                        <!-- <!-- <option value="Lainnya">Lainnya</option> --> -->
+                        <!-- <option value="Lainnya">Lainnya</option> -->
                       </select>
                     </div>
                     <div class="form-group form-group-lg col-md-12">
@@ -211,7 +214,7 @@
                         <select class="form-control" name="address_">
                           <!-- <option selected>Choose...</option> -->
                           <option selected value="APL Tower, 30 Floor, Grogol, West Jakarta">APL Tower, 30 Floor, Grogol, West Jakarta</option>
-                          <!-- <!-- <option value="Lainnya">Lainnya</option> --> -->
+                          <!-- <option value="Lainnya">Lainnya</option> -->
                         </select>
                     </div>
                     <!-- <table id="cart_table" class="table table-sm table-stripped table-hover" style="margin-left:7px;width:99%">
@@ -265,7 +268,7 @@
                             <option value="Truck">Truck</option>
                             <option value="Pick Up">Pick Up</option>
                             <option value="Container">Container</option>
-                            <!-- <!-- <option value="Lainnya">Lainnya</option> --> -->
+                            <!-- <option value="Lainnya">Lainnya</option> -->
                           </select>
                       </div>
                       <div class="form-group form-group-lg col-md-3">

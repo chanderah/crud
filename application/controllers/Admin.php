@@ -373,6 +373,7 @@ class Admin extends CI_Controller
     $data['list_data'] = $this->M_admin->get_data('tb_site_in', $where);
     $data['list_data_out'] = $this->M_admin->get_data('tb_site_out', $where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
+    
     $this->load->view('admin/form_barangmasuk/form_move', $data);
   }
 
@@ -414,8 +415,6 @@ class Admin extends CI_Controller
   {
     $this->admin_true();
 
-    $where = array('dummy_id' => $dummy_id);
-
     $data = array(
       'list_data' => $this->M_admin->select('tb_site_in'),
       'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
@@ -455,7 +454,6 @@ class Admin extends CI_Controller
     $where2 = array('dummy_id' => $dummy_id);
     
     $data['data_barang_update'] = $this->M_admin->get_data('tb_site_in', $where);
-    $data['data_linked_with'] = $this->M_admin->getAllDataLinkedWith('tb_site_in');
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_barangmasuk/form_update', $data);
   }
@@ -641,24 +639,15 @@ class Admin extends CI_Controller
     $dummy_id = $sha1.$sha2;
     $site_id = $this->input->post('site_id', TRUE);
     $site_id = str_replace(' ', '', $site_id);
-    $input =$this->input->post("linked_with");
-    $excludeSpace = str_replace(' ', '', $input);
-
-    if (!empty($excludeSpace)){
-      $sitePlusLink = $site_id . ',' . $excludeSpace;
-    }
-    else{
-      $sitePlusLink = $site_id;
-    }
-
-    $linkedSiteUnique = array_unique(explode(',', $sitePlusLink));
+  
+    $site_unique = array_unique(explode(',', $site_id));
     $getAllMop = array();
-
-    foreach ($linkedSiteUnique as $d){
+  
+    foreach ($site_unique as $d){
       //check site_in db first
       $where = array('site_id' => $d);
       $data2 = $this->M_admin->get_data('tb_site_in', $where);
-
+  
       if ($data2=='empty'){
         //site_in not found
         $siteNA = array(
@@ -669,7 +658,7 @@ class Admin extends CI_Controller
         );  
         $this->M_admin->insert('tb_site_in_exported', $siteNA);
       }
-
+  
       else{
         //site_in found
         foreach($data2 as $d2){
@@ -702,17 +691,17 @@ class Admin extends CI_Controller
         } 
       }
     }
-
+  
     $the_insured =$this->input->post("the_insured");
     $address_ =$this->input->post("address_");
     $conveyance =$this->input->post("conveyance");
-    $itemInsured =$this->input->post("itemInsured");
     
     $destination_from =$this->input->post("destination_from");
     $destination_to =$this->input->post("destination_to");
     $sailing_date =$this->input->post("sailing_date");
     $issuedDate =$this->input->post("issuedDate");
     $amount_insured2 =$this->input->post("amount_insured"); 
+    preg_replace('~\D~', '', $amount_insured2);
     
     $conveyance =$this->input->post("conveyance");
     $conveyance_by =$this->input->post("conveyance_by");
@@ -729,72 +718,96 @@ class Admin extends CI_Controller
     $conveyance_plane_type =$this->input->post("conveyance_plane_type");
     $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
   
-    $input2 =$this->input->post("linked_with");
-    $excludeSpace2 = str_replace(' ', '', $input2);
-
     //get header sertif
     $str_length = 5;
     $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
-
+  
     $yearIssued = date("y", strtotime($issuedDate));
-
+  
     $numToRoman = new IntToRoman();
     $roman = $numToRoman->filter(date("m", strtotime($issuedDate)));
     $monthIssued = $roman;
-    //end 
-
+    // 
+  
     $header_sertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
-
-    $LinkedWithUnique = implode(', ',array_unique(explode(',', $excludeSpace2)));
-
+  
+    $site_id_out = implode(',',array_unique(explode(',', $site_id)));
+  
     sort($getAllMop);
     $linked_cmop = array_unique($getAllMop);
     $linked_cmop = implode(', ',$linked_cmop);
+      
+    $itemInsured =$this->input->post("itemInsured");
+
+    $replacedItemInsured = str_replace('-', ' ', $itemInsured);
+    $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
+    $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
+        
+    $explodedItemInsured = explode("\n", $replacedItemInsured);
+
+    $repairedItems = [];
+    foreach ($explodedItemInsured as $a){
+      //1. Cat 6 UTP Patch Cord - 2 Meters 1 PCS
+      $a = trim($a);
+      
+      $a = explode(' ',$a);
+      $last_two_word = implode(' ',array_splice($a, -2 )); 
+      $upper_last_two = strtoupper($last_two_word);
+      $except_last_two = implode(' ', $a);
+      
+      $repairedItems[] = $except_last_two.' - '.$upper_last_two;
+    }
+
+    $item_insured = implode(PHP_EOL,$repairedItems);
 
     $siteOut = array(
       'id' => $id,
-  
       'dummy_id' => $dummy_id,
-      'site_id' => $site_id,
-
-      'linked_with' => $LinkedWithUnique,
-
+      'site_id' => $site_id_out,
       'linked_mop' => $linked_cmop,
-      
       'no_sertif' => $no_sertif,
       'header_sertif' => $header_sertif,
-  
       'the_insured' => $the_insured,
       'address_' => $address_,
-      'itemInsured' => $itemInsured,
+      'itemInsured' => $item_insured,
       'issuedDate' => $issuedDate,
-  
       'conveyance' => $conveyance,
       'destination_from' => $destination_from,
       'destination_to' => $destination_to,
       'sailing_date' => $sailing_date,
       'amount_insured' => $amount_insured2,
-               
-      //--------------DARAT---------------
-      'conveyance_by' => $conveyance_by,
-      'conveyance_type' => $conveyance_type,
-      //'conveyance_total' => $conveyance_total,
-      'conveyance_policeno' => $conveyance_policeno,
-      'conveyance_age' => $conveyance_age,
-      'conveyance_driver' => $conveyance_driver,
-      //--------------LAUT---------------
-      'conveyance_ship_name' => $conveyance_ship_name,
-      'conveyance_ship_type' => $conveyance_ship_type,
-      'conveyance_ship_birth' => $conveyance_ship_birth,
-      'conveyance_ship_GRT' => $conveyance_ship_GRT,
-      'conveyance_ship_containerno' => $conveyance_ship_containerno,
-      //--------------UDARA---------------
-      'conveyance_plane_type' => $conveyance_plane_type,
-      'conveyance_plane_AWB' => $conveyance_plane_AWB,
     );
   
+    if ($conveyance=="Darat"){
+        $dataConveyance = [
+            'conveyance_by' => $conveyance_by,
+            'conveyance_type' => $conveyance_type,
+            //'conveyance_total' => $conveyance_total,
+            'conveyance_policeno' => $conveyance_policeno,
+            'conveyance_age' => $conveyance_age,
+            'conveyance_driver' => $conveyance_driver
+        ];
+    }
+    elseif ($conveyance=="Laut"){
+        $dataConveyance = [
+            'conveyance_ship_name' => $conveyance_ship_name,
+            'conveyance_ship_type' => $conveyance_ship_type,
+            'conveyance_ship_birth' => $conveyance_ship_birth,
+            'conveyance_ship_GRT' => $conveyance_ship_GRT,
+            'conveyance_ship_containerno' => $conveyance_ship_containerno
+        ];
+    }
+    elseif ($conveyance=="Udara"){
+        $dataConveyance = [
+            'conveyance_plane_type' => $conveyance_plane_type,
+            'conveyance_plane_AWB' => $conveyance_plane_AWB,
+        ];
+    }
+    
+    $mergeArr = array_merge($siteOut,$dataConveyance);
+  
     if ($this->form_validation->run() == TRUE) {
-      $this->M_admin->insert('tb_site_out', $siteOut);
+      $this->M_admin->insert('tb_site_out', $mergeArr);
   
       $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
       redirect(base_url('admin/tabel_barangkeluar'));
@@ -802,32 +815,28 @@ class Admin extends CI_Controller
       $this->load->view('admin/form_barangmasuk/form_move', $siteExported);
     }
   }
-    
+  
   public function proses_datakeluar_update()
   {
       $old_dummy_id =$this->input->post("dummy_id");
-
+  
       $sha1 = random_string('alpha', 10);
       $sha2 = random_string('sha1');
       $new_dummy_id = $sha1 . $sha2;   
-
-      $site_id =$this->input->post("site_id");
-      $site_id = str_replace(' ', '', $site_id);
       
       $no_sertif =$this->input->post("no_sertif");
-
+  
       $the_insured =$this->input->post("the_insured");
       $address_ =$this->input->post("address_");
       $conveyance =$this->input->post("conveyance");
-      $itemInsured =$this->input->post("itemInsured");
-
+  
       $destination_from =$this->input->post("destination_from");
       $destination_to =$this->input->post("destination_to");
       $sailing_date =$this->input->post("sailing_date");
       $issuedDate =$this->input->post("issuedDate");
       $amount_insured =$this->input->post("amount_insured");
       preg_replace('~\D~', '', $amount_insured);
-
+  
       $conveyance =$this->input->post("conveyance");
       $conveyance_by =$this->input->post("conveyance_by");
       $conveyance_type =$this->input->post("conveyance_type");
@@ -843,21 +852,14 @@ class Admin extends CI_Controller
       $conveyance_plane_type =$this->input->post("conveyance_plane_type");
       $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
       
-      $input =$this->input->post("linked_with");
-      $excludeSpace = str_replace(' ', '', $input);
+      $site_id =$this->input->post("site_id");
+      $site_id = str_replace(' ', '', $site_id);
   
-      if (!empty($excludeSpace)){
-        $sitePlusLink = $site_id . ',' . $excludeSpace;
-      }
-      else{
-        $sitePlusLink = $site_id;
-      }
-  
-      $linkedSiteUnique = array_unique(explode(',', $sitePlusLink));
+      $site_unique = array_unique(explode(',', $site_id));
   
       $getAllMop = array();
-
-      foreach ($linkedSiteUnique as $d){
+  
+      foreach ($site_unique as $d){
         //check site_in db first
         $where = array('site_id' => $d);
         $data2 = $this->M_admin->get_data('tb_site_in', $where);
@@ -908,76 +910,107 @@ class Admin extends CI_Controller
         $where2 = array('dummy_id' => $old_dummy_id);
         $this->M_admin->delete('tb_site_in_exported', $where2);
       }
-      
-      $input2 =$this->input->post("linked_with");
-      $excludeSpace2 = str_replace(' ', '', $input2);
   
       //get header sertif
       $str_length = 5;
       $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
-
+  
       $yearIssued = date("y", strtotime($issuedDate));
-
+  
       $numToRoman = new IntToRoman();
       $roman = $numToRoman->filter(date("m", strtotime($issuedDate)));
       $monthIssued = $roman;
       //end 
-
+  
       $header_sertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
-
-      $LinkedWithUnique = implode(', ',array_unique(explode(',', $excludeSpace2)));
+  
+      $site_id_out = implode(',',array_unique(explode(',', $site_id)));
       
       sort($getAllMop);
       $linked_cmop = array_unique($getAllMop);
       $linked_cmop = implode(', ',$linked_cmop);
+  
+      $itemInsured =$this->input->post("itemInsured");
+
+      $replacedItemInsured = str_replace('-', ' ', $itemInsured);
+      $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
+      $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
+          
+      $explodedItemInsured = explode("\n", $replacedItemInsured);
+  
+      $repairedItems = [];
+  
+      foreach ($explodedItemInsured as $a){
+      //1. Cat 6 UTP Patch Cord - 2 Meters 1 PCS
+      $a = trim($a);
+      
+      $a = explode(' ',$a);
+      $last_two_word = implode(' ',array_splice($a, -2 )); 
+      $upper_last_two = strtoupper($last_two_word);
+      $except_last_two = implode(' ', $a);
+      
+      $repairedItems[] = $except_last_two.' - '.$upper_last_two;
+      }
+  
+      $item_insured = implode(PHP_EOL,$repairedItems);
 
       $where = array('dummy_id' => $old_dummy_id);
       $siteOut = array(
         'dummy_id' => $new_dummy_id,
-        'site_id' => $site_id,
-        'linked_with' => $LinkedWithUnique,
+        'site_id' => $site_id_out,
 
         'linked_mop' => $linked_cmop,
     
         'no_sertif' => $no_sertif,
         'header_sertif' => $header_sertif,
-
+  
         'the_insured' => $the_insured,
         'address_' => $address_,
-        'itemInsured' => $itemInsured,
+        'itemInsured' => $item_insured,
         'issuedDate' => $issuedDate,
-
+  
         'destination_from' => $destination_from,
         'destination_to' => $destination_to,
         'amount_insured' => $amount_insured,
         'sailing_date' => $sailing_date,
-
+  
         'conveyance' => $conveyance,
-        //--------------DARAT---------------
-        'conveyance_by' => $conveyance_by,
-        'conveyance_type' => $conveyance_type,
-        //'conveyance_total' => $conveyance_total,
-        'conveyance_policeno' => $conveyance_policeno,
-        'conveyance_age' => $conveyance_age,
-        'conveyance_driver' => $conveyance_driver,
-        //--------------LAUT---------------
-        'conveyance_ship_name' => $conveyance_ship_name,
-        'conveyance_ship_type' => $conveyance_ship_type,
-        'conveyance_ship_birth' => $conveyance_ship_birth,
-        'conveyance_ship_GRT' => $conveyance_ship_GRT,
-        'conveyance_ship_containerno' => $conveyance_ship_containerno,
-        //--------------UDARA---------------
-        'conveyance_plane_type' => $conveyance_plane_type,
-        'conveyance_plane_AWB' => $conveyance_plane_AWB,
       );
-
-
-      $this->M_admin->update('tb_site_out', $siteOut, $where);
+  
+      if ($conveyance=="Darat"){
+          $dataConveyance = [
+              'conveyance_by' => $conveyance_by,
+              'conveyance_type' => $conveyance_type,
+              //'conveyance_total' => $conveyance_total,
+              'conveyance_policeno' => $conveyance_policeno,
+              'conveyance_age' => $conveyance_age,
+              'conveyance_driver' => $conveyance_driver
+          ];
+      }
+      elseif ($conveyance=="Laut"){
+          $dataConveyance = [
+              'conveyance_ship_name' => $conveyance_ship_name,
+              'conveyance_ship_type' => $conveyance_ship_type,
+              'conveyance_ship_birth' => $conveyance_ship_birth,
+              'conveyance_ship_GRT' => $conveyance_ship_GRT,
+              'conveyance_ship_containerno' => $conveyance_ship_containerno
+          ];
+      }
+      elseif ($conveyance=="Udara"){
+          $dataConveyance = [
+              'conveyance_plane_type' => $conveyance_plane_type,
+              'conveyance_plane_AWB' => $conveyance_plane_AWB,
+          ];
+      }
+      
+      $mergeArr = array_merge($siteOut,$dataConveyance);
+  
+      $this->M_admin->update('tb_site_out', $mergeArr, $where);
       $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
       redirect(base_url('admin/tabel_barangkeluar'));
     
   }
-  
+
   ####################################
   // END DATA MASUK KE DATA KELUAR
   ####################################

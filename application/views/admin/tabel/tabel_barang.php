@@ -16,7 +16,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/bower_components/Ionicons/css/ionicons.min.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/dist/css/AdminLTE.min.css">
 
@@ -70,14 +70,14 @@
               <td><?=$dd->site_id?></td>
               <td><?=$dd->linked_mop?></td>
               <td>Total Site</td>
-              <td><?=$dd->destination_from?></td>
-              <td><?=$dd->destination_to?></td>
+              <td><?=strtok($dd->destination_from, "\n")?></td>
+              <td><?=strtok($dd->destination_to, "\n")?></td>
               <td><?=$dd->sailing_date?></td>
-              <td><?=$dd->itemInsured?></td>
-              <td><?=$dd->conveyance_name?></td>
-              <td><?=$dd->conveyance_type?></td>
-              <td><?=$dd->conveyance_grt?></td>
-              <td><?=$dd->conveyance_yob?></td>
+              <td><?=nl2br($dd->itemInsured)?></td>
+              <td><?='$dd->conveyance_name'?></td>
+              <td><?='$dd->conveyance_type'?></td>
+              <td><?='$dd->conveyance_grt'?></td>
+              <td><?='$dd->conveyance_yob'?></td>
               <td><?=$dd->issuedDate?></td>
           </tr>
           <?php $no++; ?>
@@ -132,6 +132,9 @@
   <script type="text/javascript" src="<?php echo base_url() ?>assets/js/JSZip-2.5.0/jszip.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url() ?>assets/js/JSZip-2.5.0/jszip.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url() ?>assets/js/ColReorder-1.5.6/js/dataTables.colReorder.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.12.1/features/searchHighlight/dataTables.searchHighlight.css"/>
+  <script type="text/javascript" src="https:////cdn.datatables.net/plug-ins/1.12.1/features/searchHighlight/dataTables.searchHighlight.min.js"></script>
+  <script type="text/javascript" src="https://bartaz.github.io/sandbox.js/jquery.highlight.js"></script>
   <!-- page script -->
   <script>
     jQuery(document).ready(function($) {
@@ -154,8 +157,14 @@
       $('#site_datatable').DataTable({
         dom: 'Bfrtip',
         "columnDefs": [
-          { "width": "2%", "targets": 0 }
-        ],
+          { 
+            "width": "2%", "targets": 3,
+            // "render": function (data, type, row) {return data.split("\n").join("<br/>")},"targets": [9], 
+            "render": function (data, type, row) {
+              return data.split(",").join("\n")
+            },"targets": [3], 
+          }
+        ], 
         searchHighlight: true,
         colReorder: true,
         buttons: [
@@ -163,6 +172,7 @@
                 extend: 'excel',
                 text: 'Export current data',
                 exportOptions: {
+                    stripNewlines: false,
                     modifier: {
                         page: 'current'
                     }
@@ -173,8 +183,8 @@
         'lengthChange': true,
         'searching': true,
         'ordering': true,
+        autoWidth: false,
         'info': true,
-        'autoWidth': true,
         'scrollX': true,
         lengthMenu: [10, 50, 100, 200, 500, 1000, 10000],
       })

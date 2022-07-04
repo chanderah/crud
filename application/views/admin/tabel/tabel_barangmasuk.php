@@ -218,7 +218,7 @@
 
               <div class="tab-pane active" id="main">
                 <a href="<?= base_url('admin/form_barangmasuk') ?>" style="margin-bottom:10px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data</a>
-                <a href="<?= base_url('admin/export_data') ?>" style="margin-bottom:10px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Export n/a Data</a>
+                <a href="<?= base_url('admin/move_data') ?>" style="margin-bottom:10px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Export n/a Data</a>
                 <?php if ($this->session->flashdata('msg_berhasil')) { ?>
                   <div class="alert alert-success alert-dismissible" style="width:100%">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -359,6 +359,10 @@
   <script src="<?php echo base_url() ?>assets/web_admin/dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="<?php echo base_url() ?>assets/web_admin/dist/js/demo.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.12.1/features/searchHighlight/dataTables.searchHighlight.css"/>
+  <script type="text/javascript" src="https:////cdn.datatables.net/plug-ins/1.12.1/features/searchHighlight/dataTables.searchHighlight.min.js"></script>
+  <script type="text/javascript" src="https://bartaz.github.io/sandbox.js/jquery.highlight.js"></script>
   
   <!-- page script -->
   <script>
@@ -386,7 +390,8 @@
         'ordering': true,
         'info': true,
         'autoWidth': false,
-        'scrollX': true
+        'scrollX': true,
+        searchHighlight: true,
       })
       $('#site_counter').DataTable({
         'paging': true,
