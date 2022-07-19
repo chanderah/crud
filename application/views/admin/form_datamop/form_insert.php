@@ -203,6 +203,13 @@
              </div>
             <?php } ?>
               <div class="box-body" style="margin-top:20px;">
+                <div class="form-group form-group-lg col-md-12">
+                  <label for="insurance">Insurance</label>
+                    <select class="form-control" id="insurance" name="insurance">
+                      <option value="Maximus">Maximus</option>
+                      <option value="Malacca">Malacca</option>
+                    </select>
+                </div>
                 <div class="form-group form-group-lg col-md-12" >
                     <label for="keterangan" style="display:inline;">Keterangan SITE</label>
                     <input type="number" name="keterangan" style="  display:inline;" class="form-control" placeholder="000 Site">

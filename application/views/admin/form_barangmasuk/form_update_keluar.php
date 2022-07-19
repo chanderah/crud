@@ -198,33 +198,25 @@
                       <label for="no_sertif" style="display:none;">No. Sertif</label>
                       <input type="text" name="no_sertif" style="  display:none;" class="form-control"   value="<?=$d->no_sertif?>">
                     </div> 
-                      <div class="form-group form-group-lg col-md-12">
-                        <label for="site_id" style="display:inline;width:auto">SITE ID (Separate by Comma)</label>
-                        <input type="text" name="site_id" style="display:inline;margin-top:10px" class="form-control" placeholder="Site ID" value="<?= $d->site_id ?>">
-                      </div>
                     <div class="form-group form-group-lg col-md-12">
-                      <label for="the_insured">1. Nama Tertanggung</label>
-                      <select name="the_insured" class="form-control">
-                        <option value="PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)">PT. FiberHome Technologies Indonesia and/or BAKTI (Badan Aksesibilitas Telekomunikasi dan Informasi)</option>
-                        <!-- <option value="Lainnya">Lainnya</option> -->
-                      </select>
+                      <label for="site_id" style="display:inline;width:auto">SITE ID (Separate by Comma)</label>
+                      <input type="text" name="site_id" style="display:inline;margin-top:10px" class="form-control" placeholder="Site ID" value="<?= $d->site_id ?>">
                     </div>
                     <div class="form-group form-group-lg col-md-12">
-                      <label for="address_">2. Alamat</label>
-                        <select class="form-control" name="address_">
-                          <!-- <option selected>Choose...</option> -->
-                          <option selected value="APL Tower, 30 Floor, Grogol, West Jakarta">APL Tower, 30 Floor, Grogol, West Jakarta</option>
-                          <!-- <option value="Lainnya">Lainnya</option> -->
-                        </select>
+                      <label for="insurance">Insurance</label>
+                      <select name="insurance" class="form-control">
+                      <option value="Malacca" <?php if($d->insurance=="Malacca"){echo "selected";} ?> >Malacca</option>
+                      <option value="Maximus" <?php if($d->insurance=="Maximus"){echo "selected";} ?> >Maximus</option>
+                      </select>
                     </div>
                     
                     <div class="form-group form-group-lg col-md-12">
-                        <label for="itemInsured" style="display:inline;">3. Jenis Barang yang Dikirim</label>
+                        <label for="itemInsured" style="display:inline;">Jenis Barang yang Dikirim</label>
                         <textarea class="form-control" style="margin-top:10px;" id="itemInsured" rows="5" name="itemInsured"><?= $d->itemInsured ?></textarea>
-                      </div>                
+                    </div>                
 
                     <div class="form-group form-group-lg col-md-12" style="">
-                      <label for="conveyance">4. Pengiriman Melalui</label>
+                      <label for="conveyance">Pengiriman Melalui</label>
                         <select class="form-control" id="conveyance" name="conveyance">
                           <option value="Darat" <?php if($d->conveyance=="Darat"){echo "selected";} ?> >Darat</option>
                           <option value="Laut" <?php if($d->conveyance=="Laut"){echo "selected";} ?> >Laut</option>
@@ -294,7 +286,7 @@
                     </div>
                     
                     <div class="form-group form-group-lg col-md-6">
-                      <label for="destination_from">5. Tempat Keberangkatan</label>
+                      <label for="destination_from">Tempat Keberangkatan</label>
                       <textarea class="form-control" id="destination_from" name="destination_from" placeholder="From" rows="3"><?= $d->destination_from ?></textarea>
                     </div>
                     <div class="form-group form-group-lg col-md-6">
@@ -302,18 +294,18 @@
                       <textarea class="form-control" id="destination_to" name="destination_to" placeholder="To" rows="3"><?= $d->destination_to ?></textarea>
                     </div>
                     <div class="form-group form-group-lg col-md-12">
-                      <label for="sailing_date">6. Tanggal Keberangkatan</label>
+                      <label for="sailing_date">Tanggal Keberangkatan</label>
                       <input type="date" placeholder="Sailing Date" name="sailing_date" required="required" class="form-control" value="<?= $d->sailing_date ?>"/>
                     </div>
                     <div class="form-group form-group-lg col-md-12">
-                      <label for="amount_insured">7. Nilai Barang yang Diangkut</label>
+                      <label for="amount_insured">Nilai Barang yang Diangkut</label>
                       <select class="form-control" id="currency" name="currency" style="margin-bottom:5px;width:fit-content" >
                           <option value="IDR">IDR</option>
                       </select>
                       <input id="amount_insured" type="number" name="amount_insured" placeholder="Nilai Barang" required="required" class="form-control" value="<?= $d->amount_insured ?>"/>
                     </div>
                     <div class="form-group form-group-lg col-md-12">
-                      <label for="issuedDate">8. Tanggal Penerbitan</label>
+                      <label for="issuedDate">Tanggal Penerbitan</label>
                       <input type="date" value="<?= $d->issuedDate ?>" name="issuedDate" required="required" class="form-control" />
                     </div>               
 

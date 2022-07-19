@@ -197,6 +197,7 @@
                 <tr>
                   <th style="width:2%">No</th>
                   <th>SITE ID</th>
+                  <th>Insurance</th>
                   <th>Sertifikat</th>
                   <th>Header</th>
                   <th>Issued At</th>
@@ -213,16 +214,25 @@
                   <?php foreach($list_data as $dd): ?>
                     <td><?=$no?></td>
                     <td><?=$dd->site_id?><br></td>
+                    <td><?=$dd->insurance?><br></td>
                     <td><?=$dd->no_sertif?></td>  
                     <td><?=$dd->header_sertif?></td>  
                     <td><?=$dd->issuedDate?></td>
                     <td><?=$dd->created_at?></td>
                     <td><a type="button" class="btn btn-info" href="<?= base_url('admin/update_datakeluar/' . $dd->dummy_id) ?>" name="btn_update" style="margin:auto;"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
                     <td><a type="button" class="btn btn-danger btn-delete" href="<?=base_url('admin/delete_datakeluar/'.$dd->dummy_id)?>" name="btn_delete" style="margin:auto;"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                    <!--<td><a type="button" class="btn btn-info" href="<?=base_url('admin/info_datamasuk/'.$dd->dummy_id)?>" name="btn_update" style="margin:auto;"><i class="fa fa-info" aria-hidden="true"></i></a></td> -->
-                    <td><a type="button" class="btn btn-danger btn-report" href="<?=base_url('report2/dataKeluar/'.$dd->dummy_id)?>" target="blank" name="btn_report" style="margin:auto;"><i class="fa fa-file-text" aria-hidden="true"></i></a>
-                        <a type="button" class="btn btn-danger btn-report" href="<?=base_url('report/dataKeluar/'.$dd->dummy_id)?>" target="blank" name="btn_report" style="margin:auto;"><i class="fa fa-file-text" aria-hidden="true"></i></a>
-                    </td>
+                    <?php if($dd->insurance == "Malacca"){ ?>
+                      <td>
+                          <a type="button" class="btn btn-danger btn-report" href="<?=base_url('report4/dataKeluar/'.$dd->dummy_id)?>" target="blank" name="btn_report" style="margin:auto;"><i class="fa fa-file-text" aria-hidden="true"></i></a>
+                          <a type="button" class="btn btn-danger btn-report" href="<?=base_url('report3/dataKeluar/'.$dd->dummy_id)?>" target="blank" name="btn_report" style="margin:auto;"><i class="fa fa-file-text" aria-hidden="true"></i></a>
+                      </td>
+                    <?php }else{ ?>
+                      <td>
+                          <a type="button" class="btn btn-danger btn-report" href="<?=base_url('report2/dataKeluar/'.$dd->dummy_id)?>" target="blank" name="btn_report" style="margin:auto;"><i class="fa fa-file-text" aria-hidden="true"></i></a>
+                          <a type="button" class="btn btn-danger btn-report" href="<?=base_url('report/dataKeluar/'.$dd->dummy_id)?>" target="blank" name="btn_report" style="margin:auto;"><i class="fa fa-file-text" aria-hidden="true"></i></a>
+                      </td>
+                    <?php } ?>
+
                 </tr>
                   <?php $no++; ?>
                   <?php endforeach;?>
@@ -234,6 +244,7 @@
                 <tr>
                   <th>No</th>
                   <th>SITE ID</th>
+                  <th>Insurance</th>
                   <th>Sertifikat</th>
                   <th>Header</th>
                   <th>Issued At</th>
@@ -311,7 +322,7 @@ jQuery(document).ready(function($){
         'ordering': true,
         searchHighlight: true,
         'info': true,
-        'autoWidth': false,
+        'autoWidth': true,
         'scrollX': true
     })
   });

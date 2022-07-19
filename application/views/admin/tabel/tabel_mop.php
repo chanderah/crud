@@ -216,6 +216,7 @@
                   <thead>
                     <tr>
                       <th style="width:2%">No</th>
+                      <th>Insurance</th>
                       <th>Keterangan</th>
                       <th>MOP Number</th>
                       <th>Updated At</th>
@@ -229,6 +230,7 @@
                         <?php $no = 1; ?>
                         <?php foreach ($list_data as $dd) : ?>
                             <td><?= $no ?></td>
+                            <td><?= $dd->insurance ?></td>
                             <td><?= $dd->keterangan ?></td>
                             <td><?= $dd->mop ?></td>
                             <td><?= $dd->updated_at ?></td>
@@ -244,6 +246,7 @@
                   <tfoot>
                     <tr>
                       <th>No</th>
+                      <th>Insurance</th>
                       <th>Keterangan</th>
                       <th>MOP Number</th>
                       <th>Updated At</th>
@@ -319,7 +322,7 @@
         'searching': true,
         'ordering': true,
         'info': true,
-        'autoWidth': false,
+        'autoWidth': true,
         'scrollX': true
 
       })

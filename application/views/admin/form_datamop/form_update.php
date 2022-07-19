@@ -204,8 +204,15 @@
             <?php } ?>
 
             <?php foreach($data_barang_update as $d){ ?>
-              <div class="box-body" style="margin-top:20px;">
+                <div class="box-body" style="margin-top:20px;">
                            <input type="hidden" name="id" value="<?=$d->id?>">
+                <div class="form-group form-group-lg col-md-12">
+                    <label for="insurance">Insurance</label>
+                    <select class="form-control" id="insurance" name="insurance">
+                      <option value="Malacca" <?php if($d->insurance=="Malacca"){echo "selected";} ?> >Malacca</option>
+                      <option value="Maximus" <?php if($d->insurance=="Maximus"){echo "selected";} ?> >Maximus</option>
+                    </select>
+                </div>
                 <div class="form-group form-group-lg col-md-12" >
                     <label for="keterangan" style="display:inline;">Keterangan SITE</label>
                     <input type="text" name="keterangan" style="display:inline;" class="form-control" value="<?= $d->keterangan ?>" readonly="">

@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__) . '/tcpdf/tcpdf.php';
 
-class Pdf extends TCPDF
+class Pdf2 extends TCPDF
 {
     function __construct()
     {
@@ -13,14 +13,12 @@ class Pdf extends TCPDF
   public function Header() {
 
     // Logo
-    $image_file = 'pdf/asuransi.png'; // *** Very IMP
-    $image_file2 = 'pdf/maximus.png'; // *** Very IMP
-    $this->Image($image_file,15,8,27);
+    $image_file = 'pdf/malacca.png'; // *** Very IMP
+    $this->Image($image_file,8,10,50);
     // Set font
     $this->SetFont('monotype', 'C', 24);
     // Line break
     $this->Ln();        
-    $this->Image($image_file2,150,13,45);
     $this->Ln(40);        
     //adjust the x and y positions of this text ... first two parameters
     if ($this->page == 1) {    

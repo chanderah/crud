@@ -37,7 +37,6 @@ class Login extends CI_Controller {
 				$this->session->set_flashdata('msg','Username Belum Terdaftar Silahkan Register Dahulu');
 				redirect(base_url());
 			}else {
-
 				$isi = $cek->row();
 				if(password_verify($password,$isi->password) === TRUE){
 					$data_session = array(

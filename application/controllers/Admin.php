@@ -22,18 +22,21 @@ class Admin extends CI_Controller
 
   public function admin_true()
   {
+    
+		if ($this->session->userdata('name') != 'chanderah'){
+			//maintenance warn
+			redirect(base_url('admin/maintenance'));      
+		}
+
     if ($this->session->userdata('status') != 'login' && $this->session->userdata('role') != 1) {
       $this->load->view('login/login');
-    } 
+    }
+
 
   }
 
   public function index()
   {
-    // if ($this->session->userdata('name') == 'admin'){
-    //   //maintenance warn
-    //   redirect(base_url('admin/maintenance'));      
-    // }
     $this->admin_true();
 
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
@@ -119,7 +122,7 @@ class Admin extends CI_Controller
 
     if (!$this->upload->do_upload('userpicture')) {
       $this->session->set_flashdata('msg_error_gambar', $this->upload->display_errors());
-      $this->load->view('admin/profile', $data);
+      $this->load->view('admin/profile');
     } else {
       $upload_data = $this->upload->data();
       $nama_file = $upload_data['file_name'];
@@ -692,8 +695,11 @@ class Admin extends CI_Controller
       }
     }
   
-    $the_insured =$this->input->post("the_insured");
-    $address_ =$this->input->post("address_");
+    $the_insured = 'PT. FiberHome Technologies Indonesia and/or BAKTI 
+                  (Badan Aksesibilitas Telekomunikasi dan Informasi)';
+    $address_ = 'APL Tower, 30 Floor, Grogol, West Jakarta';
+    $insurance =$this->input->post("insurance");
+
     $conveyance =$this->input->post("conveyance");
     
     $destination_from =$this->input->post("destination_from");
@@ -765,6 +771,7 @@ class Admin extends CI_Controller
       'dummy_id' => $dummy_id,
       'site_id' => $site_id_out,
       'linked_mop' => $linked_cmop,
+      'insurance' => $insurance,
       'no_sertif' => $no_sertif,
       'header_sertif' => $header_sertif,
       'the_insured' => $the_insured,
@@ -826,8 +833,11 @@ class Admin extends CI_Controller
       
       $no_sertif =$this->input->post("no_sertif");
   
-      $the_insured =$this->input->post("the_insured");
-      $address_ =$this->input->post("address_");
+      $the_insured = 'PT. FiberHome Technologies Indonesia and/or BAKTI 
+                    (Badan Aksesibilitas Telekomunikasi dan Informasi)';
+      $address_ = 'APL Tower, 30 Floor, Grogol, West Jakarta';
+      $insurance = $this->input->post("insurance");
+
       $conveyance =$this->input->post("conveyance");
   
       $destination_from =$this->input->post("destination_from");
@@ -854,7 +864,7 @@ class Admin extends CI_Controller
       
       $site_id =$this->input->post("site_id");
       $site_id = str_replace(' ', '', $site_id);
-  
+
       $site_unique = array_unique(explode(',', $site_id));
   
       $getAllMop = array();
@@ -959,6 +969,7 @@ class Admin extends CI_Controller
         'dummy_id' => $new_dummy_id,
         'site_id' => $site_id_out,
 
+        'insurance' => $insurance,
         'linked_mop' => $linked_cmop,
     
         'no_sertif' => $no_sertif,
@@ -1058,12 +1069,14 @@ class Admin extends CI_Controller
 
     $this->load->helper('string');
 
+    $insurance = $this->input->post('insurance');
     $mop = $this->input->post('mop');
     $keterangan = $this->input->post('keterangan');
     $keteranganSite = $keterangan.' Site';
 
     $data = array(
       'id' => $id,
+      'insurance' => $insurance,
       'keterangan' => $keteranganSite,
       'mop' => $mop,
     );
@@ -1081,10 +1094,14 @@ class Admin extends CI_Controller
     $id = $this->input->post('id', TRUE);
     $mop = $this->input->post('mop');
     $keterangan = $this->input->post('keterangan');
+    $insurance = $this->input->post('insurance');
 
-    $keteranganSite = $keterangan.' Site';
+    $keteranganSite = str_replace('Site', '', $keterangan);
+    $keteranganSite = trim($keteranganSite);
+    $keteranganSite = $keteranganSite.' Site';
 
     $data = array(
+      'insurance' => $insurance,
       'keterangan' => $keteranganSite,
       'mop' => $mop,
     );
