@@ -91,8 +91,6 @@ class Report2 extends CI_Controller
             //$data = 'ABC Company';
             $invoice_ref_id = '2013/12/03/0001';
             $namaPerusahaan = 'PT. ASURANSI MAXIMUS GRAHA PERSADA, Tbk';
-
-            // $foo = preg_replace('/\s+/', ' ', $foo);
             
             $no_sertif = $d->no_sertif;
             $str_length = 5;
@@ -136,7 +134,7 @@ class Report2 extends CI_Controller
                 </tr>
                 ';
                     
-                $explodedItemInsured = explode("\n", $replacedItemInsured);
+                $explodedItemInsured = explode("\n", $d->itemInsured);
                 $x = 0;
                 foreach ($explodedItemInsured as $a){
                     //1. Cat 6 UTP Patch Cord - 2 Meters 1 PCS
@@ -248,7 +246,7 @@ class Report2 extends CI_Controller
 
                 }
                 else{//here
-                    $html = str_replace('{MOP}', '0608032100000'.$countmop, $html);
+                    $html = str_replace('{MOP}', '0608032100000', $html);
 
                     //scope of cover
                     $html .= ' 

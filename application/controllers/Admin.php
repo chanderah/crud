@@ -16,23 +16,18 @@ class Admin extends CI_Controller
   public function maintenance()
   {
     $this->load->view('admin/maintenance');
-
-    // redirect(base_url('admin'));
   }
 
   public function admin_true()
   {
-    
-		if ($this->session->userdata('name') != 'chanderah'){
-			//maintenance warn
-			redirect(base_url('admin/maintenance'));      
-		}
+		// if ($this->session->userdata('name') != 'chanderah'){
+		// 	//maintenance warn
+		// 	redirect(base_url('admin/maintenance'));      
+		// }
 
     if ($this->session->userdata('status') != 'login' && $this->session->userdata('role') != 1) {
       $this->load->view('login/login');
     }
-
-
   }
 
   public function index()
@@ -642,7 +637,9 @@ class Admin extends CI_Controller
     $dummy_id = $sha1.$sha2;
     $site_id = $this->input->post('site_id', TRUE);
     $site_id = str_replace(' ', '', $site_id);
-  
+
+    $insurance =$this->input->post("insurance");
+
     $site_unique = array_unique(explode(',', $site_id));
     $getAllMop = array();
   
@@ -653,21 +650,31 @@ class Admin extends CI_Controller
   
       if ($data2=='empty'){
         //site_in not found
-        $siteNA = array(
-          'dummy_id' => $dummy_id,
-          'site_id' => $d,
-          'cmop' => '0608032100000',
-          'keterangan' => 'N/A',
-        );  
+        if ($insurance == 'Malacca'){
+          $siteNA = array(
+            'dummy_id' => $dummy_id,
+            'site_id' => $d,
+            'cmop' => '2003110722000001/MCOC/VI/2022',
+            'keterangan' => 'N/A',
+          );  
+        }
+        else{
+          $siteNA = array(
+            'dummy_id' => $dummy_id,
+            'site_id' => $d,
+            'cmop' => '0608032100000',
+            'keterangan' => 'N/A',
+          );  
+        }
         $this->M_admin->insert('tb_site_in_exported', $siteNA);
       }
   
       else{
         //site_in found
         foreach($data2 as $d2){
-          $where = array('keterangan' => $d2->keterangan);
+          $where = array('insurance' => $insurance, 'keterangan' => $d2->keterangan);
           $getMop = $this->M_admin->get_data('tb_mop', $where);
-          
+          //belooom
           foreach ($getMop as $dd2){
             $cmop = $dd2->mop;
             $getAllMop[] = $dd2->mop;
@@ -698,7 +705,6 @@ class Admin extends CI_Controller
     $the_insured = 'PT. FiberHome Technologies Indonesia and/or BAKTI 
                   (Badan Aksesibilitas Telekomunikasi dan Informasi)';
     $address_ = 'APL Tower, 30 Floor, Grogol, West Jakarta';
-    $insurance =$this->input->post("insurance");
 
     $conveyance =$this->input->post("conveyance");
     
@@ -733,9 +739,15 @@ class Admin extends CI_Controller
     $numToRoman = new IntToRoman();
     $roman = $numToRoman->filter(date("m", strtotime($issuedDate)));
     $monthIssued = $roman;
-    // 
   
-    $header_sertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
+    if ($insurance == 'Malacca'){
+      //JIS22-2003110722000001/MCOC/VI/2022-VII-01353
+      $header_sertif = 'JIS'.$yearIssued.'-'.'2003110722000001/MCOC/VI/2022'.'-'.$monthIssued.'-'.$no_sertif_5;
+    }
+    else{
+      //JIS22-0608032100001-VI-01311
+      $header_sertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
+    }
   
     $site_id_out = implode(',',array_unique(explode(',', $site_id)));
   
@@ -875,20 +887,30 @@ class Admin extends CI_Controller
         $data2 = $this->M_admin->get_data('tb_site_in', $where);
   
         if ($data2=='empty'){
-          //site_in not found
-          $siteNA = array(
-            'dummy_id' => $new_dummy_id,
-            'site_id' => $d,
-            'cmop' => '0608032100000',
-            'keterangan' => 'N/A',
-          );  
+          //site_in not found        
+          if ($insurance == 'Malacca'){
+            $siteNA = array(
+              'dummy_id' => $new_dummy_id,
+              'site_id' => $d,
+              'cmop' => '2003110722000001/MCOC/VI/2022',
+              'keterangan' => 'N/A',
+            );
+          }
+          else{
+            $siteNA = array(
+              'dummy_id' => $new_dummy_id,
+              'site_id' => $d,
+              'cmop' => '0608032100000',
+              'keterangan' => 'N/A',
+            );
+          }
           $this->M_admin->insert('tb_site_in_exported', $siteNA);
         }
   
         else{
           //site_in found
           foreach($data2 as $d2){
-            $where = array('keterangan' => $d2->keterangan);
+            $where = array('insurance' => $insurance, 'keterangan' => $d2->keterangan);
             $getMop = $this->M_admin->get_data('tb_mop', $where);
             
             foreach ($getMop as $dd2){
@@ -932,8 +954,15 @@ class Admin extends CI_Controller
       $monthIssued = $roman;
       //end 
   
-      $header_sertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
-  
+      if ($insurance == 'Malacca'){
+        //JIS22-2003110722000001/MCOC/VI/2022-VII-01353
+        $header_sertif = 'JIS'.$yearIssued.'-'.'2003110722000001/MCOC/VI/2022'.'-'.$monthIssued.'-'.$no_sertif_5;
+      }
+      else{
+        //JIS22-0608032100001-VI-01311
+        $header_sertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
+      }
+
       $site_id_out = implode(',',array_unique(explode(',', $site_id)));
       
       sort($getAllMop);

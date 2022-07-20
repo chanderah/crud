@@ -39,7 +39,6 @@ class M_admin extends CI_Model
 
   public function get_data($tabel,$dummy_id)
   {
-    
     $query = $this->db->select()
                       ->from($tabel)
                       ->where($dummy_id)

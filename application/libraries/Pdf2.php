@@ -31,21 +31,32 @@ class Pdf2 extends TCPDF
 // Page footer
     public function Footer() {
     // Position at 25 mm from bottom
-    $this->SetY(-25);
+    $this->SetY(-30);
+    $this->SetRightMargin(12);
+    $this->SetLeftMargin(12);
     // Set font
     $this->SetFont('helvetica', 'I', 8);
     
     $this->SetTextColor(100,100,100);
-    $this->Cell(0, 0, 'PT. Asuransi Maximus Graha Persada Tbk', 0, 0, 'C');
+    $this->Ln(); 
+    $this->Cell(0, 0, 'PT. MALACCA TRUST WUWUNGAN INSURANCE Tbk', 0, 0, 'L');
+    $this->Ln(); 
+    $this->Cell(0, 0, 'Chase Plaza 8th floor', 0, 0, 'L');
     $this->Ln();
-    $this->Cell(0,0,'(d/h PT Asuransi Kresna Mitra Tbk)', 0, false, 'C', 0, '', 0, false, 'T', 'M');
+    $this->Cell(0, 0, 'Jl. Jend. Sudirman Kav. 21', 0, 0, 'L');
     $this->Ln();
-    $this->Cell(0,0,'Gedung Graha Kirana Lantai 6, Jl. Yos Sudarso Kav 88, Sunter Jakarta Utara 14350, Indonesia', 0, false, 'C', 0, '', 0, false, 'T', 'M');
+    $this->Cell(0, 0, 'Jakarta – 12920, Indonesia', 0, 0, 'L');
     $this->Ln();
-    $this->Cell(0,0,'T: +62 21 6531 1150     F: +62 21 6531 1160', 0, false, 'C', 0, '', 0, false, 'T', 'M');
+    $this->Cell(0, 0, 'T : +62 21 2598 9830             F : +62 21 2598 9837', 0, 0, 'L');
+    $this->Cell(0, 0, 'MALACCA CARE CENTRE', 0, 0, 'R');
+    $this->Ln();
+    $this->Cell(0, 0, 'E : mcc@mtwi.co.id', 0, 0, 'L');
+    $this->Cell(0, 0, '+62 21 25 9898 35', 0, 0, 'R');
+    $this->Ln(); 
+    // $this->Cell(0,0,'(d/h PT Asuransi Kresna Mitra Tbk)', 0, false, 'C', 0, '', 0, false, 'T', 'M');
 
     // Page number
-    $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        // $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
 }
 
 }

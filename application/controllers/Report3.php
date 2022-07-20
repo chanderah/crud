@@ -35,7 +35,6 @@ class Report3 extends CI_Controller
         //
 
         foreach ($data as $d){
-
             $no_sertif = $d->no_sertif;
             $str_length = 5;
             $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
@@ -45,7 +44,7 @@ class Report3 extends CI_Controller
             $roman = $numToRoman->filter(date("m", strtotime($d->issuedDate)));
             $monthIssued = $roman;
             
-            $headerSertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
+            $headerSertif = $d->header_sertif;
         }
 
         $pdf->SetCreator(PDF_CREATOR);
@@ -85,11 +84,7 @@ class Report3 extends CI_Controller
             //$data = 'ABC Company';
             $invoice_ref_id = '2013/12/03/0001';
             $namaPerusahaan = 'PT. MALACCA TRUST WUWUNGAN INSURANCE, Tbk';
-
-            // $foo = preg_replace('/\s+/', ' ', $foo);
-            // $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
-            // $replacedItemInsured = str_replace('   ', ' ', $replacedItemInsured);
-            
+           
             $no_sertif = $d->no_sertif;
             $str_length = 5;
             $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
@@ -99,7 +94,7 @@ class Report3 extends CI_Controller
                     <font face="narrowi">
                         <table cellpadding="5">
                             <tr>
-                                <td align="center"><font size="13" font face="monotype">No. </font><font size="11" font face="narrowi">JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5.'</font></td>
+                                <td align="center"><font size="13" font face="monotype">No. </font><font size="11" font face="narrowi">'.$headerSertif.'</font></td>
                             </tr>
                         </table>   
                     </font>';
@@ -235,7 +230,6 @@ class Report3 extends CI_Controller
                 }
                 elseif ($countMop = 1 AND $dataMop != ''){
                     $html = str_replace('{MOP}', $dataMop, $html);
-
                     //scope of cover
                     $html .= ' 
                     <tr>   
@@ -246,14 +240,13 @@ class Report3 extends CI_Controller
 
                 }
                 else{//here
-                    $html = str_replace('{MOP}', '0608032100000'.$countmop, $html);
-
+                    $html = str_replace('{MOP}', '2003110722000001/MCOC/VI/2022', $html);
                     //scope of cover
                     $html .= ' 
                     <tr>   
                         <td colspan="2">Scope of Cover</td>
                         <td colspan="1" align="right">:</td>
-                        <td colspan="8" align="justify">As per M.O.P No. : 0608032100000</td>
+                        <td colspan="8" align="justify">As per M.O.P No. : 2003110722000001/MCOC/VI/2022</td>
                     </tr>';
                 }
 
@@ -462,7 +455,7 @@ class Report3 extends CI_Controller
                                     <td width="102%" class="line0"><img src="pdf/msignature.png" height="110px" width="auto"></td>
                                 </tr>
                                 <tr>
-                                    <td width="105%"class="line0">'.$namaPerusahaan.'<img src="pdf/paraf.png" width="auto" height="20px"></td>
+                                    <td width="105%" class="line0">'.$namaPerusahaan.'<img src="pdf/paraf.png" width="auto" height="20px"></td>
                                 </tr>
                             </table>    
                         </div>';
@@ -492,7 +485,7 @@ class Report3 extends CI_Controller
                                         <tr>
                                             <td colspan="2" style="width:15%">Certificate No</td>
                                             <td colspan="1" align="right">:</td>
-                                            <td colspan="8" align="justify">JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5.'<br><br></td> 
+                                            <td colspan="8" align="justify">'.$headerSertif.'<br><br></td> 
                                         </tr>
                                         <tr>
                                             <td colspan="2" style="width:22%;">Details of SITE ID</td>

@@ -127,20 +127,7 @@ class Main extends CI_Controller {
         
         $id = $max_id=$this->m_admin->get_max_id('id','tb_site_out');
         $no_sertif = $max_id=$this->m_admin->get_max_id('no_sertif','tb_site_out');
-
-        // $list = array();
-        // $title =$this->input->post("txtTitle");
-        // for($i=0; $i<count($title); $i++) {
-        //     $data = [
-        //         'dummy_id' => $dummy_id,
-        //         'bill_id' => $id,
-        //         'title' => $this->input->post("txtTitle")[$i],
-		// 		'description' => $this->input->post("txtDescription")[$i]
-        //     ];
-        //     array_push($list,$data);
-        // }
-        
-        // $explodeLink = explode(', ', $d->linked_with);
+ 
         $input =$this->input->post("linked_with");
         $excludeSpace = str_replace('   ', '', $input);
         $excludeSpace = str_replace('  ', '', $input);

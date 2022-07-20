@@ -219,7 +219,7 @@
                 </div>
                 <div class="form-group form-group-lg col-md-12">
                     <label for="mop" style="display:inline;">Nomor MOP</label>
-                    <input type="number" name="mop" style="  display:inline;" class="form-control" placeholder="MOP Number" value="<?= $d->mop ?>">
+                    <input type="text" name="mop" style="  display:inline;" class="form-control" placeholder="MOP Number" value="<?= $d->mop ?>">
                 </div>
               </div>            
             <?php } ?>

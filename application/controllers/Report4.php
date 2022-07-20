@@ -44,7 +44,7 @@ class Report4 extends CI_Controller
             $roman = $numToRoman->filter(date("m", strtotime($d->issuedDate)));
             $monthIssued = $roman;
             
-            $headerSertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
+            $headerSertif = $d->header_sertif;
         }
 
         $pdf->SetCreator(PDF_CREATOR);
@@ -91,8 +91,6 @@ class Report4 extends CI_Controller
             //$data = 'ABC Company';
             $invoice_ref_id = '2013/12/03/0001';
             $namaPerusahaan = 'PT. MALACCA TRUST WUWUNGAN INSURANCE, Tbk';
-
-            // $foo = preg_replace('/\s+/', ' ', $foo);
             
             $no_sertif = $d->no_sertif;
             $str_length = 5;
@@ -105,7 +103,7 @@ class Report4 extends CI_Controller
                                 <td align="center"><font face="monotype" size="24" class="line10">Certificate of Insurance</font></td>
                             </tr>
                             <tr class="line13">
-                                <td align="center"><font size="13" font face="monotype" class="line15">No. </font><font size="11" font face="narrowi">JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5.'</font></td>
+                                <td align="center"><font size="13" font face="monotype" class="line15">No. </font><font size="11" font face="narrowi">'.$headerSertif.'</font></td>
                             </tr>
                         </table>
                         ';
@@ -136,7 +134,7 @@ class Report4 extends CI_Controller
                 </tr>
                 ';
                     
-                $explodedItemInsured = explode("\n", $replacedItemInsured);
+                $explodedItemInsured = explode("\n", $d->itemInsured);
                 $x = 0;
                 foreach ($explodedItemInsured as $a){
                     //1. Cat 6 UTP Patch Cord - 2 Meters 1 PCS
@@ -237,7 +235,6 @@ class Report4 extends CI_Controller
                 }
                 elseif ($countMop = 1 AND $dataMop != ''){
                     $html = str_replace('{MOP}', $dataMop, $html);
-
                     //scope of cover
                     $html .= ' 
                     <tr>   
@@ -247,9 +244,8 @@ class Report4 extends CI_Controller
                     </tr>';
 
                 }
-                else{//here
-                    $html = str_replace('{MOP}', '0608032100000'.$countmop, $html);
-
+                else{//empty
+                    $html = str_replace('{MOP}', '0608032100000', $html);
                     //scope of cover
                     $html .= ' 
                     <tr>   
@@ -494,7 +490,7 @@ class Report4 extends CI_Controller
                                         <tr>
                                             <td colspan="2" style="width:15%">Certificate No</td>
                                             <td colspan="1" align="right">:</td>
-                                            <td colspan="8" align="justify">JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5.'<br><br></td> 
+                                            <td colspan="8" align="justify">'.$headerSertif.'<br><br></td> 
                                         </tr>
                                         <tr>
                                             <td colspan="2" style="width:22%;">Details of SITE ID</td>

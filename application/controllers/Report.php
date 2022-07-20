@@ -35,7 +35,6 @@ class Report extends CI_Controller
         //
 
         foreach ($data as $d){
-
             $no_sertif = $d->no_sertif;
             $str_length = 5;
             $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
@@ -86,10 +85,6 @@ class Report extends CI_Controller
             $invoice_ref_id = '2013/12/03/0001';
             $namaPerusahaan = 'PT. ASURANSI MAXIMUS GRAHA PERSADA, Tbk';
 
-            // $foo = preg_replace('/\s+/', ' ', $foo);
-            // $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
-            // $replacedItemInsured = str_replace('   ', ' ', $replacedItemInsured);
-            
             $no_sertif = $d->no_sertif;
             $str_length = 5;
             $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
@@ -246,7 +241,7 @@ class Report extends CI_Controller
 
                 }
                 else{//here
-                    $html = str_replace('{MOP}', '0608032100000'.$countmop, $html);
+                    $html = str_replace('{MOP}', '0608032100000', $html);
 
                     //scope of cover
                     $html .= ' 
@@ -462,7 +457,7 @@ class Report extends CI_Controller
                                     <td width="102%" class="line0"><img src="pdf/signature.png" height="110px" width="auto"></td>
                                 </tr>
                                 <tr>
-                                    <td width="105%"class="line0">'.$namaPerusahaan.'<img src="pdf/paraf.png" width="auto" height="20px"></td>
+                                    <td width="105%" class="line0">'.$namaPerusahaan.'<img src="pdf/paraf.png" width="auto" height="20px"></td>
                                 </tr>
                             </table>    
                         </div>';
