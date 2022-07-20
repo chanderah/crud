@@ -193,10 +193,6 @@
                         <label for="site_id" style="display:inline;">SITE ID</label>
                         <input type="text" name="site_id" style="  display:inline;" readonly="readonly" class="form-control" placeholder="Site ID" value="<?= $d->site_id ?>">
                       </div>
-                      <div class="form-group form-group-lg col-md-12">
-                        <label for="site_id" style="display:inline;">Linked With</label>
-                        <input type="text" name="linked_with" class="form-control">
-                      </div>'
                     <?php } ?>
                     <div class="form-group form-group-lg col-md-12">
                       <label for="the_insured">1. Nama Tertanggung</label>

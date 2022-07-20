@@ -128,16 +128,9 @@ class Main extends CI_Controller {
         $id = $max_id=$this->m_admin->get_max_id('id','tb_site_out');
         $no_sertif = $max_id=$this->m_admin->get_max_id('no_sertif','tb_site_out');
  
-        $input =$this->input->post("linked_with");
-        $excludeSpace = str_replace('   ', '', $input);
-        $excludeSpace = str_replace('  ', '', $input);
-        $excludeSpace = str_replace(' ', '', $excludeSpace);
-        $excludeSpace = str_replace(',', ', ', $excludeSpace);
-        
         $data =       
         [   
             'site_id' => $site_id,
-            'linked_with' => $excludeSpace,
         
             'the_insured' => $the_insured,
             'address_' => $address_,
@@ -200,12 +193,6 @@ class Main extends CI_Controller {
         $id = $max_id=$this->m_admin->get_max_id('id','tb_site_out');
         $no_sertif = $max_id=$this->m_admin->get_max_id('no_sertif','tb_site_out');
 
-        $input =$this->input->post("linked_with");
-        $excludeSpace = str_replace('   ', '', $input);
-        $excludeSpace = str_replace('  ', '', $input);
-        $excludeSpace = str_replace(' ', '', $excludeSpace);
-        $excludeSpace = str_replace(',', ', ', $excludeSpace);
-        
         $data =       
         [   
             'id' => $id,
@@ -213,7 +200,6 @@ class Main extends CI_Controller {
             'dummy_id' => $dummy_id,
             'no_sertif' => $no_sertif,
             'site_id' => $site_id,
-            'linked_with' => $excludeSpace,
         
             'the_insured' => $the_insured,
             'address_' => $address_,
@@ -305,16 +291,12 @@ class Main extends CI_Controller {
             ];
             array_push($list,$data);
         }
-        
-        $explodeLink = explode(', ', $d->linked_with);
-        $linked_with =$this->input->post("linked_with");
-        
+
         $data =       
         [   
             'dummy_id' => $dummy_id,
             'no_sertif' => $no_sertif,
             'site_id' => $site_id,
-            'linked_with' => $linked_with,
         
             'the_insured' => $the_insured,
             'address_' => $address_,

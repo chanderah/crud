@@ -210,12 +210,7 @@
                   <label for="site_id" style="display:inline;">SITE ID</label>
                   <input type="text" name="site_id" style="  display:inline;" required="true" class="form-control" placeholder="Site ID" value="<?=$d->site_id?>">
                 </div>
-
-                <div class="form-group form-group-lg col-md-12" >
-                  <label for="linked_with" style="display:inline;">Linked With</label>  
-                  <input type="text" name="linked_with" class="form-control">
-                </div>
-
+ 
                 <div class="form-group form-group-lg col-md-12">
                   <label for="the_insured">1. Nama Tertanggung</label>
                   <input type="text" name="the_insured" class="form-control" readonly="readonly" placeholder="Dari"value="<?=$d->the_insured?>">

@@ -178,7 +178,7 @@
       <div class="row">
         <div class="col-xs-12">
           <!-- /.box -->
-          <div class="box">
+          <div class="box" style="width:80%">
             <div class="box-header">
               <h3 class="box-title"><i class="fa fa-table" aria-hidden="true"></i> Data Keluar</h3>
             </div>
@@ -316,7 +316,17 @@ jQuery(document).ready(function($){
   });
   $(function () {
     $('#example1').DataTable({
-      'paging': true,
+        dom: 'Bfrtip',
+          "columnDefs": [
+            { 
+              "width": "2%", "targets": [0],
+              // "render": function (data, type, row) {return data.split("\n").join("<br/>")},"targets": [9], 
+              "render": function (data, type, row) {
+                return data.split(",").join("\n")
+              },"targets": [1], 
+            }
+          ], 
+        'paging': true,
         'lengthChange': true,
         'searching': true,
         'ordering': true,

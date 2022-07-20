@@ -193,11 +193,7 @@
                       <div class="form-group form-group-lg col-md-12">
                         <label for="site_id" style="display:inline;width:auto">SITE ID</label>
                         <input id="site_id" type="text" name="site_id" style="  display:inline;" class="form-control" placeholder="Site ID">
-                      </div>
-                      <div class="form-group form-group-lg col-md-12">
-                        <label for="linked_with" style="display:inline;">Linked With</label>
-                        <input type="text" name="linked_with" class="form-control">
-                      </div>
+                      </div> 
                     <div class="form-group form-group-lg col-md-12">
                       <label for="the_insured">1. Nama Tertanggung</label>
                       <select name="the_insured" class="form-control">
