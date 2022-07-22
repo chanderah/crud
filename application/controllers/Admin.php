@@ -625,21 +625,22 @@ class Admin extends CI_Controller
   // DATA MASUK KE DATA KELUAR
   ####################################
 
-  public function proses_datamasuk_keluar()
+  public function proses_datakeluar_insert()
   {
     $this->load->helper('string');
     $this->form_validation->set_rules('site_id', 'site_id', 'required');
   
+    $insurance =$this->input->post("insurance");
+
     $id = $this->M_admin->get_max_id('id','tb_site_out');
-    $no_sertif = $this->M_admin->get_max_id('no_sertif','tb_site_out');  
+    $no_sertif = $this->M_admin->get_max_id_where('no_sertif','tb_site_out','insurance',$insurance);  
+
       $sha1 = random_string('alpha', 10);
       $sha2 = random_string('sha1');
     $dummy_id = $sha1.$sha2;
     $site_id = $this->input->post('site_id', TRUE);
     $site_id = str_replace(' ', '', $site_id);
-
-    $insurance =$this->input->post("insurance");
-
+  
     $site_unique = array_unique(explode(',', $site_id));
     $getAllMop = array();
   
@@ -705,7 +706,7 @@ class Admin extends CI_Controller
     $the_insured = 'PT. FiberHome Technologies Indonesia and/or BAKTI 
                   (Badan Aksesibilitas Telekomunikasi dan Informasi)';
     $address_ = 'APL Tower, 30 Floor, Grogol, West Jakarta';
-
+  
     $conveyance =$this->input->post("conveyance");
     
     $destination_from =$this->input->post("destination_from");
@@ -756,13 +757,13 @@ class Admin extends CI_Controller
     $linked_cmop = implode(', ',$linked_cmop);
       
     $itemInsured =$this->input->post("itemInsured");
-
+  
     $replacedItemInsured = str_replace('-', ' ', $itemInsured);
     $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
     $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
         
     $explodedItemInsured = explode("\n", $replacedItemInsured);
-
+  
     $repairedItems = [];
     foreach ($explodedItemInsured as $a){
       //1. Cat 6 UTP Patch Cord - 2 Meters 1 PCS
@@ -775,9 +776,9 @@ class Admin extends CI_Controller
       
       $repairedItems[] = $except_last_two.' - '.$upper_last_two;
     }
-
+  
     $item_insured = implode(PHP_EOL,$repairedItems);
-
+  
     $siteOut = array(
       'id' => $id,
       'dummy_id' => $dummy_id,
@@ -880,7 +881,11 @@ class Admin extends CI_Controller
       $site_unique = array_unique(explode(',', $site_id));
   
       $getAllMop = array();
-  
+
+      //delete old data
+      $where2 = array('dummy_id' => $old_dummy_id);
+      $this->M_admin->delete('tb_site_in_exported', $where2);
+      
       foreach ($site_unique as $d){
         //check site_in db first
         $where = array('site_id' => $d);
@@ -938,9 +943,6 @@ class Admin extends CI_Controller
             $this->M_admin->insert('tb_site_in_exported', $siteExported);
           } 
         }
-        //delete old data
-        $where2 = array('dummy_id' => $old_dummy_id);
-        $this->M_admin->delete('tb_site_in_exported', $where2);
       }
   
       //get header sertif

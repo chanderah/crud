@@ -441,7 +441,7 @@ class Report3 extends CI_Controller
                         <div style="page-break-inside:avoid">
                             <table align="right" border=" " cellpadding="0">
                                 <tr>
-                                    <td class="line27">Issued at Bogor, '.$dateIssued.'</td> 
+                                    <td class="line27">Issued at Jakarta, '.$dateIssued.'</td> 
                                 </tr>
                                 <tr>
                                     <td class ="line0">Signed On Behalf</td>

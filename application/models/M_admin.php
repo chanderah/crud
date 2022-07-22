@@ -8,11 +8,6 @@ class M_admin extends CI_Model
     $this->db->insert($tabel,$data);
   }
 
-    
-  public function insert_into_table($table_name, $data) {
-    return $this->db->insert($table_name, $data);
-  }
-
   public function select($tabel)
   {
     $query = $this->db->get($tabel);
@@ -67,32 +62,10 @@ class M_admin extends CI_Model
       }
       else{
         return $query->num_rows() . ' time';
-
       }
     }
-    else
-    {
-      return '-';
-    }
-  }
-
-  public function getAllDataLinkedWith($tabel)
-  {
-    $query = $this->db->select()
-                      ->from($tabel)
-                      ->get();
-    return $query->result();
-  }
-
-	public function get_data_all($tabel,$dummy_id)
-	{
-    $query = $this->db->select()
-                      ->from($tabel)
-                      ->where($dummy_id)
-                      ->get();
-    return $query->result();
-	}
-
+  } 
+  
   public function update($tabel,$data,$where)
   {
     $this->db->where($where);
@@ -159,13 +132,6 @@ class M_admin extends CI_Model
     return $query->result();
   }
 
-  public function get_max_idd($table_id, $table_name) {
-    $this->db->select_max($table_id);
-    $result = $this->db->get($table_name)->row();  
-
-    return $result->no_sertif;
-  }
-
   public function get_max_id($table_id, $table_name) {
     $row = $this->db->select_max($table_id)
       ->get($table_name)->row_array();
@@ -173,55 +139,17 @@ class M_admin extends CI_Model
     return $max_id;
   }
 
-  public function get_max_sertif_id($table_id, $table_name) {
-    $row = $this->db->select_max($table_id)
-      ->get($table_name)->row_array();
-    $max_id = $row[$table_id] + 1; 
+  public function get_max_id_where($table_id, $table_name, $column, $value) {
+    $this->db->select($column)->from($table_name)->where($column,$value);
+    $this->db->select_max($table_id);
+    $query = $this->db->get()->row_array();
+    
+    $max_id = $query[$table_id] + 1; 
     return $max_id;
-    }
-
-  public function update_into_table($tabel,$data2,$where)
-  {
-    $this->db->where($where);
-    $this->db->update($tabel,$data2);
-  }
-
-  public function insert_batch_into_table($table_name, $data) {
-      return $this->db->insert_batch($table_name, $data);
-  }
-
-  public function get_multiple_rows_from_table($table_name, $where) {
-      return $this->db->where($where)
-                      ->get($table_name)
-                      ->result();
-  }
-
-public function delete_record_from_table($table_name, $where) {
-    return $this->db->delete($table_name, $where);
-}
-
-public function get_single_row_from_table($table_name, $where) {
-    return $this->db->where($where)
-                    ->get($table_name)
-                    ->row();
-
-}
-
-public function update_single_record_table($table_name, $where, $data) {
-    return $this->db->update($table_name, $data, $where);
-}
-
-public function get_all(){
-
-  return $this->db->get("tb_site_in")->result_array();
-}
-
+   }
+  
 public function add_data($datas){
   return $this->db->insert_batch("tb_site_in",$datas);
   }
 
-}
-
-
-
- ?>
+} ?>

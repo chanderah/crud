@@ -316,16 +316,6 @@ jQuery(document).ready(function($){
   });
   $(function () {
     $('#example1').DataTable({
-        dom: 'Bfrtip',
-          "columnDefs": [
-            { 
-              "width": "2%", "targets": [0],
-              // "render": function (data, type, row) {return data.split("\n").join("<br/>")},"targets": [9], 
-              "render": function (data, type, row) {
-                return data.split(",").join("\n")
-              },"targets": [1], 
-            }
-          ], 
         'paging': true,
         'lengthChange': true,
         'searching': true,
@@ -333,7 +323,7 @@ jQuery(document).ready(function($){
         searchHighlight: true,
         'info': true,
         'autoWidth': true,
-        'scrollX': true
+        'scrollX': true,
     })
   });
 </script>

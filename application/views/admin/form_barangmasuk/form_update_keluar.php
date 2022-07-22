@@ -204,10 +204,8 @@
                     </div>
                     <div class="form-group form-group-lg col-md-12">
                       <label for="insurance">Insurance</label>
-                      <select name="insurance" class="form-control">
-                      <option value="Malacca" <?php if($d->insurance=="Malacca"){echo "selected";} ?> >Malacca</option>
-                      <option value="Maximus" <?php if($d->insurance=="Maximus"){echo "selected";} ?> >Maximus</option>
-                      </select>
+                      <input type="text" name="insurance" style="display:inline;margin-top:10px" readonly="true" class="form-control" placeholder="Insurance" value="<?= $d->insurance ?>">
+
                     </div>
                     
                     <div class="form-group form-group-lg col-md-12">

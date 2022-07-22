@@ -317,7 +317,6 @@
 
     $(function() {
       $('#site_datatable').DataTable({
-        'paging': true,
         'lengthChange': true,
         'searching': true,
         'ordering': true,
