@@ -35,7 +35,12 @@ class Pdf2 extends TCPDF
     $this->SetRightMargin(12);
     $this->SetLeftMargin(12);
     // Set font
-    $this->SetFont('helvetica', 'I', 8);
+    // $fontname = TCPDF_FONTS::addTTFfont(base_url()."pdf/".'exom.ttf', 'TrueTypeUnicode', '', 96); 
+
+    // use the font
+    $this->SetFont('CRC55', 'I', 8, '', false);    
+
+    // $this->SetFont('helvetica', 'I', 8);
     
     $this->SetTextColor(100,100,100);
     $this->Ln(); 
@@ -48,9 +53,13 @@ class Pdf2 extends TCPDF
     $this->Cell(0, 0, 'Jakarta – 12920, Indonesia', 0, 0, 'L');
     $this->Ln();
     $this->Cell(0, 0, 'T : +62 21 2598 9830             F : +62 21 2598 9837', 0, 0, 'L');
+
+    $this->SetFont('exom', 'I', 8, '', false);    
     $this->Cell(0, 0, 'MALACCA CARE CENTRE', 0, 0, 'R');
     $this->Ln();
+    $this->SetFont('CRC55', 'I', 8, '', false);    
     $this->Cell(0, 0, 'E : mcc@mtwi.co.id', 0, 0, 'L');
+    $this->SetFont('exom', 'I', 8, '', false);    
     $this->Cell(0, 0, '+62 21 25 9898 35', 0, 0, 'R');
     $this->Ln(); 
     // $this->Cell(0,0,'(d/h PT Asuransi Kresna Mitra Tbk)', 0, false, 'C', 0, '', 0, false, 'T', 'M');
