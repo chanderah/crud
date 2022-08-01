@@ -1,5 +1,85 @@
 {
   "ftp://chandra@ptjis.com@ftp.ptjis.com:21": {
+    ".ftpquota": {
+      "type": "-",
+      "size": 12,
+      "lmtime": 0,
+      "modified": false
+    },
+    ".well-known": {},
+    "Profile Company PT. JASMINE INDAH SERVISTAMA_2021_Compressed.pdf": {
+      "type": "-",
+      "size": 818116,
+      "lmtime": 0,
+      "modified": false
+    },
+    "about.html": {
+      "type": "-",
+      "size": 13828,
+      "lmtime": 0,
+      "modified": false
+    },
+    "ads.txt": {
+      "type": "-",
+      "size": 58,
+      "lmtime": 0,
+      "modified": false
+    },
+    "alatberat.html": {
+      "type": "-",
+      "size": 8385,
+      "lmtime": 0,
+      "modified": false
+    },
+    "assets": {},
+    "asuransikredit.html": {
+      "type": "-",
+      "size": 8382,
+      "lmtime": 0,
+      "modified": false
+    },
+    "asuransiuang.html": {
+      "type": "-",
+      "size": 8334,
+      "lmtime": 0,
+      "modified": false
+    },
+    "aviation.html": {
+      "type": "-",
+      "size": 8416,
+      "lmtime": 0,
+      "modified": false
+    },
+    "bankgaransi.html": {
+      "type": "-",
+      "size": 8379,
+      "lmtime": 0,
+      "modified": false
+    },
+    "changelog.txt": {
+      "type": "-",
+      "size": 1161,
+      "lmtime": 0,
+      "modified": false
+    },
+    "comprojis.pdf": {
+      "type": "-",
+      "size": 818116,
+      "lmtime": 0,
+      "modified": false
+    },
+    "contact.pdf": {
+      "type": "-",
+      "size": 7497,
+      "lmtime": 0,
+      "modified": false
+    },
+    "contractorallrisk.html": {
+      "type": "-",
+      "size": 8287,
+      "lmtime": 0,
+      "modified": false
+    },
     "crud": {
       ".editorconfig": {
         "type": "-",
@@ -27,6 +107,7 @@
         "modified": false
       },
       ".vscode": {},
+      ".well-known": {},
       "ABC112, ABC113, ABC114, ABC115.vb": {
         "type": "-",
         "size": 829,
@@ -3538,8 +3619,8 @@
               },
               "tabel_barangkeluar.php": {
                 "type": "-",
-                "size": 16982,
-                "lmtime": 1658325465037,
+                "size": 16589,
+                "lmtime": 1658496268368,
                 "modified": false
               },
               "tabel_barangmasuk.php": {
@@ -3550,9 +3631,9 @@
               },
               "tabel_mop.php": {
                 "type": "-",
-                "size": 15486,
+                "size": 15461,
                 "lmtime": 1658325201427,
-                "modified": false
+                "modified": true
               },
               "tabel_permintaanmasuk.php": {
                 "type": "-",
@@ -51020,6 +51101,7 @@
           }
         }
       },
+      "cgi-bin": {},
       "composer.json": {
         "type": "-",
         "size": 744,
@@ -91250,7 +91332,170 @@
           "modified": false
         }
       }
-    }
+    },
+    "data0": {},
+    "direksi.html": {
+      "type": "-",
+      "size": 9571,
+      "lmtime": 0,
+      "modified": false
+    },
+    "direksi2.html": {
+      "type": "-",
+      "size": 9558,
+      "lmtime": 0,
+      "modified": false
+    },
+    "engine0": {},
+    "forms": {},
+    "galeri.html": {
+      "type": "-",
+      "size": 9948,
+      "lmtime": 0,
+      "modified": false
+    },
+    "galeri.html.bak": {
+      "type": "-",
+      "size": 7451,
+      "lmtime": 0,
+      "modified": false
+    },
+    "galeri2.html": {
+      "type": "-",
+      "size": 10358,
+      "lmtime": 0,
+      "modified": false
+    },
+    "generalliability.html": {
+      "type": "-",
+      "size": 8446,
+      "lmtime": 0,
+      "modified": false
+    },
+    "healthinsurance.html": {
+      "type": "-",
+      "size": 8350,
+      "lmtime": 0,
+      "modified": false
+    },
+    "inden.html": {
+      "type": "-",
+      "size": 676,
+      "lmtime": 0,
+      "modified": false
+    },
+    "index-2.html": {
+      "type": "-",
+      "size": 13506,
+      "lmtime": 0,
+      "modified": false
+    },
+    "index.html": {
+      "type": "-",
+      "size": 24106,
+      "lmtime": 0,
+      "modified": false
+    },
+    "jis.png": {
+      "type": "-",
+      "size": 16755,
+      "lmtime": 0,
+      "modified": false
+    },
+    "komisaris.html": {
+      "type": "-",
+      "size": 7982,
+      "lmtime": 0,
+      "modified": false
+    },
+    "kreditmultiguna.html": {
+      "type": "-",
+      "size": 8367,
+      "lmtime": 0,
+      "modified": false
+    },
+    "mail.zip": {
+      "type": "-",
+      "size": 318533,
+      "lmtime": 0,
+      "modified": false
+    },
+    "marinecargo.html": {
+      "type": "-",
+      "size": 8302,
+      "lmtime": 0,
+      "modified": false
+    },
+    "marinehull.html": {
+      "type": "-",
+      "size": 8334,
+      "lmtime": 0,
+      "modified": false
+    },
+    "motorvehicle.html": {
+      "type": "-",
+      "size": 8342,
+      "lmtime": 0,
+      "modified": false
+    },
+    "nodedt": {},
+    "nodelte": {},
+    "pengumuman.html": {
+      "type": "-",
+      "size": 9664,
+      "lmtime": 0,
+      "modified": false
+    },
+    "personalaccident.html": {
+      "type": "-",
+      "size": 8313,
+      "lmtime": 0,
+      "modified": false
+    },
+    "pipi": {},
+    "portfolio-details.html": {
+      "type": "-",
+      "size": 7347,
+      "lmtime": 0,
+      "modified": false
+    },
+    "portfolio.html": {
+      "type": "-",
+      "size": 8549,
+      "lmtime": 0,
+      "modified": false
+    },
+    "propertyallrisk.html": {
+      "type": "-",
+      "size": 8316,
+      "lmtime": 0,
+      "modified": false
+    },
+    "sejarah.html": {
+      "type": "-",
+      "size": 8756,
+      "lmtime": 0,
+      "modified": false
+    },
+    "suretybond.html": {
+      "type": "-",
+      "size": 8672,
+      "lmtime": 0,
+      "modified": false
+    },
+    "tim.html": {
+      "type": "-",
+      "size": 6793,
+      "lmtime": 0,
+      "modified": false
+    },
+    "visimisi.html": {
+      "type": "-",
+      "size": 7756,
+      "lmtime": 0,
+      "modified": false
+    },
+    "zoom_records": {}
   },
   "$version": 1
 }

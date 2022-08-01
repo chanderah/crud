@@ -20,10 +20,10 @@ class Admin extends CI_Controller
 
   public function admin_true()
   {
-		// if ($this->session->userdata('name') != 'chanderah'){
-		// 	//maintenance warn
-		// 	redirect(base_url('admin/maintenance'));      
-		// }
+		if ($this->session->userdata('name') != 'chanderah'){
+			//maintenance warn
+			redirect(base_url('admin/maintenance'));      
+		}
 
     if ($this->session->userdata('status') != 'login' && $this->session->userdata('role') != 1) {
       $this->load->view('login/login');

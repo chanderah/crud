@@ -1,7 +1,7 @@
 {
     "host": "ftp.ptjis.com",
     "username": "chandra@ptjis.com",
-    "password": "jasminejis",
+    "password": "jasminej1s",   
     "remotePath": "/crud",
     "protocol": "ftp",
     "port": 21,

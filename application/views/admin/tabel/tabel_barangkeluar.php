@@ -316,6 +316,13 @@ jQuery(document).ready(function($){
   });
   $(function () {
     $('#example1').DataTable({
+      "columnDefs": [
+          { 
+            "width": "7%", "targets": [1],
+            // "render": function (data, type, row) {return data.split("\n").join("<br/>")},"targets": [9], 
+            "render": function (data, type, row) {return data.split(",").join("\n")},"targets": [1], 
+          }
+        ], 
         'paging': true,
         'lengthChange': true,
         'searching': true,
