@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,6 +29,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
     <header class="main-header">
@@ -141,8 +143,8 @@
               <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
               <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
               <li><a href="<?= base_url('admin/tabel_barangkeluar') ?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
-            <li><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> 
-           </ul>
+              <li><a href="<?= base_url('admin/tabel_MOP') ?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li>
+            </ul>
           </li>
           <li>
           <li class="header">MANAGE</li>
@@ -184,23 +186,23 @@
                 <!-- /.box-header -->
                 <!-- form start -->
                 <div class="container">
-                  <form action="<?=base_url('admin/proses_datakeluar_insert')?>" role="form" method="post" autocomplete="on" accept-charset="utf-8" style="width:95%;margin-left:10px">
+                  <form action="<?= base_url('admin/proses_datakeluar_insert') ?>" role="form" method="post" autocomplete="on" accept-charset="utf-8" style="width:95%;margin-left:10px">
                     <div class="form-group" style="display:inline-block; margin-left:75px">
                       <button type="reset" class="btn btn-basic" name="btn_reset" style="width:95px;margin-left:-70px;margin-top:10px"><i class="fa fa-eraser" aria-hidden="true"></i> Reset</button>
                     </div>
-                    <?php if($list_data!='empty'){
+                    <?php if ($list_data != 'empty') {
                       foreach ($list_data as $d) { ?>
                         <div class="form-group form-group-lg col-md-12">
                           <label for="site_id" style="display:inline">SITE ID (Separate by Comma)</label>
                           <input type="text" name="site_id" class="form-control" placeholder="Site ID" style="margin-top:10px" value="<?= $d->site_id ?>">
                         </div>
-                    <?php }}
-                    else { ?>
-                        <div class="form-group form-group-lg col-md-12">
-                          <label for="site_id" style="display:inline">SITE ID (Separate by Comma)</label>
-                          <input type="text" name="site_id" class="form-control" placeholder="Site ID" style="margin-top:10px" value="">
-                        </div>
-                    <?php }?>
+                      <?php }
+                    } else { ?>
+                      <div class="form-group form-group-lg col-md-12">
+                        <label for="site_id" style="display:inline">SITE ID (Separate by Comma)</label>
+                        <input type="text" name="site_id" class="form-control" placeholder="Site ID" style="margin-top:10px" value="">
+                      </div>
+                    <?php } ?>
 
                     <div class="form-group form-group-lg col-md-12">
                       <label for="insurance">Insurance</label>
@@ -211,28 +213,164 @@
                     </div>
 
                     <div class="form-group form-group-lg col-md-12">
-                        <label for="itemInsured" style="display:inline;">Jenis Barang yang Dikirim</label>
-                        <textarea class="form-control" style="margin-top:10px;" id="itemInsured" name="itemInsured" rows="3" placeholder="Jenis Barang"></textarea>
-                      </div>
+                      <label for="itemInsured" style="display:inline;">Jenis Barang yang Dikirim</label>
+                      <textarea class="form-control" style="margin-top:10px;" id="itemInsured" name="itemInsured" rows="3" placeholder="Jenis Barang"></textarea>
+                    </div>
+
+                    <table id="cart_table" class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th width="19%">Pengiriman Melalui</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                              <label>Darat</label>
+                              <select class="form-control" name="conveyance_by[]">
+                                <option value="empty">Choose...</option>
+                                <option value="Car">Car</option>
+                                <option value="Truck">Truck</option>
+                                <option value="Pick Up">Pick Up</option>
+                                <option value="Container">Container</option>
+                              </select>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                              <label>.</label>
+                              <input type="text" name="conveyance_type[]" placeholder="Jenis Kendaraan" required="required" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                              <label>.</label>
+                              <input type="text" name="conveyance_policeno[]" placeholder="Plat Nomor" required="required" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                              <label>.</label>
+                              <input type="text" name="conveyance_driver[]" placeholder="Pengemudi" required="required" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                            </div>
+                          </td>
+                          <td>
+                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                              <label>Laut</label>
+                              <input type="text" name="conveyance_ship_name[]" placeholder="Nama Kapal" required="required" class="form-control" />
+
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                              <label>.</label>
+                              <input type="text" name="conveyance_ship_type[]" placeholder="Jenis Kapal" required="required" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                              <label>.</label>
+                              <input type="text" name="conveyance_ship_birth[]" placeholder="Tahun Pembuatan Kapal" required="required" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                              <label>.</label>
+                              <input type="text" name="conveyance_ship_GRT[]" placeholder="GRT Kapal" required="required" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                              <label>.</label>
+                              <input type="text" name="conveyance_ship_containerno[]" placeholder="Container No." required="required" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                              <label>Udara</label>
+                              <select class="form-control" name="conveyance_plane_type[]">
+                                <option value="empty">Choose...</option>
+                                <option value="Cargo">Cargo</option>
+                                <option value="Penumpang">Penumpang</option>
+                                <option value="Helicopter">Helicopter</option>
+                                <option value="Charter">Charter</option>
+                              </select>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                              <label>.</label>
+                              <input type="text" name="conveyance_plane_AWB[]" placeholder="No. AWB" required="required" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group form-group-lg col-md-12">
+                            </div>
+                          </td>
+                          <td>
+                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="5">
+                            <div class="form-group form-group-lg col-md-12">
+                              <label>Tanggal Keberangkatan</label>
+                              <input type="date" placeholder="Sailing Date" name="sailing_date" required="required" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
                     <div class="form-group form-group-lg col-md-12">
                       <label for="conveyance">Pengiriman Melalui</label>
-                        <select class="form-control" id="conveyance" name="conveyance">
-                          <option value="Darat">Choose...</option>
-                          <option value="Darat">Darat</option>
-                          <option value="Laut">Laut</option>
-                          <option value="Udara">Udara</option>
-                        </select>
+                      <select class="form-control" id="conveyance" name="conveyance">
+                        <option value="Darat">Choose...</option>
+                        <option value="Darat">Darat</option>
+                        <option value="Laut">Laut</option>
+                        <option value="Udara">Udara</option>
+                      </select>
                     </div>
                     <div class="conveyance_select" id="Darat">
                       <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_type">Dengan</label>
-                          <select class="form-control" id="conveyance_by" name="conveyance_by">
-                            <option value="Car">Car</option>
-                            <option value="Truck">Truck</option>
-                            <option value="Pick Up">Pick Up</option>
-                            <option value="Container">Container</option>
-                            <!-- <option value="Lainnya">Lainnya</option> -->
-                          </select>
+                        <select class="form-control" id="conveyance_by" name="conveyance_by">
+                          <option value="Car">Car</option>
+                          <option value="Truck">Truck</option>
+                          <option value="Pick Up">Pick Up</option>
+                          <option value="Container">Container</option>
+                          <!-- <option value="Lainnya">Lainnya</option> -->
+                        </select>
                       </div>
                       <div class="form-group form-group-lg col-md-3">
                         <label for="conveyance_type">Jenis Kendaraan</label>
@@ -273,9 +411,9 @@
                       <div class="form-group form-group-lg col-md-6">
                         <label for="conveyance_plane_type">Jenis Pesawat</label>
                         <select class="form-control" id="conveyance_plane_type" name="conveyance_plane_type">
-                          <option value="Car">Cargo</option>
-                          <option value="Truck">Penumpang</option>
-                          <option value="Pick Up">Helicopter</option>
+                          <option value="Cargo">Cargo</option>
+                          <option value="Penumpang">Penumpang</option>
+                          <option value="Helicopter">Helicopter</option>
                           <option value="Charter">Charter</option>
                         </select>
                       </div>
@@ -293,52 +431,46 @@
                       <textarea class="form-control" id="destination_to" name="destination_to" placeholder="To" rows="4"></textarea>
                     </div>
                     <div class="form-group form-group-lg col-md-12">
-                      <label for="sailing_date">Tanggal Keberangkatan</label>
-                      <input type="date" placeholder="Sailing Date" name="sailing_date" required="required" class="form-control" />
-                    </div>
-                    <div class="form-group form-group-lg col-md-12">
                       <label for="amount_insured">Nilai Barang yang Diangkut</label>
-                      <select class="form-control" id="currency" name="currency" style="margin-bottom:5px;width:fit-content" >
-                          <option value="IDR">IDR</option>
-                        </select>
-                      <input type="number" name="amount_insured" placeholder="Nilai Barang" required="required" class="form-control"/>
+                      <select class="form-control" id="currency" name="currency" style="margin-bottom:5px;width:fit-content">
+                        <option value="IDR">IDR</option>
+                      </select>
+                      <input type="number" name="amount_insured" placeholder="Nilai Barang" required="required" class="form-control" />
                     </div>
                     <div class="form-group form-group-lg col-md-12">
                       <label for="issuedDate">Tanggal Penerbitan</label>
-                      <input type="date" value="<?php echo date("Y-m-d")?>" name="issuedDate" required="required" class="form-control" />
-                    </div> 
+                      <input type="date" value="<?php echo date("Y-m-d") ?>" name="issuedDate" required="required" class="form-control" />
+                    </div>
 
                     <div class="box-footer col-md-12" style="width:100%; margin-left:30px; margin-bottom:10px; margin-top:5px">
                       <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" onclick="history.back(-1)" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
-                      <a type="button" class="btn btn-info" style="width:18%;margin-right:20%" 
-                          href="<?= base_url('admin/tabel_barangkeluar') ?>" 
-                          name="btn_listbarang">
+                      <a type="button" class="btn btn-info" style="width:18%;margin-right:20%" href="<?= base_url('admin/tabel_barangkeluar') ?>" name="btn_listbarang">
                         <i class="fa fa-table" aria-hidden="true"></i>Lihat Data Keluar</a>
                       <button type="submit" input type="submit" style="width:20%" id="btnSave" class="btn btn-md btn-success"><i class="fa fa-check" aria-hidden="true"></i>Create</button>
                     </div>
                     <div id="user_message" style="display:inline-block"></div>
                   </form>
                 </div>
-              </div> 
+              </div>
+            </div>
           </div>
+          <!--/.col (right) -->
         </div>
-        <!--/.col (right) -->
+        <!-- /.row -->
+      </section>
+      <!-- /.content -->
     </div>
-    <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 1
-    </div>
-    <strong>Copyright &copy; <?= date('Y') ?></strong>
-  </footer>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+      <div class="pull-right hidden-xs">
+        <b>Version</b> 1
+      </div>
+      <strong>Copyright &copy; <?= date('Y') ?></strong>
+    </footer>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
+    <div class="control-sidebar-bg"></div>
   </div>
   <!-- ./wrapper -->
   <!-- jQuery 3 -->
@@ -366,74 +498,76 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
-    <script>
-      $(document).ready(function() {
+  <script>
+    $(document).ready(function() {
+      $('.conveyance_select').hide();
+      $('#conveyance').change(function() {
         $('.conveyance_select').hide();
-        $('#conveyance').change(function() {
-          $('.conveyance_select').hide();
-          $('#' + $(this).val()).show();
-        });
+        $('#' + $(this).val()).show();
       });
-    </script>
-    <script type="text/javascript">
-      var i = 1, max = 50;
-      var cartTable = {
-          options: {
-              table: "#cart_table"
-          },
-          initialize: function() {
-              this.setVars().events();
-          },
-          setVars: function() {
-              this.$table = $(this.options.table);
-              this.$totalLines = $(this.options.table).find('tr').length - 1;
-              return this;
-          },
-          updateLines: function() {
-              var totalLines = $(this.options.table).find('tr').length - 1;
-              if (totalLines == 1) {
-                  $('.add_button').show();
-                  $('.remove_button').hide();
-              }
-              return this;
-          },
-          events: function() {
-              var _self = this;
-              _self.updateLines();
-              this.$table.on('click', 'button.add_button', function(e) {
-                  e.preventDefault();
-                  if(max > i) {
-                      var $tr = $(this).closest('tr');
-                      var $clone = $tr.clone();
-                      $clone.find(':text').val('');
-                      $tr.after($clone);
-                      if (_self.setVars().$totalLines > 1) {
-                          $('.remove_button').show();
-                          $('.add_button').show();
-                      }
-                      i++;
-                  }
-              }).on('click', 'button.remove_button', function(e) {
-                  if (i > 1) {
-                      e.preventDefault();
-                      var $tr = $(this).closest('tr');
-                      $tr.remove();
-                      //if have delete last button with button add visible, add another button to last tr
-                      if (_self.setVars().$totalLines > 1) {
-                          _self.$table.find('tr:last').find('.add').show();
-                      }
-                      i--;
-                  }
-              });
-
-              return this;
+    });
+  </script>
+  <script type="text/javascript">
+    var i = 1,
+      max = 50;
+    var cartTable = {
+      options: {
+        table: "#cart_table"
+      },
+      initialize: function() {
+        this.setVars().events();
+      },
+      setVars: function() {
+        this.$table = $(this.options.table);
+        this.$totalLines = $(this.options.table).find('tr').length - 1;
+        return this;
+      },
+      updateLines: function() {
+        var totalLines = $(this.options.table).find('tr').length - 1;
+        if (totalLines == 1) {
+          $('.add_button').show();
+          $('.remove_button').hide();
+        }
+        return this;
+      },
+      events: function() {
+        var _self = this;
+        _self.updateLines();
+        this.$table.on('click', 'button.add_button', function(e) {
+          e.preventDefault();
+          if (max > i) {
+            var $tr = $(this).closest('tr');
+            var $clone = $tr.clone();
+            $clone.find(':text').val('');
+            $tr.after($clone);
+            if (_self.setVars().$totalLines > 1) {
+              $('.remove_button').show();
+              $('.add_button').show();
+            }
+            i++;
           }
-      };
+        }).on('click', 'button.remove_button', function(e) {
+          if (i > 1) {
+            e.preventDefault();
+            var $tr = $(this).closest('tr');
+            $tr.remove();
+            //if have delete last button with button add visible, add another button to last tr
+            if (_self.setVars().$totalLines > 1) {
+              _self.$table.find('tr:last').find('.add').show();
+            }
+            i--;
+          }
+        });
 
-      function initializeCartTable() {
-          cartTable.initialize();
+        return this;
       }
-      window.addEventListener('load', initializeCartTable, false);
+    };
+
+    function initializeCartTable() {
+      cartTable.initialize();
+    }
+    window.addEventListener('load', initializeCartTable, false);
   </script>
 </body>
+
 </html>
