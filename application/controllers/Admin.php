@@ -13,6 +13,11 @@ class Admin extends CI_Controller
     $this->load->library('upload');
   }
 
+  public function aaa()
+  {
+    $this->load->view('admin/add_bill');
+  }
+
   public function maintenance()
   {
     $this->load->view('admin/maintenance');

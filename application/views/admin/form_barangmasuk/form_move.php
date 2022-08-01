@@ -214,7 +214,7 @@
                         <label for="itemInsured" style="display:inline;">Jenis Barang yang Dikirim</label>
                         <textarea class="form-control" style="margin-top:10px;" id="itemInsured" name="itemInsured" rows="3" placeholder="Jenis Barang"></textarea>
                       </div>
-                    <div class="form-group form-group-lg col-md-12" style="">
+                    <div class="form-group form-group-lg col-md-12">
                       <label for="conveyance">Pengiriman Melalui</label>
                         <select class="form-control" id="conveyance" name="conveyance">
                           <option value="Darat">Choose...</option>
@@ -366,14 +366,74 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      $('.conveyance_select').hide();
-      $('#conveyance').change(function() {
+    <script>
+      $(document).ready(function() {
         $('.conveyance_select').hide();
-        $('#' + $(this).val()).show();
+        $('#conveyance').change(function() {
+          $('.conveyance_select').hide();
+          $('#' + $(this).val()).show();
+        });
       });
-    });
+    </script>
+    <script type="text/javascript">
+      var i = 1, max = 50;
+      var cartTable = {
+          options: {
+              table: "#cart_table"
+          },
+          initialize: function() {
+              this.setVars().events();
+          },
+          setVars: function() {
+              this.$table = $(this.options.table);
+              this.$totalLines = $(this.options.table).find('tr').length - 1;
+              return this;
+          },
+          updateLines: function() {
+              var totalLines = $(this.options.table).find('tr').length - 1;
+              if (totalLines == 1) {
+                  $('.add_button').show();
+                  $('.remove_button').hide();
+              }
+              return this;
+          },
+          events: function() {
+              var _self = this;
+              _self.updateLines();
+              this.$table.on('click', 'button.add_button', function(e) {
+                  e.preventDefault();
+                  if(max > i) {
+                      var $tr = $(this).closest('tr');
+                      var $clone = $tr.clone();
+                      $clone.find(':text').val('');
+                      $tr.after($clone);
+                      if (_self.setVars().$totalLines > 1) {
+                          $('.remove_button').show();
+                          $('.add_button').show();
+                      }
+                      i++;
+                  }
+              }).on('click', 'button.remove_button', function(e) {
+                  if (i > 1) {
+                      e.preventDefault();
+                      var $tr = $(this).closest('tr');
+                      $tr.remove();
+                      //if have delete last button with button add visible, add another button to last tr
+                      if (_self.setVars().$totalLines > 1) {
+                          _self.$table.find('tr:last').find('.add').show();
+                      }
+                      i--;
+                  }
+              });
+
+              return this;
+          }
+      };
+
+      function initializeCartTable() {
+          cartTable.initialize();
+      }
+      window.addEventListener('load', initializeCartTable, false);
   </script>
 </body>
 </html>
