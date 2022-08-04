@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css" />
 </head>
 
 <body>
@@ -15,73 +15,70 @@
     <div class="container">
         <h3>Dynamic Form Table Using CodeIgniter</h3>
         <h4>Create Bill</h4>
-            <form id="form_insert_site" method="post" autocomplete="off" accept-charset="utf-8"> 
-                <div class="form-group">
-                    <input type="text" id="txtName" name="txtName" placeholder="Customer Name" required="required" class="form-control" />
-                </div>       
-                <table id="cart_table" class="table table-sm table-stripped table-hover">
-                    <thead>
-                        <tr>
-                            <th width="19%">Title</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" name="txtTitle[]" placeholder="Title" required="required" class="form-control"/>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" name="txtDescription[]" class="form-control" placeholder="Description" required="required"/>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" id="txtCount" name="txtCount[]" placeholder="Count" class="combat form-control" required="required" />
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" id="txtItemAmount" name="txtItemAmount[]" placeholder="Amount" class="combat form-control" required="required" />
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" id="txtTotal" name="txtTotal[]" placeholder="Total" class="forTotal form-control" readonly="readonly" />
-                                </div>
-                            </td>
-                            <td>
-                                <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
-                                <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="4" class="text-center">
-                                <input type="submit" id="btnSave" name="btnSave" value="Create" class="btn btn-md btn-success" />
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" id="txtGrandTotal" name="txtGrandTotal" placeholder="Grand Total" class="forTotal form-control" readonly="readonly" />
-                                </div>
-                            </td>
-                            <td></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </form>
+        <div id="user_message"></div>
+        <form id="form_insert_site" method="post" autocomplete="off" accept-charset="utf-8">
+            <div class="form-group">
+                <input type="text" id="txtName" name="txtName" placeholder="Customer Name" required="required" class="form-control" />
+            </div>
+            <table id="cart_table" class="table table-sm table-stripped table-hover">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" name="txtTitle[]" placeholder="Title" required="required" class="form-control" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" name="txtDescription[]" class="form-control" placeholder="Description" required="required" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" id="txtCount" name="txtCount[]" placeholder="Count" class="combat form-control" required="required" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" id="txtItemAmount" name="txtItemAmount[]" placeholder="Amount" class="combat form-control" required="required" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" id="txtTotal" name="txtTotal[]" placeholder="Total" class="forTotal form-control" readonly="readonly" />
+                            </div>
+                        </td>
+                        <td>
+                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            <input type="submit" id="btnSave" name="btnSave" value="Create" class="btn btn-md btn-success" />
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" id="txtGrandTotal" name="txtGrandTotal" placeholder="Grand Total" class="forTotal form-control" readonly="readonly" />
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
     </div>
-    
-    <script src="<?php echo base_url("assets/js/jquery.min.js");?>"></script>
+
+    <script src="<?php echo base_url("assets/js/jquery.min.js"); ?>"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
 
     <script type="text/javascript">
-        var i = 1, max = 50;
+        var i = 1,
+            max = 50;
         var cartTable = {
             options: {
                 table: "#cart_table"
@@ -107,7 +104,7 @@
                 _self.updateLines();
                 this.$table.on('click', 'button.add_button', function(e) {
                     e.preventDefault();
-                    if(max > i) {
+                    if (max > i) {
                         var $tr = $(this).closest('tr');
                         var $clone = $tr.clone();
                         $clone.find(':text').val('');
@@ -139,6 +136,25 @@
             cartTable.initialize();
         }
         window.addEventListener('load', initializeCartTable, false);
+    </script>
+
+    <script>
+        $('#form_insert_site').submit(function(e) {
+            e.preventDefault();
+            var data = $("#form_insert_site").serialize();
+            var url2 = '<?php echo base_url("admin/tabel_barangmasuk"); ?>';
+            $.ajax({
+                type: "POST",
+                url: '<?php echo base_url("admin/input_datamasuk"); ?>',
+                data: data,
+                success: function(data) {
+                    $("#user_message").html(data);
+                    $(":text").val('');
+                    // window.open(url2, "_blank");
+                },
+            });
+        });
+        //end 
     </script>
 
 </body>

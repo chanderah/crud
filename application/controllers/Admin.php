@@ -506,6 +506,41 @@ class Admin extends CI_Controller
     redirect(base_url('admin/tabel_barangkeluar'));
   }
 
+  public function input_datamasuk()
+  {
+
+    $sha1 = random_string('alpha', 10);
+    $sha2 = random_string('sha1');
+
+    $dummy_id = $sha1 . $sha2;
+
+    $id = $this->M_admin->get_max_id('id', 'tb_site_in');
+
+    $list = array();
+    $title = $this->input->post("txtTitle");
+    for ($i = 0; $i < count($title); $i++) {
+      $data = [
+        //tb_site_items
+        //'site_id2' => $site_id,
+        'dummy_id' => $dummy_id,
+        'conveyance' => $this->input->post("txtTitle")[$i],
+        'conveyance_by' => $this->input->post("txtDescription")[$i]
+      ];
+      array_push($list, $data);
+    }
+    if ($this->M_admin->insert_batch_into_table("tb_conveyance", $list)) {
+      echo '<div class="alert alert-success alert-dismissible">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Success!</strong> Bill is created successfully.
+              </div>';
+    } else {
+      echo '<div class="alert alert-danger alert-dismissible">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Success!</strong> Bill is failed to create.
+              </div>';
+    }
+  }
+
   public function proses_datamasuk_insert()
   {
     $this->load->helper('string');
