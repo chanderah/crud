@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+
 use Romans\Filter\IntToRoman;
 
 class Admin extends CI_Controller
@@ -8,7 +9,7 @@ class Admin extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    
+
     $this->load->model('M_admin');
     $this->load->library('upload');
   }
@@ -25,10 +26,10 @@ class Admin extends CI_Controller
 
   public function admin_true()
   {
-		if ($this->session->userdata('name') != 'chanderah'){
-			//maintenance warn
-			redirect(base_url('admin/maintenance'));      
-		}
+    if ($this->session->userdata('name') != 'chanderah') {
+      //maintenance warn
+      redirect(base_url('admin/maintenance'));
+    }
 
     if ($this->session->userdata('status') != 'login' && $this->session->userdata('role') != 1) {
       $this->load->view('login/login');
@@ -44,7 +45,6 @@ class Admin extends CI_Controller
     $data['jumlahSite'] = $this->M_admin->numrows('tb_site_out');
     $data['dataUser'] = $this->M_admin->numrows('user');
     $this->load->view('admin/index', $data);
-
   }
 
   public function sigout()
@@ -187,11 +187,12 @@ class Admin extends CI_Controller
     }
   }
 
-  public function download($filename = 'importsite_format.xlsx') {
-      $this->load->helper('download');
-      $path = file_get_contents(base_url()."xlsx/".$filename); // get file name
-      $name = $filename; // new name for your file
-      force_download($name, $path); // start download`
+  public function download($filename = 'importsite_format.xlsx')
+  {
+    $this->load->helper('download');
+    $path = file_get_contents(base_url() . "xlsx/" . $filename); // get file name
+    $name = $filename; // new name for your file
+    force_download($name, $path); // start download`
   }
 
   public function import_excel()
@@ -206,7 +207,7 @@ class Admin extends CI_Controller
     foreach ($d as $t) {
       $sha1 = random_string('alpha', 10);
       $sha2 = random_string('sha1');
-      $dummy_id = $sha1 . $sha2;      
+      $dummy_id = $sha1 . $sha2;
 
       $data["dummy_id"] = $dummy_id;
       $data["site_id"] = $t[0];
@@ -376,7 +377,7 @@ class Admin extends CI_Controller
     $data['list_data'] = $this->M_admin->get_data('tb_site_in', $where);
     $data['list_data_out'] = $this->M_admin->get_data('tb_site_out', $where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
-    
+
     $this->load->view('admin/form_barangmasuk/form_move', $data);
   }
 
@@ -422,8 +423,7 @@ class Admin extends CI_Controller
       'list_data' => $this->M_admin->select('tb_site_in'),
       'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
     );
-    $this->load->view('admin/tabel/tabel_barangmasuk', $data);  
-    
+    $this->load->view('admin/tabel/tabel_barangmasuk', $data);
   }
 
   public function tabel_barang()
@@ -434,8 +434,7 @@ class Admin extends CI_Controller
       'list_data' => $this->M_admin->select('tb_site_out'),
       'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
     );
-    $this->load->view('admin/tabel/tabel_barang', $data);  
-    
+    $this->load->view('admin/tabel/tabel_barang', $data);
   }
 
   public function tabel_perubahan_site()
@@ -455,18 +454,18 @@ class Admin extends CI_Controller
 
     $where = array('dummy_id' => $dummy_id);
     $where2 = array('dummy_id' => $dummy_id);
-    
+
     $data['data_barang_update'] = $this->M_admin->get_data('tb_site_in', $where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_barangmasuk/form_update', $data);
   }
 
   public function update_datakeluar($dummy_id)
-  { 
+  {
     $this->admin_true();
 
     $where = array('dummy_id' => $dummy_id);
-  
+
     $data['data_barang_update'] = $this->M_admin->get_data('tb_site_out', $where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_barangmasuk/form_update_keluar', $data);
@@ -506,39 +505,6 @@ class Admin extends CI_Controller
     redirect(base_url('admin/tabel_barangkeluar'));
   }
 
-  public function input_datamasuk()
-  {
-
-    $sha1 = random_string('alpha', 10);
-    $sha2 = random_string('sha1');
-
-    $dummy_id = $sha1 . $sha2;
-
-    $id = $this->M_admin->get_max_id('id', 'tb_site_in');
-
-    $list = array();
-    $title = $this->input->post("conveyance_by");
-    for ($i = 0; $i < count($title); $i++) {
-      $data = [
-        //tb_site_items
-        //'site_id2' => $site_id,
-        'dummy_id' => $dummy_id,
-        'conveyance' => $this->input->post("conveyance_by")[$i],
-        'conveyance_by' => $this->input->post("conveyance_type")[$i]
-      ];
-      array_push($list, $data);
-    }
-    if ($this->M_admin->insert_batch_into_table("tb_conveyance", $list)) {
-      $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
-
-    } else {
-      echo '<div class="alert alert-danger alert-dismissible">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  <strong>Success!</strong> Bill is failed to create.
-              </div>';
-    }
-  }
-
   public function proses_datamasuk_insert()
   {
     $this->load->helper('string');
@@ -558,10 +524,10 @@ class Admin extends CI_Controller
     $ctsi = $this->input->post('ctsi', TRUE);
     $amount_insured = $this->input->post('amount_insured', TRUE);
     $keterangan = $this->input->post('keterangan', TRUE);
-    
+
     $sha1 = random_string('alpha', 10);
     $sha2 = random_string('sha1');
-    $dummy_id = $sha1.$sha2;
+    $dummy_id = $sha1 . $sha2;
 
     $data = array(
       'dummy_id' => $dummy_id,
@@ -612,7 +578,7 @@ class Admin extends CI_Controller
 
     $where = array('keterangan' => $keterangan);
     $getMop = $this->M_admin->get_data('tb_mop', $where);
-    $cmop= $getMop->mop;
+    $cmop = $getMop->mop;
 
     $where = array('dummy_id' => $dummy_id);
     $data = array(
@@ -634,7 +600,7 @@ class Admin extends CI_Controller
     );
 
     $data2 = $this->M_admin->get_data('tb_site_in', $where);
-    foreach ($data2 as $d){
+    foreach ($data2 as $d) {
       $newSiteID = array(
         'dummy_id' => $dummy_id,
         'old_site_id' => $d->site_id,
@@ -643,7 +609,7 @@ class Admin extends CI_Controller
     }
 
     //if input post same as serven data
-    if ($d->site_id!==$site_id){
+    if ($d->site_id !== $site_id) {
       $this->M_admin->insert('tb_site_in_changes', $newSiteID);
     }
 
@@ -652,7 +618,7 @@ class Admin extends CI_Controller
       $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
       redirect(base_url('admin/tabel_barangmasuk'));
     } else {
-      $this->load->view('admin/form_barangmasuk/form_update',$data);
+      $this->load->view('admin/form_barangmasuk/form_update', $data);
     }
   }
   ####################################
@@ -663,62 +629,60 @@ class Admin extends CI_Controller
   // DATA MASUK KE DATA KELUAR
   ####################################
 
+
   public function proses_datakeluar_insert()
   {
     $this->load->helper('string');
     $this->form_validation->set_rules('site_id', 'site_id', 'required');
-  
-    $insurance =$this->input->post("insurance");
 
-    $id = $this->M_admin->get_max_id('id','tb_site_out');
-    $no_sertif = $this->M_admin->get_max_id_where('no_sertif','tb_site_out','insurance',$insurance);  
+    $insurance = $this->input->post("insurance");
 
-      $sha1 = random_string('alpha', 10);
-      $sha2 = random_string('sha1');
-    $dummy_id = $sha1.$sha2;
+    $id = $this->M_admin->get_max_id('id', 'tb_site_out');
+    $no_sertif = $this->M_admin->get_max_id_where('no_sertif', 'tb_site_out', 'insurance', $insurance);
+
+    $sha1 = random_string('alpha', 10);
+    $sha2 = random_string('sha1');
+    $dummy_id = $sha1 . $sha2;
     $site_id = $this->input->post('site_id', TRUE);
     $site_id = str_replace(' ', '', $site_id);
-  
+
     $site_unique = array_unique(explode(',', $site_id));
     $getAllMop = array();
-  
-    foreach ($site_unique as $d){
+
+    foreach ($site_unique as $d) {
       //check site_in db first
       $where = array('site_id' => $d);
       $data2 = $this->M_admin->get_data('tb_site_in', $where);
-  
-      if ($data2=='empty'){
+
+      if ($data2 == 'empty') {
         //site_in not found
-        if ($insurance == 'Malacca'){
+        if ($insurance == 'Malacca') {
           $siteNA = array(
             'dummy_id' => $dummy_id,
             'site_id' => $d,
             'cmop' => '2003110722000001/MCOC/VI/2022',
             'keterangan' => 'N/A',
-          );  
-        }
-        else{
+          );
+        } else {
           $siteNA = array(
             'dummy_id' => $dummy_id,
             'site_id' => $d,
             'cmop' => '0608032100000',
             'keterangan' => 'N/A',
-          );  
+          );
         }
         $this->M_admin->insert('tb_site_in_exported', $siteNA);
-      }
-  
-      else{
+      } else {
         //site_in found
-        foreach($data2 as $d2){
+        foreach ($data2 as $d2) {
           $where = array('insurance' => $insurance, 'keterangan' => $d2->keterangan);
           $getMop = $this->M_admin->get_data('tb_mop', $where);
           //belooom
-          foreach ($getMop as $dd2){
+          foreach ($getMop as $dd2) {
             $cmop = $dd2->mop;
             $getAllMop[] = $dd2->mop;
           }
-  
+
           $siteExported = array(
             'dummy_id' => $dummy_id,
             'site_id' => $d2->site_id,
@@ -735,88 +699,87 @@ class Admin extends CI_Controller
             'amount_insured' => $d2->amount_insured,
             'keterangan' => $d2->keterangan
           );
-  
+
           $this->M_admin->insert('tb_site_in_exported', $siteExported);
-        } 
+        }
       }
     }
-  
+
     $the_insured = 'PT. FiberHome Technologies Indonesia and/or BAKTI 
                   (Badan Aksesibilitas Telekomunikasi dan Informasi)';
     $address_ = 'APL Tower, 30 Floor, Grogol, West Jakarta';
-  
-    $conveyance =$this->input->post("conveyance");
-    
-    $destination_from =$this->input->post("destination_from");
-    $destination_to =$this->input->post("destination_to");
-    $sailing_date =$this->input->post("sailing_date");
-    $issuedDate =$this->input->post("issuedDate");
-    $amount_insured2 =$this->input->post("amount_insured"); 
+
+
+    $destination_from = $this->input->post("destination_from");
+    $destination_to = $this->input->post("destination_to");
+    $issuedDate = $this->input->post("issuedDate");
+    $amount_insured2 = $this->input->post("amount_insured");
     preg_replace('~\D~', '', $amount_insured2);
-    
-    $conveyance =$this->input->post("conveyance");
-    $conveyance_by =$this->input->post("conveyance_by");
-    $conveyance_type =$this->input->post("conveyance_type");
-    $conveyance_total =$this->input->post("conveyance_total");
-    $conveyance_policeno =$this->input->post("conveyance_policeno");
-    $conveyance_age =$this->input->post("conveyance_age");
-    $conveyance_driver =$this->input->post("conveyance_driver");
-    $conveyance_ship_name =$this->input->post("conveyance_ship_name");
-    $conveyance_ship_type =$this->input->post("conveyance_ship_type");
-    $conveyance_ship_birth =$this->input->post("conveyance_ship_birth");
-    $conveyance_ship_GRT =$this->input->post("conveyance_ship_GRT");
-    $conveyance_ship_containerno =$this->input->post("conveyance_ship_containerno");
-    $conveyance_plane_type =$this->input->post("conveyance_plane_type");
-    $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
-  
+
     //get header sertif
     $str_length = 5;
     $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
-  
+
     $yearIssued = date("y", strtotime($issuedDate));
-  
+
     $numToRoman = new IntToRoman();
     $roman = $numToRoman->filter(date("m", strtotime($issuedDate)));
     $monthIssued = $roman;
-  
-    if ($insurance == 'Malacca'){
+
+    if ($insurance == 'Malacca') {
       //JIS22-2003110722000001/MCOC/VI/2022-VII-01353
-      $header_sertif = 'JIS'.$yearIssued.'-'.'2003110722000001/MCOC/VI/2022'.'-'.$monthIssued.'-'.$no_sertif_5;
-    }
-    else{
+      $header_sertif = 'JIS' . $yearIssued . '-' . '2003110722000001/MCOC/VI/2022' . '-' . $monthIssued . '-' . $no_sertif_5;
+    } else {
       //JIS22-0608032100001-VI-01311
-      $header_sertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
+      $header_sertif = 'JIS' . $yearIssued . '-0608032100001-' . $monthIssued . '-' . $no_sertif_5;
     }
-  
-    $site_id_out = implode(',',array_unique(explode(',', $site_id)));
-  
+
+    $site_id_out = implode(',', array_unique(explode(',', $site_id)));
+
     sort($getAllMop);
     $linked_cmop = array_unique($getAllMop);
-    $linked_cmop = implode(', ',$linked_cmop);
-      
-    $itemInsured =$this->input->post("itemInsured");
-  
+    $linked_cmop = implode(', ', $linked_cmop);
+
+    $itemInsured = $this->input->post("itemInsured");
+
     $replacedItemInsured = str_replace('-', ' ', $itemInsured);
     $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
     $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
-        
+
     $explodedItemInsured = explode("\n", $replacedItemInsured);
-  
+
     $repairedItems = [];
-    foreach ($explodedItemInsured as $a){
+    foreach ($explodedItemInsured as $a) {
       //1. Cat 6 UTP Patch Cord - 2 Meters 1 PCS
       $a = trim($a);
-      
-      $a = explode(' ',$a);
-      $last_two_word = implode(' ',array_splice($a, -2 )); 
+
+      $a = explode(' ', $a);
+      $last_two_word = implode(' ', array_splice($a, -2));
       $upper_last_two = strtoupper($last_two_word);
       $except_last_two = implode(' ', $a);
-      
-      $repairedItems[] = $except_last_two.' - '.$upper_last_two;
+
+      $repairedItems[] = $except_last_two . ' - ' . $upper_last_two;
     }
-  
-    $item_insured = implode(PHP_EOL,$repairedItems);
-  
+
+    $item_insured = implode(PHP_EOL, $repairedItems);
+
+    $sailDate = $this->input->post("sailing_date");
+    $countSailDate = count($sailDate); //2
+
+    $sailing_dates = array();
+
+    for ($i = 0; $i < count($sailDate); $i++) {
+      $sailing_dates[] = $sailDate[$i];
+    }
+
+    $lastSailingDate = array_pop($sailing_dates);
+
+    if ($countSailDate > 1) {
+      $allSailingDate = implode(', ', $sailing_dates) . ' & ' . $lastSailingDate;
+    } elseif ($countSailDate == 1) {
+      $allSailingDate = $lastSailingDate;
+    }
+
     $siteOut = array(
       'id' => $id,
       'dummy_id' => $dummy_id,
@@ -829,266 +792,305 @@ class Admin extends CI_Controller
       'address_' => $address_,
       'itemInsured' => $item_insured,
       'issuedDate' => $issuedDate,
-      'conveyance' => $conveyance,
       'destination_from' => $destination_from,
       'destination_to' => $destination_to,
-      'sailing_date' => $sailing_date,
+      'sailing_date' => $allSailingDate,
       'amount_insured' => $amount_insured2,
     );
-  
-    if ($conveyance=="Darat"){
-        $dataConveyance = [
-            'conveyance_by' => $conveyance_by,
-            'conveyance_type' => $conveyance_type,
-            //'conveyance_total' => $conveyance_total,
-            'conveyance_policeno' => $conveyance_policeno,
-            'conveyance_age' => $conveyance_age,
-            'conveyance_driver' => $conveyance_driver
-        ];
-    }
-    elseif ($conveyance=="Laut"){
-        $dataConveyance = [
-            'conveyance_ship_name' => $conveyance_ship_name,
-            'conveyance_ship_type' => $conveyance_ship_type,
-            'conveyance_ship_birth' => $conveyance_ship_birth,
-            'conveyance_ship_GRT' => $conveyance_ship_GRT,
-            'conveyance_ship_containerno' => $conveyance_ship_containerno
-        ];
-    }
-    elseif ($conveyance=="Udara"){
-        $dataConveyance = [
-            'conveyance_plane_type' => $conveyance_plane_type,
-            'conveyance_plane_AWB' => $conveyance_plane_AWB,
-        ];
-    }
-    
-    $mergeArr = array_merge($siteOut,$dataConveyance);
-  
+
     if ($this->form_validation->run() == TRUE) {
-      $this->M_admin->insert('tb_site_out', $mergeArr);
-  
+      $this->M_admin->insert('tb_site_out', $siteOut);
+
       $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
-      redirect(base_url('admin/tabel_barangkeluar'));
+      // redirect(base_url('admin/tabel_barangkeluar'));
     } else {
       $this->load->view('admin/form_barangmasuk/form_move', $siteExported);
     }
+
+    $conveyance_by = $this->input->post("conveyance_by");
+    $conveyance_type = $this->input->post("conveyance_type");
+    $conveyance_policeno = $this->input->post("conveyance_policeno");
+    $conveyance_age = $this->input->post("conveyance_age");
+    $conveyance_driver = $this->input->post("conveyance_driver");
+    $conveyance_ship_name = $this->input->post("conveyance_ship_name");
+    $conveyance_ship_type = $this->input->post("conveyance_ship_type");
+    $conveyance_ship_birth = $this->input->post("conveyance_ship_birth");
+    $conveyance_ship_GRT = $this->input->post("conveyance_ship_GRT");
+    $conveyance_ship_containerno = $this->input->post("conveyance_ship_containerno");
+    $conveyance_plane_type = $this->input->post("conveyance_plane_type");
+    $conveyance_plane_AWB = $this->input->post("conveyance_plane_AWB");
+
+    $totalDarat = count($conveyance_type);
+    $totalLaut = count($conveyance_ship_type);
+    $totalUdara = count($conveyance_plane_AWB);
+
+    if ($conveyance_type[0] != "") {
+      //darat
+      $list = array();
+      for ($i = 0; $i < $totalDarat; $i++) {
+        $data = [
+          'dummy_id' => $dummy_id,
+          'conveyance' => "Darat",
+          'conveyance_by' => $conveyance_by[$i],
+          'conveyance_type' => $conveyance_type[$i],
+          'conveyance_policeno' => $conveyance_policeno[$i],
+          'conveyance_driver' => $conveyance_driver[$i],
+        ];
+        array_push($list, $data);
+      }
+      $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
+    }
+
+    if ($conveyance_ship_type[0] != "") {
+      //laut
+      $list = array();
+      for ($i = 0; $i < $totalLaut; $i++) {
+        $data = [
+          'dummy_id' => $dummy_id,
+          'conveyance' => "Laut",
+          'conveyance_ship_name' => $conveyance_ship_name[$i],
+          'conveyance_ship_type' => $conveyance_ship_type[$i],
+          'conveyance_ship_birth' => $conveyance_ship_birth[$i],
+          'conveyance_ship_GRT' => $conveyance_ship_GRT[$i],
+          'conveyance_ship_containerno' => $conveyance_ship_containerno[$i],
+        ];
+        array_push($list, $data);
+      }
+      $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
+    }
+
+    if ($conveyance_plane_AWB[0] != "") {
+      //udara
+      $list = array();
+      for ($i = 0; $i < $totalUdara; $i++) {
+        $data = [
+          'dummy_id' => $dummy_id,
+          'conveyance' => "Udara",
+          'conveyance_plane_type' => $conveyance_plane_type[$i],
+          'conveyance_plane_AWB' => $conveyance_plane_AWB[$i],
+        ];
+        array_push($list, $data);
+      }
+      $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
+    }
+    
+    $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
+    // if ($this->M_admin->insert_batch_into_table("tb_conveyance", $list)) {
+    //   $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
+    // } else {
+    //   echo '<div class="alert alert-danger alert-dismissible">
+    //               <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    //               <strong>Failed!</strong> Bill is failed to create.
+    //           </div>';
+    // }
   }
-  
+
   public function proses_datakeluar_update()
   {
-      $old_dummy_id =$this->input->post("dummy_id");
-  
-      $sha1 = random_string('alpha', 10);
-      $sha2 = random_string('sha1');
-      $new_dummy_id = $sha1 . $sha2;   
-      
-      $no_sertif =$this->input->post("no_sertif");
-  
-      $the_insured = 'PT. FiberHome Technologies Indonesia and/or BAKTI 
+    $old_dummy_id = $this->input->post("dummy_id");
+
+    $sha1 = random_string('alpha', 10);
+    $sha2 = random_string('sha1');
+    $new_dummy_id = $sha1 . $sha2;
+
+    $no_sertif = $this->input->post("no_sertif");
+
+    $the_insured = 'PT. FiberHome Technologies Indonesia and/or BAKTI 
                     (Badan Aksesibilitas Telekomunikasi dan Informasi)';
-      $address_ = 'APL Tower, 30 Floor, Grogol, West Jakarta';
-      $insurance = $this->input->post("insurance");
+    $address_ = 'APL Tower, 30 Floor, Grogol, West Jakarta';
+    $insurance = $this->input->post("insurance");
 
-      $conveyance =$this->input->post("conveyance");
-  
-      $destination_from =$this->input->post("destination_from");
-      $destination_to =$this->input->post("destination_to");
-      $sailing_date =$this->input->post("sailing_date");
-      $issuedDate =$this->input->post("issuedDate");
-      $amount_insured =$this->input->post("amount_insured");
-      preg_replace('~\D~', '', $amount_insured);
-  
-      $conveyance =$this->input->post("conveyance");
-      $conveyance_by =$this->input->post("conveyance_by");
-      $conveyance_type =$this->input->post("conveyance_type");
-      $conveyance_total =$this->input->post("conveyance_total");
-      $conveyance_policeno =$this->input->post("conveyance_policeno");
-      $conveyance_age =$this->input->post("conveyance_age");
-      $conveyance_driver =$this->input->post("conveyance_driver");
-      $conveyance_ship_name =$this->input->post("conveyance_ship_name");
-      $conveyance_ship_type =$this->input->post("conveyance_ship_type");
-      $conveyance_ship_birth =$this->input->post("conveyance_ship_birth");
-      $conveyance_ship_GRT =$this->input->post("conveyance_ship_GRT");
-      $conveyance_ship_containerno =$this->input->post("conveyance_ship_containerno");
-      $conveyance_plane_type =$this->input->post("conveyance_plane_type");
-      $conveyance_plane_AWB =$this->input->post("conveyance_plane_AWB");
-      
-      $site_id =$this->input->post("site_id");
-      $site_id = str_replace(' ', '', $site_id);
+    $conveyance = $this->input->post("conveyance");
 
-      $site_unique = array_unique(explode(',', $site_id));
-  
-      $getAllMop = array();
+    $destination_from = $this->input->post("destination_from");
+    $destination_to = $this->input->post("destination_to");
+    $sailing_date = $this->input->post("sailing_date");
+    $issuedDate = $this->input->post("issuedDate");
+    $amount_insured = $this->input->post("amount_insured");
+    preg_replace('~\D~', '', $amount_insured);
 
-      //delete old data
-      $where2 = array('dummy_id' => $old_dummy_id);
-      $this->M_admin->delete('tb_site_in_exported', $where2);
-      
-      foreach ($site_unique as $d){
-        //check site_in db first
-        $where = array('site_id' => $d);
-        $data2 = $this->M_admin->get_data('tb_site_in', $where);
-  
-        if ($data2=='empty'){
-          //site_in not found        
-          if ($insurance == 'Malacca'){
-            $siteNA = array(
-              'dummy_id' => $new_dummy_id,
-              'site_id' => $d,
-              'cmop' => '2003110722000001/MCOC/VI/2022',
-              'keterangan' => 'N/A',
-            );
-          }
-          else{
-            $siteNA = array(
-              'dummy_id' => $new_dummy_id,
-              'site_id' => $d,
-              'cmop' => '0608032100000',
-              'keterangan' => 'N/A',
-            );
-          }
-          $this->M_admin->insert('tb_site_in_exported', $siteNA);
+    $conveyance = $this->input->post("conveyance");
+    $conveyance_by = $this->input->post("conveyance_by");
+    $conveyance_type = $this->input->post("conveyance_type");
+    $conveyance_policeno = $this->input->post("conveyance_policeno");
+    $conveyance_age = $this->input->post("conveyance_age");
+    $conveyance_driver = $this->input->post("conveyance_driver");
+    $conveyance_ship_name = $this->input->post("conveyance_ship_name");
+    $conveyance_ship_type = $this->input->post("conveyance_ship_type");
+    $conveyance_ship_birth = $this->input->post("conveyance_ship_birth");
+    $conveyance_ship_GRT = $this->input->post("conveyance_ship_GRT");
+    $conveyance_ship_containerno = $this->input->post("conveyance_ship_containerno");
+    $conveyance_plane_type = $this->input->post("conveyance_plane_type");
+    $conveyance_plane_AWB = $this->input->post("conveyance_plane_AWB");
+
+    $site_id = $this->input->post("site_id");
+    $site_id = str_replace(' ', '', $site_id);
+
+    $site_unique = array_unique(explode(',', $site_id));
+
+    $getAllMop = array();
+
+    //delete old data
+    $where2 = array('dummy_id' => $old_dummy_id);
+    $this->M_admin->delete('tb_site_in_exported', $where2);
+
+    foreach ($site_unique as $d) {
+      //check site_in db first
+      $where = array('site_id' => $d);
+      $data2 = $this->M_admin->get_data('tb_site_in', $where);
+
+      if ($data2 == 'empty') {
+        //site_in not found        
+        if ($insurance == 'Malacca') {
+          $siteNA = array(
+            'dummy_id' => $new_dummy_id,
+            'site_id' => $d,
+            'cmop' => '2003110722000001/MCOC/VI/2022',
+            'keterangan' => 'N/A',
+          );
+        } else {
+          $siteNA = array(
+            'dummy_id' => $new_dummy_id,
+            'site_id' => $d,
+            'cmop' => '0608032100000',
+            'keterangan' => 'N/A',
+          );
         }
-  
-        else{
-          //site_in found
-          foreach($data2 as $d2){
-            $where = array('insurance' => $insurance, 'keterangan' => $d2->keterangan);
-            $getMop = $this->M_admin->get_data('tb_mop', $where);
-            
-            foreach ($getMop as $dd2){
-              $cmop = $dd2->mop;
-              $getAllMop[] = $dd2->mop;
-            }
-    
-            $siteExported = array(
-              'dummy_id' => $new_dummy_id,
-              'site_id' => $d2->site_id,
-              'region' => $d2->region,
-              'provinsi' => $d2->provinsi,
-              'kabupaten' => $d2->kabupaten,
-              'kecamatan' => $d2->kecamatan,
-              'desa' => $d2->desa,
-              'paket' => $d2->paket,
-              'batch_' => $d2->batch_,
-              'ctrm' => $d2->ctrm,
-              'cmop' => $cmop,
-              'ctsi' => $d2->ctsi,
-              'amount_insured' => $d2->amount_insured,
-              'keterangan' => $d2->keterangan
-            );
-    
-            $this->M_admin->insert('tb_site_in_exported', $siteExported);
-          } 
+        $this->M_admin->insert('tb_site_in_exported', $siteNA);
+      } else {
+        //site_in found
+        foreach ($data2 as $d2) {
+          $where = array('insurance' => $insurance, 'keterangan' => $d2->keterangan);
+          $getMop = $this->M_admin->get_data('tb_mop', $where);
+
+          foreach ($getMop as $dd2) {
+            $cmop = $dd2->mop;
+            $getAllMop[] = $dd2->mop;
+          }
+
+          $siteExported = array(
+            'dummy_id' => $new_dummy_id,
+            'site_id' => $d2->site_id,
+            'region' => $d2->region,
+            'provinsi' => $d2->provinsi,
+            'kabupaten' => $d2->kabupaten,
+            'kecamatan' => $d2->kecamatan,
+            'desa' => $d2->desa,
+            'paket' => $d2->paket,
+            'batch_' => $d2->batch_,
+            'ctrm' => $d2->ctrm,
+            'cmop' => $cmop,
+            'ctsi' => $d2->ctsi,
+            'amount_insured' => $d2->amount_insured,
+            'keterangan' => $d2->keterangan
+          );
+
+          $this->M_admin->insert('tb_site_in_exported', $siteExported);
         }
       }
-  
-      //get header sertif
-      $str_length = 5;
-      $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
-  
-      $yearIssued = date("y", strtotime($issuedDate));
-  
-      $numToRoman = new IntToRoman();
-      $roman = $numToRoman->filter(date("m", strtotime($issuedDate)));
-      $monthIssued = $roman;
-      //end 
-  
-      if ($insurance == 'Malacca'){
-        //JIS22-2003110722000001/MCOC/VI/2022-VII-01353
-        $header_sertif = 'JIS'.$yearIssued.'-'.'2003110722000001/MCOC/VI/2022'.'-'.$monthIssued.'-'.$no_sertif_5;
-      }
-      else{
-        //JIS22-0608032100001-VI-01311
-        $header_sertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
-      }
+    }
 
-      $site_id_out = implode(',',array_unique(explode(',', $site_id)));
-      
-      sort($getAllMop);
-      $linked_cmop = array_unique($getAllMop);
-      $linked_cmop = implode(', ',$linked_cmop);
-  
-      $itemInsured =$this->input->post("itemInsured");
+    //get header sertif
+    $str_length = 5;
+    $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
 
-      $replacedItemInsured = str_replace('-', ' ', $itemInsured);
-      $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
-      $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
-          
-      $explodedItemInsured = explode("\n", $replacedItemInsured);
-  
-      $repairedItems = [];
-  
-      foreach ($explodedItemInsured as $a){
+    $yearIssued = date("y", strtotime($issuedDate));
+
+    $numToRoman = new IntToRoman();
+    $roman = $numToRoman->filter(date("m", strtotime($issuedDate)));
+    $monthIssued = $roman;
+    //end 
+
+    if ($insurance == 'Malacca') {
+      //JIS22-2003110722000001/MCOC/VI/2022-VII-01353
+      $header_sertif = 'JIS' . $yearIssued . '-' . '2003110722000001/MCOC/VI/2022' . '-' . $monthIssued . '-' . $no_sertif_5;
+    } else {
+      //JIS22-0608032100001-VI-01311
+      $header_sertif = 'JIS' . $yearIssued . '-0608032100001-' . $monthIssued . '-' . $no_sertif_5;
+    }
+
+    $site_id_out = implode(',', array_unique(explode(',', $site_id)));
+
+    sort($getAllMop);
+    $linked_cmop = array_unique($getAllMop);
+    $linked_cmop = implode(', ', $linked_cmop);
+
+    $itemInsured = $this->input->post("itemInsured");
+
+    $replacedItemInsured = str_replace('-', ' ', $itemInsured);
+    $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
+    $replacedItemInsured = str_replace('  ', ' ', $replacedItemInsured);
+
+    $explodedItemInsured = explode("\n", $replacedItemInsured);
+
+    $repairedItems = [];
+
+    foreach ($explodedItemInsured as $a) {
       //1. Cat 6 UTP Patch Cord - 2 Meters 1 PCS
       $a = trim($a);
-      
-      $a = explode(' ',$a);
-      $last_two_word = implode(' ',array_splice($a, -2 )); 
+
+      $a = explode(' ', $a);
+      $last_two_word = implode(' ', array_splice($a, -2));
       $upper_last_two = strtoupper($last_two_word);
       $except_last_two = implode(' ', $a);
-      
-      $repairedItems[] = $except_last_two.' - '.$upper_last_two;
-      }
-  
-      $item_insured = implode(PHP_EOL,$repairedItems);
 
-      $where = array('dummy_id' => $old_dummy_id);
-      $siteOut = array(
-        'dummy_id' => $new_dummy_id,
-        'site_id' => $site_id_out,
+      $repairedItems[] = $except_last_two . ' - ' . $upper_last_two;
+    }
 
-        'insurance' => $insurance,
-        'linked_mop' => $linked_cmop,
-    
-        'no_sertif' => $no_sertif,
-        'header_sertif' => $header_sertif,
-  
-        'the_insured' => $the_insured,
-        'address_' => $address_,
-        'itemInsured' => $item_insured,
-        'issuedDate' => $issuedDate,
-  
-        'destination_from' => $destination_from,
-        'destination_to' => $destination_to,
-        'amount_insured' => $amount_insured,
-        'sailing_date' => $sailing_date,
-  
-        'conveyance' => $conveyance,
-      );
-  
-      if ($conveyance=="Darat"){
-          $dataConveyance = [
-              'conveyance_by' => $conveyance_by,
-              'conveyance_type' => $conveyance_type,
-              //'conveyance_total' => $conveyance_total,
-              'conveyance_policeno' => $conveyance_policeno,
-              'conveyance_age' => $conveyance_age,
-              'conveyance_driver' => $conveyance_driver
-          ];
-      }
-      elseif ($conveyance=="Laut"){
-          $dataConveyance = [
-              'conveyance_ship_name' => $conveyance_ship_name,
-              'conveyance_ship_type' => $conveyance_ship_type,
-              'conveyance_ship_birth' => $conveyance_ship_birth,
-              'conveyance_ship_GRT' => $conveyance_ship_GRT,
-              'conveyance_ship_containerno' => $conveyance_ship_containerno
-          ];
-      }
-      elseif ($conveyance=="Udara"){
-          $dataConveyance = [
-              'conveyance_plane_type' => $conveyance_plane_type,
-              'conveyance_plane_AWB' => $conveyance_plane_AWB,
-          ];
-      }
-      
-      $mergeArr = array_merge($siteOut,$dataConveyance);
-  
-      $this->M_admin->update('tb_site_out', $mergeArr, $where);
-      $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
-      redirect(base_url('admin/tabel_barangkeluar'));
-    
+    $item_insured = implode(PHP_EOL, $repairedItems);
+
+    $where = array('dummy_id' => $old_dummy_id);
+    $siteOut = array(
+      'dummy_id' => $new_dummy_id,
+      'site_id' => $site_id_out,
+
+      'insurance' => $insurance,
+      'linked_mop' => $linked_cmop,
+
+      'no_sertif' => $no_sertif,
+      'header_sertif' => $header_sertif,
+
+      'the_insured' => $the_insured,
+      'address_' => $address_,
+      'itemInsured' => $item_insured,
+      'issuedDate' => $issuedDate,
+
+      'destination_from' => $destination_from,
+      'destination_to' => $destination_to,
+      'amount_insured' => $amount_insured,
+      'sailing_date' => $sailing_date,
+
+      'conveyance' => $conveyance,
+    );
+
+    if ($conveyance == "Darat") {
+      $dataConveyance = [
+        'conveyance_by' => $conveyance_by,
+        'conveyance_type' => $conveyance_type,
+        'conveyance_policeno' => $conveyance_policeno,
+        'conveyance_age' => $conveyance_age,
+        'conveyance_driver' => $conveyance_driver
+      ];
+    } elseif ($conveyance == "Laut") {
+      $dataConveyance = [
+        'conveyance_ship_name' => $conveyance_ship_name,
+        'conveyance_ship_type' => $conveyance_ship_type,
+        'conveyance_ship_birth' => $conveyance_ship_birth,
+        'conveyance_ship_GRT' => $conveyance_ship_GRT,
+        'conveyance_ship_containerno' => $conveyance_ship_containerno
+      ];
+    } elseif ($conveyance == "Udara") {
+      $dataConveyance = [
+        'conveyance_plane_type' => $conveyance_plane_type,
+        'conveyance_plane_AWB' => $conveyance_plane_AWB,
+      ];
+    }
+
+    $mergeArr = array_merge($siteOut, $dataConveyance);
+
+    $this->M_admin->update('tb_site_out', $mergeArr, $where);
+    $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
+    redirect(base_url('admin/tabel_barangkeluar'));
   }
 
   ####################################
@@ -1121,9 +1123,9 @@ class Admin extends CI_Controller
       'list_data' => $this->M_admin->select('tb_mop'),
       'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'))
     );
-    $this->load->view('admin/tabel/tabel_mop', $data);      
-  } 
-  
+    $this->load->view('admin/tabel/tabel_mop', $data);
+  }
+
   public function form_datamop()
   {
     $this->admin_true();
@@ -1131,17 +1133,17 @@ class Admin extends CI_Controller
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_datamop/form_insert', $data);
   }
-  
+
   public function proses_datamop_insert()
   {
-    $id = $this->M_admin->get_max_id('id','tb_mop');
+    $id = $this->M_admin->get_max_id('id', 'tb_mop');
 
     $this->load->helper('string');
 
     $insurance = $this->input->post('insurance');
     $mop = $this->input->post('mop');
     $keterangan = $this->input->post('keterangan');
-    $keteranganSite = $keterangan.' Site';
+    $keteranganSite = $keterangan . ' Site';
 
     $data = array(
       'id' => $id,
@@ -1167,25 +1169,25 @@ class Admin extends CI_Controller
 
     $keteranganSite = str_replace('Site', '', $keterangan);
     $keteranganSite = trim($keteranganSite);
-    $keteranganSite = $keteranganSite.' Site';
+    $keteranganSite = $keteranganSite . ' Site';
 
     $data = array(
       'insurance' => $insurance,
       'keterangan' => $keteranganSite,
       'mop' => $mop,
     );
-    
+
     $where = array('id' => $id);
     $this->M_admin->update('tb_mop', $data, $where);
 
     $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
     redirect(base_url('admin/tabel_mop'));
   }
-  
+
   public function update_mop($id)
   {
     $where = array('id' => $id);
-    
+
     $data['data_barang_update'] = $this->M_admin->get_data('tb_mop', $where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_datamop/form_update', $data);
@@ -1199,5 +1201,4 @@ class Admin extends CI_Controller
     $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Dihapus');
     redirect(base_url('admin/tabel_mop'));
   }
-
 }

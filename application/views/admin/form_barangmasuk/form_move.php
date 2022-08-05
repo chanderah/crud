@@ -514,10 +514,10 @@
     $('#form_insert_site').submit(function(e) {
       e.preventDefault();
       var data = $("#form_insert_site").serialize();
-      var url2 = '<?php echo base_url("admin/tabel_barangmasuk"); ?>';
+      var url2 = '<?php echo base_url("admin/tabel_barangkeluar"); ?>';
       $.ajax({
         type: "POST",
-        url: '<?php echo base_url("admin/input_datamasuk"); ?>',
+        url: '<?php echo base_url("admin/proses_datakeluar_insert"); ?>',
         data: data,
         success: function(data) {
           $(":text").val('');
