@@ -517,22 +517,20 @@ class Admin extends CI_Controller
     $id = $this->M_admin->get_max_id('id', 'tb_site_in');
 
     $list = array();
-    $title = $this->input->post("txtTitle");
+    $title = $this->input->post("conveyance_by");
     for ($i = 0; $i < count($title); $i++) {
       $data = [
         //tb_site_items
         //'site_id2' => $site_id,
         'dummy_id' => $dummy_id,
-        'conveyance' => $this->input->post("txtTitle")[$i],
-        'conveyance_by' => $this->input->post("txtDescription")[$i]
+        'conveyance' => $this->input->post("conveyance_by")[$i],
+        'conveyance_by' => $this->input->post("conveyance_type")[$i]
       ];
       array_push($list, $data);
     }
     if ($this->M_admin->insert_batch_into_table("tb_conveyance", $list)) {
-      echo '<div class="alert alert-success alert-dismissible">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  <strong>Success!</strong> Bill is created successfully.
-              </div>';
+      $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
+
     } else {
       echo '<div class="alert alert-danger alert-dismissible">
                   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

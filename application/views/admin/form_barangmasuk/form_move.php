@@ -174,7 +174,7 @@
         </ol>
       </section>
       <!-- Main content -->
-      <section class="content" style="">
+      <section class="content">
         <div class="row">
           <!-- left column -->
           <div class="col-md-12">
@@ -186,47 +186,54 @@
                 <!-- /.box-header -->
                 <!-- form start -->
                 <div class="container">
-                  <form action="<?= base_url('admin/proses_datakeluar_insert') ?>" role="form" method="post" autocomplete="on" accept-charset="utf-8" style="width:95%;margin-left:10px">
-                    <div class="form-group" style="display:inline-block; margin-left:75px">
-                      <button type="reset" class="btn btn-basic" name="btn_reset" style="width:95px;margin-left:-70px;margin-top:10px"><i class="fa fa-eraser" aria-hidden="true"></i> Reset</button>
-                    </div>
-                    <?php if ($list_data != 'empty') {
-                      foreach ($list_data as $d) { ?>
-                        <div class="form-group form-group-lg col-md-12">
-                          <label for="site_id" style="display:inline">SITE ID (Separate by Comma)</label>
-                          <input type="text" name="site_id" class="form-control" placeholder="Site ID" style="margin-top:10px" value="<?= $d->site_id ?>">
-                        </div>
-                      <?php }
-                    } else { ?>
-                      <div class="form-group form-group-lg col-md-12">
-                        <label for="site_id" style="display:inline">SITE ID (Separate by Comma)</label>
-                        <input type="text" name="site_id" class="form-control" placeholder="Site ID" style="margin-top:10px" value="">
-                      </div>
-                    <?php } ?>
-
-                    <div class="form-group form-group-lg col-md-12">
-                      <label for="insurance">Insurance</label>
-                      <select name="insurance" class="form-control">
-                        <option value="Malacca">Malacca</option>
-                        <option value="Maximus">Maximus</option>
-                      </select>
-                    </div>
-
-                    <div class="form-group form-group-lg col-md-12">
-                      <label for="itemInsured" style="display:inline;">Jenis Barang yang Dikirim</label>
-                      <textarea class="form-control" style="margin-top:10px;" id="itemInsured" name="itemInsured" rows="3" placeholder="Jenis Barang"></textarea>
-                    </div>
-
-                    <table id="cart_table" class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th width="19%">Pengiriman Melalui</th>
-                        </tr>
-                      </thead>
+                  <div id="user_message"></div>
+                  <form id="form_insert_site" method="post" autocomplete="off" accept-charset="utf-8">
+                    <!-- <div class="form-group">
+                <input type="text" id="txtName" name="txtName" placeholder="Customer Name" required="required" class="form-control" />
+            </div> -->
+                    <table id="cart_table" class="table table-stripped table-hover" style="width:95%;margin-left:10px">
                       <tbody>
                         <tr>
+                          <td colspan="12">
+                            <?php if ($list_data != 'empty') {
+                              foreach ($list_data as $d) { ?>
+                                <div class="form-group">
+                                  <label for="site_id" style="display:inline">SITE ID (Separate by Comma)</label>
+                                  <input type="text" name="site_id" class="form-control" placeholder="Site ID" style="margin-top:10px" value="<?= $d->site_id ?>">
+                                </div>
+                              <?php }
+                            } else { ?>
+                              <div class="form-group">
+                                <label for="site_id" style="display:inline">SITE ID (Separate by Comma)</label>
+                                <input type="text" name="site_id" class="form-control" placeholder="Site ID" style="margin-top:10px" value="">
+                              </div>
+                            <?php } ?>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="12">
+                            <div class="form-group">
+                              <label>Insurance</label>
+                              <select name="insurance" class="form-control">
+                                <option value="Malacca">Malacca</option>
+                                <option value="Maximus">Maximus</option>
+                              </select>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="12">
+                            <div class="form-group">
+                              <label for="itemInsured" style="display:inline;">Jenis Barang yang Dikirim</label>
+                              <textarea class="form-control" style="margin-top:10px;" id="itemInsured" name="itemInsured" rows="3" placeholder="Jenis Barang"></textarea>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <!-- for array -->
+                        <tr>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                               <label>Darat</label>
                               <select class="form-control" name="conveyance_by[]">
                                 <option value="empty">Choose...</option>
@@ -238,25 +245,25 @@
                             </div>
                           </td>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                               <label>.</label>
                               <input type="text" name="conveyance_type[]" placeholder="Jenis Kendaraan" required="required" class="form-control" />
                             </div>
                           </td>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                               <label>.</label>
                               <input type="text" name="conveyance_policeno[]" placeholder="Plat Nomor" required="required" class="form-control" />
                             </div>
                           </td>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                               <label>.</label>
                               <input type="text" name="conveyance_driver[]" placeholder="Pengemudi" required="required" class="form-control" />
                             </div>
                           </td>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                             </div>
                           </td>
                           <td>
@@ -266,32 +273,32 @@
                         </tr>
                         <tr>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                               <label>Laut</label>
                               <input type="text" name="conveyance_ship_name[]" placeholder="Nama Kapal" required="required" class="form-control" />
 
                             </div>
                           </td>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                               <label>.</label>
                               <input type="text" name="conveyance_ship_type[]" placeholder="Jenis Kapal" required="required" class="form-control" />
                             </div>
                           </td>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                               <label>.</label>
                               <input type="text" name="conveyance_ship_birth[]" placeholder="Tahun Pembuatan Kapal" required="required" class="form-control" />
                             </div>
                           </td>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                               <label>.</label>
                               <input type="text" name="conveyance_ship_GRT[]" placeholder="GRT Kapal" required="required" class="form-control" />
                             </div>
                           </td>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                               <label>.</label>
                               <input type="text" name="conveyance_ship_containerno[]" placeholder="Container No." required="required" class="form-control" />
                             </div>
@@ -303,7 +310,7 @@
                         </tr>
                         <tr>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                               <label>Udara</label>
                               <select class="form-control" name="conveyance_plane_type[]">
                                 <option value="empty">Choose...</option>
@@ -315,21 +322,21 @@
                             </div>
                           </td>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                               <label>.</label>
                               <input type="text" name="conveyance_plane_AWB[]" placeholder="No. AWB" required="required" class="form-control" />
                             </div>
                           </td>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                             </div>
                           </td>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                             </div>
                           </td>
                           <td>
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                             </div>
                           </td>
                           <td>
@@ -339,9 +346,9 @@
                         </tr>
                         <tr>
                           <td colspan="5">
-                            <div class="form-group form-group-lg col-md-12">
+                            <div class="form-group">
                               <label>Tanggal Keberangkatan</label>
-                              <input type="date" placeholder="Sailing Date" name="sailing_date" required="required" class="form-control" />
+                              <input type="date" placeholder="Sailing Date" name="sailing_date[]" required="required" class="form-control" />
                             </div>
                           </td>
                           <td>
@@ -349,106 +356,48 @@
                             <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
                           </td>
                         </tr>
+                        <tr>
+                          <td colspan="3">
+                            <div class="form-group">
+                              <label for="destination_from">Tempat Keberangkatan</label>
+                              <textarea class="form-control" id="destination_from" name="destination_from" placeholder="From" rows="4"></textarea>
+                            </div>
+                          </td>
+                          <td colspan="3">
+                            <div class="form-group">
+                              <label for="destination_to">Tujuan Akhir</label>
+                              <textarea class="form-control" id="destination_to" name="destination_to" placeholder="To" rows="4"></textarea>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="12">
+                            <div class="form-group">
+                              <label for="amount_insured">Nilai Barang yang Diangkut</label>
+                              <select class="form-control" id="currency" name="currency" style="margin-bottom:5px;width:fit-content">
+                                <option value="IDR">IDR</option>
+                              </select>
+                              <input type="number" name="amount_insured" placeholder="Nilai Barang" required="required" class="form-control" />
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="12">
+                            <div class="form-group">
+                              <label for="issuedDate">Tanggal Penerbitan</label>
+                              <input type="date" value="<?php echo date("Y-m-d") ?>" name="issuedDate" required="required" class="form-control" />
+                            </div>
+                          </td>
+                        </tr>
                       </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="12" class="text-right">
+                            <input type="submit" id="btnSave" name="btnSave" value="Create" class="btn btn-md btn-success" />
+                          </td>
+                        </tr>
+                      </tfoot>
                     </table>
-
-                    <div class="form-group form-group-lg col-md-12">
-                      <label for="conveyance">Pengiriman Melalui</label>
-                      <select class="form-control" id="conveyance" name="conveyance">
-                        <option value="Darat">Choose...</option>
-                        <option value="Darat">Darat</option>
-                        <option value="Laut">Laut</option>
-                        <option value="Udara">Udara</option>
-                      </select>
-                    </div>
-                    <div class="conveyance_select" id="Darat">
-                      <div class="form-group form-group-lg col-md-3">
-                        <label for="conveyance_type">Dengan</label>
-                        <select class="form-control" id="conveyance_by" name="conveyance_by">
-                          <option value="Car">Car</option>
-                          <option value="Truck">Truck</option>
-                          <option value="Pick Up">Pick Up</option>
-                          <option value="Container">Container</option>
-                          <!-- <option value="Lainnya">Lainnya</option> -->
-                        </select>
-                      </div>
-                      <div class="form-group form-group-lg col-md-3">
-                        <label for="conveyance_type">Jenis Kendaraan</label>
-                        <input type="text" class="form-control" name="conveyance_type" placeholder="Type">
-                      </div>
-                      <div class="form-group form-group-lg col-md-3">
-                        <label for="conveyance_policeno">Plat Nomor</label>
-                        <input type="text" class="form-control" name="conveyance_policeno" placeholder="Police Number">
-                      </div>
-                      <div class="form-group form-group-lg col-md-3">
-                        <label for="conveyance_driver">Pengemudi</label>
-                        <input type="text" class="form-control" name="conveyance_driver" placeholder="Driver">
-                      </div>
-                    </div>
-                    <div class="conveyance_select" id="Laut">
-                      <div class="form-group form-group-lg col-md-4">
-                        <label for="conveyance_ship_name">Nama Kapal</label>
-                        <input type="text" class="form-control" name="conveyance_ship_name" placeholder="Ship Name">
-                      </div>
-                      <div class="form-group form-group-lg col-md-4">
-                        <label for="conveyance_ship_type">Jenis Kapal</label>
-                        <input type="text" class="form-control" name="conveyance_ship_type" placeholder="Ship Type">
-                      </div>
-                      <div class="form-group form-group-lg col-md-4">
-                        <label for="conveyance_ship_birth">Tahun Pembuatan Kapal</label>
-                        <input type="number" class="form-control" name="conveyance_ship_birth" placeholder="Year of Build">
-                      </div>
-                      <div class="form-group form-group-lg col-md-6">
-                        <label for="conveyance_ship_GRT">GRT Kapal</label>
-                        <input type="text" class="form-control" name="conveyance_ship_GRT" placeholder="GRT Kapal">
-                      </div>
-                      <div class="form-group form-group-lg col-md-6">
-                        <label for="conveyance_ship_containerno">Container No.</label>
-                        <input type="text" class="form-control" name="conveyance_ship_containerno" placeholder="conveyance_ship_containerno">
-                      </div>
-                    </div>
-                    <div class="conveyance_select" id="Udara">
-                      <div class="form-group form-group-lg col-md-6">
-                        <label for="conveyance_plane_type">Jenis Pesawat</label>
-                        <select class="form-control" id="conveyance_plane_type" name="conveyance_plane_type">
-                          <option value="Cargo">Cargo</option>
-                          <option value="Penumpang">Penumpang</option>
-                          <option value="Helicopter">Helicopter</option>
-                          <option value="Charter">Charter</option>
-                        </select>
-                      </div>
-                      <div class="form-group form-group-lg col-md-6">
-                        <label for="conveyance_plane_AWB">No. AWB</label>
-                        <input type="text" class="form-control" name="conveyance_plane_AWB" placeholder="No. AWB">
-                      </div>
-                    </div>
-                    <div class="form-group form-group-lg col-md-6">
-                      <label for="destination_from">Tempat Keberangkatan</label>
-                      <textarea class="form-control" id="destination_from" name="destination_from" placeholder="From" rows="4"></textarea>
-                    </div>
-                    <div class="form-group form-group-lg col-md-6">
-                      <label for="destination_to">Tujuan Akhir</label>
-                      <textarea class="form-control" id="destination_to" name="destination_to" placeholder="To" rows="4"></textarea>
-                    </div>
-                    <div class="form-group form-group-lg col-md-12">
-                      <label for="amount_insured">Nilai Barang yang Diangkut</label>
-                      <select class="form-control" id="currency" name="currency" style="margin-bottom:5px;width:fit-content">
-                        <option value="IDR">IDR</option>
-                      </select>
-                      <input type="number" name="amount_insured" placeholder="Nilai Barang" required="required" class="form-control" />
-                    </div>
-                    <div class="form-group form-group-lg col-md-12">
-                      <label for="issuedDate">Tanggal Penerbitan</label>
-                      <input type="date" value="<?php echo date("Y-m-d") ?>" name="issuedDate" required="required" class="form-control" />
-                    </div>
-
-                    <div class="box-footer col-md-12" style="width:100%; margin-left:30px; margin-bottom:10px; margin-top:5px">
-                      <a type="button" class="btn btn-default" style="width:10%;margin-right:26%" onclick="history.back(-1)" name="btn_kembali"><i class="fa fa-arrow-left" aria-hidden="true"></i> Kembali</a>
-                      <a type="button" class="btn btn-info" style="width:18%;margin-right:20%" href="<?= base_url('admin/tabel_barangkeluar') ?>" name="btn_listbarang">
-                        <i class="fa fa-table" aria-hidden="true"></i>Lihat Data Keluar</a>
-                      <button type="submit" input type="submit" style="width:20%" id="btnSave" class="btn btn-md btn-success"><i class="fa fa-check" aria-hidden="true"></i>Create</button>
-                    </div>
-                    <div id="user_message" style="display:inline-block"></div>
                   </form>
                 </div>
               </div>
@@ -498,15 +447,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      $('.conveyance_select').hide();
-      $('#conveyance').change(function() {
-        $('.conveyance_select').hide();
-        $('#' + $(this).val()).show();
-      });
-    });
-  </script>
+
   <script type="text/javascript">
     var i = 1,
       max = 50;
@@ -567,6 +508,26 @@
       cartTable.initialize();
     }
     window.addEventListener('load', initializeCartTable, false);
+  </script>
+
+  <script>
+    $('#form_insert_site').submit(function(e) {
+      e.preventDefault();
+      var data = $("#form_insert_site").serialize();
+      var url2 = '<?php echo base_url("admin/tabel_barangmasuk"); ?>';
+      $.ajax({
+        type: "POST",
+        url: '<?php echo base_url("admin/input_datamasuk"); ?>',
+        data: data,
+        success: function(data) {
+          $(":text").val('');
+          // location.href = url2;
+          window.open(url2, "_blank");
+          // $("#user_message").html(data);
+        },
+      });
+    });
+    //end 
   </script>
 </body>
 
