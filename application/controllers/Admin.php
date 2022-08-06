@@ -794,8 +794,8 @@ class Admin extends CI_Controller
       'issuedDate' => $issuedDate,
       'destination_from' => $destination_from,
       'destination_to' => $destination_to,
-      'sailing_date' => $allSailingDate,
       'amount_insured' => $amount_insured2,
+      'sailing_date' => $allSailingDate,
     );
 
     if ($this->form_validation->run() == TRUE) {
@@ -807,24 +807,29 @@ class Admin extends CI_Controller
       $this->load->view('admin/form_barangmasuk/form_move', $siteExported);
     }
 
+
+    //darat
     $conveyance_by = $this->input->post("conveyance_by");
     $conveyance_type = $this->input->post("conveyance_type");
     $conveyance_policeno = $this->input->post("conveyance_policeno");
     $conveyance_age = $this->input->post("conveyance_age");
     $conveyance_driver = $this->input->post("conveyance_driver");
+    //laut
     $conveyance_ship_name = $this->input->post("conveyance_ship_name");
     $conveyance_ship_type = $this->input->post("conveyance_ship_type");
     $conveyance_ship_birth = $this->input->post("conveyance_ship_birth");
     $conveyance_ship_GRT = $this->input->post("conveyance_ship_GRT");
     $conveyance_ship_containerno = $this->input->post("conveyance_ship_containerno");
+    //udara
     $conveyance_plane_type = $this->input->post("conveyance_plane_type");
     $conveyance_plane_AWB = $this->input->post("conveyance_plane_AWB");
+
 
     $totalDarat = count($conveyance_type);
     $totalLaut = count($conveyance_ship_type);
     $totalUdara = count($conveyance_plane_AWB);
 
-    if ($conveyance_type[0] != "") {
+    if ($conveyance_by[0] != "" && $conveyance_type[0] != "") {
       //darat
       $list = array();
       for ($i = 0; $i < $totalDarat; $i++) {
@@ -841,7 +846,7 @@ class Admin extends CI_Controller
       $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
     }
 
-    if ($conveyance_ship_type[0] != "") {
+    if ($conveyance_ship_name[0] != "" && $conveyance_ship_type[0] != "") {
       //laut
       $list = array();
       for ($i = 0; $i < $totalLaut; $i++) {
@@ -859,7 +864,7 @@ class Admin extends CI_Controller
       $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
     }
 
-    if ($conveyance_plane_AWB[0] != "") {
+    if ($conveyance_plane_type[0] != "" && $conveyance_plane_AWB[0] != "") {
       //udara
       $list = array();
       for ($i = 0; $i < $totalUdara; $i++) {
@@ -873,7 +878,7 @@ class Admin extends CI_Controller
       }
       $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
     }
-    
+
     $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
     // if ($this->M_admin->insert_batch_into_table("tb_conveyance", $list)) {
     //   $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
@@ -900,28 +905,11 @@ class Admin extends CI_Controller
     $address_ = 'APL Tower, 30 Floor, Grogol, West Jakarta';
     $insurance = $this->input->post("insurance");
 
-    $conveyance = $this->input->post("conveyance");
-
     $destination_from = $this->input->post("destination_from");
     $destination_to = $this->input->post("destination_to");
-    $sailing_date = $this->input->post("sailing_date");
     $issuedDate = $this->input->post("issuedDate");
     $amount_insured = $this->input->post("amount_insured");
     preg_replace('~\D~', '', $amount_insured);
-
-    $conveyance = $this->input->post("conveyance");
-    $conveyance_by = $this->input->post("conveyance_by");
-    $conveyance_type = $this->input->post("conveyance_type");
-    $conveyance_policeno = $this->input->post("conveyance_policeno");
-    $conveyance_age = $this->input->post("conveyance_age");
-    $conveyance_driver = $this->input->post("conveyance_driver");
-    $conveyance_ship_name = $this->input->post("conveyance_ship_name");
-    $conveyance_ship_type = $this->input->post("conveyance_ship_type");
-    $conveyance_ship_birth = $this->input->post("conveyance_ship_birth");
-    $conveyance_ship_GRT = $this->input->post("conveyance_ship_GRT");
-    $conveyance_ship_containerno = $this->input->post("conveyance_ship_containerno");
-    $conveyance_plane_type = $this->input->post("conveyance_plane_type");
-    $conveyance_plane_AWB = $this->input->post("conveyance_plane_AWB");
 
     $site_id = $this->input->post("site_id");
     $site_id = str_replace(' ', '', $site_id);
@@ -1039,6 +1027,23 @@ class Admin extends CI_Controller
 
     $item_insured = implode(PHP_EOL, $repairedItems);
 
+    $sailDate = $this->input->post("sailing_date");
+    $countSailDate = count($sailDate); //2
+
+    $sailing_dates = array();
+
+    for ($i = 0; $i < count($sailDate); $i++) {
+      $sailing_dates[] = $sailDate[$i];
+    }
+
+    $lastSailingDate = array_pop($sailing_dates);
+
+    if ($countSailDate > 1) {
+      $allSailingDate = implode(', ', $sailing_dates) . ' & ' . $lastSailingDate;
+    } elseif ($countSailDate == 1) {
+      $allSailingDate = $lastSailingDate;
+    }
+
     $where = array('dummy_id' => $old_dummy_id);
     $siteOut = array(
       'dummy_id' => $new_dummy_id,
@@ -1058,39 +1063,88 @@ class Admin extends CI_Controller
       'destination_from' => $destination_from,
       'destination_to' => $destination_to,
       'amount_insured' => $amount_insured,
-      'sailing_date' => $sailing_date,
-
-      'conveyance' => $conveyance,
+      'sailing_date' => $allSailingDate,
     );
 
-    if ($conveyance == "Darat") {
-      $dataConveyance = [
-        'conveyance_by' => $conveyance_by,
-        'conveyance_type' => $conveyance_type,
-        'conveyance_policeno' => $conveyance_policeno,
-        'conveyance_age' => $conveyance_age,
-        'conveyance_driver' => $conveyance_driver
-      ];
-    } elseif ($conveyance == "Laut") {
-      $dataConveyance = [
-        'conveyance_ship_name' => $conveyance_ship_name,
-        'conveyance_ship_type' => $conveyance_ship_type,
-        'conveyance_ship_birth' => $conveyance_ship_birth,
-        'conveyance_ship_GRT' => $conveyance_ship_GRT,
-        'conveyance_ship_containerno' => $conveyance_ship_containerno
-      ];
-    } elseif ($conveyance == "Udara") {
-      $dataConveyance = [
-        'conveyance_plane_type' => $conveyance_plane_type,
-        'conveyance_plane_AWB' => $conveyance_plane_AWB,
-      ];
+    if ($this->form_validation->run() == TRUE) {
+      $this->M_admin->update('tb_site_out', $siteOut, $where);
+      $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
+      // redirect(base_url('admin/tabel_barangkeluar'));
+    } else {
+      $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
+      redirect(base_url('admin/tabel_barangkeluar'));
     }
 
-    $mergeArr = array_merge($siteOut, $dataConveyance);
+    //darat
+    $conveyance_by = $this->input->post("conveyance_by");
+    $conveyance_type = $this->input->post("conveyance_type");
+    $conveyance_policeno = $this->input->post("conveyance_policeno");
+    $conveyance_age = $this->input->post("conveyance_age");
+    $conveyance_driver = $this->input->post("conveyance_driver");
+    //laut
+    $conveyance_ship_name = $this->input->post("conveyance_ship_name");
+    $conveyance_ship_type = $this->input->post("conveyance_ship_type");
+    $conveyance_ship_birth = $this->input->post("conveyance_ship_birth");
+    $conveyance_ship_GRT = $this->input->post("conveyance_ship_GRT");
+    $conveyance_ship_containerno = $this->input->post("conveyance_ship_containerno");
+    //udara
+    $conveyance_plane_type = $this->input->post("conveyance_plane_type");
+    $conveyance_plane_AWB = $this->input->post("conveyance_plane_AWB");
 
-    $this->M_admin->update('tb_site_out', $mergeArr, $where);
-    $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
-    redirect(base_url('admin/tabel_barangkeluar'));
+    $totalDarat = count($conveyance_type);
+    $totalLaut = count($conveyance_ship_type);
+    $totalUdara = count($conveyance_plane_AWB);
+
+    if ($conveyance_by[0] != "" && $conveyance_type[0] != "") {
+      //darat
+      $list = array();
+      for ($i = 0; $i < $totalDarat; $i++) {
+        $data = [
+          'dummy_id' => $new_dummy_id,
+          'conveyance' => "Darat",
+          'conveyance_by' => $conveyance_by[$i],
+          'conveyance_type' => $conveyance_type[$i],
+          'conveyance_policeno' => $conveyance_policeno[$i],
+          'conveyance_driver' => $conveyance_driver[$i],
+        ];
+        array_push($list, $data);
+      }
+      $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
+    }
+
+    if ($conveyance_ship_name[0] != "" && $conveyance_ship_type[0] != "") {
+      //laut
+      $list = array();
+      for ($i = 0; $i < $totalLaut; $i++) {
+        $data = [
+          'dummy_id' => $new_dummy_id,
+          'conveyance' => "Laut",
+          'conveyance_ship_name' => $conveyance_ship_name[$i],
+          'conveyance_ship_type' => $conveyance_ship_type[$i],
+          'conveyance_ship_birth' => $conveyance_ship_birth[$i],
+          'conveyance_ship_GRT' => $conveyance_ship_GRT[$i],
+          'conveyance_ship_containerno' => $conveyance_ship_containerno[$i],
+        ];
+        array_push($list, $data);
+      }
+      $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
+    }
+
+    if ($conveyance_plane_type[0] != "" && $conveyance_plane_AWB[0] != "") {
+      //udara
+      $list = array();
+      for ($i = 0; $i < $totalUdara; $i++) {
+        $data = [
+          'dummy_id' => $new_dummy_id,
+          'conveyance' => "Udara",
+          'conveyance_plane_type' => $conveyance_plane_type[$i],
+          'conveyance_plane_AWB' => $conveyance_plane_AWB[$i],
+        ];
+        array_push($list, $data);
+      }
+      $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
+    }
+    $this->M_admin->delete('tb_conveyance', $where2);
   }
 
   ####################################
