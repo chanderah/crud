@@ -189,8 +189,8 @@
                   <div id="user_message"></div>
                   <form id="form_insert_site" method="post" autocomplete="off" accept-charset="utf-8">
                     <!-- <div class="form-group">
-                <input type="text" id="txtName" name="txtName" placeholder="Customer Name" required="required" class="form-control" />
-            </div> -->
+                        <input type="text" id="txtName" name="txtName" placeholder="Customer Name" required="required" class="form-control" />
+                    </div> -->
                     <table id="cart_table" class="table table-stripped table-hover" style="width:95%;margin-left:10px">
                       <tbody>
                         <tr>
@@ -199,13 +199,13 @@
                               foreach ($list_data as $d) { ?>
                                 <div class="form-group">
                                   <label for="site_id" style="display:inline">SITE ID (Separate by Comma)</label>
-                                  <input type="text" name="site_id" class="form-control" placeholder="Site ID" style="margin-top:10px" value="<?= $d->site_id ?>">
+                                  <input type="text" name="site_id" class="form-control" placeholder="Site ID" required="required" style="margin-top:10px" value="<?= $d->site_id ?>">
                                 </div>
                               <?php }
                             } else { ?>
                               <div class="form-group">
                                 <label for="site_id" style="display:inline">SITE ID (Separate by Comma)</label>
-                                <input type="text" name="site_id" class="form-control" placeholder="Site ID" style="margin-top:10px" value="">
+                                <input type="text" name="site_id" class="form-control" placeholder="Site ID" required="required" style="margin-top:10px" value="">
                               </div>
                             <?php } ?>
                           </td>
@@ -247,19 +247,19 @@
                           <td>
                             <div class="form-group">
                               <label>.</label>
-                              <input type="text" name="conveyance_type[]" placeholder="Jenis Kendaraan" required="required" class="form-control" />
+                              <input type="text" name="conveyance_type[]" placeholder="Jenis Kendaraan" class="form-control" />
                             </div>
                           </td>
                           <td>
                             <div class="form-group">
                               <label>.</label>
-                              <input type="text" name="conveyance_policeno[]" placeholder="Plat Nomor" required="required" class="form-control" />
+                              <input type="text" name="conveyance_policeno[]" placeholder="Plat Nomor" class="form-control" />
                             </div>
                           </td>
                           <td>
                             <div class="form-group">
                               <label>.</label>
-                              <input type="text" name="conveyance_driver[]" placeholder="Pengemudi" required="required" class="form-control" />
+                              <input type="text" name="conveyance_driver[]" placeholder="Pengemudi" class="form-control" />
                             </div>
                           </td>
                           <td>
@@ -275,32 +275,32 @@
                           <td>
                             <div class="form-group">
                               <label>Laut</label>
-                              <input type="text" name="conveyance_ship_name[]" placeholder="Nama Kapal" required="required" class="form-control" />
+                              <input type="text" name="conveyance_ship_name[]" placeholder="Nama Kapal" class="form-control" />
 
                             </div>
                           </td>
                           <td>
                             <div class="form-group">
                               <label>.</label>
-                              <input type="text" name="conveyance_ship_type[]" placeholder="Jenis Kapal" required="required" class="form-control" />
+                              <input type="text" name="conveyance_ship_type[]" placeholder="Jenis Kapal" class="form-control" />
                             </div>
                           </td>
                           <td>
                             <div class="form-group">
                               <label>.</label>
-                              <input type="text" name="conveyance_ship_birth[]" placeholder="Tahun Pembuatan Kapal" required="required" class="form-control" />
+                              <input type="text" name="conveyance_ship_birth[]" placeholder="Tahun Pembuatan Kapal" class="form-control" />
                             </div>
                           </td>
                           <td>
                             <div class="form-group">
                               <label>.</label>
-                              <input type="text" name="conveyance_ship_GRT[]" placeholder="GRT Kapal" required="required" class="form-control" />
+                              <input type="text" name="conveyance_ship_GRT[]" placeholder="GRT Kapal" class="form-control" />
                             </div>
                           </td>
                           <td>
                             <div class="form-group">
                               <label>.</label>
-                              <input type="text" name="conveyance_ship_containerno[]" placeholder="Container No." required="required" class="form-control" />
+                              <input type="text" name="conveyance_ship_containerno[]" placeholder="Container No." class="form-control" />
                             </div>
                           </td>
                           <td>
@@ -324,7 +324,7 @@
                           <td>
                             <div class="form-group">
                               <label>.</label>
-                              <input type="text" name="conveyance_plane_AWB[]" placeholder="No. AWB" required="required" class="form-control" />
+                              <input type="text" name="conveyance_plane_AWB[]" placeholder="No. AWB" class="form-control" />
                             </div>
                           </td>
                           <td>

@@ -209,9 +209,9 @@
                 </thead>
                 <tbody>
                 <tr>
-                  <?php if(is_array($list_data)){ ?>
-                  <?php $no = 1;?>
-                  <?php foreach($list_data as $dd): ?>
+                  <?php if(is_array($list_data)){ 
+                  $no = 1;
+                  foreach($list_data as $dd): ?>
                     <td><?=$no?></td>
                     <td><?=$dd->site_id?><br></td>
                     <td><?=$dd->insurance?><br></td>

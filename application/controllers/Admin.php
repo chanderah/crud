@@ -453,7 +453,6 @@ class Admin extends CI_Controller
     $this->admin_true();
 
     $where = array('dummy_id' => $dummy_id);
-    $where2 = array('dummy_id' => $dummy_id);
 
     $data['data_barang_update'] = $this->M_admin->get_data('tb_site_in', $where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
@@ -467,6 +466,7 @@ class Admin extends CI_Controller
     $where = array('dummy_id' => $dummy_id);
 
     $data['data_barang_update'] = $this->M_admin->get_data('tb_site_out', $where);
+    $data['data_conveyance'] = $this->M_admin->get_data('tb_conveyance', $where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_barangmasuk/form_update_keluar', $data);
   }
@@ -500,6 +500,7 @@ class Admin extends CI_Controller
     $where = array('dummy_id' => $dummy_id);
     $this->M_admin->delete('tb_site_in_exported', $where);
     $this->M_admin->delete('tb_site_out', $where);
+    $this->M_admin->delete('tb_conveyance', $where);
 
     $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Dihapus');
     redirect(base_url('admin/tabel_barangkeluar'));
@@ -775,7 +776,7 @@ class Admin extends CI_Controller
     $lastSailingDate = array_pop($sailing_dates);
 
     if ($countSailDate > 1) {
-      $allSailingDate = implode(', ', $sailing_dates) . ' & ' . $lastSailingDate;
+      $allSailingDate = implode(',', $sailing_dates) . ',' . $lastSailingDate;
     } elseif ($countSailDate == 1) {
       $allSailingDate = $lastSailingDate;
     }
@@ -893,6 +894,7 @@ class Admin extends CI_Controller
   public function proses_datakeluar_update()
   {
     $old_dummy_id = $this->input->post("dummy_id");
+    $where_old = array('dummy_id' => $old_dummy_id);
 
     $sha1 = random_string('alpha', 10);
     $sha2 = random_string('sha1');
@@ -908,8 +910,8 @@ class Admin extends CI_Controller
     $destination_from = $this->input->post("destination_from");
     $destination_to = $this->input->post("destination_to");
     $issuedDate = $this->input->post("issuedDate");
-    $amount_insured = $this->input->post("amount_insured");
-    preg_replace('~\D~', '', $amount_insured);
+    $amount_insured2 = $this->input->post("amount_insured");
+    preg_replace('~\D~', '', $amount_insured2);
 
     $site_id = $this->input->post("site_id");
     $site_id = str_replace(' ', '', $site_id);
@@ -918,9 +920,7 @@ class Admin extends CI_Controller
 
     $getAllMop = array();
 
-    //delete old data
-    $where2 = array('dummy_id' => $old_dummy_id);
-    $this->M_admin->delete('tb_site_in_exported', $where2);
+    $this->delete_old_data($where_old);
 
     foreach ($site_unique as $d) {
       //check site_in db first
@@ -1039,41 +1039,27 @@ class Admin extends CI_Controller
     $lastSailingDate = array_pop($sailing_dates);
 
     if ($countSailDate > 1) {
-      $allSailingDate = implode(', ', $sailing_dates) . ' & ' . $lastSailingDate;
+      $allSailingDate = implode(',', $sailing_dates) . ',' . $lastSailingDate;
     } elseif ($countSailDate == 1) {
       $allSailingDate = $lastSailingDate;
     }
 
-    $where = array('dummy_id' => $old_dummy_id);
     $siteOut = array(
       'dummy_id' => $new_dummy_id,
       'site_id' => $site_id_out,
-
       'insurance' => $insurance,
       'linked_mop' => $linked_cmop,
-
       'no_sertif' => $no_sertif,
       'header_sertif' => $header_sertif,
-
       'the_insured' => $the_insured,
       'address_' => $address_,
       'itemInsured' => $item_insured,
       'issuedDate' => $issuedDate,
-
       'destination_from' => $destination_from,
       'destination_to' => $destination_to,
-      'amount_insured' => $amount_insured,
+      'amount_insured' => $amount_insured2,
       'sailing_date' => $allSailingDate,
     );
-
-    if ($this->form_validation->run() == TRUE) {
-      $this->M_admin->update('tb_site_out', $siteOut, $where);
-      $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
-      // redirect(base_url('admin/tabel_barangkeluar'));
-    } else {
-      $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diupdate');
-      redirect(base_url('admin/tabel_barangkeluar'));
-    }
 
     //darat
     $conveyance_by = $this->input->post("conveyance_by");
@@ -1144,9 +1130,17 @@ class Admin extends CI_Controller
       }
       $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
     }
-    $this->M_admin->delete('tb_conveyance', $where2);
+
+    if ($this->M_admin->update('tb_site_out', $siteOut, $where_old)) {
+      $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
+    }
   }
 
+  public function delete_old_data($where_old)
+  {
+    $this->M_admin->delete('tb_conveyance', $where_old);
+    $this->M_admin->delete('tb_site_in_exported', $where_old);
+  }
   ####################################
   // END DATA MASUK KE DATA KELUAR
   ####################################
