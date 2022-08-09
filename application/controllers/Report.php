@@ -270,85 +270,213 @@ class Report extends CI_Controller
                     <td colspan="2">Date of Sailing</td>
                     <td colspan="1" align="right">:</td>
                     <td colspan="8"align="justify">' . $sailing_date . '</td>
-                </tr>
-                <tr>
-                    <td colspan="2">Conveyance</td>
-                    <td colspan="1" align="right">:</td>
-                    <td colspan="8"align="justify">{conveyance}';
+                </tr><br>';
 
-
-            if ($d->conveyance == 'Darat') {
-                $darat = 
-                'By ' . $d->conveyance_by . '
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1" align="right"></td>
-                    <td colspan="8"align="justify">Type : ' . $d->conveyance_type . '</td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1" align="right"></td>
-                    <td colspan="8"align="justify">Police No. : ' . $d->conveyance_policeno . '</td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1" align="right"></td>
-                    <td colspan="8"align="justify">Driver : '  . $d->conveyance_driver . '</td>
-                </tr>
-                ';
-
-                $html = str_replace('{conveyance}', $darat, $html);
-
-            } elseif ($d->conveyance == 'Laut') {
-
-                $laut = 
-                'By Vessel - ' . $d->conveyance_ship_name .'
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1" align="right"></td>
-                    <td colspan="8"align="justify">Type : ' . $d->conveyance_ship_type . '</td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1" align="right"></td>
-                    <td colspan="8"align="justify">GRT : ' . $d->conveyance_ship_GRT . '</td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1" align="right"></td>
-                    <td colspan="8"align="justify">Year of Build : '  . $d->conveyance_ship_birth . '</td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1" align="right"></td>
-                    <td colspan="8"align="justify">Container No. : '  . $d->conveyance_ship_containerno . '</td>
-                </tr>
-                ';
-
-                $html = str_replace('{conveyance}', $laut, $html);
-
-            } elseif ($d->conveyance == 'Udara') {
-                $udara =
-                'By Plane    
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1" align="right"></td>
-                    <td colspan="8"align="justify">Type : ' . $d->conveyance_plane_type . '</td>
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1" align="right"></td>
-                    <td colspan="8"align="justify">AWB No. : ' . $d->conveyance_plane_AWB . '</td>
-                </tr>
-                '; 
-
-                $html = str_replace('{conveyance}', $udara, $html);
+            $x=0; 
+            foreach($data_conveyance as $dc){
+                if ($dc->conveyance == 'Darat') {
+                    if($x==0){
+                        $html .= '
+                        <tr>
+                            <td colspan="2">Conveyance</td>
+                            <td colspan="1" align="right">:</td>
+                            <td width="5%">
+                                <ul>
+                                    <li></li>
+                                </ul>
+                            </td>
+                            <td colspan="8" align="left">By '.$dc->conveyance_by.'</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Type : ' . $dc->conveyance_type . '</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Police No. : ' . $dc->conveyance_policeno . '</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Driver : '  . $dc->conveyance_driver . '</td>
+                        </tr>
+                    ';
+                    }
+                    else{
+                        $html .= '
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%">
+                                <ul>
+                                    <li></li>
+                                </ul>
+                            </td>
+                            <td colspan="8"align="justify">By '.$dc->conveyance_by.'</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Type : ' . $dc->conveyance_type . '</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Police No. : ' . $dc->conveyance_policeno . '</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Driver : '  . $dc->conveyance_driver . '</td>
+                        </tr>
+                    ';
+                    }
+                    $x++;
+                } 
+                
+                elseif ($dc->conveyance == 'Laut') {
+                    if($x==0){
+                        $html .= '
+                        <tr>
+                            <td colspan="2">Conveyance</td>
+                            <td colspan="1" align="right">:</td>
+                            <td width="5%">
+                                <ul>
+                                    <li></li>
+                                </ul>
+                            </td>
+                            <td colspan="8"align="justify">By Vessel - ' . $dc->conveyance_ship_name.'</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Type : ' . $dc->conveyance_ship_type . '</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">GRT : ' . $dc->conveyance_ship_GRT . '</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Year of Build : '  . $dc->conveyance_ship_birth . '</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Container No. : '  . $dc->conveyance_ship_containerno . '</td>
+                        </tr>
+                    ';
+                    }
+                    else{
+                        $html .= '
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%">
+                                <ul>
+                                    <li></li>
+                                </ul>
+                            </td>
+                            <td colspan="8"align="justify">By Vessel - ' . $dc->conveyance_ship_name.'</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Type : ' . $dc->conveyance_ship_type . '</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">GRT : ' . $dc->conveyance_ship_GRT . '</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Year of Build : '  . $dc->conveyance_ship_birth . '</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Container No. : '  . $dc->conveyance_ship_containerno . '</td>
+                        </tr>
+                    ';
+                    }
+                    $x++;
+                } 
+                
+                elseif ($dc->conveyance == 'Udara') {
+                    if($x==0){
+                        $html .= '
+                        <tr>
+                            <td colspan="2">Conveyance</td>
+                            <td colspan="1" align="right">:</td>
+                            <td width="5%">
+                                <ul>
+                                    <li></li>
+                                </ul>
+                            </td>
+                            <td colspan="8"align="justify">By Plane</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Type : ' . $dc->conveyance_plane_type . '</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">AWB No. : ' . $dc->conveyance_plane_AWB . '</td>
+                        </tr>
+                    ';
+                    }
+                    else{
+                        $html .= '
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%">
+                                <ul>
+                                    <li></li>
+                                </ul>
+                            </td>
+                            <td colspan="8"align="justify">By Plane</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">Type : ' . $dc->conveyance_plane_type . '</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="1" align="right"></td>
+                            <td width="5%"></td>
+                            <td colspan="8"align="justify">AWB No. : ' . $dc->conveyance_plane_AWB . '</td>
+                        </tr>
+                    ';
+                    }
+                    $x++;
+                }
             }
 
             $html .= '
