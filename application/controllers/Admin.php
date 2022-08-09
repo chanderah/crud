@@ -655,7 +655,7 @@ class Admin extends CI_Controller
       $where = array('site_id' => $d);
       $data2 = $this->M_admin->get_data('tb_site_in', $where);
 
-      if ($data2 == 'empty') {
+      if (!$data2) {
         //site_in not found
         if ($insurance == 'Malacca') {
           $siteNA = array(
@@ -799,15 +799,7 @@ class Admin extends CI_Controller
       'sailing_date' => $allSailingDate,
     );
 
-    if ($this->form_validation->run() == TRUE) {
-      $this->M_admin->insert('tb_site_out', $siteOut);
-
-      $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
-      // redirect(base_url('admin/tabel_barangkeluar'));
-    } else {
-      $this->load->view('admin/form_barangmasuk/form_move', $siteExported);
-    }
-
+    $this->M_admin->insert('tb_site_out', $siteOut);
 
     //darat
     $conveyance_by = $this->input->post("conveyance_by");
@@ -881,14 +873,6 @@ class Admin extends CI_Controller
     }
 
     $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
-    // if ($this->M_admin->insert_batch_into_table("tb_conveyance", $list)) {
-    //   $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
-    // } else {
-    //   echo '<div class="alert alert-danger alert-dismissible">
-    //               <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    //               <strong>Failed!</strong> Bill is failed to create.
-    //           </div>';
-    // }
   }
 
   public function proses_datakeluar_update()
@@ -927,7 +911,7 @@ class Admin extends CI_Controller
       $where = array('site_id' => $d);
       $data2 = $this->M_admin->get_data('tb_site_in', $where);
 
-      if ($data2 == 'empty') {
+      if (!$data2) {
         //site_in not found        
         if ($insurance == 'Malacca') {
           $siteNA = array(
@@ -1131,9 +1115,9 @@ class Admin extends CI_Controller
       $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
     }
 
-    if ($this->M_admin->update('tb_site_out', $siteOut, $where_old)) {
-      $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
-    }
+    $this->M_admin->update('tb_site_out', $siteOut, $where_old);
+    $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
+
   }
 
   public function delete_old_data($where_old)

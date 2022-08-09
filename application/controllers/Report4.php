@@ -26,7 +26,7 @@ class Report4 extends CI_Controller
         
         $data = $this->M_admin->get_data('tb_site_out', $ls);
         
-        if ($data=='empty'){
+        if (!$data){
             redirect(base_url('admin/tabel_barangkeluar'));
         }
         

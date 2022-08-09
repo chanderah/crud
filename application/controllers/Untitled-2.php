@@ -49,7 +49,7 @@ function proses_datakeluar_update()
       $where = array('site_id' => $d);
       $data2 = $this->M_admin->get_data('tb_site_in', $where);
 
-      if ($data2=='empty'){
+      if (!$data2){
         //site_in not found
         $siteNA = array(
           'dummy_id' => $new_dummy_id,

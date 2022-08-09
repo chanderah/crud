@@ -235,11 +235,11 @@
                         <tr>
                       <?php foreach ($data_conveyance as $d2) { ?>
                         <?php if($d2->conveyance == "Darat"){ ?>
-                          <tr>
+                          <tr class="darat">
                             <td>
                               <div class="form-group">
                                 <label>Darat</label>
-                                <select class="form-control" id="conveyance_by" name="conveyance_by">
+                                <select class="form-control" name="conveyance_by[]">
                                 <option value="Car" <?php if($d2->conveyance_by=="Car"){echo "selected";} ?> >Car</option>
                                 <option value="Truck" <?php if($d2->conveyance_by=="Truck"){echo "selected";} ?> >Truck</option>
                                 <option value="Pick Up" <?php if($d2->conveyance_by=="Pick Up"){echo "selected";} ?> >Pick Up</option>
@@ -277,7 +277,7 @@
                         <?php } ?>
       
                         <?php if($d2->conveyance == "Laut"){ ?>
-                          <tr>
+                          <tr class="laut">
                         <td>
                           <div class="form-group">
                             <label>Laut</label>
@@ -317,12 +317,12 @@
                           <?php } ?>
 
                           <?php if($d2->conveyance == "Udara"){ ?>
-                            <tr>
+                            <tr class="udara">
                         <td>
                           <div class="form-group">
                             <label>Udara</label>
-                            <select class="form-control" id="conveyance_plane_type" name="conveyance_plane_type">
-                                <option value="empty" <?php if($d2->conveyance_plane_type=="empty"){echo "selected";} ?> >Choose...</option>
+                            <select class="form-control" name="conveyance_plane_type[]">
+                                <option value="" <?php if($d2->conveyance_plane_type=="empty"){echo "selected";} ?> >Choose...</option>
                                 <option value="Cargo" <?php if($d2->conveyance_plane_type=="Cargo"){echo "selected";} ?> >Cargo</option>
                                 <option value="Penumpang" <?php if($d2->conveyance_plane_type=="Penumpang"){echo "selected";} ?> >Penumpang</option>
                                 <option value="Helicopter" <?php if($d2->conveyance_plane_type=="Helicopter"){echo "selected";} ?> >Helicopter</option>
@@ -469,8 +469,12 @@
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
   <script type="text/javascript">
 
-    var i = 2;
-      max = 50;
+    var darat = $('#cart_table tbody tr.darat').length;
+    var laut = $('#cart_table tbody tr.laut').length;
+    var udara = $('#cart_table tbody tr.udara').length;
+
+    var i = darat+laut+udara;
+        max = 50;
     var cartTable = {
       options: {
         table: "#cart_table"
@@ -540,9 +544,9 @@
         url: '<?php echo base_url("admin/proses_datakeluar_update"); ?>',
         data: data,
         success: function(data) {
-          $(":text").val('');
-          // location.href = url2;
-          window.open(url2, "_blank");
+          // $(":text").val('');
+          location.href = url2;
+          // window.open(url2, "_blank");
           // $("#user_message").html(data);
         },
       });

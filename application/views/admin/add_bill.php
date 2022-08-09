@@ -24,7 +24,7 @@
                 <tbody>
                     <tr>
                         <td colspan="12">
-                            <?php if ($list_data != 'empty') {
+                            <?php if ($list_data) {
                                 foreach ($list_data as $d) { ?>
                                     <div class="form-group">
                                         <label for="site_id" style="display:inline">SITE ID (Separate by Comma)</label>
