@@ -1116,7 +1116,7 @@ class Admin extends CI_Controller
     }
 
     $this->M_admin->update('tb_site_out', $siteOut, $where_old);
-    $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Ditambahkan');
+    $this->session->set_flashdata('msg_berhasil', 'Data Berhasil Diubah');
 
   }
 

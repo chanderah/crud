@@ -60,6 +60,17 @@ class M_admin extends CI_Model
     }
   }
 
+  public function count_rows($table,$dummy_id)
+  {
+
+    $query = $this->db->select()
+      ->from($table)
+      ->where($dummy_id)
+      ->get();
+
+    return $query->num_rows();
+  }
+
   public function update($tabel, $data, $where)
   {
     $this->db->where($where);

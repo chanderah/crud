@@ -322,7 +322,7 @@
                           <div class="form-group">
                             <label>Udara</label>
                             <select class="form-control" name="conveyance_plane_type[]">
-                                <option value="" <?php if($d2->conveyance_plane_type=="empty"){echo "selected";} ?> >Choose...</option>
+                                <option value="" <?php if($d2->conveyance_plane_type==""){echo "selected";} ?> >Choose...</option>
                                 <option value="Cargo" <?php if($d2->conveyance_plane_type=="Cargo"){echo "selected";} ?> >Cargo</option>
                                 <option value="Penumpang" <?php if($d2->conveyance_plane_type=="Penumpang"){echo "selected";} ?> >Penumpang</option>
                                 <option value="Helicopter" <?php if($d2->conveyance_plane_type=="Helicopter"){echo "selected";} ?> >Helicopter</option>

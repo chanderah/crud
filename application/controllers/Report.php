@@ -25,6 +25,7 @@ class Report extends CI_Controller
         $ls = array('dummy_id' => $id);
         
         $data = $this->M_admin->get_data('tb_site_out', $ls);
+        $data_conveyance = $this->M_admin->get_data('tb_conveyance', $ls);
 
         if (!$data){
             redirect(base_url('admin/tabel_barangkeluar'));
@@ -72,7 +73,19 @@ class Report extends CI_Controller
             // add a page
             $pdf->AddPage();
             // create some HTML content    
-            $sailing_date = date("F j<\s\up>S</\s\up>, Y", strtotime($d->sailing_date));
+            $sailDate = $d->sailing_date;
+            
+            $explodeSailDate = explode(",", $sailDate);
+            
+            $dateFormat = [];
+            foreach ($explodeSailDate as $e){
+                $dateFormat[] = date("F j<\s\up>S</\s\up>, Y", strtotime($e));
+            }
+
+            $lastSailDate = array_pop($dateFormat);
+            $implodeSailDate = implode(", ", $dateFormat);
+            $sailing_date = $implodeSailDate . " & " . $lastSailDate;
+
             $dateIssued = date("F j<\s\up>S</\s\up>, Y", strtotime($d->issuedDate));
             $yearIssued = date("y", strtotime($d->issuedDate));
             $yearIssued2 = date("Y", strtotime($d->issuedDate));
