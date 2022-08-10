@@ -26,10 +26,10 @@ class Admin extends CI_Controller
 
   public function admin_true()
   {
-    if ($this->session->userdata('name') != 'chanderah') {
-      //maintenance warn
-      redirect(base_url('admin/maintenance'));
-    }
+    // if ($this->session->userdata('name') != 'chanderah') {
+    //   //maintenance warn
+    //   redirect(base_url('admin/maintenance'));
+    // }
 
     if ($this->session->userdata('status') != 'login' && $this->session->userdata('role') != 1) {
       $this->load->view('login/login');
@@ -822,7 +822,7 @@ class Admin extends CI_Controller
     $totalLaut = count($conveyance_ship_type);
     $totalUdara = count($conveyance_plane_AWB);
 
-    if ($conveyance_by[0] != "" && $conveyance_type[0] != "") {
+    if ($conveyance_by[0] != "") {
       //darat
       $list = array();
       for ($i = 0; $i < $totalDarat; $i++) {
@@ -839,7 +839,7 @@ class Admin extends CI_Controller
       $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
     }
 
-    if ($conveyance_ship_name[0] != "" && $conveyance_ship_type[0] != "") {
+    if ($conveyance_ship_name[0] != ""){
       //laut
       $list = array();
       for ($i = 0; $i < $totalLaut; $i++) {
@@ -857,7 +857,7 @@ class Admin extends CI_Controller
       $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
     }
 
-    if ($conveyance_plane_type[0] != "" && $conveyance_plane_AWB[0] != "") {
+    if ($conveyance_plane_type[0] != ""){
       //udara
       $list = array();
       for ($i = 0; $i < $totalUdara; $i++) {
@@ -1065,7 +1065,7 @@ class Admin extends CI_Controller
     $totalLaut = count($conveyance_ship_type);
     $totalUdara = count($conveyance_plane_AWB);
 
-    if ($conveyance_by[0] != "" && $conveyance_type[0] != "") {
+    if ($conveyance_by[0] != "") {
       //darat
       $list = array();
       for ($i = 0; $i < $totalDarat; $i++) {
@@ -1082,7 +1082,7 @@ class Admin extends CI_Controller
       $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
     }
 
-    if ($conveyance_ship_name[0] != "" && $conveyance_ship_type[0] != "") {
+    if ($conveyance_ship_name[0] != ""){
       //laut
       $list = array();
       for ($i = 0; $i < $totalLaut; $i++) {
@@ -1100,7 +1100,7 @@ class Admin extends CI_Controller
       $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
     }
 
-    if ($conveyance_plane_type[0] != "" && $conveyance_plane_AWB[0] != "") {
+    if ($conveyance_plane_type[0] != ""){
       //udara
       $list = array();
       for ($i = 0; $i < $totalUdara; $i++) {

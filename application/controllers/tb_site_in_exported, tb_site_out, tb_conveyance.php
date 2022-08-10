@@ -200,7 +200,7 @@ public function proses_datakeluar_update()
   $totalLaut = count($conveyance_ship_type);
   $totalUdara = count($conveyance_plane_AWB);
 
-  if ($conveyance_by[0] != "" && $conveyance_type[0] != "") {
+  if ($conveyance_by[0] != "") {
     //darat
     $list = array();
     for ($i = 0; $i < $totalDarat; $i++) {
@@ -217,7 +217,7 @@ public function proses_datakeluar_update()
     $this->M_admin->insert_batch_into_table("tb_conveyance", $list);
   }
 
-  if ($conveyance_ship_name[0] != "" && $conveyance_ship_type[0] != "") {
+  if ($conveyance_ship_name[0] != ""){
     //laut
     $list = array();
     for ($i = 0; $i < $totalLaut; $i++) {

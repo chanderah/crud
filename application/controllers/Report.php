@@ -45,7 +45,7 @@ class Report extends CI_Controller
             $roman = $numToRoman->filter(date("m", strtotime($d->issuedDate)));
             $monthIssued = $roman;
             
-            $headerSertif = 'JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5;
+            $headerSertif = $d->header_sertif;
         }
 
         $pdf->SetCreator(PDF_CREATOR);
@@ -75,16 +75,20 @@ class Report extends CI_Controller
             // create some HTML content    
             $sailDate = $d->sailing_date;
             
-            $explodeSailDate = explode(",", $sailDate);
-            
+            $explodeSailDate = explode(",", $sailDate);            
             $dateFormat = [];
             foreach ($explodeSailDate as $e){
                 $dateFormat[] = date("F j<\s\up>S</\s\up>, Y", strtotime($e));
             }
 
-            $lastSailDate = array_pop($dateFormat);
-            $implodeSailDate = implode(", ", $dateFormat);
-            $sailing_date = $implodeSailDate . " & " . $lastSailDate;
+            if(count($dateFormat) > 1){
+                $lastSailDate = array_pop($dateFormat);
+                $implodeSailDate = implode(", ", $dateFormat);
+                $sailing_date = $implodeSailDate . " & " . $lastSailDate;
+            }
+            else{
+                $sailing_date = $dateFormat[0];
+            }
 
             $dateIssued = date("F j<\s\up>S</\s\up>, Y", strtotime($d->issuedDate));
             $yearIssued = date("y", strtotime($d->issuedDate));
@@ -628,7 +632,7 @@ class Report extends CI_Controller
                                         <tr>
                                             <td colspan="2" style="width:15%">Certificate No</td>
                                             <td colspan="1" align="right">:</td>
-                                            <td colspan="8" align="justify">JIS'.$yearIssued.'-0608032100001-'.$monthIssued.'-'.$no_sertif_5.'<br><br></td> 
+                                            <td colspan="8" align="justify">'.$headerSertif.'<br><br></td> 
                                         </tr>
                                         <tr>
                                             <td colspan="2" style="width:22%;">Details of SITE ID</td>

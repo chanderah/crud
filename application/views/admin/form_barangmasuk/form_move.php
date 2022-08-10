@@ -449,7 +449,7 @@
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
 
   <script type="text/javascript">
-    var i = 1,
+    var i = 3,
       max = 50;
     var cartTable = {
       options: {
@@ -515,13 +515,14 @@
       e.preventDefault();
       var data = $("#form_insert_site").serialize();
       var url2 = '<?php echo base_url("admin/tabel_barangkeluar"); ?>';
+      var url3 = '<?php echo base_url("admin/move_data"); ?>';
       $.ajax({
         type: "POST",
         url: '<?php echo base_url("admin/proses_datakeluar_insert"); ?>',
         data: data,
         success: function(data) {
           $(":text").val('');
-          // location.href = url2;
+          // location.href = url3;
           window.open(url2, "_blank");
           // $("#user_message").html(data);
         },
