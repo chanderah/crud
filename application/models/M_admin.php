@@ -45,7 +45,6 @@ class M_admin extends CI_Model
 
   public function count_exported_site($site_id)
   {
-
     $query = $this->db->select()
       ->from('tb_site_in_exported')
       ->where($site_id)
@@ -58,6 +57,20 @@ class M_admin extends CI_Model
         return $query->num_rows() . ' time';
       }
     }
+  }
+
+  public function count_conveyance($dummy_id,$conveyance)
+  {
+    $array = array('dummy_id' => $dummy_id, 'conveyance' => $conveyance);
+
+    $query = $this->db->select()
+      ->from('tb_conveyance')
+      ->where($array)
+      ->get();
+
+      if ($query->num_rows() > 0) {
+        return $query->result();
+      }
   }
 
   public function count_rows($table,$dummy_id)

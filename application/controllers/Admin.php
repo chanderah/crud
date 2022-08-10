@@ -465,6 +465,10 @@ class Admin extends CI_Controller
 
     $where = array('dummy_id' => $dummy_id);
 
+    $data['cDarat'] = $this->M_admin->count_conveyance($dummy_id,'Darat');
+    $data['cLaut'] = $this->M_admin->count_conveyance($dummy_id,'Laut');
+    $data['cUdara'] = $this->M_admin->count_conveyance($dummy_id,'Udara');
+
     $data['data_barang_update'] = $this->M_admin->get_data('tb_site_out', $where);
     $data['data_conveyance'] = $this->M_admin->get_data('tb_conveyance', $where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));

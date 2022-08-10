@@ -278,45 +278,45 @@
       
                         <?php if($d2->conveyance == "Laut"){ ?>
                           <tr class="laut">
-                        <td>
-                          <div class="form-group">
-                            <label>Laut</label>
-                            <input type="text" name="conveyance_ship_name[]" value="<?= $d2->conveyance_ship_name ?>" placeholder="Nama Kapal" required="required" class="form-control" />
+                            <td>
+                              <div class="form-group">
+                                <label>Laut</label>
+                                <input type="text" name="conveyance_ship_name[]" value="<?= $d2->conveyance_ship_name ?>" placeholder="Nama Kapal" required="required" class="form-control" />
 
-                          </div>
-                        </td>
-                        <td>
-                          <div class="form-group">
-                            <label>.</label>
-                            <input type="text" name="conveyance_ship_type[]" value="<?= $d2->conveyance_ship_type ?>" placeholder="Jenis Kapal" required="required" class="form-control" />
-                          </div>
-                        </td>
-                        <td>
-                          <div class="form-group">
-                            <label>.</label>
-                            <input type="text" name="conveyance_ship_birth[]" value="<?= $d2->conveyance_ship_birth ?>" placeholder="Tahun Pembuatan Kapal" required="required" class="form-control" />
-                          </div>
-                        </td>
-                        <td>
-                          <div class="form-group">
-                            <label>.</label>
-                            <input type="text" name="conveyance_ship_GRT[]" value="<?= $d2->conveyance_ship_GRT ?>" placeholder="GRT Kapal" required="required" class="form-control" />
-                          </div>
-                        </td>
-                        <td>
-                          <div class="form-group">
-                            <label>.</label>
-                            <input type="text" name="conveyance_ship_containerno[]" value="<?= $d2->conveyance_ship_containerno ?>" placeholder="Container No." required="required" class="form-control" />
-                          </div>
-                        </td>
-                        <td>
-                          <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
-                          <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
-                        </td>
-                      </tr>
-                          <?php } ?>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="form-group">
+                                <label>.</label>
+                                <input type="text" name="conveyance_ship_type[]" value="<?= $d2->conveyance_ship_type ?>" placeholder="Jenis Kapal" required="required" class="form-control" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="form-group">
+                                <label>.</label>
+                                <input type="text" name="conveyance_ship_birth[]" value="<?= $d2->conveyance_ship_birth ?>" placeholder="Tahun Pembuatan Kapal" required="required" class="form-control" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="form-group">
+                                <label>.</label>
+                                <input type="text" name="conveyance_ship_GRT[]" value="<?= $d2->conveyance_ship_GRT ?>" placeholder="GRT Kapal" required="required" class="form-control" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="form-group">
+                                <label>.</label>
+                                <input type="text" name="conveyance_ship_containerno[]" value="<?= $d2->conveyance_ship_containerno ?>" placeholder="Container No." required="required" class="form-control" />
+                              </div>
+                            </td>
+                            <td>
+                              <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                              <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                            </td>
+                          </tr>
+                        <?php } ?>
 
-                          <?php if($d2->conveyance == "Udara"){ ?>
+                        <?php if($d2->conveyance == "Udara"){ ?>
                             <tr class="udara">
                         <td>
                           <div class="form-group">
@@ -355,6 +355,131 @@
                       </tr>
                           <?php } ?>
                       <?php } ?>
+                            
+                      <?php 
+                      
+                      if(!$cDarat){ ?>
+                        <tr>
+                          <td>
+                            <div class="form-group">
+                              <label>Darat</label>
+                              <select class="form-control" name="conveyance_by[]">
+                                <option value="">Choose...</option>
+                                <option value="Car">Car</option>
+                                <option value="Truck">Truck</option>
+                                <option value="Pick Up">Pick Up</option>
+                                <option value="Container">Container</option>
+                              </select>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label>.</label>
+                              <input type="text" name="conveyance_type[]" placeholder="Jenis Kendaraan" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label>.</label>
+                              <input type="text" name="conveyance_policeno[]" placeholder="Plat Nomor" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label>.</label>
+                              <input type="text" name="conveyance_driver[]" placeholder="Pengemudi" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                            </div>
+                          </td>
+                          <td>
+                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                          </td>
+                        </tr>
+                      <?php } ?>
+
+                      <?php if(!$cLaut){ ?>
+                        <tr>
+                          <td>
+                            <div class="form-group">
+                              <label>Laut</label>
+                              <input type="text" name="conveyance_ship_name[]" placeholder="Nama Kapal" class="form-control" />
+
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label>.</label>
+                              <input type="text" name="conveyance_ship_type[]" placeholder="Jenis Kapal" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label>.</label>
+                              <input type="text" name="conveyance_ship_birth[]" placeholder="Tahun Pembuatan Kapal" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label>.</label>
+                              <input type="text" name="conveyance_ship_GRT[]" placeholder="GRT Kapal" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label>.</label>
+                              <input type="text" name="conveyance_ship_containerno[]" placeholder="Container No." class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                          </td>
+                        </tr>
+                      <?php } ?>
+                      
+                      <?php if(!$cUdara){ ?>
+                        <tr>
+                          <td>
+                            <div class="form-group">
+                              <label>Udara</label>
+                              <select class="form-control" name="conveyance_plane_type[]">
+                                <option value="">Choose...</option>
+                                <option value="Cargo">Cargo</option>
+                                <option value="Penumpang">Penumpang</option>
+                                <option value="Helicopter">Helicopter</option>
+                                <option value="Charter">Charter</option>
+                              </select>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label>.</label>
+                              <input type="text" name="conveyance_plane_AWB[]" placeholder="No. AWB" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                            </div>
+                          </td>
+                          <td>
+                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                          </td>
+                        </tr>
+                      <?php } ?>
+                      
                       <?php
                       $sailingDate = explode(",", $d->sailing_date);
 
