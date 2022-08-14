@@ -10,6 +10,7 @@
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/styling.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -240,19 +241,19 @@
                           </td>
                           <td>
                             <div class="form-group">
-                              <label>.</label>
+                              <label class="white">.</label>
                               <input type="text" name="conveyance_type[]" placeholder="Jenis Kendaraan" class="form-control" />
                             </div>
                           </td>
                           <td>
                             <div class="form-group">
-                              <label>.</label>
+                              <label class="white">.</label>
                               <input type="text" name="conveyance_policeno[]" placeholder="Plat Nomor" class="form-control" />
                             </div>
                           </td>
                           <td>
                             <div class="form-group">
-                              <label>.</label>
+                              <label class="white">.</label>
                               <input type="text" name="conveyance_driver[]" placeholder="Pengemudi" class="form-control" />
                             </div>
                           </td>
@@ -275,25 +276,25 @@
                           </td>
                           <td>
                             <div class="form-group">
-                              <label>.</label>
+                              <label class="white">.</label>
                               <input type="text" name="conveyance_ship_type[]" placeholder="Jenis Kapal" class="form-control" />
                             </div>
                           </td>
                           <td>
                             <div class="form-group">
-                              <label>.</label>
+                              <label class="white">.</label>
                               <input type="text" name="conveyance_ship_birth[]" placeholder="Tahun Pembuatan Kapal" class="form-control" />
                             </div>
                           </td>
                           <td>
                             <div class="form-group">
-                              <label>.</label>
+                              <label class="white">.</label>
                               <input type="text" name="conveyance_ship_GRT[]" placeholder="GRT Kapal" class="form-control" />
                             </div>
                           </td>
                           <td>
                             <div class="form-group">
-                              <label>.</label>
+                              <label class="white">.</label>
                               <input type="text" name="conveyance_ship_containerno[]" placeholder="Container No." class="form-control" />
                             </div>
                           </td>
@@ -311,7 +312,7 @@
                           </td>
                           <td>
                             <div class="form-group">
-                              <label>.</label>
+                              <label class="white">.</label>
                               <input type="text" name="conveyance_plane_AWB[]" placeholder="No. AWB" class="form-control" />
                             </div>
                           </td>

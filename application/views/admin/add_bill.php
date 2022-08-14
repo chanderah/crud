@@ -75,19 +75,19 @@
                         </td>
                         <td>
                             <div class="form-group">
-                                <label>.</label>
+                                <label class="white">.</label>
                                 <input type="text" name="conveyance_type[]" placeholder="Jenis Kendaraan" required="required" class="form-control" />
                             </div>
                         </td>
                         <td>
                             <div class="form-group">
-                                <label>.</label>
+                                <label class="white">.</label>
                                 <input type="text" name="conveyance_policeno[]" placeholder="Plat Nomor" required="required" class="form-control" />
                             </div>
                         </td>
                         <td>
                             <div class="form-group">
-                                <label>.</label>
+                                <label class="white">.</label>
                                 <input type="text" name="conveyance_driver[]" placeholder="Pengemudi" required="required" class="form-control" />
                             </div>
                         </td>
@@ -110,25 +110,25 @@
                         </td>
                         <td>
                             <div class="form-group">
-                                <label>.</label>
+                                <label class="white">.</label>
                                 <input type="text" name="conveyance_ship_type[]" placeholder="Jenis Kapal" required="required" class="form-control" />
                             </div>
                         </td>
                         <td>
                             <div class="form-group">
-                                <label>.</label>
+                                <label class="white">.</label>
                                 <input type="text" name="conveyance_ship_birth[]" placeholder="Tahun Pembuatan Kapal" required="required" class="form-control" />
                             </div>
                         </td>
                         <td>
                             <div class="form-group">
-                                <label>.</label>
+                                <label class="white">.</label>
                                 <input type="text" name="conveyance_ship_GRT[]" placeholder="GRT Kapal" required="required" class="form-control" />
                             </div>
                         </td>
                         <td>
                             <div class="form-group">
-                                <label>.</label>
+                                <label class="white">.</label>
                                 <input type="text" name="conveyance_ship_containerno[]" placeholder="Container No." required="required" class="form-control" />
                             </div>
                         </td>
@@ -152,7 +152,7 @@
                         </td>
                         <td>
                             <div class="form-group">
-                                <label>.</label>
+                                <label class="white">.</label>
                                 <input type="text" name="conveyance_plane_AWB[]" placeholder="No. AWB" required="required" class="form-control" />
                             </div>
                         </td>

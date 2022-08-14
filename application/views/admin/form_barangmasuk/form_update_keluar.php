@@ -10,6 +10,7 @@
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/styling.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -180,31 +181,31 @@
           <div class="col-md-12">
             <div class="container">
               <div class="user_message"></div>
-              <div class="box box-primary">
+              <div class="box box-primary" style="padding-bottom:10px">
                 <div class="box-header with-border">
                   <h3 class="box-title"><i class="fa fa-archive" aria-hidden="true"></i> Export Data</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <?php if(!$data_barang_update){
+                <?php if (!$data_barang_update) {
                   redirect(base_url('admin/tabel_barangkeluar'));
-                }?>
+                } ?>
                 <?php foreach ($data_barang_update as $d) { ?>
                   <form style="margin-left:15px" id="form_insert_site" method="post" autocomplete="off" accept-charset="utf-8">
                     <table id="cart_table" class="table table-stripped table-hover" style="width:95%;margin-left:10px">
                       <tbody>
                         <tr>
                           <td colspan="12">
-                          <div class="form-group">
-                            <label for="dummy_id" style="display:none;">Old Dummy ID</label>
-                            <input type="text" name="dummy_id" readonly="true" style="display:none;" class="form-control"   value="<?=$d->dummy_id?>">
-                          </div> 
-                          <div class="form-group">
-                            <label for="no_sertif" style="display:none;">No. Sertif</label>
-                            <input type="text" name="no_sertif" readonly="true" style="display:none;" class="form-control"   value="<?=$d->no_sertif?>">
-                          </div> 
+                            <div class="form-group">
+                              <label for="dummy_id" style="display:none;">Old Dummy ID</label>
+                              <input type="text" name="dummy_id" readonly="true" style="display:none;" class="form-control" value="<?= $d->dummy_id ?>">
+                            </div>
+                            <div class="form-group">
+                              <label for="no_sertif" style="display:none;">No. Sertif</label>
+                              <input type="text" name="no_sertif" readonly="true" style="display:none;" class="form-control" value="<?= $d->no_sertif ?>">
+                            </div>
                           </td>
-                        </tr> 
+                        </tr>
                         <tr>
                           <td colspan="12">
                             <div class="form-group">
@@ -218,8 +219,12 @@
                             <div class="form-group">
                               <label>Insurance</label>
                               <select name="insurance" class="form-control">
-                                <option value="Malacca" <?php if($d->insurance=="Malacca"){echo "selected";} ?> >Malacca</option>
-                                <option value="Maximus" <?php if($d->insurance=="Maximus"){echo "selected";} ?> >Maximus</option>
+                                <option value="Malacca" <?php if ($d->insurance == "Malacca") {
+                                                          echo "selected";
+                                                        } ?>>Malacca</option>
+                                <option value="Maximus" <?php if ($d->insurance == "Maximus") {
+                                                          echo "selected";
+                                                        } ?>>Maximus</option>
                               </select>
                             </div>
                           </td>
@@ -233,96 +238,209 @@
                           </td>
                         </tr>
                         <tr>
-                      <?php foreach ($data_conveyance as $d2) { ?>
-                        <?php if($d2->conveyance == "Darat"){ ?>
-                          <tr class="darat">
-                            <td>
-                              <div class="form-group">
-                                <label>Darat</label>
-                                <input type="text" name="conveyance_by[]" value="<?= $d2->conveyance_by ?>" placeholder="Car/Truck/Pickup/Container" class="form-control" />
-                              </div>
-                            </td>
-                            <td>
-                              <div class="form-group">
-                                <label>.</label>
-                                <input type="text" name="conveyance_type[]" value="<?= $d2->conveyance_type ?>" placeholder="Jenis Kendaraan" class="form-control" />
-                              </div>
-                            </td>
-                            <td>
-                              <div class="form-group">
-                                <label>.</label>
-                                <input type="text" name="conveyance_policeno[]" value="<?= $d2->conveyance_policeno ?>" placeholder="Plat Nomor" class="form-control" />
-                              </div>
-                            </td>
-                            <td>
-                              <div class="form-group">
-                                <label>.</label>
-                                <input type="text" name="conveyance_driver[]" value="<?= $d2->conveyance_driver ?> "placeholder="Pengemudi" class="form-control" />
-                              </div>
-                            </td>
-                            <td>
-                              <div class="form-group">
-                              </div>
-                            </td>
-                            <td>
-                              <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
-                              <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
-                            </td>
-                          </tr>
-                        <?php } ?>
-      
-                        <?php if($d2->conveyance == "Laut"){ ?>
-                          <tr class="laut">
-                            <td>
-                              <div class="form-group">
-                                <label>Laut</label>
-                                <input type="text" name="conveyance_ship_name[]" value="<?= $d2->conveyance_ship_name ?>" placeholder="Nama Kapal" class="form-control" />
+                          <?php foreach ($data_conveyance as $d2) { ?>
+                            <?php if ($d2->conveyance == "Darat") { ?>
+                        <tr class="darat">
+                          <td>
+                            <div class="form-group">
+                              <label>Darat</label>
+                              <input type="text" name="conveyance_by[]" value="<?= $d2->conveyance_by ?>" placeholder="Car/Truck/Pickup/Container" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label class="white">.</label>
+                              <input type="text" name="conveyance_type[]" value="<?= $d2->conveyance_type ?>" placeholder="Jenis Kendaraan" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label class="white">.</label>
+                              <input type="text" name="conveyance_policeno[]" value="<?= $d2->conveyance_policeno ?>" placeholder="Plat Nomor" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label class="white">.</label>
+                              <input type="text" name="conveyance_driver[]" value="<?= $d2->conveyance_driver ?> " placeholder="Pengemudi" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                            </div>
+                          </td>
+                          <td>
+                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                          </td>
+                        </tr>
+                      <?php } ?>
 
-                              </div>
-                            </td>
-                            <td>
-                              <div class="form-group">
-                                <label>.</label>
-                                <input type="text" name="conveyance_ship_type[]" value="<?= $d2->conveyance_ship_type ?>" placeholder="Jenis Kapal" class="form-control" />
-                              </div>
-                            </td>
-                            <td>
-                              <div class="form-group">
-                                <label>.</label>
-                                <input type="text" name="conveyance_ship_birth[]" value="<?= $d2->conveyance_ship_birth ?>" placeholder="Tahun Pembuatan Kapal" class="form-control" />
-                              </div>
-                            </td>
-                            <td>
-                              <div class="form-group">
-                                <label>.</label>
-                                <input type="text" name="conveyance_ship_GRT[]" value="<?= $d2->conveyance_ship_GRT ?>" placeholder="GRT Kapal" class="form-control" />
-                              </div>
-                            </td>
-                            <td>
-                              <div class="form-group">
-                                <label>.</label>
-                                <input type="text" name="conveyance_ship_containerno[]" value="<?= $d2->conveyance_ship_containerno ?>" placeholder="Container No." class="form-control" />
-                              </div>
-                            </td>
-                            <td>
-                              <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
-                              <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
-                            </td>
-                          </tr>
-                        <?php } ?>
+                      <?php if ($d2->conveyance == "Laut") { ?>
+                        <tr class="laut">
+                          <td>
+                            <div class="form-group">
+                              <label>Laut</label>
+                              <input type="text" name="conveyance_ship_name[]" value="<?= $d2->conveyance_ship_name ?>" placeholder="Nama Kapal" class="form-control" />
 
-                        <?php if($d2->conveyance == "Udara"){ ?>
-                            <tr class="udara">
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label class="white">.</label>
+                              <input type="text" name="conveyance_ship_type[]" value="<?= $d2->conveyance_ship_type ?>" placeholder="Jenis Kapal" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label class="white">.</label>
+                              <input type="text" name="conveyance_ship_birth[]" value="<?= $d2->conveyance_ship_birth ?>" placeholder="Tahun Pembuatan Kapal" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label class="white">.</label>
+                              <input type="text" name="conveyance_ship_GRT[]" value="<?= $d2->conveyance_ship_GRT ?>" placeholder="GRT Kapal" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label class="white">.</label>
+                              <input type="text" name="conveyance_ship_containerno[]" value="<?= $d2->conveyance_ship_containerno ?>" placeholder="Container No." class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                          </td>
+                        </tr>
+                      <?php } ?>
+
+                      <?php if ($d2->conveyance == "Udara") { ?>
+                        <tr class="udara">
+                          <td>
+                            <div class="form-group">
+                              <label>Udara</label>
+                              <input type="text" name="conveyance_plane_type[]" value="<?= $d2->conveyance_plane_type ?>" placeholder="Jenis Pesawat" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <label class="white">.</label>
+                              <input type="text" name="conveyance_plane_AWB[]" value="<?= $d2->conveyance_plane_AWB ?>" placeholder="No. AWB" class="form-control" />
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                            </div>
+                          </td>
+                          <td>
+                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                          </td>
+                        </tr>
+                      <?php } ?>
+                    <?php } ?>
+
+                    <?php
+
+                    if (!$cDarat) { ?>
+                      <tr>
                         <td>
                           <div class="form-group">
-                            <label>Udara</label>
-                            <input type="text" name="conveyance_plane_type[]" value="<?= $d2->conveyance_plane_type ?>" placeholder="Jenis Pesawat" class="form-control" />
+                            <label>Darat</label>
+                            <input type="text" name="conveyance_by[]" value="<?= $d2->conveyance_by ?>" placeholder="Car/Truck/Pickup/Container" class="form-control" />
                           </div>
                         </td>
                         <td>
                           <div class="form-group">
-                            <label>.</label>
-                            <input type="text" name="conveyance_plane_AWB[]" value="<?= $d2->conveyance_plane_AWB ?>" placeholder="No. AWB" class="form-control" />
+                            <label class="white">.</label>
+                            <input type="text" name="conveyance_type[]" placeholder="Jenis Kendaraan" class="form-control" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group">
+                            <label class="white">.</label>
+                            <input type="text" name="conveyance_policeno[]" placeholder="Plat Nomor" class="form-control" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group">
+                            <label class="white">.</label>
+                            <input type="text" name="conveyance_driver[]" placeholder="Pengemudi" class="form-control" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group">
+                          </div>
+                        </td>
+                        <td>
+                          <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                          <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                        </td>
+                      </tr>
+                    <?php } ?>
+
+                    <?php if (!$cLaut) { ?>
+                      <tr>
+                        <td>
+                          <div class="form-group">
+                            <label>Laut</label>
+                            <input type="text" name="conveyance_ship_name[]" placeholder="Nama Kapal" class="form-control" />
+
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group">
+                            <label class="white">.</label>
+                            <input type="text" name="conveyance_ship_type[]" placeholder="Jenis Kapal" class="form-control" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group">
+                            <label class="white">.</label>
+                            <input type="text" name="conveyance_ship_birth[]" placeholder="Tahun Pembuatan Kapal" class="form-control" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group">
+                            <label class="white">.</label>
+                            <input type="text" name="conveyance_ship_GRT[]" placeholder="GRT Kapal" class="form-control" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group">
+                            <label class="white">.</label>
+                            <input type="text" name="conveyance_ship_containerno[]" placeholder="Container No." class="form-control" />
+                          </div>
+                        </td>
+                        <td>
+                          <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
+                          <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
+                        </td>
+                      </tr>
+                    <?php } ?>
+
+                    <?php if (!$cUdara) { ?>
+                      <tr>
+                        <td>
+                          <div class="form-group">
+                            <label>Udara</label>
+                            <input type="text" name="conveyance_plane_type[]" placeholder="Jenis Pesawat" class="form-control" />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group">
+                            <label class="white">.</label>
+                            <input type="text" name="conveyance_plane_AWB[]" placeholder="No. AWB" class="form-control" />
                           </div>
                         </td>
                         <td>
@@ -342,126 +460,13 @@
                           <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
                         </td>
                       </tr>
-                          <?php } ?>
-                      <?php } ?>
-                            
-                      <?php 
-                      
-                      if(!$cDarat){ ?>
-                        <tr>
-                          <td>
-                            <div class="form-group"> 
-                              <label>Darat</label>
-                              <input type="text" name="conveyance_by[]" value="<?= $d2->conveyance_by ?>" placeholder="Car/Truck/Pickup/Container" class="form-control" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="form-group">
-                              <label>.</label>
-                              <input type="text" name="conveyance_type[]" placeholder="Jenis Kendaraan" class="form-control" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="form-group">
-                              <label>.</label>
-                              <input type="text" name="conveyance_policeno[]" placeholder="Plat Nomor" class="form-control" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="form-group">
-                              <label>.</label>
-                              <input type="text" name="conveyance_driver[]" placeholder="Pengemudi" class="form-control" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="form-group">
-                            </div>
-                          </td>
-                          <td>
-                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
-                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
-                          </td>
-                        </tr>
-                      <?php } ?>
+                    <?php } ?>
 
-                      <?php if(!$cLaut){ ?>
-                        <tr>
-                          <td>
-                            <div class="form-group">
-                              <label>Laut</label>
-                              <input type="text" name="conveyance_ship_name[]" placeholder="Nama Kapal" class="form-control" />
+                    <?php
+                    $sailingDate = explode(",", $d->sailing_date);
 
-                            </div>
-                          </td>
-                          <td>
-                            <div class="form-group">
-                              <label>.</label>
-                              <input type="text" name="conveyance_ship_type[]" placeholder="Jenis Kapal" class="form-control" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="form-group">
-                              <label>.</label>
-                              <input type="text" name="conveyance_ship_birth[]" placeholder="Tahun Pembuatan Kapal" class="form-control" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="form-group">
-                              <label>.</label>
-                              <input type="text" name="conveyance_ship_GRT[]" placeholder="GRT Kapal" class="form-control" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="form-group">
-                              <label>.</label>
-                              <input type="text" name="conveyance_ship_containerno[]" placeholder="Container No." class="form-control" />
-                            </div>
-                          </td>
-                          <td>
-                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
-                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
-                          </td>
-                        </tr>
-                      <?php } ?>
-                      
-                      <?php if(!$cUdara){ ?>
-                        <tr>
-                          <td>
-                            <div class="form-group">
-                              <label>Udara</label>
-                              <input type="text" name="conveyance_plane_type[]" placeholder="Jenis Pesawat" class="form-control" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="form-group">
-                              <label>.</label>
-                              <input type="text" name="conveyance_plane_AWB[]" placeholder="No. AWB" class="form-control" />
-                            </div>
-                          </td>
-                          <td>
-                            <div class="form-group">
-                            </div>
-                          </td>
-                          <td>
-                            <div class="form-group">
-                            </div>
-                          </td>
-                          <td>
-                            <div class="form-group">
-                            </div>
-                          </td>
-                          <td>
-                            <button id="addItem" name="addItem" type="button" class="btn btn-success btn-block btn-sm add_button"><i style="color:#fff" class="fa fa-plus-circle"></i></button>
-                            <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
-                          </td>
-                        </tr>
-                      <?php } ?>
-                      
-                      <?php
-                      $sailingDate = explode(",", $d->sailing_date);
-
-                      for($i=0; $i<count($sailingDate); $i++){
-                      ?>
+                    for ($i = 0; $i < count($sailingDate); $i++) {
+                    ?>
                       <tr>
                         <td colspan="5">
                           <div class="form-group">
@@ -475,41 +480,41 @@
                           <button id="removeItem" name="removeItem" type="button" class="btn btn-danger btn-block btn-sm remove_button"><i style="color:#fff;" class="fa fa-trash-o"></i></button>
                         </td>
                       </tr>
-                      <?php } ?>
+                    <?php } ?>
 
-                      <tr>
-                        <td colspan="3">
-                          <div class="form-group">
-                            <label for="destination_from">Tempat Keberangkatan</label>
-                            <textarea class="form-control" id="destination_from<?=$d->dummy_id?>" name="destination_from" placeholder="From" rows="4"><?=$d->destination_from?></textarea>
-                          </div>
-                        </td>
-                        <td colspan="3">
-                          <div class="form-group">
-                            <label for="destination_to">Tujuan Akhir</label>
-                            <textarea class="form-control" id="destination_to" name="destination_to" placeholder="To" rows="4"><?=$d->destination_to?></textarea>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colspan="12">
-                          <div class="form-group">
-                            <label for="amount_insured">Nilai Barang yang Diangkut</label>
-                            <select class="form-control" id="currency" name="currency" style="margin-bottom:5px;width:fit-content">
-                              <option value="IDR">IDR</option>
-                            </select>
-                            <input type="number" name="amount_insured" value="<?=$d->amount_insured?>" required="required" class="form-control" />
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colspan="12">
-                          <div class="form-group">
-                            <label for="issuedDate">Tanggal Penerbitan</label>
-                            <input type="date" value="<?php echo date("Y-m-d") ?>" name="issuedDate" required="required" class="form-control" />
-                          </div>
-                        </td>
-                      </tr>
+                    <tr>
+                      <td colspan="3">
+                        <div class="form-group">
+                          <label for="destination_from">Tempat Keberangkatan</label>
+                          <textarea class="form-control" id="destination_from<?= $d->dummy_id ?>" name="destination_from" placeholder="From" rows="4"><?= $d->destination_from ?></textarea>
+                        </div>
+                      </td>
+                      <td colspan="3">
+                        <div class="form-group">
+                          <label for="destination_to">Tujuan Akhir</label>
+                          <textarea class="form-control" id="destination_to" name="destination_to" placeholder="To" rows="4"><?= $d->destination_to ?></textarea>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="12">
+                        <div class="form-group">
+                          <label for="amount_insured">Nilai Barang yang Diangkut</label>
+                          <select class="form-control" id="currency" name="currency" style="margin-bottom:5px;width:fit-content">
+                            <option value="IDR">IDR</option>
+                          </select>
+                          <input type="number" name="amount_insured" value="<?= $d->amount_insured ?>" required="required" class="form-control" />
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="12">
+                        <div class="form-group">
+                          <label for="issuedDate">Tanggal Penerbitan</label>
+                          <input type="date" value="<?php echo date("Y-m-d") ?>" name="issuedDate" required="required" class="form-control" />
+                        </div>
+                      </td>
+                    </tr>
                       </tbody>
                       <tfoot>
                         <tr>
@@ -570,13 +575,12 @@
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
   <script type="text/javascript">
-
     var darat = $('#cart_table tbody tr.darat').length;
     var laut = $('#cart_table tbody tr.laut').length;
     var udara = $('#cart_table tbody tr.udara').length;
 
-    var i = darat+laut+udara;
-        max = 50;
+    var i = darat + laut + udara;
+    max = 50;
     var cartTable = {
       options: {
         table: "#cart_table"
