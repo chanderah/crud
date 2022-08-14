@@ -235,13 +235,7 @@
                           <td>
                             <div class="form-group">
                               <label>Darat</label>
-                              <select class="form-control" name="conveyance_by[]">
-                                <option value="">Choose...</option>
-                                <option value="Car">Car</option>
-                                <option value="Truck">Truck</option>
-                                <option value="Pick Up">Pick Up</option>
-                                <option value="Container">Container</option>
-                              </select>
+                              <input type="text" name="conveyance_by[]" placeholder="Car/Truck/Pickup/Container" class="form-control" />
                             </div>
                           </td>
                           <td>
@@ -312,13 +306,7 @@
                           <td>
                             <div class="form-group">
                               <label>Udara</label>
-                              <select class="form-control" name="conveyance_plane_type[]">
-                                <option value="">Choose...</option>
-                                <option value="Cargo">Cargo</option>
-                                <option value="Penumpang">Penumpang</option>
-                                <option value="Helicopter">Helicopter</option>
-                                <option value="Charter">Charter</option>
-                              </select>
+                              <input type="text" name="conveyance_plane_type[]" placeholder="Jenis Pesawat" class="form-control" />
                             </div>
                           </td>
                           <td>

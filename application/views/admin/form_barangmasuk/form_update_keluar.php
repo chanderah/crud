@@ -218,8 +218,8 @@
                             <div class="form-group">
                               <label>Insurance</label>
                               <select name="insurance" class="form-control">
-                                <option value="Malacca">Malacca</option>
-                                <option value="Maximus">Maximus</option>
+                                <option value="Malacca" <?php if($d->insurance=="Malacca"){echo "selected";} ?> >Malacca</option>
+                                <option value="Maximus" <?php if($d->insurance=="Maximus"){echo "selected";} ?> >Maximus</option>
                               </select>
                             </div>
                           </td>
@@ -239,30 +239,25 @@
                             <td>
                               <div class="form-group">
                                 <label>Darat</label>
-                                <select class="form-control" name="conveyance_by[]">
-                                <option value="Car" <?php if($d2->conveyance_by=="Car"){echo "selected";} ?> >Car</option>
-                                <option value="Truck" <?php if($d2->conveyance_by=="Truck"){echo "selected";} ?> >Truck</option>
-                                <option value="Pick Up" <?php if($d2->conveyance_by=="Pick Up"){echo "selected";} ?> >Pick Up</option>
-                                <option value="Container" <?php if($d2->conveyance_by=="Container"){echo "selected";} ?> >Container</option>
-                              </select>
+                                <input type="text" name="conveyance_by[]" value="<?= $d2->conveyance_by ?>" placeholder="Car/Truck/Pickup/Container" class="form-control" />
                               </div>
                             </td>
                             <td>
                               <div class="form-group">
                                 <label>.</label>
-                                <input type="text" name="conveyance_type[]" value="<?= $d2->conveyance_type ?>" placeholder="Jenis Kendaraan" required="required" class="form-control" />
+                                <input type="text" name="conveyance_type[]" value="<?= $d2->conveyance_type ?>" placeholder="Jenis Kendaraan" class="form-control" />
                               </div>
                             </td>
                             <td>
                               <div class="form-group">
                                 <label>.</label>
-                                <input type="text" name="conveyance_policeno[]" value="<?= $d2->conveyance_policeno ?>" placeholder="Plat Nomor" required="required" class="form-control" />
+                                <input type="text" name="conveyance_policeno[]" value="<?= $d2->conveyance_policeno ?>" placeholder="Plat Nomor" class="form-control" />
                               </div>
                             </td>
                             <td>
                               <div class="form-group">
                                 <label>.</label>
-                                <input type="text" name="conveyance_driver[]" value="<?= $d2->conveyance_driver ?> "placeholder="Pengemudi" required="required" class="form-control" />
+                                <input type="text" name="conveyance_driver[]" value="<?= $d2->conveyance_driver ?> "placeholder="Pengemudi" class="form-control" />
                               </div>
                             </td>
                             <td>
@@ -281,32 +276,32 @@
                             <td>
                               <div class="form-group">
                                 <label>Laut</label>
-                                <input type="text" name="conveyance_ship_name[]" value="<?= $d2->conveyance_ship_name ?>" placeholder="Nama Kapal" required="required" class="form-control" />
+                                <input type="text" name="conveyance_ship_name[]" value="<?= $d2->conveyance_ship_name ?>" placeholder="Nama Kapal" class="form-control" />
 
                               </div>
                             </td>
                             <td>
                               <div class="form-group">
                                 <label>.</label>
-                                <input type="text" name="conveyance_ship_type[]" value="<?= $d2->conveyance_ship_type ?>" placeholder="Jenis Kapal" required="required" class="form-control" />
+                                <input type="text" name="conveyance_ship_type[]" value="<?= $d2->conveyance_ship_type ?>" placeholder="Jenis Kapal" class="form-control" />
                               </div>
                             </td>
                             <td>
                               <div class="form-group">
                                 <label>.</label>
-                                <input type="text" name="conveyance_ship_birth[]" value="<?= $d2->conveyance_ship_birth ?>" placeholder="Tahun Pembuatan Kapal" required="required" class="form-control" />
+                                <input type="text" name="conveyance_ship_birth[]" value="<?= $d2->conveyance_ship_birth ?>" placeholder="Tahun Pembuatan Kapal" class="form-control" />
                               </div>
                             </td>
                             <td>
                               <div class="form-group">
                                 <label>.</label>
-                                <input type="text" name="conveyance_ship_GRT[]" value="<?= $d2->conveyance_ship_GRT ?>" placeholder="GRT Kapal" required="required" class="form-control" />
+                                <input type="text" name="conveyance_ship_GRT[]" value="<?= $d2->conveyance_ship_GRT ?>" placeholder="GRT Kapal" class="form-control" />
                               </div>
                             </td>
                             <td>
                               <div class="form-group">
                                 <label>.</label>
-                                <input type="text" name="conveyance_ship_containerno[]" value="<?= $d2->conveyance_ship_containerno ?>" placeholder="Container No." required="required" class="form-control" />
+                                <input type="text" name="conveyance_ship_containerno[]" value="<?= $d2->conveyance_ship_containerno ?>" placeholder="Container No." class="form-control" />
                               </div>
                             </td>
                             <td>
@@ -321,19 +316,13 @@
                         <td>
                           <div class="form-group">
                             <label>Udara</label>
-                            <select class="form-control" name="conveyance_plane_type[]">
-                                <option value="" <?php if($d2->conveyance_plane_type==""){echo "selected";} ?> >Choose...</option>
-                                <option value="Cargo" <?php if($d2->conveyance_plane_type=="Cargo"){echo "selected";} ?> >Cargo</option>
-                                <option value="Penumpang" <?php if($d2->conveyance_plane_type=="Penumpang"){echo "selected";} ?> >Penumpang</option>
-                                <option value="Helicopter" <?php if($d2->conveyance_plane_type=="Helicopter"){echo "selected";} ?> >Helicopter</option>
-                                <option value="Charter" <?php if($d2->conveyance_plane_type=="Charter"){echo "selected";} ?> >Charter</option>
-                              </select>
+                            <input type="text" name="conveyance_plane_type[]" value="<?= $d2->conveyance_plane_type ?>" placeholder="Jenis Pesawat" class="form-control" />
                           </div>
                         </td>
                         <td>
                           <div class="form-group">
                             <label>.</label>
-                            <input type="text" name="conveyance_plane_AWB[]" value="<?= $d2->conveyance_plane_AWB ?>" placeholder="No. AWB" required="required" class="form-control" />
+                            <input type="text" name="conveyance_plane_AWB[]" value="<?= $d2->conveyance_plane_AWB ?>" placeholder="No. AWB" class="form-control" />
                           </div>
                         </td>
                         <td>
@@ -361,15 +350,9 @@
                       if(!$cDarat){ ?>
                         <tr>
                           <td>
-                            <div class="form-group">
+                            <div class="form-group"> 
                               <label>Darat</label>
-                              <select class="form-control" name="conveyance_by[]">
-                                <option value="">Choose...</option>
-                                <option value="Car">Car</option>
-                                <option value="Truck">Truck</option>
-                                <option value="Pick Up">Pick Up</option>
-                                <option value="Container">Container</option>
-                              </select>
+                              <input type="text" name="conveyance_by[]" value="<?= $d2->conveyance_by ?>" placeholder="Car/Truck/Pickup/Container" class="form-control" />
                             </div>
                           </td>
                           <td>
@@ -446,13 +429,7 @@
                           <td>
                             <div class="form-group">
                               <label>Udara</label>
-                              <select class="form-control" name="conveyance_plane_type[]">
-                                <option value="">Choose...</option>
-                                <option value="Cargo">Cargo</option>
-                                <option value="Penumpang">Penumpang</option>
-                                <option value="Helicopter">Helicopter</option>
-                                <option value="Charter">Charter</option>
-                              </select>
+                              <input type="text" name="conveyance_plane_type[]" placeholder="Jenis Pesawat" class="form-control" />
                             </div>
                           </td>
                           <td>
