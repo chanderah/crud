@@ -36,9 +36,7 @@ class Report4 extends CI_Controller
         //
 
         foreach ($data as $d){
-            $no_sertif = $d->no_sertif;
             $str_length = 5;
-            $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
         
             $yearIssued = date("y", strtotime($d->issuedDate));
             $numToRoman = new IntToRoman();
@@ -108,11 +106,7 @@ class Report4 extends CI_Controller
             //$data = 'ABC Company';
             $invoice_ref_id = '2013/12/03/0001';
             $namaPerusahaan = 'PT. MALACCA TRUST WUWUNGAN INSURANCE, Tbk';
-            
-            $no_sertif = $d->no_sertif;
-            $str_length = 5;
-            $no_sertif_5 = substr("00000{$no_sertif}", -$str_length);
-        
+                    
             $pdf->SetFont('lucida', '', 9.5);
             $html .= '
                         <table cellpadding="0">
@@ -263,14 +257,14 @@ class Report4 extends CI_Controller
 
                 }
                 else{//empty
-                    $html = str_replace('{MOP}', '0608032100000', $html);
+                    $html = str_replace('{MOP}', '2003110722000000/MCOC/VI/2022', $html);
 
                     //scope of cover
                     $html .= ' 
                     <tr>   
                         <td colspan="2">Scope of Cover</td>
                         <td colspan="1" align="right">:</td>
-                        <td colspan="8" align="justify">As per M.O.P No. : 0608032100000</td>
+                        <td colspan="8" align="justify">As per M.O.P No. : 2003110722000000/MCOC/VI/2022</td>
                     </tr>';
                 }
 

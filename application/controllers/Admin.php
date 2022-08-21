@@ -163,11 +163,9 @@ class Admin extends CI_Controller
     $config =  array(
       'upload_path'     => "./xlsx/",
       'file_name'     => "import_siteid.xlsx",
-      'allowed_types'   => "xlsx",
+      'allowed_types'   => "xls|xlsx",
       'encrypt_name'    => False, //
-      'max_size'        => "50000000000000000000000000",
-      'max_height'      => "9680",
-      'max_width'       => "9024",
+      'max_size'        => "50000000000000000000000000", 
       "overwrite" => true
     );
     $this->load->library('upload', $config);
@@ -665,7 +663,7 @@ class Admin extends CI_Controller
           $siteNA = array(
             'dummy_id' => $dummy_id,
             'site_id' => $d,
-            'cmop' => '2003110722000001/MCOC/VI/2022',
+            'cmop' => '2003110722000000/MCOC/VI/2022',
             'keterangan' => 'N/A',
           );
         } else {
@@ -921,7 +919,7 @@ class Admin extends CI_Controller
           $siteNA = array(
             'dummy_id' => $new_dummy_id,
             'site_id' => $d,
-            'cmop' => '2003110722000001/MCOC/VI/2022',
+            'cmop' => '2003110722000000/MCOC/VI/2022',
             'keterangan' => 'N/A',
           );
         } else {

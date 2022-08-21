@@ -519,7 +519,7 @@
                       <tfoot>
                         <tr>
                           <td colspan="12" class="text-right">
-                            <input type="submit" id="btnSave" name="btnSave" value="Create" class="btn btn-md btn-success" />
+                            <input type="submit" id="btnSave" name="btnSave" value="Update" class="btn btn-md btn-success" />
                           </td>
                         </tr>
                       </tfoot>
