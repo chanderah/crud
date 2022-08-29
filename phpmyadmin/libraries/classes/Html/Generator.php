@@ -1098,7 +1098,7 @@ class Generator
      * @param string     $urlPath    the URL
      * @param array|null $urlParams  URL parameters
      * @param string     $message    the link message
-     * @param mixed      $tag_params string: js confirmation; array: additional tag params (f.e. style="")
+     * @param mixed      $tag_params string: js confirmation; array: additional tag params (f.e.  )
      * @param string     $target     target
      *
      * @return string  the results to be echoed or saved in an array

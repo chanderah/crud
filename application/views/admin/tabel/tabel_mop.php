@@ -190,9 +190,9 @@
         <div class="col-md-12">
           <div class="nav-tabs-custom" style="width:60%;padding:10px">
             <ul class="nav nav-tabs">
-              <!-- <li><a href="#main" style="" data-toggle="tab"></a></li> -->
-              <li class="active"><a href="#main" style="" data-toggle="tab">Main</a></li>
-              <!-- <li><a href="#counter" style="" data-toggle="tab">Counter</a></li> -->
+              <!-- <li><a href="#main"   data-toggle="tab"></a></li> -->
+              <li class="active"><a href="#main"   data-toggle="tab">Main</a></li>
+              <!-- <li><a href="#counter"   data-toggle="tab">Counter</a></li> -->
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="main">

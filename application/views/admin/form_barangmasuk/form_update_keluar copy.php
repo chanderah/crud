@@ -172,7 +172,7 @@
         </ol>
       </section>
       <!-- Main content -->
-      <section class="content" style="">
+      <section class="content"  >
         <div class="row">
           <!-- left column -->
           <div class="col-md-12">
@@ -213,7 +213,7 @@
                         <textarea class="form-control" style="margin-top:10px;" id="itemInsured" rows="5" name="itemInsured"><?= $d->itemInsured ?></textarea>
                     </div>                
 
-                    <div class="form-group form-group-lg col-md-12" style="">
+                    <div class="form-group form-group-lg col-md-12"  >
                       <label for="conveyance">Pengiriman Melalui</label>
                         <select class="form-control" id="conveyance" name="conveyance">
                           <option value="Darat" <?php if($d->conveyance=="Darat"){echo "selected";} ?> >Darat</option>

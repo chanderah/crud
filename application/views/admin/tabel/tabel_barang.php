@@ -37,7 +37,7 @@
 </head>
 <body>
     <div class="div" style="width:100%;margin:20px">
-      <table id="site_datatable" class="table table-bordered table-striped" style="">
+      <table id="site_datatable" class="table table-bordered table-striped"  >
         <thead>
           <tr>
             <th rowspan="2">No.</th>

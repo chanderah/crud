@@ -172,7 +172,7 @@
         </ol>
       </section>
       <!-- Main content -->
-      <section class="content" style="">
+      <section class="content"  >
         <div class="row">
           <!-- left column -->
           <div class="col-md-12">
