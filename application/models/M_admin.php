@@ -3,38 +3,38 @@
 class M_admin extends CI_Model
 {
 
-  public function insert($tabel, $data)
+  public function insert($table, $data)
   {
-    $this->db->insert($tabel, $data);
+    $this->db->insert($table, $data);
   }
 
-  public function select($tabel)
+  public function select($table)
   {
-    $query = $this->db->get($tabel);
+    $query = $this->db->get($table);
     return $query->result();
   }
 
-  public function cek_jumlah($tabel, $site_id)
+  public function cek_jumlah($table, $site_id)
   {
     return  $this->db->select('*')
-      ->from($tabel)
+      ->from($table)
       ->where('site_id', $site_id)
       ->get();
   }
 
-  public function get_data_array($tabel, $site_id)
+  public function get_data_array($table, $where)
   {
     $query = $this->db->select()
-      ->from($tabel)
-      ->where($site_id)
+      ->from($table)
+      ->where($where)
       ->get();
     return $query->result_array();
   }
 
-  public function get_data($tabel, $dummy_id)
+  public function get_data($table, $dummy_id)
   {
     $query = $this->db->select()
-      ->from($tabel)
+      ->from($table)
       ->where($dummy_id)
       ->get();
 
@@ -59,7 +59,7 @@ class M_admin extends CI_Model
     }
   }
 
-  public function count_conveyance($dummy_id,$conveyance)
+  public function count_conveyance($dummy_id, $conveyance)
   {
     $array = array('dummy_id' => $dummy_id, 'conveyance' => $conveyance);
 
@@ -68,12 +68,12 @@ class M_admin extends CI_Model
       ->where($array)
       ->get();
 
-      if ($query->num_rows() > 0) {
-        return $query->result();
-      }
+    if ($query->num_rows() > 0) {
+      return $query->result();
+    }
   }
 
-  public function count_rows($table,$dummy_id)
+  public function count_rows($table, $dummy_id)
   {
 
     $query = $this->db->select()
@@ -84,66 +84,66 @@ class M_admin extends CI_Model
     return $query->num_rows();
   }
 
-  public function update($tabel, $data, $where)
+  public function update($table, $data, $where)
   {
     $this->db->where($where);
-    $this->db->update($tabel, $data);
+    $this->db->update($table, $data);
   }
 
-  public function delete($tabel, $where)
+  public function delete($table, $where)
   {
     $this->db->where($where);
-    $this->db->delete($tabel);
+    $this->db->delete($table);
   }
 
-  public function delete_data($tabel, $where)
+  public function delete_data($table, $where)
   {
     $this->db->where($where);
-    $this->db->delete($tabel);
+    $this->db->delete($table);
   }
 
-  public function mengurangi($tabel, $site_id, $batch_)
+  public function mengurangi($table, $site_id, $batch_)
   {
     $this->db->set("batch_", "batch_ - $batch_");
     $this->db->where('site_id', $site_id);
-    $this->db->update($tabel);
+    $this->db->update($table);
   }
 
-  public function update_password($tabel, $where, $data)
+  public function update_password($table, $where, $data)
   {
     $this->db->where($where);
-    $this->db->update($tabel, $data);
+    $this->db->update($table, $data);
   }
 
-  public function get_data_gambar($tabel, $username)
+  public function get_data_gambar($table, $username)
   {
     $query = $this->db->select()
-      ->from($tabel)
+      ->from($table)
       ->where('username_user', $username)
       ->get();
     return $query->result();
   }
 
-  public function sum($tabel, $field)
+  public function sum($table, $field)
   {
     $query = $this->db->select_sum($field)
-      ->from($tabel)
+      ->from($table)
       ->get();
     return $query->result();
   }
 
-  public function numrows($tabel)
+  public function numrows($table)
   {
     $query = $this->db->select()
-      ->from($tabel)
+      ->from($table)
       ->get();
     return $query->num_rows();
   }
 
-  public function kecuali($tabel, $username)
+  public function kecuali($table, $username)
   {
     $query = $this->db->select()
-      ->from($tabel)
+      ->from($table)
       ->where_not_in('username', $username)
       ->get();
 
@@ -176,5 +176,16 @@ class M_admin extends CI_Model
   public function insert_batch_into_table($table_name, $data)
   {
     return $this->db->insert_batch($table_name, $data);
+  }
+
+  public function delete_between($table, $range1, $range2)
+  {
+    $str = 
+          "DELETE FROM $table WHERE id IN
+          (SELECT id FROM $table 
+          WHERE id >= $range1
+          AND id <= $range2)";
+
+    $this->db->query($str);
   }
 }

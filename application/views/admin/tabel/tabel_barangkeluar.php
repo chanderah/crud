@@ -178,7 +178,7 @@
       <div class="row">
         <div class="col-xs-12">
           <!-- /.box -->
-          <div class="box" style="width:80%">
+          <div class="box" style="width:80%;padding:10px">
             <div class="box-header">
               <h3 class="box-title"><i class="fa fa-table" aria-hidden="true"></i> Data Keluar</h3>
             </div>

@@ -16,7 +16,28 @@ class Admin extends CI_Controller
 
   public function delete_batch_data()
   {
-    echo "chandra!";
+    $delete_from = trim($this->input->post('delete_from'));
+    $delete_to = trim($this->input->post('delete_to')); 
+    
+    //
+    $where1 = array('site_id' => $delete_from);
+    $where2 = array('site_id' => $delete_to);
+
+    $data1 = $this->M_admin->get_data_array('tb_site_in', $where1);
+    $data2 = $this->M_admin->get_data_array('tb_site_in', $where2);
+
+    $range1 = $data1[0]['id'];
+    $range2 = $data2[0]['id'];
+
+    if(!$data1 || !$data2){
+      $this->session->set_flashdata('msg_gagal', 'Data not found! Please do recheck.');
+      redirect(base_url('admin/tabel_barangmasuk'));
+    }
+
+    $this->M_admin->delete_between('tb_site_in', $range1, $range2);
+    
+    $this->session->set_flashdata('msg_berhasil', 'Range Data Berhasil Dihapus.');
+    redirect(base_url('admin/tabel_barangmasuk'));
   }
 
   public function maintenance()

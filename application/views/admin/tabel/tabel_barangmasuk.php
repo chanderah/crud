@@ -190,50 +190,49 @@
         <div class="col-md-12">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li><a href="#main" data-toggle="tab"></a></li>
+              <li><a href="#" data-toggle="tab"></a></li>
               <li class="active"><a href="#main" data-toggle="tab">Main</a></li>
               <li><a href="#import" data-toggle="tab">Import</a></li>
-              <li><a href="#delete_batch" data-toggle="tab">Delete Data</a></li>
+              <li><a href="#delete_batch" data-toggle="tab">Batch Delete</a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane" id="import">
-                <form class="form-horizontal" action="<?= base_url('admin/download') ?>" method="post" enctype="multipart/form-data">
-                  <div class="form-group" style="width:25%;margin:10px">
-                    <button type="download" class="btn btn-download"><i class="fa fa-download" aria-hidden="true"></i> Download Format</button>
-                  </div>
+                <div class="row" style="margin:15px;margin-left:30px">
+                  <form class="form-horizontal" action="<?= base_url('admin/download') ?>" method="post" enctype="multipart/form-data">
+                    <div class="form-group" style="width:25%x">
+                      <button type="download" class="btn btn-download"><i class="fa fa-download" aria-hidden="true"></i> Download Format</button>
+                    </div>
+                  </form>
 
-                </form>
-                <div class="column">
                   <?php $fname = 'importsite_format.xlsx'; ?>
                   <form class="form-horizontal" action="<?= base_url('admin/proses_excel_upload') ?>" method="post" enctype="multipart/form-data">
-                    <div class="form-group" style="width:25%;margin:5px">
+                    <div class="form-group" style="width:25%">
                       <label for="username" class="col-sm-12 control-label" style="text-align:left">Upload .xlsx File</label>
-                      <input type="file" name="xlsx_file" class="form-control" id="username"><br>
-                      <button type="submit" class="btn btn-success"><i class="fa fa-send" aria-hidden="true"></i>&nbsp;Submit</button>
+                      <input type="file" name="xlsx_file" class="form-control" required="required"><br>
+                      <button type="submit" class="btn btn-success"><i class="fa fa-send" aria-hidden="true"></i> Submit</button>
                     </div>
                   </form>
 
                 </div>
               </div>
 
-              <div class="tab-pane active" id="delete_batch">
-                
-                <form action="barang/add_data" class="form-horizontal" href="#" style="margin-bottom: 20px">
-                  <div class="row" style="margin-left:15px">
+              <div class="tab-pane" id="delete_batch">
+                <div class="row" style="margin:15px">
+                  <form action="delete_batch_data" method="post" onsubmit="return confirm('Yakin ingin menghapus range data?');">
                     <div class="form-group" style="width:25%">
                       <label for="delete_from" class="col-sm-12 control-label" style="text-align:left">Delete SITE ID From: </label>
-                      <input type="text" name="delete_from" class="form-control" id="delete_from" style="margin-left:12px" required="required">
+                      <input type="text" name="delete_from" class="form-control" id="delete_from" placeholder="Site ID 1" required="required">
                     </div>
                     <div class="form-group" style="width:25%">
                       <label for="delete_to" class="col-sm-12 control-label" style="text-align:left">To: </label>
-                      <input type="text" name="delete_to" class="form-control" id="delete_to" style="margin-left:12px" required="required">
+                      <input type="text" name="delete_to" class="form-control" id="delete_to" placeholder="Site ID 2" required="required">
                     </div>
-                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;Delete</button>
-                  </div>
-                </form>
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                  </form>
+                </div>
               </div>
 
-              <div class="tab-pane" id="main">
+              <div class="tab-pane active" id="main">
                 <a href="<?= base_url('admin/form_barangmasuk') ?>" style="margin-bottom:10px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data</a>
                 <a href="<?= base_url('admin/move_data') ?>" style="margin-bottom:10px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Export n/a Data</a>
                 <?php if ($this->session->flashdata('msg_berhasil')) { ?>
@@ -247,6 +246,13 @@
                   <div class="alert alert-success alert-dismissible" style="width:100%">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>Success!</strong><br> <?php echo $this->session->flashdata('msg_berhasil_keluar'); ?>
+                  </div>
+                <?php } ?>
+
+                <?php if ($this->session->flashdata('msg_gagal')) { ?>
+                  <div class="alert alert-danger alert-dismissible" style="width:100%">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Failed!</strong><br> <?php echo $this->session->flashdata('msg_gagal'); ?>
                   </div>
                 <?php } ?>
 
@@ -421,19 +427,6 @@
 
       })
     });
-
-    function delete_batch() {
-      swal({
-        title: 'Delete Data',
-        text: 'Yakin ingin menghapus range data?',
-        html: true,
-        confirmButtonColor: '#d9534f',
-        showCancelButton: true,
-      }, function() {
-        alert('aaa');
-      });
-      return false;
-    };
   </script>
 </body>
 
