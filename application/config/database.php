@@ -76,8 +76,8 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'mysql:hostname=localhost; dbname=ptji8111_crud; charset=utf8;',
-	'username' => 'root',
-	'password' => '',
+	'username' => 'ptji8111_ptjis',
+	'password' => 'jasminej1s',
 	'database' => '',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',
