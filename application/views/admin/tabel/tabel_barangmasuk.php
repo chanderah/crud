@@ -344,17 +344,7 @@
         'autoWidth': true,
         'scrollX': true,
         searchHighlight: true,
-      })
-      $('#site_counter').DataTable({
-        'paging': true,
-        'lengthChange': true,
-        'searching': true,
-        'ordering': true,
-        'info': true,
-        'autoWidth': true,
-        'scrollX': true
-
-      })
+      });
     });
   </script>
 </body>

@@ -127,9 +127,7 @@
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
-      <!-- search form -->
-
-      <!-- /.search form -->
+       
         
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
@@ -385,7 +383,6 @@
 <script src="<?php echo base_url()?>assets/web_admin/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?php echo base_url()?>assets/web_admin/dist/js/pages/dashboard.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url()?>assets/web_admin/dist/js/demo.js"></script>
+ 
 </body>
 </html>

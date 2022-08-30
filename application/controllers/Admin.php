@@ -112,8 +112,8 @@ class Admin extends CI_Controller
     $config =  array(
       'upload_path'     => "./assets/upload/user/img/",
       'allowed_types'   => "gif|jpg|png|jpeg",
-      'encrypt_name'    => False, //
-      'max_size'        => "50000",  // ukuran file gambar
+      'encrypt_name'    => False,
+      'max_size'        => "50000",
       'max_height'      => "9680",
       'max_width'       => "9024"
     );
@@ -574,17 +574,11 @@ class Admin extends CI_Controller
     $amount_insured = $this->input->post('amount_insured', TRUE);
     $keterangan = $this->input->post('keterangan', TRUE);
 
-    $where = array('keterangan' => $keterangan);
-    $getMop = $this->M_admin->get_data('tb_mop', $where);
-    $cmop = $getMop->mop;
-
     $where = array('dummy_id' => $dummy_id);
     $data = array(
       'dummy_id' => $dummy_id,
       'site_id' => $site_id,
       'keterangan' => $keterangan,
-      'cmop' => $cmop,
-
       'region' => $region,
       'provinsi' => $provinsi,
       'kabupaten' => $kabupaten,

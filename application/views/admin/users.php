@@ -111,9 +111,7 @@
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
-      <!-- search form -->
-
-      <!-- /.search form -->
+       
         
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
@@ -124,10 +122,7 @@
               <!-- <i class="fa fa-angle-left pull-right"></i> -->
             </span>
           </a>
-          <!-- <ul class="treeview-menu">
-            <li><a href="<?php echo base_url()?>assets/web_admin/index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="<?php echo base_url('admin')?>"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul> -->
+           
         </li>
 
         <li class="treeview">
@@ -204,7 +199,7 @@
               <?php } ?>
 
               <a href="<?=base_url('admin/form_user')?>" style="margin-bottom:10px;" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data</a>
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="user_tb" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>Username</th>
@@ -278,8 +273,7 @@
 <script src="<?php echo base_url()?>assets/web_admin/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url()?>assets/web_admin/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url()?>assets/web_admin/dist/js/demo.js"></script>
+ 
 <!-- page script -->
 <script>
 jQuery(document).ready(function($){
@@ -299,7 +293,7 @@ jQuery(document).ready(function($){
   });
 
   $(function () {
-    $('#example1').DataTable({
+    $('#user_tb').DataTable({
       'paging'      : true,
       'lengthChange': false,
       'searching'   : false,
@@ -309,17 +303,7 @@ jQuery(document).ready(function($){
       'scrollX': true
 
 
-    })
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : true,
-      'scrollX': true
-
-    })
+    });
   });
 
 

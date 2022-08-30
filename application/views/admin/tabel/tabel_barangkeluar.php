@@ -116,10 +116,7 @@
               <!-- <i class="fa fa-angle-left pull-right"></i> -->
             </span>
           </a>
-          <!-- <ul class="treeview-menu">
-            <li><a href="<?php echo base_url()?>assets/web_admin/index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="<?php echo base_url('admin')?>"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul> -->
+           
         </li>
         <li class="treeview">
           <a href="#">
@@ -191,7 +188,7 @@
               <?php } ?>
               <a href="<?=base_url('admin/tabel_barangmasuk')?>" style="margin-bottom:10px;" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data Keluar</a>
               <a href="<?= base_url('admin/move_data') ?>" style="margin-bottom:10px" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Export n/a Data</a>
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="datakeluar_dt" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th style="width:2%">No</th>
@@ -289,8 +286,7 @@
 <script src="<?php echo base_url()?>assets/web_admin/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url()?>assets/web_admin/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url()?>assets/web_admin/dist/js/demo.js"></script>
+ 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.12.1/features/searchHighlight/dataTables.searchHighlight.css"/>
 <script type="text/javascript" src="https:////cdn.datatables.net/plug-ins/1.12.1/features/searchHighlight/dataTables.searchHighlight.min.js"></script>
 <script type="text/javascript" src="https://bartaz.github.io/sandbox.js/jquery.highlight.js"></script>
@@ -312,7 +308,7 @@ jQuery(document).ready(function($){
       });
   });
   $(function () {
-    $('#example1').DataTable({
+    $('#datakeluar_dt').DataTable({
       "columnDefs": [
           { 
             "width": "7%", "targets": [1],
