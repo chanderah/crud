@@ -106,7 +106,7 @@
       </div>
       <!-- search form -->
       <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
+        
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li>
@@ -174,10 +174,9 @@
       </ol>
     </section>
     <!-- Main content -->
-    <section class="content" style="">
+    <section class="content">
       <div class="row">
         <div class="col-xs-12">
-          <!-- /.box -->
           <div class="box" style="width:80%">
             <div class="box-header">
               <h3 class="box-title"><i class="fa fa-table" aria-hidden="true"></i> Data Keluar</h3>
@@ -258,9 +257,7 @@
             </div>
             <!-- /.box-body -->
           </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
     </section>
     <!-- /.content -->
   </div>

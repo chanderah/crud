@@ -37,7 +37,7 @@
 </head>
 <body>
     <div class="div" style="width:100%;margin:20px">
-      <table id="site_datatable" class="table table-bordered table-striped" style="">
+      <table id="site_datatable" class="table table-bordered table-striped" >
         <thead>
           <tr>
             <th rowspan="2">No.</th>
@@ -159,7 +159,6 @@
         "columnDefs": [
           { 
             "width": "2%", "targets": 3,
-            // "render": function (data, type, row) {return data.split("\n").join("<br/>")},"targets": [9], 
             "render": function (data, type, row) {
               return data.split(",").join("\n")
             },"targets": [3], 
@@ -167,18 +166,6 @@
         ], 
         searchHighlight: true,
         colReorder: true,
-        buttons: [
-            {
-                extend: 'excel',
-                text: 'Export current data',
-                exportOptions: {
-                    stripNewlines: false,
-                    modifier: {
-                        page: 'current'
-                    }
-                }
-            }
-        ],
         'paging': true,
         'lengthChange': true,
         'searching': true,

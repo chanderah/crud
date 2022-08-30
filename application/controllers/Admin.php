@@ -231,19 +231,14 @@ class Admin extends CI_Controller
 
       array_map('trim', $data);
     }
-    $result = $this->add_data($datas);
+    $result = $this->db->insert_batch("tb_site_in", $datas);
     if ($result) {
       echo "Data berhasil diimport.";
     } else {
       echo "Data gagal diimport.";
     }
   }
-
-  public function add_data($datas)
-  {
-    return $this->db->insert_batch("tb_site_in", $datas);
-  }
-
+ 
   ####################################
   // End Profile
   ####################################

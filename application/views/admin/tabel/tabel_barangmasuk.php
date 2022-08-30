@@ -112,10 +112,8 @@
             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
           </div>
         </div>
-        <!-- search form -->
-
-        <!-- /.search form -->
-        <!-- sidebar menu: : style can be found in sidebar.less -->
+         
+          
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">MAIN NAVIGATION</li>
           <li>
@@ -154,8 +152,8 @@
               <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
               <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
               <li><a href="<?= base_url('admin/tabel_barangkeluar') ?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
-            <li><a href="<?= base_url('admin/tabel_MOP')?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li> 
-           </ul>
+              <li><a href="<?= base_url('admin/tabel_MOP') ?>"><i class="fa fa-circle-o"></i> Tabel MOP</a></li>
+            </ul>
           </li>
           <li class="header">MANAGE</li>
           <li>
@@ -188,12 +186,12 @@
       <!-- Main content -->
       <section class="content">
         <div class="col-md-12">
-          <div class="nav-tabs-custom" style="">
+          <div class="nav-tabs-custom"  >
             <ul class="nav nav-tabs">
-              <li><a href="#main" style="" data-toggle="tab"></a></li>
-              <li class="active"><a href="#main" style="" data-toggle="tab">Main</a></li>
-              <!-- <li><a href="#counter" style="" data-toggle="tab">Counter</a></li> -->
-              <li><a href="#import" style="" data-toggle="tab">Import</a></li>
+              <li><a href="#main"   data-toggle="tab"></a></li>
+              <li class="active"><a href="#main"   data-toggle="tab">Main</a></li>
+              <!-- <li><a href="#counter"   data-toggle="tab">Counter</a></li> -->
+              <li><a href="#import"   data-toggle="tab">Import</a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane" id="import">
@@ -201,18 +199,18 @@
                   <div class="form-group" style="width:25%;margin:10px">
                     <button type="download" class="btn btn-download"><i class="fa fa-download" aria-hidden="true"></i> Download Format</button>
                   </div>
-                  
+
                 </form>
                 <div class="column">
-                <?php $fname='importsite_format.xlsx'; ?>
+                  <?php $fname = 'importsite_format.xlsx'; ?>
                   <form class="form-horizontal" action="<?= base_url('admin/proses_excel_upload') ?>" method="post" enctype="multipart/form-data">
                     <div class="form-group" style="width:25%;margin:5px">
                       <label for="username" class="col-sm-12 control-label" style="text-align:left">Upload .xlsx File</label>
                       <input type="file" name="xlsx_file" class="form-control" id="username"><br>
                       <button type="submit" class="btn btn-success"><i class="fa fa-send" aria-hidden="true"></i>&nbsp;Submit</button>
                     </div>
-                  </form>                  
-                  
+                  </form>
+
                 </div>
               </div>
 
@@ -263,11 +261,11 @@
                         <?php foreach ($list_data as $dd) : ?>
                           <td><?= $no ?></td>
                           <td><?= $dd->site_id ?></td>
-                          <?php 
-                            $where = array('site_id' => $dd->site_id);
-                            $count_data_keluar = $this->M_admin->count_exported_site($where);
+                          <?php
+                          $where = array('site_id' => $dd->site_id);
+                          $count_data_keluar = $this->M_admin->count_exported_site($where);
                           ?>
-                          <td><?=$count_data_keluar ?></td> 
+                          <td><?= $count_data_keluar ?></td>
                           <td><?= $dd->region ?></td>
                           <td><?= $dd->provinsi ?></td>
                           <td><?= $dd->kabupaten ?></td>
@@ -278,10 +276,10 @@
                           <td><?= $dd->ctrm ?></td>
                           <td><?= $dd->ctsi ?></td>
 
-                          <?php if(is_numeric($dd->amount_insured)){ ?>
+                          <?php if (is_numeric($dd->amount_insured)) { ?>
                             <td>IDR<?= number_format($dd->amount_insured, 2) ?></td>
 
-                          <?php }else{ ?>
+                          <?php } else { ?>
                             <td>IDR0.00</td>
                           <?php } ?>
 
@@ -323,6 +321,7 @@
             <!-- /.nav-tabs-custom -->
           </div>
           <!-- /.row -->
+        </div>
       </section>
       <!-- /.content -->
     </div>
@@ -360,10 +359,10 @@
   <!-- AdminLTE for demo purposes -->
   <script src="<?php echo base_url() ?>assets/web_admin/dist/js/demo.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.12.1/features/searchHighlight/dataTables.searchHighlight.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.12.1/features/searchHighlight/dataTables.searchHighlight.css" />
   <script type="text/javascript" src="https:////cdn.datatables.net/plug-ins/1.12.1/features/searchHighlight/dataTables.searchHighlight.min.js"></script>
   <script type="text/javascript" src="https://bartaz.github.io/sandbox.js/jquery.highlight.js"></script>
-  
+
   <!-- page script -->
   <script>
     jQuery(document).ready(function($) {

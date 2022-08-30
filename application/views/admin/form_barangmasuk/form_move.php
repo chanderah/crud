@@ -10,7 +10,7 @@
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo base_url() ?>assets/styling.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/style.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -106,7 +106,7 @@
         </div>
         <!-- search form -->
         <!-- /.search form -->
-        <!-- sidebar menu: : style can be found in sidebar.less -->
+          
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">MAIN NAVIGATION</li>
           <li>
