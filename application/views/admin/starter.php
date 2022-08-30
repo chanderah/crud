@@ -18,7 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Ionicons -->
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="dist/css/AdminLTE.css">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
@@ -224,10 +224,10 @@ desired effect
       </div>
     </nav>
   </header>
-  <!-- Left side column. contains the logo and sidebar -->
+   
   <aside class="main-sidebar">
 
-    <!-- sidebar: style can be found in sidebar.less -->
+      
     <section class="sidebar">
 
       <!-- Sidebar user panel (optional) -->
@@ -274,12 +274,12 @@ desired effect
       </ul>
       <!-- /.sidebar-menu -->
     </section>
-    <!-- /.sidebar -->
+     
   </aside>
 
-  <!-- Content Wrapper. Contains page content -->
+   
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+     
     <section class="content-header">
       <h1>
         Page Header

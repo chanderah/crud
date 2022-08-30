@@ -16,7 +16,7 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo base_url()?>assets/web_admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/web_admin/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="<?php echo base_url()?>assets/web_admin/dist/css/AdminLTE.css">
   <link rel="stylesheet" href="<?php echo base_url()?>assets/sweetalert/dist/sweetalert.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
@@ -88,9 +88,9 @@
       </div>
     </nav>
   </header>
-  <!-- Left side column. contains the logo and sidebar -->
+   
   <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
+      
     <section class="sidebar">
       <!-- Sidebar user panel -->
       <div class="user-panel">
@@ -158,11 +158,11 @@
         </li>
       </ul>
     </section>
-    <!-- /.sidebar -->
+     
   </aside>
-  <!-- Content Wrapper. Contains page content -->
+   
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+     
     <section class="content-header">
       <h1>
         Tabel Data Keluar

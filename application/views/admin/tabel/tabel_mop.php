@@ -18,7 +18,7 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/web_admin/dist/css/AdminLTE.css">
 
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/sweetalert/dist/sweetalert.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -96,9 +96,9 @@
         </div>
       </nav>
     </header>
-    <!-- Left side column. contains the logo and sidebar -->
+     
     <aside class="main-sidebar">
-      <!-- sidebar: style can be found in sidebar.less -->
+        
       <section class="sidebar">
         <!-- Sidebar user panel -->
         <div class="user-panel">
@@ -119,14 +119,9 @@
           <li>
             <a href="<?= base_url('admin') ?>">
               <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-              <span class="pull-right-container">
-                <!-- <i class="fa fa-angle-left pull-right"></i> -->
-              </span>
+               
             </a>
-            <!--<ul class="treeview-menu">
-            <li><a href="<?php echo base_url() ?>assets/web_admin/index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="<?php echo base_url('admin') ?>"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul> -->
+             
           </li>
 
           <li class="treeview">
@@ -148,7 +143,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <!-- <li><a href="<?= base_url('admin/tabel_permintaanmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Permintaan Masuk</a></li> -->
+               
                 <li><a href="<?= base_url('admin/tabel_perubahan_site') ?>"><i class="fa fa-circle-o"></i> Tabel Perubahan SITE ID</a></li>
                 <li><a href="<?= base_url('admin/tabel_barangmasuk') ?>"><i class="fa fa-circle-o"></i> Tabel Database SITE ID</a></li>
                 <li><a href="<?= base_url('admin/tabel_barangkeluar') ?>"><i class="fa fa-circle-o"></i> Tabel Data Keluar</a></li>
@@ -166,12 +161,12 @@
           </li>
         </ul>
       </section>
-      <!-- /.sidebar -->
+       
     </aside>
 
-    <!-- Content Wrapper. Contains page content -->
+     
     <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
+       
       <section class="content-header">
         <h1>
           Tabel MOP
