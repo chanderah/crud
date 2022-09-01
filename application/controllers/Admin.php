@@ -14,11 +14,6 @@ class Admin extends CI_Controller
     $this->load->library('upload');
   }
 
-  public function aaa()
-  {
-    $this->load->view('admin/add_bill');
-  }
-
   public function maintenance()
   {
     $this->load->view('admin/maintenance');
@@ -26,11 +21,6 @@ class Admin extends CI_Controller
 
   public function admin_true()
   {
-    // if ($this->session->userdata('name') != 'chanderah') {
-    //   //maintenance warn
-    //   redirect(base_url('admin/maintenance'));
-    // }
-
     if ($this->session->userdata('status') != 'login' && $this->session->userdata('role') != 1) {
       $this->load->view('login/login');
     }
@@ -356,6 +346,7 @@ class Admin extends CI_Controller
   {
     $this->admin_true();
 
+    $data['provinsi'] = $this->M_admin->select('tb_provinsi');
     $data['list_keterangan'] = $this->M_admin->select('tb_mop');
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user', $this->session->userdata('name'));
     $this->load->view('admin/form_barangmasuk/form_insert', $data);
@@ -511,8 +502,8 @@ class Admin extends CI_Controller
     $site_id = $this->input->post('site_id', TRUE);
     $site_id = str_replace(' ', '', $site_id);
 
+    $wilayah = $this->input->post('wilayah', TRUE);
     $region = $this->input->post('region', TRUE);
-    $provinsi = $this->input->post('provinsi', TRUE);
     $kabupaten = $this->input->post('kabupaten', TRUE);
     $kecamatan = $this->input->post('kecamatan', TRUE);
     $desa = $this->input->post('desa', TRUE);
@@ -523,6 +514,8 @@ class Admin extends CI_Controller
     $amount_insured = $this->input->post('amount_insured', TRUE);
     $keterangan = $this->input->post('keterangan', TRUE);
 
+    $provinsi = $this->input->post('provinsi', TRUE);
+
     $sha1 = random_string('alpha', 10);
     $sha2 = random_string('sha1');
     $dummy_id = $sha1 . $sha2;
@@ -532,6 +525,7 @@ class Admin extends CI_Controller
       'site_id' => $site_id,
       'keterangan' => $keterangan,
 
+      'wilayah' => $wilayah,
       'region' => $region,
       'provinsi' => $provinsi,
       'kabupaten' => $kabupaten,

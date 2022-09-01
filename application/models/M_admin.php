@@ -8,11 +8,11 @@ class M_admin extends CI_Model
     return $query->result();
   }
 
-  public function get_data($table, $dummy_id)
+  public function get_data($table, $where)
   {
     $query = $this->db->select()
       ->from($table)
-      ->where($dummy_id)
+      ->where($where)
       ->get();
 
     if ($query->num_rows() > 0) {

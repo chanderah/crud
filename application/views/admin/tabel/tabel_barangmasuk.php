@@ -205,6 +205,7 @@
                 <th>SITE ID</th>
                 <th>Region</th>
                 <th>Provinsi</th>
+                <th>Wilayah</th>
                 <th>Kota</th>
                 <th>Kecamatan</th>
                 <th>Desa</th>
@@ -228,6 +229,7 @@
                     <td><?= $dd->site_id ?></td>
                     <td><?= $dd->region ?></td>
                     <td><?= $dd->provinsi ?></td>
+                    <td><?= $dd->wilayah ?></td>
                     <td><?= $dd->kabupaten ?></td>
                     <td><?= $dd->kecamatan ?></td>
                     <td><?= $dd->desa ?></td>
@@ -262,6 +264,7 @@
                 <th>SITE ID</th>
                 <th>Region</th>
                 <th>Provinsi</th>
+                <th>Wilayah</th>
                 <th>Kota</th>
                 <th>Kecamatan</th>
                 <th>Desa</th>
